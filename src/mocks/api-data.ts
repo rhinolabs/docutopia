@@ -30,7 +30,7 @@ export const mockApiData = {
 			description: "The page size.",
 			required: false,
 			minimum: 5,
-			maximun: 200,
+			maximum: 200,
 			defaultValue: 50,
 		},
 		{
@@ -46,7 +46,7 @@ export const mockApiData = {
 			name: "assignmentIds",
 			type: "array",
 			description: "The assignment Ids.",
-			required: false,
+			required: true,
 			items: {
 				type: "string",
 			},
@@ -110,6 +110,7 @@ export const mockApiData = {
 					type: "string",
 					required: true,
 					description: "The entity id.",
+					pattern: "^org_[a-fA-F0-9]{24}$",
 				},
 			],
 		},

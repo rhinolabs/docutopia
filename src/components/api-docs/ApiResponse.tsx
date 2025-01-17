@@ -6,7 +6,7 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "@rhino-ui/ui";
-import type { ResponseTypesProps } from "@/types/responses";
+import type { ResponseTypesProps } from "@/types/api/responses";
 import { useState } from "react";
 import { ChevronRight, ChevronDown } from "lucide-react";
 
@@ -24,7 +24,7 @@ export const ResponseTypes = ({ responses }: ResponseTypesProps) => {
 					<CardContent className="py-2 px-0">
 						{responses.map((response, index) => (
 							<Collapsible
-								key={index}
+								key={`${response.status}-card`}
 								open={openIndex === index}
 								onOpenChange={() => handleToggle(index)}
 								className={index > 0 ? "border-t" : ""}
@@ -38,7 +38,7 @@ export const ResponseTypes = ({ responses }: ResponseTypesProps) => {
 														className={`rounded-full h-3 w-3 mr-2 ${
 															response.success ? "bg-green-500" : "bg-red-500"
 														}`}
-													></span>
+													/>
 													<h4 className="text-xs font-medium">
 														{response.status}
 													</h4>

@@ -1,18 +1,11 @@
 "use client";
 
-import {
-	BadgeCheck,
-	Bell,
-	ChevronsUpDown,
-	CreditCard,
-	LogOut,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@rhino-ui/ui";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,

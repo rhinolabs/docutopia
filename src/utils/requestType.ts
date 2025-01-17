@@ -1,4 +1,4 @@
-import type { RequestType } from "@/types/requests";
+import type { RequestType } from "@/types/api/requests";
 
 export const getRequestTypeClass = (requestType: RequestType) => {
 	const classes: Record<RequestType, string> = {

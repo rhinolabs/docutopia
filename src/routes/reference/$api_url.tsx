@@ -1,10 +1,10 @@
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { mockApiData } from "@/mocks/api-data";
 import { Badge } from "@rhino-ui/ui";
-import { PathParams } from "@/components/response/path-params";
-import { QueryParams } from "@/components/response/query-params";
-import { BodyParams } from "@/components/response/body-params";
-import { ResponseTypes } from "@/components/response/response";
+import { PathParams } from "@/components/api-docs/PathParams";
+import { QueryParams } from "@/components/api-docs/QueryParams";
+import { BodyParams } from "@/components/api-docs/BodyParams";
+import { ResponseTypes } from "@/components/api-docs/ApiResponse";
 
 export const Route = createFileRoute("/reference/$api_url")({
 	component: RouteComponent,
@@ -16,6 +16,7 @@ export const Route = createFileRoute("/reference/$api_url")({
 
 function RouteComponent() {
 	const { data } = useLoaderData({ from: "/reference/$api_url" });
+
 	return (
 		<>
 			<div className="container pt-8">
@@ -30,14 +31,16 @@ function RouteComponent() {
 						</div>
 						<div className="content">
 							{data.pathParams && data.pathParams.length > 0 && (
-								<PathParams pathParams={mockApiData.pathParams} />
+								<PathParams pathParams={data.pathParams} />
 							)}
 
 							{data.queryParams && data.queryParams.length > 0 && (
-								<QueryParams />
+								<QueryParams queryParams={data.queryParams} />
 							)}
 
-							{data.bodyParams && data.bodyParams.length > 0 && <BodyParams />}
+							{data.bodyParams && data.bodyParams.length > 0 && (
+								<BodyParams bodyParams={data.bodyParams} />
+							)}
 
 							{data.response && data.response.length > 0 && (
 								<ResponseTypes responses={data.response} />
@@ -52,9 +55,6 @@ function RouteComponent() {
 								This is the sidebar content. It will take up 1/3 of the width on
 								desktop.
 							</p>
-							<button className="mt-4 p-2 bg-blue-500 text-white rounded">
-								Copy Content
-							</button>
 						</div>
 					</div>
 				</div>

@@ -4,21 +4,36 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 	Input,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@rhino-ui/ui";
 import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 
-const StringCollapsible = ({
+type StringCollapsibleProps = {
+	id: number;
+	onDelete: (id: number) => void;
+	hasOptions?: boolean;
+	options?: string[];
+};
+
+export const StringCollapsible = ({
 	id,
 	onDelete,
-}: { id: number; onDelete: (id: number) => void }) => {
+	hasOptions = false,
+	options = [],
+}: StringCollapsibleProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<Collapsible
 			open={isOpen}
 			onOpenChange={setIsOpen}
-			className="border rounded-lg bg-white my-4"
+			className="border rounded-lg bg-white mb-4"
 		>
 			<div className="flex items-center justify-between space-x-4 pl-4 pr-2 py-2">
 				<CollapsibleTrigger asChild>
@@ -44,37 +59,29 @@ const StringCollapsible = ({
 			</div>
 			<CollapsibleContent>
 				<div className="px-4 py-4 text-sm border-t">
-					<Input id="" className="border bg-white" type="text"></Input>
+					{hasOptions ? (
+						<Select>
+							<SelectTrigger>
+								<SelectValue placeholder="Select" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									{options.map((option, index) => (
+										<SelectItem
+											key={`option-${option.replace(" ", "-")}`}
+											value={option}
+										>
+											{option}
+										</SelectItem>
+									))}
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+					) : (
+						<Input id="" className="border bg-white" type="text" />
+					)}
 				</div>
 			</CollapsibleContent>
 		</Collapsible>
-	);
-};
-
-export const DynamicFields = () => {
-	const [fields, setFields] = useState<number[]>([]);
-
-	const addField = () => {
-		setFields((prevFields) => [...prevFields, Date.now()]);
-	};
-
-	const deleteField = (id: number) => {
-		setFields((prevFields) => prevFields.filter((fieldId) => fieldId !== id));
-	};
-
-	return (
-		<div>
-			{fields.map((fieldId) => (
-				<StringCollapsible key={fieldId} id={fieldId} onDelete={deleteField} />
-			))}
-			<Button
-				variant="outline"
-				className="w-full rounded-lg justify-between h-[48px]"
-				onClick={addField}
-			>
-				ADD STRING
-				<Plus className="text-muted-foreground" />
-			</Button>
-		</div>
 	);
 };

@@ -4,7 +4,6 @@ export type ApiResponse = {
 	name?: string;
 	type?: string;
 	message?: string;
-	examples?: any[];
 	schema?: {
 		[key: string]: {
 			type: string;
