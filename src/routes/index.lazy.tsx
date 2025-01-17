@@ -1,5 +1,4 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Button } from "@rhino-ui/ui";
 
 export const Route = createLazyFileRoute("/")({
 	component: Index,
