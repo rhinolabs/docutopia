@@ -1,7 +1,7 @@
 import { Button } from "@rhino-ui/ui";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { StringCollapsible } from "./StringCollapsible";
+import { StringCollapsible } from "./string-collapsible";
 
 type DynamicFieldsProps = {
 	hasOptions: boolean;

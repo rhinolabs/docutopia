@@ -2,7 +2,7 @@
 
 import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
-import { getRequestTypeClass } from "@/utils/requestType";
+import { getRequestTypeClass } from "@/utils/request-type";
 import type { SidebarCollection } from "@/types/sidebar";
 
 import {

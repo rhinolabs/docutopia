@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@rhino-ui/ui";
-import { ParamField } from "@/components/ui/fields/ParamField";
-import type { PrimitiveField } from "@/types/components/FieldTypes";
+import { ParamField } from "@/components/ui/fields/param-field";
+import type { PrimitiveField } from "@/types/components/field-types";
 
 interface ParamsProps {
 	params: PrimitiveField[];

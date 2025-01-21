@@ -1,5 +1,5 @@
-export { ArrayField } from "./ArrayField";
-export { IntegerField } from "./IntegerField";
-export { ObjectField } from "./ObjectField";
-export { StringField } from "./StringField";
-export { ParamField } from "./ParamField";
+export { ArrayField } from "./array-field";
+export { IntegerField } from "./integer-field";
+export { ObjectField } from "./object-field";
+export { StringField } from "./string-field";
+export { ParamField } from "./param-field";

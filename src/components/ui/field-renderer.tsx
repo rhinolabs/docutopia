@@ -4,7 +4,7 @@ import {
 	StringField,
 	ObjectField,
 } from "@/components/ui/fields";
-import type { Field } from "@/types/components/FieldTypes";
+import type { Field } from "@/types/components/field-types";
 
 export const RenderField: React.FC<{ field: Field }> = ({ field }) => {
 	switch (field.type) {

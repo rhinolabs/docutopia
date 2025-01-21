@@ -1,10 +1,10 @@
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { mockApiData } from "@/mocks/api-data";
 import { Badge } from "@rhino-ui/ui";
-import { PathParams } from "@/components/api-docs/PathParams";
-import { QueryParams } from "@/components/api-docs/QueryParams";
-import { BodyParams } from "@/components/api-docs/BodyParams";
-import { ResponseTypes } from "@/components/api-docs/ApiResponse";
+import { PathParams } from "@/components/api-docs/path-params";
+import { QueryParams } from "@/components/api-docs/query-params";
+import { BodyParams } from "@/components/api-docs/body-params";
+import { ResponseTypes } from "@/components/api-docs/api-response";
 
 export const Route = createFileRoute("/docs/$api_url")({
 	component: RouteComponent,

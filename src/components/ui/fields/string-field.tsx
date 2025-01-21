@@ -1,4 +1,4 @@
-import type { Field } from "@/types/components/FieldTypes";
+import type { Field } from "@/types/components/field-types";
 import {
 	Input,
 	Select,

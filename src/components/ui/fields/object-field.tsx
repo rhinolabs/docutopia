@@ -1,4 +1,4 @@
-import type { Field } from "@/types/components/FieldTypes";
+import type { Field } from "@/types/components/field-types";
 import {
 	Button,
 	Collapsible,
@@ -7,7 +7,7 @@ import {
 } from "@rhino-ui/ui";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { ParamField } from "./ParamField";
+import { ParamField } from "./param-field";
 
 export const ObjectField: React.FC<{ field: Field }> = ({ field }) => {
 	if ("properties" in field && field.properties.length > 0) {

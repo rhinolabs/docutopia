@@ -1,4 +1,4 @@
-import type { Field } from "@/types/components/FieldTypes";
+import type { Field } from "@/types/components/field-types";
 import { Input } from "@rhino-ui/ui";
 
 export const IntegerField: React.FC<{ field: Field }> = ({ field }) => {

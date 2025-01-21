@@ -5,8 +5,8 @@ import { mockSidebarData } from "../../mocks/sidebar-data";
 
 import { Command } from "lucide-react";
 
-import { NavMain } from "./NavMain";
-import { NavUser } from "./NavUser";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
 import {
 	Sidebar,
 	SidebarContent,

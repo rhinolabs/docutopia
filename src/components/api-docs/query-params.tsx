@@ -1,5 +1,5 @@
-import type { PrimitiveField } from "@/types/components/FieldTypes";
-import { Params } from "@/components/ui/ParamsHandler";
+import type { PrimitiveField } from "@/types/components/field-types";
+import { Params } from "@/components/ui/params-handler";
 
 interface QueryParamsProps {
 	queryParams: PrimitiveField[];

@@ -1,5 +1,5 @@
-import type { Field } from "@/types/components/FieldTypes";
-import { DynamicFields } from "../DynamicFields";
+import type { Field } from "@/types/components/field-types";
+import { DynamicFields } from "../dynamic-fields";
 
 export const ArrayField: React.FC<{ field: Field }> = ({ field }) => {
 	if ("items" in field) {

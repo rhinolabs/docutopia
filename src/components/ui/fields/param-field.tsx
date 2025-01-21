@@ -1,6 +1,6 @@
-import type { ParamFieldProps } from "@/types/components/FieldTypes";
-import { getFieldConstraints, getFieldType } from "@/utils/fieldUtils";
-import { RenderField } from "../FieldRenderer";
+import type { ParamFieldProps } from "@/types/components/field-types";
+import { getFieldConstraints, getFieldType } from "@/utils/field-utils";
+import { RenderField } from "../field-renderer";
 
 export const ParamField: React.FC<ParamFieldProps> = ({
 	field,

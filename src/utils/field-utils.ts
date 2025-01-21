@@ -1,4 +1,4 @@
-import type { Field } from "@/types/components/FieldTypes";
+import type { Field } from "@/types/components/field-types";
 
 export function getFieldType(field: Field): string {
 	switch (field.type) {
