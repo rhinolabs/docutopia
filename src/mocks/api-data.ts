@@ -14,6 +14,14 @@ export const mockApiData = {
 			minLength: 1,
 			pattern: "^org_[a-fA-F0-9]{24}$",
 		},
+		{
+			name: "accessId",
+			type: "string",
+			description: "The access Id.",
+			required: true,
+			minLength: 1,
+			pattern: "^org_[a-fA-F0-9]{24}$",
+		},
 	],
 	queryParams: [
 		{

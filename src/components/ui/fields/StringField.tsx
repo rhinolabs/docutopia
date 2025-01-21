@@ -14,12 +14,12 @@ export const StringField: React.FC<{ field: Field }> = ({ field }) => {
 		Array.isArray(field.options) &&
 		field.options.length > 0 ? (
 		<Select>
-			<SelectTrigger>
+			<SelectTrigger className="m-auto">
 				<SelectValue placeholder="Select" />
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup>
-					{field.options.map((option, index) => (
+					{field.options.map((option) => (
 						<SelectItem
 							key={`select-item-${option.replace(" ", "-")}`}
 							value={option}
@@ -33,7 +33,7 @@ export const StringField: React.FC<{ field: Field }> = ({ field }) => {
 	) : (
 		<Input
 			id={`pathParam${field.name}`}
-			className="border bg-white"
+			className="border bg-white m-auto"
 			type="text"
 			minLength={field.minLength}
 			maxLength={field.maxLength}
