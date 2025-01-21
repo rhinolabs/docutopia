@@ -6,27 +6,14 @@ import { mockSidebarData } from "../../mocks/sidebar-data";
 import { Command } from "lucide-react";
 
 import { NavMain } from "./nav-main";
-import { NavUser } from "./nav-user";
 import {
 	Sidebar,
 	SidebarContent,
-	SidebarFooter,
 	SidebarHeader,
-	SidebarRail,
 	SidebarMenu,
 	SidebarMenuItem,
 	SidebarMenuButton,
 } from "@rhino-ui/ui";
-
-// Sample data.
-const data = {
-	user: {
-		name: "Jhon Doe",
-		position: "UX/UI Designer",
-		avatar: "/avatars/shadcn.jpg",
-		isAdmin: true,
-	},
-};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
@@ -51,10 +38,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<NavMain items={mockSidebarData.navMain} />
 			</SidebarContent>
-			<SidebarFooter>
-				<NavUser user={data.user} />
-			</SidebarFooter>
-			<SidebarRail />
 		</Sidebar>
 	);
 }
