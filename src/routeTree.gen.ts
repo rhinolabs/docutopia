@@ -8,111 +8,111 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as ReferenceIndexImport } from "./routes/reference/index";
-import { Route as ReferenceApiurlImport } from "./routes/reference/$api_url";
+import { Route as rootRoute } from './routes/__root'
+import { Route as DocsIndexImport } from './routes/docs/index'
+import { Route as DocsApiurlImport } from './routes/docs/$api_url'
 
 // Create Virtual Routes
 
-const IndexLazyImport = createFileRoute("/")();
+const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
 const IndexLazyRoute = IndexLazyImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => rootRoute,
-} as any).lazy(() => import("./routes/index.lazy").then((d) => d.Route));
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const ReferenceIndexRoute = ReferenceIndexImport.update({
-	id: "/reference/",
-	path: "/reference/",
-	getParentRoute: () => rootRoute,
-} as any);
+const DocsIndexRoute = DocsIndexImport.update({
+  id: '/docs/',
+  path: '/docs/',
+  getParentRoute: () => rootRoute,
+} as any)
 
-const ReferenceApiurlRoute = ReferenceApiurlImport.update({
-	id: "/reference/$api_url",
-	path: "/reference/$api_url",
-	getParentRoute: () => rootRoute,
-} as any);
+const DocsApiurlRoute = DocsApiurlImport.update({
+  id: '/docs/$api_url',
+  path: '/docs/$api_url',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
-	interface FileRoutesByPath {
-		"/": {
-			id: "/";
-			path: "/";
-			fullPath: "/";
-			preLoaderRoute: typeof IndexLazyImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/reference/$api_url": {
-			id: "/reference/$api_url";
-			path: "/reference/$api_url";
-			fullPath: "/reference/$api_url";
-			preLoaderRoute: typeof ReferenceApiurlImport;
-			parentRoute: typeof rootRoute;
-		};
-		"/reference/": {
-			id: "/reference/";
-			path: "/reference";
-			fullPath: "/reference";
-			preLoaderRoute: typeof ReferenceIndexImport;
-			parentRoute: typeof rootRoute;
-		};
-	}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/$api_url': {
+      id: '/docs/$api_url'
+      path: '/docs/$api_url'
+      fullPath: '/docs/$api_url'
+      preLoaderRoute: typeof DocsApiurlImport
+      parentRoute: typeof rootRoute
+    }
+    '/docs/': {
+      id: '/docs/'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsIndexImport
+      parentRoute: typeof rootRoute
+    }
+  }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-	"/": typeof IndexLazyRoute;
-	"/reference/$api_url": typeof ReferenceApiurlRoute;
-	"/reference": typeof ReferenceIndexRoute;
+  '/': typeof IndexLazyRoute
+  '/docs/$api_url': typeof DocsApiurlRoute
+  '/docs': typeof DocsIndexRoute
 }
 
 export interface FileRoutesByTo {
-	"/": typeof IndexLazyRoute;
-	"/reference/$api_url": typeof ReferenceApiurlRoute;
-	"/reference": typeof ReferenceIndexRoute;
+  '/': typeof IndexLazyRoute
+  '/docs/$api_url': typeof DocsApiurlRoute
+  '/docs': typeof DocsIndexRoute
 }
 
 export interface FileRoutesById {
-	__root__: typeof rootRoute;
-	"/": typeof IndexLazyRoute;
-	"/reference/$api_url": typeof ReferenceApiurlRoute;
-	"/reference/": typeof ReferenceIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexLazyRoute
+  '/docs/$api_url': typeof DocsApiurlRoute
+  '/docs/': typeof DocsIndexRoute
 }
 
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: "/" | "/reference/$api_url" | "/reference";
-	fileRoutesByTo: FileRoutesByTo;
-	to: "/" | "/reference/$api_url" | "/reference";
-	id: "__root__" | "/" | "/reference/$api_url" | "/reference/";
-	fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/docs/$api_url' | '/docs'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/docs/$api_url' | '/docs'
+  id: '__root__' | '/' | '/docs/$api_url' | '/docs/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-	IndexLazyRoute: typeof IndexLazyRoute;
-	ReferenceApiurlRoute: typeof ReferenceApiurlRoute;
-	ReferenceIndexRoute: typeof ReferenceIndexRoute;
+  IndexLazyRoute: typeof IndexLazyRoute
+  DocsApiurlRoute: typeof DocsApiurlRoute
+  DocsIndexRoute: typeof DocsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-	IndexLazyRoute: IndexLazyRoute,
-	ReferenceApiurlRoute: ReferenceApiurlRoute,
-	ReferenceIndexRoute: ReferenceIndexRoute,
-};
+  IndexLazyRoute: IndexLazyRoute,
+  DocsApiurlRoute: DocsApiurlRoute,
+  DocsIndexRoute: DocsIndexRoute,
+}
 
 export const routeTree = rootRoute
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>();
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -121,18 +121,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/reference/$api_url",
-        "/reference/"
+        "/docs/$api_url",
+        "/docs/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/reference/$api_url": {
-      "filePath": "reference/$api_url.tsx"
+    "/docs/$api_url": {
+      "filePath": "docs/$api_url.tsx"
     },
-    "/reference/": {
-      "filePath": "reference/index.tsx"
+    "/docs/": {
+      "filePath": "docs/index.tsx"
     }
   }
 }

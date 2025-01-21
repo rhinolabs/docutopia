@@ -10,13 +10,13 @@ export type RequestType =
 	| "TRACE";
 
 export interface RequestItem {
-	title: string;
+	name: string;
 	url: string;
 	requestType: RequestType;
 }
 
 export interface Request {
-	title: string;
+	name: string;
 	url: string;
 	isActive?: boolean;
 	items?: RequestItem[];

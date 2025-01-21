@@ -6,91 +6,91 @@ export const mockSidebarData: { navMain: SidebarCollection[] } = {
 			collectionName: "Docutopia API",
 			requests: [
 				{
-					title: "API Keys",
+					name: "API Keys",
 					url: "/",
 					isActive: true,
 					items: [
 						{
-							title: "Get list of API keys for an organization",
-							url: "#",
+							name: "Get list of API keys for an organization",
+							url: "get-keys-list-for-organization",
 							requestType: "GET",
 						},
 						{
-							title: "Create an API key for an organization",
-							url: "#",
+							name: "Create an API key for an organization",
+							url: "create-api-key-for-organization",
 							requestType: "POST",
 						},
 						{
-							title: "Get an API key for an organization",
-							url: "#",
+							name: "Get an API key for an organization",
+							url: "get-api-key-for-organization",
 							requestType: "GET",
 						},
 						{
-							title: "Delete an API key for organization",
-							url: "#",
+							name: "Delete an API key for organization",
+							url: "delete-api-key-for-organization",
 							requestType: "DELETE",
 						},
 						{
-							title: "Create a secret for API key",
-							url: "#",
+							name: "Create a secret for API key",
+							url: "create-secret-key-for-api-key",
 							requestType: "PUT",
 						},
 						{
-							title: "Delete a secret for an API key",
-							url: "#",
+							name: "Delete a secret for an API key",
+							url: "delete-secret-key-for-api-key",
 							requestType: "DELETE",
 						},
 					],
 				},
 				{
-					title: "Access",
+					name: "Access",
 					url: "#",
 					items: [
 						{
-							title: "Sub Menu Item 1",
+							name: "Sub Menu Item 1",
 							url: "#",
 							requestType: "PUT",
 						},
 						{
-							title: "Sub Menu Item 2",
+							name: "Sub Menu Item 2",
 							url: "#",
 							requestType: "PUT",
 						},
 					],
 				},
 				{
-					title: "Domains",
+					name: "Domains",
 					url: "#",
 					items: [
 						{
-							title: "Sub Menu Item 1",
+							name: "Sub Menu Item 1",
 							url: "#",
 							requestType: "PUT",
 						},
 						{
-							title: "Sub Menu Item 2",
-							url: "#",
-							requestType: "PUT",
-						},
-					],
-				},
-				{
-					title: "Integrations",
-					url: "#",
-					items: [
-						{
-							title: "Sub Menu Item 1",
+							name: "Sub Menu Item 2",
 							url: "#",
 							requestType: "PUT",
 						},
 					],
 				},
 				{
-					title: "Project Environments",
+					name: "Integrations",
 					url: "#",
 					items: [
 						{
-							title: "Sub Menu Item 1",
+							name: "Sub Menu Item 1",
+							url: "#",
+							requestType: "PUT",
+						},
+					],
+				},
+				{
+					name: "Project Environments",
+					url: "#",
+					items: [
+						{
+							name: "Sub Menu Item 1",
 							url: "#",
 							requestType: "PUT",
 						},
@@ -102,44 +102,44 @@ export const mockSidebarData: { navMain: SidebarCollection[] } = {
 			collectionName: "Docutopia ENV API",
 			requests: [
 				{
-					title: "Personal Life Management",
+					name: "Personal Life Management",
 					url: "/",
 					items: [
 						{
-							title: "Get list of API keys for an organization",
+							name: "Get list of API keys for an organization",
 							url: "#",
 							requestType: "GET",
 						},
 					],
 				},
 				{
-					title: "Professional Development",
+					name: "Professional Development",
 					url: "/",
 					items: [
 						{
-							title: "Get list of API keys for an organization",
+							name: "Get list of API keys for an organization",
 							url: "#",
 							requestType: "GET",
 						},
 					],
 				},
 				{
-					title: "Creative Projects",
+					name: "Creative Projects",
 					url: "/",
 					items: [
 						{
-							title: "Get list of API keys for an organization",
+							name: "Get list of API keys for an organization",
 							url: "#",
 							requestType: "GET",
 						},
 					],
 				},
 				{
-					title: "Home Management",
+					name: "Home Management",
 					url: "/",
 					items: [
 						{
-							title: "Get list of API keys for an organization",
+							name: "Get list of API keys for an organization",
 							url: "#",
 							requestType: "GET",
 						},

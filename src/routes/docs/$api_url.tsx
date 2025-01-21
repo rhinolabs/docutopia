@@ -6,20 +6,23 @@ import { QueryParams } from "@/components/api-docs/QueryParams";
 import { BodyParams } from "@/components/api-docs/BodyParams";
 import { ResponseTypes } from "@/components/api-docs/ApiResponse";
 
-export const Route = createFileRoute("/reference/$api_url")({
+export const Route = createFileRoute("/docs/$api_url")({
 	component: RouteComponent,
 	loader: async () => {
 		const data = mockApiData;
+		if (!data) {
+			throw new Error("API not found");
+		}
 		return { data };
 	},
 });
 
 function RouteComponent() {
-	const { data } = useLoaderData({ from: "/reference/$api_url" });
+	const { data } = useLoaderData({ from: "/docs/$api_url" });
 
 	return (
 		<>
-			<div className="container pt-8">
+			<div className="container py-8">
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 					<div className="lg:col-span-2">
 						<div className="head">

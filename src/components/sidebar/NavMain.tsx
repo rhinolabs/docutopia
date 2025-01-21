@@ -39,7 +39,7 @@ export function NavMain({
 
 						{collection.requests.map((request) => (
 							<Collapsible
-								key={request.title}
+								key={request.name}
 								asChild
 								defaultOpen={request.isActive}
 								className="group/collapsible"
@@ -48,8 +48,8 @@ export function NavMain({
 									{request.items && request.items.length > 0 ? (
 										<>
 											<CollapsibleTrigger asChild>
-												<SidebarMenuButton tooltip={request.title}>
-													<span>{request.title}</span>
+												<SidebarMenuButton tooltip={request.name}>
+													<span>{request.name}</span>
 													<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 												</SidebarMenuButton>
 											</CollapsibleTrigger>
@@ -58,14 +58,17 @@ export function NavMain({
 													{request.items.map((subItem) => (
 														<SidebarMenuSubItem
 															className="my-1"
-															key={subItem.title}
+															key={subItem.name}
 														>
 															<SidebarMenuSubButton className="h-auto" asChild>
 																<Link
-																	to={subItem.url}
+																	to={`/docs/${subItem.url}`}
+																	mask={{
+																		to: `/docs#${subItem.url}`,
+																	}}
 																	className="[&.active]:font-bold"
 																>
-																	<span>{subItem.title}</span>
+																	<span>{subItem.name}</span>
 																	<Badge
 																		className={`${getRequestTypeClass(subItem.requestType)} text-[10px] rounded-md h-[17px] px-3`}
 																	>
@@ -81,7 +84,7 @@ export function NavMain({
 									) : (
 										<SidebarMenuButton asChild>
 											<Link to={request.url} className="[&.active]:font-bold">
-												<span>{request.title}</span>
+												<span>{request.name}</span>
 											</Link>
 										</SidebarMenuButton>
 									)}
