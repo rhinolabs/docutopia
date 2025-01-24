@@ -1,12 +1,6 @@
 export interface BaseField {
 	name: string;
-	type:
-		| "string"
-		| "number"
-		| "boolean"
-		| "integer"
-		| "array"
-		| "object"
+	type: "string" | "number" | "boolean" | "integer" | "array" | "object";
 	description?: string;
 	required?: boolean;
 	minLength?: number;
