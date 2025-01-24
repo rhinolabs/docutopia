@@ -5,20 +5,47 @@ import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
 import { ResponseTypes } from "@/components/api-docs/api-response";
+import type { ApiDataParsed } from "@/types/api/data";
+import type { ApiParameter } from "@/types/api/parameters";
 
-export const Route = createFileRoute("/docs/$api_url")({
-	component: RouteComponent,
-	loader: async () => {
-		const data = mockApiData;
-		if (!data) {
-			throw new Error("API not found");
-		}
-		return { data };
-	},
-});
+async function loadApiData(): Promise<{ data: ApiDataParsed }> {
+	const data = mockApiData;
+	if (!data) {
+		throw new Error("API not found");
+	}
+	return { data };
+}
+
+function ErrorBoundary({ error }: { error: Error }) {
+	return (
+		<div className="error">
+			<h1 className="text-red-500">Error</h1>
+			<p>{error.message}</p>
+		</div>
+	);
+}
+
+function classifyParameters(parameters: ApiParameter[]) {
+	return parameters.reduce(
+		(acc, param) => {
+			acc[`${param.in}Params`].push(param);
+			return acc;
+		},
+		{
+			pathParams: [] as ApiParameter[],
+			queryParams: [] as ApiParameter[],
+			bodyParams: [] as ApiParameter[],
+		},
+	);
+}
 
 function RouteComponent() {
-	const { data } = useLoaderData({ from: "/docs/$api_url" });
+	const { data }: { data: ApiDataParsed } = useLoaderData({
+		from: "/docs/$api_url",
+	});
+	const { pathParams, queryParams, bodyParams } = classifyParameters(
+		data.parameters,
+	);
 
 	return (
 		<>
@@ -33,17 +60,13 @@ function RouteComponent() {
 							</div>
 						</div>
 						<div className="content">
-							{data.pathParams && data.pathParams.length > 0 && (
-								<PathParams pathParams={data.pathParams} />
+							{pathParams.length > 0 && <PathParams pathParams={pathParams} />}
+
+							{queryParams.length > 0 && (
+								<QueryParams queryParams={queryParams} />
 							)}
 
-							{data.queryParams && data.queryParams.length > 0 && (
-								<QueryParams queryParams={data.queryParams} />
-							)}
-
-							{data.bodyParams && data.bodyParams.length > 0 && (
-								<BodyParams bodyParams={data.bodyParams} />
-							)}
+							{bodyParams.length > 0 && <BodyParams bodyParams={bodyParams} />}
 
 							{data.response && data.response.length > 0 && (
 								<ResponseTypes responses={data.response} />
@@ -65,3 +88,9 @@ function RouteComponent() {
 		</>
 	);
 }
+
+export const Route = createFileRoute("/docs/$api_url")({
+	component: RouteComponent,
+	loader: loadApiData,
+	errorComponent: ErrorBoundary,
+});

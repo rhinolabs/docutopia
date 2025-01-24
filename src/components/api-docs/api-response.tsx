@@ -6,14 +6,15 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "@rhino-ui/ui";
-import type { ResponseTypesProps } from "@/types/api/responses";
+import type { ResponseSectionProps } from "@/types/api/responses";
 import { useState } from "react";
 import { ChevronRight, ChevronDown } from "lucide-react";
 
-export const ResponseTypes = ({ responses }: ResponseTypesProps) => {
+export const ResponseTypes = ({ responses }: ResponseSectionProps) => {
 	const [openIndex, setOpenIndex] = useState<number | null>(null);
+
 	const handleToggle = (index: number) => {
-		setOpenIndex((prevIndex) => (prevIndex === index ? null : index)); // Toggle logic
+		setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
 	};
 
 	return (
@@ -66,16 +67,21 @@ export const ResponseTypes = ({ responses }: ResponseTypesProps) => {
 										{!response.success && (
 											<Card className="bg-primary-foreground border shadow-none rounded-lg mt-2">
 												<CardContent className="p-0">
-													{response.schema && (
+													{response.schemaRef && (
 														<>
 															<div className="p-4">
 																<p className="text-sm font-medium text-muted-foreground">
-																	object
+																	{String(
+																		response.schemaRef?.type ?? "Unknown type",
+																	)}
 																</p>
 															</div>
-															<div>
-																{Object.entries(response.schema).map(
-																	([key, value]) => (
+
+															{response.schemaRef?.properties ? (
+																<div>
+																	{Object.entries(
+																		response.schemaRef.properties,
+																	).map(([key, value]) => (
 																		<div key={key} className="mb-2">
 																			<hr />
 																			<div className="px-4 py-2">
@@ -94,13 +100,17 @@ export const ResponseTypes = ({ responses }: ResponseTypesProps) => {
 																				)}
 																			</div>
 																		</div>
-																	),
-																)}
-															</div>
+																	))}
+																</div>
+															) : (
+																<p className="px-4 text-sm text-muted-foreground">
+																	No properties available.
+																</p>
+															)}
 														</>
 													)}
-													{!response.schema && (
-														<div className="px-4 pt-6">
+													{!response.schemaRef && (
+														<div className="px-4 py-6">
 															<p className="text-sm text-muted-foreground">
 																Empty Response
 															</p>

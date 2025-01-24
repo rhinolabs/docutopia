@@ -7,7 +7,6 @@ export interface BaseField {
 		| "integer"
 		| "array"
 		| "object"
-		| string;
 	description?: string;
 	required?: boolean;
 	minLength?: number;
@@ -20,12 +19,16 @@ export interface BaseField {
 }
 
 export interface PrimitiveField extends BaseField {
-	type: "string" | "integer" | "boolean" | "number" | string;
+	type: "string" | "integer" | "boolean" | "number";
 }
+
+export type ArrayItem =
+	| Omit<PrimitiveField, "name">
+	| Omit<ObjectField, "name">;
 
 export interface ArrayField extends BaseField {
 	type: "array";
-	items: PrimitiveField | ObjectField;
+	items: ArrayItem;
 }
 
 export interface ObjectField extends BaseField {

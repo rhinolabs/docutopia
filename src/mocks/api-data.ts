@@ -1,12 +1,16 @@
-export const mockApiData = {
+import { DefaultErrorSchema } from "./error-schema";
+import type { ApiDataParsed } from "@/types/api/data";
+
+export const mockApiData: ApiDataParsed = {
 	id: 1,
 	name: "Get a list of access for an organization",
 	shortName: "list for organization",
 	groupName: "Access",
 	requestType: "GET",
 	url: "https://api.hyphen.ai/api/organizations/{organizationId}/access/",
-	pathParams: [
+	parameters: [
 		{
+			in: "path",
 			name: "organizationId",
 			type: "string",
 			description: "The ID of the organization.",
@@ -15,6 +19,7 @@ export const mockApiData = {
 			pattern: "^org_[a-fA-F0-9]{24}$",
 		},
 		{
+			in: "path",
 			name: "accessId",
 			type: "string",
 			description: "The access Id.",
@@ -22,9 +27,8 @@ export const mockApiData = {
 			minLength: 1,
 			pattern: "^org_[a-fA-F0-9]{24}$",
 		},
-	],
-	queryParams: [
 		{
+			in: "query",
 			name: "pageNum",
 			type: "integer",
 			description: "The page number.",
@@ -33,6 +37,7 @@ export const mockApiData = {
 			defaultValue: 1,
 		},
 		{
+			in: "query",
 			name: "pageSize",
 			type: "integer",
 			description: "The page size.",
@@ -42,6 +47,7 @@ export const mockApiData = {
 			defaultValue: 50,
 		},
 		{
+			in: "query",
 			name: "entityIds",
 			type: "array",
 			description: "The entity Ids.",
@@ -51,6 +57,7 @@ export const mockApiData = {
 			},
 		},
 		{
+			in: "query",
 			name: "assignmentIds",
 			type: "array",
 			description: "The assignment Ids.",
@@ -59,9 +66,8 @@ export const mockApiData = {
 				type: "string",
 			},
 		},
-	],
-	bodyParams: [
 		{
+			in: "body",
 			name: "entity",
 			type: "object",
 			required: true,
@@ -82,6 +88,7 @@ export const mockApiData = {
 			],
 		},
 		{
+			in: "body",
 			name: "roles",
 			type: "array",
 			required: true,
@@ -102,6 +109,7 @@ export const mockApiData = {
 			},
 		},
 		{
+			in: "body",
 			name: "assignment",
 			type: "object",
 			required: true,
@@ -126,39 +134,26 @@ export const mockApiData = {
 	response: [
 		{
 			status: 200,
-			name: "success",
-			message: "Succesfully got a list of access for an organization",
+			message: "Successfully got a list of access for an organization",
 			success: true,
 		},
 		{
 			status: 401,
-			type: "error",
 			message: "Unauthorized",
 			success: false,
-			schema: {
-				message: { type: "string", required: true },
-				requestId: { type: "string", required: true },
-				errorCode: { type: "string", required: true },
-				errors: { type: "array", items: { type: "string" }, required: false },
-			},
+			schemaRef: DefaultErrorSchema,
 		},
 		{
 			status: 404,
-			type: "error",
 			message: "Not Found",
 			success: false,
-			schema: {
-				message: { type: "string", required: true },
-				requestId: { type: "string", required: true },
-				errorCode: { type: "string", required: true },
-				errors: { type: "array", items: { type: "string" }, required: false },
-			},
+			schemaRef: DefaultErrorSchema,
 		},
 		{
 			status: 500,
-			type: "error",
 			message: "Internal Server Error",
 			success: false,
+			schemaRef: DefaultErrorSchema,
 		},
 	],
 };
