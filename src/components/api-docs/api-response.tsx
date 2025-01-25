@@ -6,24 +6,43 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "@rhino-ui/ui";
-import type { ResponseSectionProps } from "@/types/api/responses";
 import { useState } from "react";
 import { ChevronRight, ChevronDown } from "lucide-react";
+import type {
+	ResponseEntry,
+	MediaTypeObject,
+	OpenApiDocument,
+} from "@/types/api/openapi";
+import { ParamField } from "../ui/fields";
+import { mapSchemaToParamField } from "@/utils/map-schema-to-param-field";
+import { resolveRef } from "@/utils/resolve-ref";
 
-export const ResponseTypes = ({ responses }: ResponseSectionProps) => {
+interface ResponseTypesProps {
+	responses: ResponseEntry[];
+	doc: OpenApiDocument;
+}
+
+export const ResponseTypes: React.FC<ResponseTypesProps> = ({
+	responses,
+	doc,
+}) => {
 	const [openIndex, setOpenIndex] = useState<number | null>(null);
 
 	const handleToggle = (index: number) => {
 		setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
 	};
 
+	const isSuccess = (status: string) => status.startsWith("2");
+
 	return (
-		<>
-			<div className="mt-5">
-				<h3 className="text-sm font-semibold mb-4">RESPONSE</h3>
-				<Card className="bg-primary-foreground border shadow-sm rounded-lg">
-					<CardContent className="py-2 px-0">
-						{responses.map((response, index) => (
+		<div className="mt-5">
+			<h3 className="text-sm font-semibold mb-4">RESPONSE</h3>
+			<Card className="bg-primary-foreground border shadow-sm rounded-lg">
+				<CardContent className="py-2 px-0">
+					{responses.map((response, index) => {
+						const success = isSuccess(response.status);
+
+						return (
 							<Collapsible
 								key={`${response.status}-card`}
 								open={openIndex === index}
@@ -37,7 +56,9 @@ export const ResponseTypes = ({ responses }: ResponseSectionProps) => {
 												<div className="flex items-center">
 													<span
 														className={`rounded-full h-3 w-3 mr-2 ${
-															response.success ? "bg-green-500" : "bg-red-500"
+															response.status.startsWith("2")
+																? "bg-green-500"
+																: "bg-red-500"
 														}`}
 													/>
 													<h4 className="text-xs font-medium">
@@ -45,7 +66,7 @@ export const ResponseTypes = ({ responses }: ResponseSectionProps) => {
 													</h4>
 												</div>
 												<p className="text-xs text-muted-foreground mt-2">
-													{response.message}
+													{response.description}
 												</p>
 											</div>
 											<Button variant="ghost" size="sm" className="w-9 p-0">
@@ -64,55 +85,76 @@ export const ResponseTypes = ({ responses }: ResponseSectionProps) => {
 										<h4 className="text-sm font-medium text-muted-foreground">
 											RESPONSE BODY
 										</h4>
-										{!response.success && (
+										{!success && (
 											<Card className="bg-primary-foreground border shadow-none rounded-lg mt-2">
 												<CardContent className="p-0">
-													{response.schemaRef && (
-														<>
-															<div className="p-4">
-																<p className="text-sm font-medium text-muted-foreground">
-																	{String(
-																		response.schemaRef?.type ?? "Unknown type",
-																	)}
-																</p>
-															</div>
-
-															{response.schemaRef?.properties ? (
-																<div>
-																	{Object.entries(
-																		response.schemaRef.properties,
-																	).map(([key, value]) => (
-																		<div key={key} className="mb-2">
-																			<hr />
-																			<div className="px-4 py-2">
-																				<span className="text-xs font-semibold mr-1">
-																					{key}
-																				</span>
-																				<span className="text-xs text-muted-foreground mr-1">
-																					{value.type}
-																					{value.items &&
-																						` of ${value.items.type}`}
-																				</span>
-																				{value.required && (
-																					<span className="text-xs text-red-500">
-																						required
-																					</span>
-																				)}
-																			</div>
+													{response.content &&
+													Object.keys(response.content).length > 0 ? (
+														Object.entries(response.content).map(
+															([mediaType, mediaObject]: [
+																string,
+																MediaTypeObject,
+															]) => {
+																if (!mediaObject.schema) {
+																	return (
+																		<div key={mediaType} className="mb-2">
+																			<p className="text-xs text-muted-foreground">
+																				No content available.
+																			</p>
 																		</div>
-																	))}
-																</div>
-															) : (
-																<p className="px-4 text-sm text-muted-foreground">
-																	No properties available.
-																</p>
-															)}
-														</>
-													)}
-													{!response.schemaRef && (
+																	);
+																}
+
+																if ("$ref" in mediaObject.schema) {
+																	const referencedSchema = resolveRef(
+																		mediaObject.schema.$ref,
+																		doc,
+																	);
+																	if (referencedSchema?.properties) {
+																		return (
+																			<div>
+																				<p className="text-sm font-medium text-muted-foreground px-6 py-4">
+																					{String(
+																						referencedSchema.type ??
+																							"Unknown type",
+																					)}
+																				</p>
+																				{Object.entries(
+																					referencedSchema.properties,
+																				).map(([key, value]) => (
+																					<div key={key}>
+																						<hr />
+																						<ParamField
+																							key={key}
+																							field={mapSchemaToParamField(
+																								key,
+																								value,
+																								referencedSchema.required?.includes(
+																									key,
+																								) ?? false,
+																							)}
+																							readOnly={true}
+																						/>
+																					</div>
+																				))}
+																			</div>
+																		);
+																	}
+																} else {
+																	return (
+																		<div key={mediaType} className="mb-2">
+																			<p className="px-4 text-sm text-muted-foreground">
+																				No properties available.
+																			</p>
+																		</div>
+																	);
+																}
+															},
+														)
+													) : (
 														<div className="px-4 py-6">
 															<p className="text-sm text-muted-foreground">
-																Empty Response
+																No content available.
 															</p>
 														</div>
 													)}
@@ -122,10 +164,10 @@ export const ResponseTypes = ({ responses }: ResponseSectionProps) => {
 									</div>
 								</CollapsibleContent>
 							</Collapsible>
-						))}
-					</CardContent>
-				</Card>
-			</div>
-		</>
+						);
+					})}
+				</CardContent>
+			</Card>
+		</div>
 	);
 };

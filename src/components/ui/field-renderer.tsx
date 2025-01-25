@@ -4,18 +4,20 @@ import {
 	StringField,
 	ObjectField,
 } from "@/components/ui/fields";
-import type { Field } from "@/types/components/field-types";
+import type { ParameterObject } from "@/types/api/openapi";
 
-export const RenderField: React.FC<{ field: Field }> = ({ field }) => {
-	switch (field.type) {
+export const RenderField: React.FC<{ field: ParameterObject }> = ({
+	field,
+}) => {
+	switch (field.schema?.type) {
 		case "string":
-			return <StringField field={field} />;
+			return <StringField field={field.schema} name={field.name} />;
 		case "integer":
-			return <IntegerField field={field} />;
+			return <IntegerField field={field.schema} name={field.name} />;
 		case "array":
-			return <ArrayField field={field} />;
+			return <ArrayField field={field.schema} />;
 		case "object":
-			return <ObjectField field={field} />;
+			return <ObjectField field={field.schema} name={field.name} />;
 		default:
 			return null;
 	}

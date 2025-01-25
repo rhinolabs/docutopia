@@ -1,10 +1,14 @@
-import type { Field } from "@/types/components/field-types";
 import { DynamicFields } from "../dynamic-fields";
+import type { SchemaObject } from "@/types/api/openapi";
 
-export const ArrayField: React.FC<{ field: Field }> = ({ field }) => {
+interface ArrayFieldProps {
+	field: SchemaObject;
+}
+
+export const ArrayField: React.FC<ArrayFieldProps> = ({ field }) => {
 	if ("items" in field) {
-		if (field.items.type === "string") {
-			const options = field.items.options ?? [];
+		if (field.items?.type === "string") {
+			const options = field.items.enum ?? [];
 			const hasOptions = options.length > 0;
 
 			return (

@@ -1,4 +1,3 @@
-import type { Field } from "@/types/components/field-types";
 import {
 	Button,
 	Collapsible,
@@ -8,39 +7,64 @@ import {
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { ParamField } from "./param-field";
+import type { SchemaObject } from "@/types/api/openapi";
+import React from "react";
 
-export const ObjectField: React.FC<{ field: Field }> = ({ field }) => {
-	if ("properties" in field && field.properties.length > 0) {
-		const [isOpen, setIsOpen] = useState(false);
-		return (
-			<div className="col-span-4">
-				<Collapsible
-					open={isOpen}
-					onOpenChange={setIsOpen}
-					className="border rounded-lg bg-white"
-				>
-					<div className="flex items-center justify-between space-x-4 px-4 py-2">
-						<CollapsibleTrigger asChild>
-							<div className="flex justify-between items-center w-full cursor-pointer">
-								<h4 className="text-sm font-semibold">ENTITY OBJECT</h4>
-								<Button variant="ghost" size="sm" className="w-9 p-0">
-									<Plus className="h-4 w-4 text-muted-foreground" />
-									<span className="sr-only">Toggle</span>
-								</Button>
-							</div>
-						</CollapsibleTrigger>
-					</div>
-					<CollapsibleContent>
-						{field.properties.map((subField) => (
-							<>
-								<hr key={`hr-${subField.type}`} />
-								<ParamField key={`param-${subField.type}`} field={subField} />
-							</>
-						))}
-					</CollapsibleContent>
-				</Collapsible>
-			</div>
-		);
+interface ObjectFieldProps {
+	field: SchemaObject;
+	name: string;
+}
+
+export const ObjectField: React.FC<ObjectFieldProps> = ({ field, name }) => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	if (field.type !== "object" || !field.properties) {
+		return null;
 	}
-	return null;
+
+	const propertyEntries = Object.entries(field.properties);
+
+	if (propertyEntries.length === 0) {
+		return null;
+	}
+
+	return (
+		<div className="col-span-4">
+			<Collapsible
+				open={isOpen}
+				onOpenChange={setIsOpen}
+				className="border rounded-lg bg-white"
+			>
+				<div className="flex items-center justify-between space-x-4 px-4 py-2">
+					<CollapsibleTrigger asChild>
+						<div className="flex justify-between items-center w-full cursor-pointer">
+							<h4 className="text-sm font-semibold">
+								{name.toUpperCase()} OBJECT
+							</h4>
+							<Button variant="ghost" size="sm" className="w-9 p-0">
+								<Plus className="h-4 w-4 text-muted-foreground" />
+								<span className="sr-only">Toggle</span>
+							</Button>
+						</div>
+					</CollapsibleTrigger>
+				</div>
+				<CollapsibleContent>
+					{propertyEntries.map(([propName, subSchema]) => (
+						<React.Fragment key={propName}>
+							<hr />
+							<ParamField
+								field={{
+									name: propName,
+									in: "body",
+									required: field.required?.includes(propName) ?? false,
+									schema: subSchema,
+									description: subSchema.description,
+								}}
+							/>
+						</React.Fragment>
+					))}
+				</CollapsibleContent>
+			</Collapsible>
+		</div>
+	);
 };

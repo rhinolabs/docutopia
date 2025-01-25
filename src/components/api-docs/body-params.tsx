@@ -1,8 +1,8 @@
-import type { PrimitiveField } from "@/types/components/field-types";
 import { Params } from "@/components/ui/params-handler";
+import type { ParameterObject } from "@/types/api/openapi";
 
 interface BodyParamsProps {
-	bodyParams: PrimitiveField[];
+	bodyParams: ParameterObject[];
 }
 
 export const BodyParams: React.FC<BodyParamsProps> = ({ bodyParams }) => {

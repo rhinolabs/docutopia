@@ -1,9 +1,10 @@
 import { Card, CardContent } from "@rhino-ui/ui";
 import { ParamField } from "@/components/ui/fields/param-field";
-import type { PrimitiveField } from "@/types/components/field-types";
+import type { ParameterObject } from "@/types/api/openapi";
+import React from "react";
 
 interface ParamsProps {
-	params: PrimitiveField[];
+	params: ParameterObject[];
 	title: string;
 }
 
@@ -14,10 +15,10 @@ export const Params: React.FC<ParamsProps> = ({ params, title }) => {
 			<Card className="bg-primary-foreground border shadow-sm rounded-lg">
 				<CardContent className="p-0">
 					{params.map((param, index) => (
-						<>
-							<ParamField key={param.name} field={param} />
+						<React.Fragment key={param.name}>
+							<ParamField field={param} />
 							{index < params.length - 1 && <hr />}
-						</>
+						</React.Fragment>
 					))}
 					<hr />
 				</CardContent>

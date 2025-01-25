@@ -9,7 +9,7 @@ export const ParamField: React.FC<ParamFieldProps> = ({
 	return (
 		<div className="grid grid-cols-4 gap-4 py-4 px-6">
 			<div className="col-span-3">
-				<div className="text-sm mb-2">
+				<div className="text-sm">
 					<span className="font-semibold mr-1">{field.name}</span>
 					<span className="text-muted-foreground mr-1">
 						{getFieldType(field)}
@@ -25,14 +25,14 @@ export const ParamField: React.FC<ParamFieldProps> = ({
 						</span>
 					)}
 
-					{field.defaultValue && (
+					{field.schema?.default && (
 						<span className="text-muted-foreground mr-1">
-							Defaults to {field.defaultValue}
+							Defaults to {field.schema?.default}
 						</span>
 					)}
 				</div>
 				{field.description && (
-					<p className="text-sm font-medium">{field.description}</p>
+					<p className="text-sm font-medium mt-2">{field.description}</p>
 				)}
 			</div>
 			{!readOnly && <RenderField field={field} />}

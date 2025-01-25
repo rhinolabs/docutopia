@@ -1,20 +1,24 @@
-import type { Field } from "@/types/components/field-types";
+import type { ParameterObject } from "@/types/api/openapi";
 
-export function getFieldType(field: Field): string {
-	switch (field.type) {
+export function getFieldType(field: ParameterObject): string {
+	switch (field.schema?.type) {
 		case "array":
-			if ("items" in field && field.items.type) {
-				return `array of ${field.items.type} []`;
+			if (
+				"items" in field.schema &&
+				field.schema.items &&
+				field.schema.items.type
+			) {
+				return `array of ${field.schema.items.type} []`;
 			}
 			return "array []";
 		case "object":
 			return "object {}";
 		default:
-			return field.type;
+			return field.schema?.type || "Undefined Type";
 	}
 }
 
-export function getFieldConstraints(field: Field): string | null {
+export function getFieldConstraints(field: ParameterObject): string | null {
 	const constraints: string[] = [];
 
 	const rangeCheck = (
@@ -34,15 +38,19 @@ export function getFieldConstraints(field: Field): string | null {
 		return null;
 	};
 
-	if (field.type === "string") {
+	if (field.schema?.type === "string") {
 		const lengthConstraint = rangeCheck(
-			field.minLength,
-			field.maxLength,
+			field.schema?.minLength,
+			field.schema?.maxLength,
 			"length",
 		);
 		if (lengthConstraint) constraints.push(`length ${lengthConstraint}`);
-	} else if (field.type === "integer") {
-		const valueConstraint = rangeCheck(field.minimum, field.maximum, "value");
+	} else if (field.schema?.type === "integer") {
+		const valueConstraint = rangeCheck(
+			field.schema?.minimum,
+			field.schema?.maximum,
+			"value",
+		);
 		if (valueConstraint) constraints.push(valueConstraint);
 	}
 
