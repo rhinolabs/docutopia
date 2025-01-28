@@ -19,6 +19,7 @@ type StringCollapsibleProps = {
 	onDelete: (id: number) => void;
 	hasOptions?: boolean;
 	options?: string[];
+	defaultOpen?: boolean;
 };
 
 export const StringCollapsible = ({
@@ -26,8 +27,9 @@ export const StringCollapsible = ({
 	onDelete,
 	hasOptions = false,
 	options = [],
+	defaultOpen = false,
 }: StringCollapsibleProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(defaultOpen);
 
 	return (
 		<Collapsible
@@ -49,7 +51,12 @@ export const StringCollapsible = ({
 								<Trash className="h-4 w-4 text-destructive" />
 								<span className="sr-only">Delete</span>
 							</Button>
-							<Button variant="ghost" size="sm" className="w-9 p-0">
+							<Button
+								variant="ghost"
+								size="sm"
+								className="w-9 p-0"
+								onClick={() => setIsOpen(!isOpen)}
+							>
 								<Plus className="h-4 w-4 text-muted-foreground" />
 								<span className="sr-only">Toggle</span>
 							</Button>
@@ -59,16 +66,16 @@ export const StringCollapsible = ({
 			</div>
 			<CollapsibleContent>
 				<div className="px-4 py-4 text-sm border-t">
-					{hasOptions ? (
+					{hasOptions && options.length > 0 ? (
 						<Select>
 							<SelectTrigger>
 								<SelectValue placeholder="Select" />
 							</SelectTrigger>
 							<SelectContent>
 								<SelectGroup>
-									{options.map((option, index) => (
+									{options.map((option) => (
 										<SelectItem
-											key={`option-${option.replace(" ", "-")}`}
+											key={`option-${encodeURIComponent(option)}`}
 											value={option}
 										>
 											{option}
@@ -77,8 +84,10 @@ export const StringCollapsible = ({
 								</SelectGroup>
 							</SelectContent>
 						</Select>
+					) : hasOptions ? (
+						<p className="text-muted-foreground">No options Available</p>
 					) : (
-						<Input id="" className="border bg-white" type="text" />
+						<Input id={`input-${id}`} className="border bg-white" type="text" />
 					)}
 				</div>
 			</CollapsibleContent>

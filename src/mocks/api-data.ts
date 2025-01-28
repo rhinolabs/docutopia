@@ -29,16 +29,6 @@ export const mockOpenApiDoc: OpenApiDocument = {
 						description: "The ID of the organization.",
 					},
 					{
-						name: "accessId",
-						in: "path",
-						required: true,
-						schema: {
-							type: "string",
-							pattern: "^org_[a-fA-F0-9]{24}$",
-						},
-						description: "The access Id.",
-					},
-					{
 						name: "pageNum",
 						in: "query",
 						required: false,
@@ -81,24 +71,17 @@ export const mockOpenApiDoc: OpenApiDocument = {
 							type: "array",
 							items: {
 								type: "string",
+								enum: [
+									"OrganizationAdmin",
+									"OrganizationMember",
+									"TeamOwner",
+									"TeamMember",
+									"ProjectOwner",
+									"ProjectCollaborator",
+									"ProjectViewer",
+									"LinkCodeOwner",
+								],
 							},
-						},
-						description: "The assignment Ids.",
-					},
-					{
-						in: "query",
-						name: "assignmentIds",
-						required: true,
-						schema: {
-							type: "object",
-							properties: {
-								type: {
-									type: "string",
-									description: "The entity type",
-									enum: ["Organization", "LinkCode", "Project", "Team"],
-								},
-							},
-							required: ["type"],
 						},
 						description: "The assignment Ids.",
 					},
@@ -160,7 +143,7 @@ export const mockOpenApiDoc: OpenApiDocument = {
 										required: ["type", "id"],
 									},
 								},
-								required: ["entity", "roles", "assignment"],
+								required: ["entity", "roles"],
 							},
 						},
 					},

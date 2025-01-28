@@ -44,6 +44,7 @@ export function getFieldConstraints(field: ParameterObject): string | null {
 			field.schema?.maxLength,
 			"length",
 		);
+
 		if (lengthConstraint) constraints.push(`length ${lengthConstraint}`);
 	} else if (field.schema?.type === "integer") {
 		const valueConstraint = rangeCheck(

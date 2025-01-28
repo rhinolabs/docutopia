@@ -20,7 +20,6 @@ export const Params: React.FC<ParamsProps> = ({ params, title }) => {
 							{index < params.length - 1 && <hr />}
 						</React.Fragment>
 					))}
-					<hr />
 				</CardContent>
 			</Card>
 		</div>

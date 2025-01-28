@@ -8,19 +8,18 @@ type DynamicFieldsProps = {
 	options: string[];
 };
 
+interface Field {
+	id: number;
+}
+
 export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 	hasOptions,
 	options,
 }) => {
-	const [fields, setFields] = useState<
-		{ id: number; hasOptions: boolean; options?: string[] }[]
-	>([]);
+	const [fields, setFields] = useState<Field[]>([]);
 
 	const addField = () => {
-		setFields((prevFields) => [
-			...prevFields,
-			{ id: Date.now(), hasOptions, options },
-		]);
+		setFields((prevFields) => [...prevFields, { id: Date.now() }]);
 	};
 
 	const deleteField = (id: number) => {
@@ -29,7 +28,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 
 	return (
 		<div>
-			{fields.map(({ id, hasOptions, options }) => (
+			{fields.map(({ id }) => (
 				<StringCollapsible
 					key={id}
 					id={id}

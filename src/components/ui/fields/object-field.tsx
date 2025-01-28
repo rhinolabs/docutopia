@@ -13,16 +13,26 @@ import React from "react";
 interface ObjectFieldProps {
 	field: SchemaObject;
 	name: string;
+	defaultOpen?: boolean;
 }
 
-export const ObjectField: React.FC<ObjectFieldProps> = ({ field, name }) => {
-	const [isOpen, setIsOpen] = useState(false);
+const isObjectField = (field: SchemaObject): boolean =>
+	field.type === "object" && !!field.properties;
 
-	if (field.type !== "object" || !field.properties) {
+export const ObjectField: React.FC<ObjectFieldProps> = ({
+	field,
+	name,
+	defaultOpen = false,
+}) => {
+	const [isOpen, setIsOpen] = useState(defaultOpen);
+
+	if (!isObjectField(field)) {
 		return null;
 	}
 
-	const propertyEntries = Object.entries(field.properties);
+	const propertyEntries = field.properties
+		? Object.entries(field.properties)
+		: [];
 
 	if (propertyEntries.length === 0) {
 		return null;

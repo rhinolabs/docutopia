@@ -1,24 +1,26 @@
-import {
-	ArrayField,
-	IntegerField,
-	StringField,
-	ObjectField,
-} from "@/components/ui/fields";
+import type React from "react";
+import { getFieldComponent } from "@/utils/field-registry";
 import type { ParameterObject } from "@/types/api/openapi";
+import UnsupportedField from "./fields/unsupported-field";
 
 export const RenderField: React.FC<{ field: ParameterObject }> = ({
 	field,
 }) => {
-	switch (field.schema?.type) {
-		case "string":
-			return <StringField field={field.schema} name={field.name} />;
-		case "integer":
-			return <IntegerField field={field.schema} name={field.name} />;
-		case "array":
-			return <ArrayField field={field.schema} />;
-		case "object":
-			return <ObjectField field={field.schema} name={field.name} />;
-		default:
-			return null;
+	const FieldComponent = getFieldComponent(field.schema?.type || "");
+
+	if (!FieldComponent) {
+		console.warn(`Unsupported field type: ${field.schema?.type}`);
+		return <UnsupportedField type={field.schema?.type || "unknown"} />;
 	}
+
+	if (!field.schema) {
+		console.warn(`Missing schema for field: ${field.name}`);
+		return (
+			<div className="text-muted-foreground">
+				Missing schema for field: {field.name}
+			</div>
+		);
+	}
+
+	return <FieldComponent field={field.schema} name={field.name} />;
 };
