@@ -4,8 +4,8 @@ import type {
 	OpenApiDocument,
 	SchemaObject,
 } from "@/types/api/openapi";
-import { mapSchemaToParamField } from "@/utils/map-schema-to-param-field";
-import { resolveRef } from "@/utils/resolve-ref";
+import { mapSchemaToParamField } from "@/utils/fields/map-schema-to-param-field";
+import { resolveRef } from "@/utils/api/resolve-ref";
 import { memo } from "react";
 
 interface MediaTypeContentProps {

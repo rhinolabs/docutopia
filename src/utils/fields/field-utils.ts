@@ -1,7 +1,11 @@
 import type { ParameterObject } from "@/types/api/openapi";
 
 export function getFieldType(field: ParameterObject): string {
-	switch (field.schema?.type) {
+	if (!field.schema) {
+		return "Undefined Type";
+	}
+
+	switch (field.schema.type) {
 		case "array":
 			if (
 				"items" in field.schema &&
@@ -40,16 +44,15 @@ export function getFieldConstraints(field: ParameterObject): string | null {
 
 	if (field.schema?.type === "string") {
 		const lengthConstraint = rangeCheck(
-			field.schema?.minLength,
-			field.schema?.maxLength,
+			field.schema.minLength,
+			field.schema.maxLength,
 			"length",
 		);
-
 		if (lengthConstraint) constraints.push(`length ${lengthConstraint}`);
 	} else if (field.schema?.type === "integer") {
 		const valueConstraint = rangeCheck(
-			field.schema?.minimum,
-			field.schema?.maximum,
+			field.schema.minimum,
+			field.schema.maximum,
 			"value",
 		);
 		if (valueConstraint) constraints.push(valueConstraint);

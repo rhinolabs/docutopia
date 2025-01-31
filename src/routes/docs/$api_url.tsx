@@ -10,22 +10,31 @@ import type {
 	EnhancedOperation,
 	ResponseEntry,
 } from "@/types/api/openapi";
-import { classifyParameters, getBodyParams } from "@/utils/api-helpers";
+import { classifyParameters, getBodyParams } from "@/utils/api/api-helpers";
 import { useMemo } from "react";
 import { slugifyOperation } from "@/utils/slugify-operation";
+import type { LoaderArgs } from "@/types/api/loader";
 
+/**
+ * Loads API data based on the provided parameters.
+ *
+ * @param params - The parameters containing the api_url.
+ * @returns The loaded API documentation data.
+ */
 async function loadApiData({
 	params,
-}: { params: { api_url: string } }): Promise<ApiLoaderData> {
+}: {
+	params: { api_url: string };
+}): Promise<ApiLoaderData> {
 	let foundOperation: EnhancedOperation | undefined;
 
-	Object.entries(mockOpenApiDoc.paths).forEach(([path, pathItem]) => {
-		Object.entries(pathItem).forEach(([method, operation]) => {
-			if (!operation) return;
+	for (const [path, pathItem] of Object.entries(mockOpenApiDoc.paths)) {
+		for (const [method, operation] of Object.entries(pathItem)) {
+			if (!operation) continue;
 
-			const slug = slugifyOperation(
-				operation.summary || `${method.toUpperCase()} ${path}`,
-			);
+			const slug =
+				slugifyOperation(operation.summary) ||
+				`${method.toUpperCase()} ${path}`;
 
 			if (slug === params.api_url) {
 				foundOperation = {
@@ -33,9 +42,12 @@ async function loadApiData({
 					path,
 					method: method.toUpperCase(),
 				};
+				break;
 			}
-		});
-	});
+		}
+
+		if (foundOperation) break;
+	}
 
 	if (!foundOperation) {
 		throw new Error(`API operation "${params.api_url}" not found`);
@@ -47,6 +59,12 @@ async function loadApiData({
 	};
 }
 
+/**
+ * Error boundary component for handling loader errors.
+ *
+ * @param error - The error object.
+ * @returns JSX element displaying the error message.
+ */
 function ErrorBoundary({ error }: { error: Error }) {
 	return (
 		<div className="p-8 text-center">
@@ -61,6 +79,11 @@ function ErrorBoundary({ error }: { error: Error }) {
 	);
 }
 
+/**
+ * Component responsible for rendering the API documentation based on the route.
+ *
+ * @returns JSX element displaying the API documentation.
+ */
 function RouteComponent() {
 	const { doc, operation } = useLoaderData({
 		from: "/docs/$api_url",
@@ -110,7 +133,7 @@ function RouteComponent() {
 		};
 	});
 
-	const {api_url} = Route.useParams();
+	const { api_url } = Route.useParams();
 
 	return (
 		<div key={api_url} className="container py-8">
@@ -152,11 +175,12 @@ function RouteComponent() {
 	);
 }
 
-export const Route = createFileRoute("/docs/$api_url")({
+export const Route = createFileRoute<LoaderArgs, ApiLoaderData>(
+	"/docs/$api_url",
+)({
 	component: RouteComponent,
-	loader: async ({ params }) => {
-		const typedParams = params as { api_url: string };
-		return loadApiData({ params: typedParams });
+	loader: async ({ params }: LoaderArgs) => {
+		return loadApiData({ params });
 	},
 	errorComponent: ErrorBoundary,
 });

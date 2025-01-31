@@ -1,5 +1,5 @@
 import type { ParamFieldProps } from "@/types/components/field-types";
-import { getFieldConstraints, getFieldType } from "@/utils/field-utils";
+import { getFieldConstraints, getFieldType } from "@/utils/fields/field-utils";
 import { RenderField } from "../field-renderer";
 
 const FieldMetadata: React.FC<{ field: ParamFieldProps["field"] }> = ({

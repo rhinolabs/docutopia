@@ -29,13 +29,15 @@ export function getBodyParams(
 	}
 
 	if (schema.type === "object" && schema.properties) {
-		return Object.entries(schema.properties).map(([propName, propSchema]) => ({
-			name: propName,
-			in: "body",
-			required: schema.required?.includes(propName) ?? false,
-			schema: propSchema,
-			description: propSchema.description,
-		}));
+		return Object.entries(schema.properties).map(([propName, propSchema]) => {
+			return {
+				name: propName,
+				in: "body",
+				required: schema.required?.includes(propName) ?? false,
+				schema: propSchema,
+				description: propSchema.description,
+			};
+		});
 	}
 	return [];
 }

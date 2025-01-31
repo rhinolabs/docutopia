@@ -13,8 +13,9 @@ import {
 	SidebarMenuItem,
 	SidebarMenuButton,
 } from "@rhino-ui/ui";
-import { transformOpenApiToSidebar } from "@/utils/openapi-adapter";
+
 import { mockOpenApiDoc } from "@/mocks/api-data";
+import { transformOpenApiToSidebar } from "@/utils/api/openapi-adapter";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const sidebarData = transformOpenApiToSidebar(mockOpenApiDoc);
