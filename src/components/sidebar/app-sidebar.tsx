@@ -1,7 +1,6 @@
 "use client";
 
 import type * as React from "react";
-import { mockSidebarData } from "../../mocks/sidebar-data";
 
 import { Command } from "lucide-react";
 
@@ -14,8 +13,12 @@ import {
 	SidebarMenuItem,
 	SidebarMenuButton,
 } from "@rhino-ui/ui";
+import { transformOpenApiToSidebar } from "@/utils/openapi-adapter";
+import { mockOpenApiDoc } from "@/mocks/api-data";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	const sidebarData = transformOpenApiToSidebar(mockOpenApiDoc);
+
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader>
@@ -37,7 +40,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 
 			<SidebarContent>
-				<NavMain items={mockSidebarData.navMain} />
+				<NavMain items={sidebarData} />
 			</SidebarContent>
 		</Sidebar>
 	);

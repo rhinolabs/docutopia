@@ -83,7 +83,13 @@ export function NavMain({
 										</>
 									) : (
 										<SidebarMenuButton asChild>
-											<Link to={request.url} className="[&.active]:font-bold">
+											<Link
+												to={`/docs/${request.url}`}
+												mask={{
+													to: `/docs#${request.url}`,
+												}}
+												className="[&.active]:font-bold"
+											>
 												<span>{request.name}</span>
 											</Link>
 										</SidebarMenuButton>

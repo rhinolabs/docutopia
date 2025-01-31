@@ -9,8 +9,12 @@ export const mockOpenApiDoc: OpenApiDocument = {
 	},
 	servers: [
 		{
-			url: "https://api.hyphen.ai/api/",
+			url: "https://api.hyphen.ai/api",
 		},
+	],
+	tags: [
+		{ name: "API Keys", description: "Operations for API key management" },
+		{ name: "Access", description: "Access control operations" },
 	],
 	paths: {
 		"/organizations/{organizationId}/access": {
@@ -84,6 +88,53 @@ export const mockOpenApiDoc: OpenApiDocument = {
 							},
 						},
 						description: "The assignment Ids.",
+					},
+				],
+				responses: {
+					"200": {
+						description:
+							"Successfully got a list of access for an organization",
+						content: {},
+					},
+					"401": {
+						description: "Unauthorized",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+					"404": {
+						description: "Not Found",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+					"500": {
+						description: "Internal Server Error",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+				},
+			},
+			post: {
+				summary: "Create access for an organization",
+				tags: ["Access"],
+				parameters: [
+					{
+						name: "organizationId",
+						in: "path",
+						required: true,
+						schema: {
+							type: "string",
+							pattern: "^org_[a-fA-F0-9]{24}$",
+						},
+						description: "The ID of the organization.",
 					},
 				],
 				requestBody: {

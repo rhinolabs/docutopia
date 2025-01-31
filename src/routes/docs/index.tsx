@@ -9,10 +9,10 @@ function RouteComponent() {
 		<div>
 			<Link
 				to="$api_url"
-				params={{ api_url: "get-access-list-for-organization" }}
+				params={{ api_url: "get-a-list-of-access-for-an-organization" }}
 				mask={{
-					to: "/docs#get-access-list-for-organization",
-					params: { api_url: "get-access-list-for-organization" },
+					to: "/docs#get-a-list-of-access-for-an-organization",
+					params: { api_url: "get-a-list-of-access-for-an-organization" },
 				}}
 			>
 				Api URL Test

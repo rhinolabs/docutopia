@@ -6,49 +6,79 @@ import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
 import { ResponseTypes } from "@/components/api-docs/api-response";
 import type {
-	OpenApiDocument,
-	OperationObject,
+	ApiLoaderData,
+	EnhancedOperation,
 	ResponseEntry,
 } from "@/types/api/openapi";
 import { classifyParameters, getBodyParams } from "@/utils/api-helpers";
 import { useMemo } from "react";
+import { slugifyOperation } from "@/utils/slugify-operation";
 
-async function loadApiData(): Promise<{ data: OpenApiDocument }> {
-	const data = mockOpenApiDoc;
-	if (!data) {
-		throw new Error("API not found");
+async function loadApiData({
+	params,
+}: { params: { api_url: string } }): Promise<ApiLoaderData> {
+	let foundOperation: EnhancedOperation | undefined;
+
+	Object.entries(mockOpenApiDoc.paths).forEach(([path, pathItem]) => {
+		Object.entries(pathItem).forEach(([method, operation]) => {
+			if (!operation) return;
+
+			const slug = slugifyOperation(
+				operation.summary || `${method.toUpperCase()} ${path}`,
+			);
+
+			if (slug === params.api_url) {
+				foundOperation = {
+					...operation,
+					path,
+					method: method.toUpperCase(),
+				};
+			}
+		});
+	});
+
+	if (!foundOperation) {
+		throw new Error(`API operation "${params.api_url}" not found`);
 	}
-	return { data };
+
+	return {
+		doc: mockOpenApiDoc,
+		operation: foundOperation,
+	};
 }
 
 function ErrorBoundary({ error }: { error: Error }) {
 	return (
-		<div className="error">
-			<h1 className="text-red-500">Error</h1>
-			<p>{error.message}</p>
-			<Button onClick={() => window.location.reload()}>Reload</Button>
+		<div className="p-8 text-center">
+			<h1 className="text-2xl font-bold text-red-600 mb-4">
+				Documentation Error
+			</h1>
+			<p className="text-muted-foreground mb-6">{error.message}</p>
+			<Button variant="outline" onClick={() => window.location.reload()}>
+				Reload Documentation
+			</Button>
 		</div>
 	);
 }
 
 function RouteComponent() {
-	const { data: doc } = useLoaderData({ from: "/docs/$api_url" });
-
-	const operation: OperationObject | undefined =
-		doc.paths["/organizations/{organizationId}/access"]?.get;
+	const { doc, operation } = useLoaderData({
+		from: "/docs/$api_url",
+	}) as ApiLoaderData;
 
 	if (!operation) {
 		return (
-			<div className="error-message">
-				<h1 className="text-xl font-semibold">Operation Not Found</h1>
-				<p>The requested API operation could not be found.</p>
+			<div className="p-8 text-center">
+				<h1 className="text-2xl font-bold mb-4">Operation Not Found</h1>
+				<p className="text-muted-foreground">
+					The requested API documentation could not be found.
+				</p>
 			</div>
 		);
 	}
 
-	// This will change after integrating the dynamic navigation
-	const endpoint = `${doc.servers?.[0].url}/organizations/{organizationId}/access`;
-	const requestType = "GET";
+	const endpoint = `${doc.servers?.[0].url}${operation.path}`;
+	const requestType = operation.method;
 
 	const { pathParams, queryParams } = useMemo(() => {
 		return classifyParameters(operation.parameters ?? []);
@@ -63,14 +93,27 @@ function RouteComponent() {
 
 	const responseEntries: ResponseEntry[] = Object.entries(
 		operation.responses,
-	).map(([status, resp]) => ({
-		status,
-		description: resp.description,
-		content: resp.content,
-	}));
+	).map(([status, response]) => {
+		if ("$ref" in response) {
+			return {
+				status,
+				description: "Reference response",
+				content: {},
+				$ref: response.$ref,
+			};
+		}
+
+		return {
+			status,
+			description: response.description,
+			content: response.content || {},
+		};
+	});
+
+	const {api_url} = Route.useParams();
 
 	return (
-		<div className="container py-8">
+		<div key={api_url} className="container py-8">
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<div className="lg:col-span-2">
 					<div className="head">
@@ -111,6 +154,9 @@ function RouteComponent() {
 
 export const Route = createFileRoute("/docs/$api_url")({
 	component: RouteComponent,
-	loader: loadApiData,
+	loader: async ({ params }) => {
+		const typedParams = params as { api_url: string };
+		return loadApiData({ params: typedParams });
+	},
 	errorComponent: ErrorBoundary,
 });
