@@ -1,18 +1,24 @@
-import type { Field } from "@/types/components/field-types";
 import { DynamicFields } from "../dynamic-fields";
+import type { SchemaObject } from "@/types/api/openapi";
 
-export const ArrayField: React.FC<{ field: Field }> = ({ field }) => {
-	if ("items" in field) {
-		if (field.items.type === "string") {
-			const options = field.items.options ?? [];
-			const hasOptions = options.length > 0;
+interface ArrayFieldProps {
+	field: SchemaObject;
+}
 
-			return (
-				<div className="col-span-4">
-					<DynamicFields hasOptions={hasOptions} options={options} />
-				</div>
-			);
-		}
+export const ArrayField: React.FC<ArrayFieldProps> = ({ field }) => {
+	if (field.items?.type === "string") {
+		const options = (field.items.enum ?? []).map(String) as string[];
+		const hasOptions = options.length > 0;
+
+		return (
+			<div className="col-span-4">
+				<DynamicFields hasOptions={hasOptions} options={options} />
+			</div>
+		);
 	}
+
+	console.warn(
+		"ArrayField: Unsupported field type or missing 'items' property.",
+	);
 	return null;
 };

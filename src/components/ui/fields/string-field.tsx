@@ -1,4 +1,4 @@
-import type { Field } from "@/types/components/field-types";
+import type { SchemaObject } from "@/types/api/openapi";
 import {
 	Input,
 	Select,
@@ -9,30 +9,42 @@ import {
 	SelectValue,
 } from "@rhino-ui/ui";
 
-export const StringField: React.FC<{ field: Field }> = ({ field }) => {
-	return field.options &&
-		Array.isArray(field.options) &&
-		field.options.length > 0 ? (
-		<Select>
-			<SelectTrigger className="m-auto">
-				<SelectValue placeholder="Select" />
-			</SelectTrigger>
-			<SelectContent>
-				<SelectGroup>
-					{field.options.map((option) => (
-						<SelectItem
-							key={`select-item-${option.replace(" ", "-")}`}
-							value={option}
-						>
-							{option}
-						</SelectItem>
-					))}
-				</SelectGroup>
-			</SelectContent>
-		</Select>
-	) : (
+interface StringFieldProps {
+	field: SchemaObject;
+	name: string;
+}
+
+const isEnumField = (field: SchemaObject): boolean =>
+	Array.isArray(field.enum) && field.enum.length > 0;
+
+export const StringField: React.FC<StringFieldProps> = ({ field, name }) => {
+	if (isEnumField(field)) {
+		return (
+			<Select>
+				<SelectTrigger className="m-auto">
+					<SelectValue placeholder="Select" />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						{field.enum?.map((option) => {
+							const optionStr = String(option);
+							const key = `select-item-${optionStr.replace(" ", "-")}`;
+
+							return (
+								<SelectItem key={key} value={optionStr}>
+									{option}
+								</SelectItem>
+							);
+						})}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
+		);
+	}
+
+	return (
 		<Input
-			id={`pathParam${field.name}`}
+			id={`pathParam${name}`}
 			className="border bg-white m-auto"
 			type="text"
 			minLength={field.minLength}

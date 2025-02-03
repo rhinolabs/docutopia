@@ -2,8 +2,8 @@
 
 import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
-import { getRequestTypeClass } from "@/utils/request-type";
-import type { SidebarCollection } from "@/types/sidebar";
+import { getRequestTypeClass } from "@/utils/api/request-type";
+import type { SidebarCollection } from "@/types/components/sidebar";
 
 import {
 	Badge,
@@ -83,7 +83,13 @@ export function NavMain({
 										</>
 									) : (
 										<SidebarMenuButton asChild>
-											<Link to={request.url} className="[&.active]:font-bold">
+											<Link
+												to={`/docs/${request.url}`}
+												mask={{
+													to: `/docs#${request.url}`,
+												}}
+												className="[&.active]:font-bold"
+											>
 												<span>{request.name}</span>
 											</Link>
 										</SidebarMenuButton>

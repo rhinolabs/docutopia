@@ -1,164 +1,253 @@
-export const mockApiData = {
-	id: 1,
-	name: "Get a list of access for an organization",
-	shortName: "list for organization",
-	groupName: "Access",
-	requestType: "GET",
-	url: "https://api.hyphen.ai/api/organizations/{organizationId}/access/",
-	pathParams: [
+import type { OpenApiDocument } from "@/types/api/openapi";
+
+export const mockOpenApiDoc: OpenApiDocument = {
+	openapi: "3.0.0",
+	info: {
+		title: "Docutopia API",
+		version: "1.0.0",
+		description: "API mock for documentation purposes",
+	},
+	servers: [
 		{
-			name: "organizationId",
-			type: "string",
-			description: "The ID of the organization.",
-			required: true,
-			minLength: 1,
-			pattern: "^org_[a-fA-F0-9]{24}$",
-		},
-		{
-			name: "accessId",
-			type: "string",
-			description: "The access Id.",
-			required: true,
-			minLength: 1,
-			pattern: "^org_[a-fA-F0-9]{24}$",
+			url: "https://api.hyphen.ai/api",
 		},
 	],
-	queryParams: [
-		{
-			name: "pageNum",
-			type: "integer",
-			description: "The page number.",
-			required: false,
-			minimum: 1,
-			defaultValue: 1,
-		},
-		{
-			name: "pageSize",
-			type: "integer",
-			description: "The page size.",
-			required: false,
-			minimum: 5,
-			maximum: 200,
-			defaultValue: 50,
-		},
-		{
-			name: "entityIds",
-			type: "array",
-			description: "The entity Ids.",
-			required: false,
-			items: {
-				type: "string",
-			},
-		},
-		{
-			name: "assignmentIds",
-			type: "array",
-			description: "The assignment Ids.",
-			required: true,
-			items: {
-				type: "string",
-			},
-		},
+	tags: [
+		{ name: "API Keys", description: "Operations for API key management" },
+		{ name: "Access", description: "Access control operations" },
 	],
-	bodyParams: [
-		{
-			name: "entity",
-			type: "object",
-			required: true,
-			properties: [
-				{
-					name: "type",
-					type: "string",
-					required: true,
-					description: "The entity type.",
-					options: ["Organization", "LinkCode", "Project", "Team"],
-				},
-				{
-					name: "id",
-					type: "string",
-					required: true,
-					description: "The entity id.",
-				},
-			],
-		},
-		{
-			name: "roles",
-			type: "array",
-			required: true,
-			description: "The assigned roles.",
-			items: {
-				type: "string",
-				description: "The role assigned to the entity.",
-				options: [
-					"OrganizationAdmin",
-					"OrganizationMember",
-					"TeamOwner",
-					"TeamMember",
-					"ProjectOwner",
-					"ProjectCollaborator",
-					"ProjectViewer",
-					"LinkCodeOwner",
+	paths: {
+		"/organizations/{organizationId}/access": {
+			get: {
+				summary: "Get a list of access for an organization",
+				tags: ["Access"],
+				parameters: [
+					{
+						name: "organizationId",
+						in: "path",
+						required: true,
+						schema: {
+							type: "string",
+							pattern: "^org_[a-fA-F0-9]{24}$",
+						},
+						description: "The ID of the organization.",
+					},
+					{
+						name: "pageNum",
+						in: "query",
+						required: false,
+						schema: {
+							type: "integer",
+							minimum: 1,
+							default: 1,
+						},
+						description: "The page number.",
+					},
+					{
+						in: "query",
+						name: "pageSize",
+						required: false,
+						schema: {
+							type: "integer",
+							minimum: 5,
+							maximum: 200,
+							default: 50,
+						},
+						description: "The page size.",
+					},
+					{
+						in: "query",
+						name: "entityIds",
+						required: false,
+						schema: {
+							type: "array",
+							items: {
+								type: "string",
+							},
+						},
+						description: "The entity Ids.",
+					},
+					{
+						in: "query",
+						name: "assignmentIds",
+						required: true,
+						schema: {
+							type: "array",
+							items: {
+								type: "string",
+								enum: [
+									"OrganizationAdmin",
+									"OrganizationMember",
+									"TeamOwner",
+									"TeamMember",
+									"ProjectOwner",
+									"ProjectCollaborator",
+									"ProjectViewer",
+									"LinkCodeOwner",
+								],
+							},
+						},
+						description: "The assignment Ids.",
+					},
 				],
-			},
-		},
-		{
-			name: "assignment",
-			type: "object",
-			required: true,
-			properties: [
-				{
-					name: "type",
-					type: "string",
-					required: true,
-					description: "The entity type.",
-					options: ["Organization", "LinkCode", "Project", "Team"],
+				responses: {
+					"200": {
+						description:
+							"Successfully got a list of access for an organization",
+						content: {},
+					},
+					"401": {
+						description: "Unauthorized",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+					"404": {
+						description: "Not Found",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+					"500": {
+						description: "Internal Server Error",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
 				},
-				{
-					name: "id",
-					type: "string",
+			},
+			post: {
+				summary: "Create access for an organization",
+				tags: ["Access"],
+				parameters: [
+					{
+						name: "organizationId",
+						in: "path",
+						required: true,
+						schema: {
+							type: "string",
+							pattern: "^org_[a-fA-F0-9]{24}$",
+						},
+						description: "The ID of the organization.",
+					},
+				],
+				requestBody: {
 					required: true,
-					description: "The entity id.",
-					pattern: "^org_[a-fA-F0-9]{24}$",
+					content: {
+						"application/json": {
+							schema: {
+								type: "object",
+								properties: {
+									entity: {
+										type: "object",
+										properties: {
+											type: {
+												type: "string",
+												description: "The entity type.",
+												enum: ["Organization", "LinkCode", "Project", "Team"],
+											},
+											id: {
+												type: "string",
+												description: "The entity id.",
+											},
+										},
+										required: ["type", "id"],
+									},
+									roles: {
+										type: "array",
+										description: "The assigned roles.",
+										items: {
+											type: "string",
+											description: "The role assigned to the entity.",
+											enum: [
+												"OrganizationAdmin",
+												"OrganizationMember",
+												"TeamOwner",
+												"TeamMember",
+												"ProjectOwner",
+												"ProjectCollaborator",
+												"ProjectViewer",
+												"LinkCodeOwner",
+											],
+										},
+									},
+									assignment: {
+										type: "object",
+										properties: {
+											type: {
+												type: "string",
+												description: "The entity type.",
+												enum: ["Organization", "LinkCode", "Project", "Team"],
+											},
+											id: {
+												type: "string",
+												description: "The entity id.",
+												pattern: "^org_[a-fA-F0-9]{24}$",
+											},
+										},
+										required: ["type", "id"],
+									},
+								},
+								required: ["entity", "roles"],
+							},
+						},
+					},
 				},
-			],
-		},
-	],
-	response: [
-		{
-			status: 200,
-			name: "success",
-			message: "Succesfully got a list of access for an organization",
-			success: true,
-		},
-		{
-			status: 401,
-			type: "error",
-			message: "Unauthorized",
-			success: false,
-			schema: {
-				message: { type: "string", required: true },
-				requestId: { type: "string", required: true },
-				errorCode: { type: "string", required: true },
-				errors: { type: "array", items: { type: "string" }, required: false },
+				responses: {
+					"200": {
+						description:
+							"Successfully got a list of access for an organization",
+						content: {},
+					},
+					"401": {
+						description: "Unauthorized",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+					"404": {
+						description: "Not Found",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+					"500": {
+						description: "Internal Server Error",
+						content: {
+							"application/json": {
+								schema: { $ref: "#/components/schemas/DefaultErrorSchema" },
+							},
+						},
+					},
+				},
 			},
 		},
-		{
-			status: 404,
-			type: "error",
-			message: "Not Found",
-			success: false,
-			schema: {
-				message: { type: "string", required: true },
-				requestId: { type: "string", required: true },
-				errorCode: { type: "string", required: true },
-				errors: { type: "array", items: { type: "string" }, required: false },
+	},
+	components: {
+		schemas: {
+			DefaultErrorSchema: {
+				type: "object",
+				required: ["message", "requestId", "errorCode"],
+				properties: {
+					message: { type: "string" },
+					requestId: { type: "string" },
+					errorCode: { type: "string" },
+					errors: {
+						type: "array",
+						items: { type: "string" },
+					},
+				},
 			},
 		},
-		{
-			status: 500,
-			type: "error",
-			message: "Internal Server Error",
-			success: false,
-		},
-	],
+	},
 };
