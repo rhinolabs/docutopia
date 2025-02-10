@@ -70,7 +70,7 @@ export function NavMain({
 																>
 																	<span>{subItem.name}</span>
 																	<Badge
-																		className={`${getRequestTypeClass(subItem.requestType)} text-[10px] rounded-md h-[17px] px-3`}
+																		className={`${getRequestTypeClass(subItem.requestType)} text-[10px] h-[17px] px-3`}
 																	>
 																		{subItem.requestType}
 																	</Badge>
