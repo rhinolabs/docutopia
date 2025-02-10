@@ -136,13 +136,15 @@ function RouteComponent() {
 	const { api_url } = Route.useParams();
 
 	return (
-		<div key={api_url} className="container py-8">
+		<div key={api_url} className="container px-6 py-8">
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<div className="lg:col-span-2">
 					<div className="head">
 						<h1 className="text-2xl font-semibold mb-2">{operation.summary}</h1>
-						<div className="text-sm text-muted-foreground overflow-x-scroll">
-							<Badge className="mr-3 font-normal">{requestType}</Badge>
+						<div className="text-sm text-muted-foreground flex items-center overflow-x-scroll">
+							<Badge className="mr-3 font-normal py-1 px-3">
+								{requestType}
+							</Badge>
 							{endpoint}
 						</div>
 					</div>
