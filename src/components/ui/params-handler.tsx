@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@rhino-ui/ui";
+import { Card, CardContent, Separator } from "@rhino-ui/ui";
 import { ParamField } from "@/components/ui/fields/param-field";
 import type { ParameterObject } from "@/types/api/openapi";
 import React from "react";
@@ -17,7 +17,7 @@ export const Params: React.FC<ParamsProps> = ({ params, title }) => {
 					{params.map((param, index) => (
 						<React.Fragment key={param.name}>
 							<ParamField field={param} />
-							{index < params.length - 1 && <hr />}
+							{index < params.length - 1 && <Separator />}
 						</React.Fragment>
 					))}
 				</CardContent>

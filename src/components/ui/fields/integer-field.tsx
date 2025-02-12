@@ -4,9 +4,18 @@ import { Input } from "@rhino-ui/ui";
 interface IntegerFieldProps {
 	field: SchemaObject;
 	name: string;
+	readOnly?: boolean;
 }
 
-export const IntegerField: React.FC<IntegerFieldProps> = ({ field, name }) => {
+export const IntegerField: React.FC<IntegerFieldProps> = ({
+	field,
+	name,
+	readOnly = false,
+}) => {
+	if (readOnly) {
+		return;
+	}
+
 	return (
 		<div className="col-span-1 m-auto w-full">
 			<Input

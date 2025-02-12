@@ -3,6 +3,7 @@ import {
 	Collapsible,
 	CollapsibleContent,
 	CollapsibleTrigger,
+	Separator,
 } from "@rhino-ui/ui";
 import { Plus } from "lucide-react";
 import { useState } from "react";
@@ -14,6 +15,7 @@ interface ObjectFieldProps {
 	field: SchemaObject;
 	name: string;
 	defaultOpen?: boolean;
+	readOnly?: boolean;
 }
 
 const isObjectField = (field: SchemaObject): boolean =>
@@ -23,6 +25,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 	field,
 	name,
 	defaultOpen = false,
+	readOnly = false,
 }) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -61,7 +64,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 				<CollapsibleContent>
 					{propertyEntries.map(([propName, subSchema]) => (
 						<React.Fragment key={propName}>
-							<hr />
+							<Separator />
 							<ParamField
 								field={{
 									name: propName,
@@ -70,6 +73,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 									schema: subSchema,
 									description: subSchema.description,
 								}}
+								readOnly={readOnly}
 							/>
 						</React.Fragment>
 					))}

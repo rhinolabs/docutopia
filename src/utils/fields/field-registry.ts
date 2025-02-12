@@ -5,7 +5,11 @@ import { ArrayField } from "@/components/ui/fields/array-field";
 import { ObjectField } from "@/components/ui/fields/object-field";
 import type { SchemaObject } from "@/types/api/openapi";
 
-type FieldComponent = React.FC<{ field: SchemaObject; name: string }>;
+type FieldComponent = React.FC<{
+	field: SchemaObject;
+	name: string;
+	readOnly?: boolean;
+}>;
 
 const fieldRegistry: Record<string, FieldComponent> = {};
 
