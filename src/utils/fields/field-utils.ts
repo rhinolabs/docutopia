@@ -12,11 +12,11 @@ export function getFieldType(field: ParameterObject): string {
 				field.schema.items &&
 				field.schema.items.type
 			) {
-				return `array of ${field.schema.items.type} []`;
+				return `array of ${field.schema.items.type} [ ]`;
 			}
-			return "array []";
+			return "array [ ]";
 		case "object":
-			return "object {}";
+			return "object { }";
 		default:
 			return field.schema?.type || "Undefined Type";
 	}
