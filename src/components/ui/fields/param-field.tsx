@@ -28,7 +28,7 @@ export const ParamField: React.FC<ParamFieldProps> = ({
 }) => {
 	return (
 		<div className="grid grid-cols-4 gap-4 py-4 px-6">
-			<div className="col-span-3">
+			<div className="col-span-4 lg:col-span-3">
 				<FieldMetadata field={field} />
 
 				{field.description && (

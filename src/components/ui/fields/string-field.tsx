@@ -49,36 +49,40 @@ export const StringField: React.FC<StringFieldProps> = ({
 		}
 
 		return (
-			<Select>
-				<SelectTrigger className="m-auto">
-					<SelectValue placeholder="Select" />
-				</SelectTrigger>
-				<SelectContent>
-					<SelectGroup>
-						{field.enum?.map((option) => {
-							const optionStr = String(option);
-							const key = `select-item-${optionStr.replace(" ", "-")}`;
+			<div className="col-span-4 lg:col-span-1">
+				<Select>
+					<SelectTrigger className="m-auto">
+						<SelectValue placeholder="Select" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectGroup>
+							{field.enum?.map((option) => {
+								const optionStr = String(option);
+								const key = `select-item-${optionStr.replace(" ", "-")}`;
 
-							return (
-								<SelectItem key={key} value={optionStr}>
-									{option}
-								</SelectItem>
-							);
-						})}
-					</SelectGroup>
-				</SelectContent>
-			</Select>
+								return (
+									<SelectItem key={key} value={optionStr}>
+										{option}
+									</SelectItem>
+								);
+							})}
+						</SelectGroup>
+					</SelectContent>
+				</Select>
+			</div>
 		);
 	}
 
 	return (
-		<Input
-			id={`pathParam${name}`}
-			className="border bg-white m-auto"
-			type="text"
-			minLength={field.minLength}
-			maxLength={field.maxLength}
-			pattern={field.pattern}
-		/>
+		<div className="col-span-4 lg:col-span-1">
+			<Input
+				id={`pathParam${name}`}
+				className="border bg-white m-auto"
+				type="text"
+				minLength={field.minLength}
+				maxLength={field.maxLength}
+				pattern={field.pattern}
+			/>
+		</div>
 	);
 };

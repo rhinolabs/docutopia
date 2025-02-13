@@ -1,6 +1,6 @@
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
 import { mockOpenApiDoc } from "@/mocks/api-data";
-import { Badge, Button } from "@rhino-ui/ui";
+import { Badge, Button, Separator, SidebarTrigger } from "@rhino-ui/ui";
 import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
@@ -13,7 +13,6 @@ import type {
 import { classifyParameters, getBodyParams } from "@/utils/api/api-helpers";
 import { useMemo } from "react";
 import { slugifyOperation } from "@/utils/slugify-operation";
-import type { LoaderArgs } from "@/types/api/loader";
 
 /**
  * Loads API data based on the provided parameters.
@@ -140,8 +139,10 @@ function RouteComponent() {
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<div className="lg:col-span-2">
 					<div className="head">
-						<h1 className="text-2xl font-semibold mb-2">{operation.summary}</h1>
-						<div className="text-sm text-muted-foreground flex items-center overflow-x-scroll">
+						<SidebarTrigger className="pb-4" />
+						<Separator />
+						<h1 className="text-2xl font-semibold my-3">{operation.summary}</h1>
+						<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
 							<Badge className="mr-3 font-normal py-1 px-3">
 								{requestType}
 							</Badge>
@@ -177,12 +178,11 @@ function RouteComponent() {
 	);
 }
 
-export const Route = createFileRoute<LoaderArgs, ApiLoaderData>(
-	"/docs/$api_url",
-)({
+export const Route = createFileRoute("/docs/$api_url")({
 	component: RouteComponent,
-	loader: async ({ params }: LoaderArgs) => {
-		return loadApiData({ params });
+	loader: async ({ params }) => {
+		const typedParams = params as { api_url: string };
+		return loadApiData({ params: typedParams });
 	},
 	errorComponent: ErrorBoundary,
 });

@@ -12,7 +12,7 @@ export function getFieldType(field: ParameterObject): string {
 				field.schema.items &&
 				field.schema.items.type
 			) {
-				return `array of ${field.schema.items.type} [ ]`;
+				return `array of ${field.schema.items.type} []`;
 			}
 			return "array [ ]";
 		case "object":

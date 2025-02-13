@@ -17,7 +17,7 @@ export const IntegerField: React.FC<IntegerFieldProps> = ({
 	}
 
 	return (
-		<div className="col-span-1 m-auto w-full">
+		<div className="col-span-4 lg:col-span-1 m-auto w-full">
 			<Input
 				id={`pathParam${name}`}
 				className="border bg-white"
