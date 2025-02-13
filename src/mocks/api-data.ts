@@ -293,6 +293,11 @@ export const mockOpenApiDoc: OpenApiDocument = {
 								},
 								required: ["entity", "roles"],
 							},
+							examples: {
+								"option 1": {
+									description: "this is a test",
+								},
+							},
 						},
 					},
 				},
@@ -308,6 +313,102 @@ export const mockOpenApiDoc: OpenApiDocument = {
 								},
 								examples: {
 									"option 1": {
+										description: "This is a description",
+										type: "object",
+										required: ["entity", "id"],
+										properties: {
+											entity: {
+												type: "object",
+												properties: {
+													type: {
+														type: "string",
+														description: "The entity type.",
+														enum: [
+															"Organization",
+															"LinkCode",
+															"Project",
+															"Team",
+														],
+													},
+													id: {
+														type: "integer",
+														description: "The entity id.",
+													},
+													name: {
+														type: "string",
+														description: "The entity name.",
+													},
+												},
+												required: ["type", "id", "name"],
+											},
+											id: {
+												type: "integer",
+												description: "The access Id.",
+											},
+											type: {
+												type: "string",
+												description: "The type of access.",
+												enum: ["Type 1", "Type 2"],
+											},
+											test: {
+												type: "array",
+												description: "This is a test.",
+												items: {
+													type: "string",
+													enum: ["test 1", "test 2", "test 3"],
+												},
+											},
+										},
+									},
+									"option 2": {
+										description: "This is a description",
+										type: "object",
+										required: ["entity", "id"],
+										properties: {
+											entity: {
+												type: "object",
+												properties: {
+													type: {
+														type: "string",
+														description: "The entity type.",
+														enum: [
+															"Organization",
+															"LinkCode",
+															"Project",
+															"Team",
+														],
+													},
+													id: {
+														type: "integer",
+														description: "The entity id.",
+													},
+													name: {
+														type: "string",
+														description: "The entity name.",
+													},
+												},
+												required: ["type", "id", "name"],
+											},
+											id: {
+												type: "integer",
+												description: "The access Id.",
+											},
+											type: {
+												type: "string",
+												description: "The type of access.",
+												enum: ["Type 1", "Type 2"],
+											},
+											test: {
+												type: "array",
+												description: "This is a test.",
+												items: {
+													type: "string",
+													enum: ["test 1", "test 2", "test 3"],
+												},
+											},
+										},
+									},
+									"option 3": {
 										description: "This is a description",
 										type: "object",
 										required: ["entity", "id"],
