@@ -35,7 +35,7 @@ export const ParamField: React.FC<ParamFieldProps> = ({
 					<p className="text-sm font-medium mt-2">{field.description}</p>
 				)}
 			</div>
-			{!readOnly && <RenderField field={field} />}
+			<RenderField field={field} readOnly={readOnly} />
 		</div>
 	);
 };

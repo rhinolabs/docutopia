@@ -22,4 +22,5 @@ export interface ReferenceObject {
 
 export interface MediaTypeObject {
 	schema?: SchemaOrRef;
+	examples?: Record<string, SchemaOrRef>;
 }

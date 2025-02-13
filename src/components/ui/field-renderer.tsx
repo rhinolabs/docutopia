@@ -3,16 +3,15 @@ import { getFieldComponent } from "@/utils/fields/field-registry";
 import type { ParameterObject } from "@/types/api/openapi";
 import UnsupportedField from "./fields/unsupported-field";
 
-export const RenderField: React.FC<{ field: ParameterObject }> = ({
+interface RenderFieldProps {
+	field: ParameterObject;
+	readOnly?: boolean;
+}
+
+export const RenderField: React.FC<RenderFieldProps> = ({
 	field,
+	readOnly = false,
 }) => {
-	const FieldComponent = getFieldComponent(field.schema?.type || "");
-
-	if (!FieldComponent) {
-		console.warn(`Unsupported field type: ${field.schema?.type}`);
-		return <UnsupportedField type={field.schema?.type || "unknown"} />;
-	}
-
 	if (!field.schema) {
 		console.warn(`Missing schema for field: ${field.name}`);
 		return (
@@ -22,5 +21,18 @@ export const RenderField: React.FC<{ field: ParameterObject }> = ({
 		);
 	}
 
-	return <FieldComponent field={field.schema} name={field.name} />;
+	const FieldComponent = getFieldComponent(field.schema?.type || "");
+
+	if (!FieldComponent) {
+		console.warn(`Unsupported field type: ${field.schema?.type}`);
+		return <UnsupportedField type={field.schema?.type || "unknown"} />;
+	}
+
+	return (
+		<FieldComponent
+			field={field.schema}
+			name={field.name}
+			readOnly={readOnly}
+		/>
+	);
 };

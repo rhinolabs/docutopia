@@ -1,7 +1,7 @@
 import type {
-	MediaTypeObject,
 	OpenApiDocument,
 	ResponseEntry,
+	SchemaObject,
 } from "@/types/api/openapi";
 import {
 	Collapsible,
@@ -13,7 +13,10 @@ import {
 } from "@rhino-ui/ui";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { memo } from "react";
-import { MediaTypeContent } from "./media-type-content";
+import {
+	MediaTypeContent,
+	MediaTypeExamplesContent,
+} from "./media-type-content";
 
 interface ResponseCardProps {
 	response: ResponseEntry;
@@ -24,8 +27,43 @@ interface ResponseCardProps {
 	success: boolean;
 }
 
+const renderMediaContent = (
+	content: ResponseEntry["content"],
+	doc: OpenApiDocument,
+) => {
+	if (!content || Object.keys(content).length === 0) {
+		return (
+			<div className="px-4 py-6">
+				<p className="text-sm text-muted-foreground">No content available.</p>
+			</div>
+		);
+	}
+
+	return Object.entries(content).map(([mediaType, mediaObject]) =>
+		mediaObject.examples ? (
+			<MediaTypeExamplesContent
+				key={`${mediaType}`}
+				mediaType={mediaType}
+				mediaObject={mediaObject as { examples: Record<string, SchemaObject> }}
+				doc={doc}
+			/>
+		) : (
+			<MediaTypeContent
+				key={`${mediaType}`}
+				mediaType={mediaType}
+				mediaObject={mediaObject}
+				doc={doc}
+			/>
+		),
+	);
+};
+
 export const ResponseCard: React.FC<ResponseCardProps> = memo(
 	({ response, index, openIndex, handleToggle, doc, success }) => {
+		const cardClasses = success
+			? "shadow-none rounded-lg mt-2"
+			: "bg-primary-foreground border shadow-none rounded-lg mt-2";
+
 		return (
 			<Collapsible
 				open={openIndex === index}
@@ -69,31 +107,11 @@ export const ResponseCard: React.FC<ResponseCardProps> = memo(
 						<h4 className="text-sm font-medium text-muted-foreground">
 							RESPONSE BODY
 						</h4>
-						{!success && (
-							<Card className="bg-primary-foreground border shadow-none rounded-lg mt-2">
-								<CardContent className="p-0">
-									{response.content &&
-									Object.keys(response.content).length > 0 ? (
-										Object.entries(response.content).map(
-											([mediaType, mediaObject]: [string, MediaTypeObject]) => (
-												<MediaTypeContent
-													key={`${response.status}-${mediaType}`}
-													mediaType={mediaType}
-													mediaObject={mediaObject}
-													doc={doc}
-												/>
-											),
-										)
-									) : (
-										<div className="px-4 py-6">
-											<p className="text-sm text-muted-foreground">
-												No content available.
-											</p>
-										</div>
-									)}
-								</CardContent>
-							</Card>
-						)}
+						<Card className={cardClasses}>
+							<CardContent className="p-0">
+								{renderMediaContent(response.content, doc)}
+							</CardContent>
+						</Card>
 					</div>
 				</CollapsibleContent>
 			</Collapsible>
