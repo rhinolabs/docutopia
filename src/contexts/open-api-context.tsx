@@ -8,8 +8,12 @@ import {
 	useState,
 } from "react";
 
-import openapiData from "@/mocks/openapi.yaml";
 import type { OpenApiDocument } from "@/types/api/openapi";
+
+interface OpenApiProviderProps {
+	specPath: string;
+	children: ReactNode;
+}
 
 export interface OpenApiData {
 	doc: OpenApiDocument;
@@ -18,15 +22,26 @@ export interface OpenApiData {
 
 const OpenApiContext = createContext<OpenApiData | null>(null);
 
-export const OpenApiProvider = ({ children }: { children: ReactNode }) => {
+export const OpenApiProvider = ({
+	specPath,
+	children,
+}: OpenApiProviderProps) => {
 	const [data, setData] = useState<OpenApiData | null>(null);
 
 	useEffect(() => {
 		async function loadData() {
 			try {
-				const sidebar = await transformOpenApiToSidebar(openapiData);
+				const res = await fetch(specPath);
+
+				if (!res.ok) {
+					throw new Error(`Unable to fetch spec from ${specPath}`);
+				}
+
+				const oaData = await res.json();
+
+				const sidebar = await transformOpenApiToSidebar(oaData);
 				setData({
-					doc: openapiData as OpenApiDocument,
+					doc: oaData,
 					sidebar,
 				});
 			} catch (error) {
@@ -34,7 +49,7 @@ export const OpenApiProvider = ({ children }: { children: ReactNode }) => {
 			}
 		}
 		loadData();
-	}, []);
+	}, [specPath]);
 
 	if (!data) {
 		return <div>Loading Documentation...</div>;

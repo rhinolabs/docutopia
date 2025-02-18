@@ -1,15 +1,16 @@
 {
-	"name": "rsbuild-react-ts",
+	"name": "docutopia",
 	"private": true,
 	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
+		"predev": "pnpm run generate-spec",
 		"dev": "rsbuild dev --open",
 		"build": "rsbuild build",
 		"preview": "rsbuild preview",
 		"lint": "biome format && biome lint",
 		"lint:fix": "biome format --write && biome lint --fix",
-		"load-spec": "tsx src/scripts/loadSpec.ts"
+		"generate-spec": "tsx src/cli/cli.ts generate --spec ./src/mocks/openapi.yaml"
 	},
 	"dependencies": {
 		"@rhino-ui/ui": "{file}",
@@ -33,6 +34,7 @@
 		"@types/node": "^22.10.3",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
+		"commander": "^13.1.0",
 		"js-yaml": "^4.1.0",
 		"postcss": "^8.4.49",
 		"tailwind-merge": "^3.0.1",
