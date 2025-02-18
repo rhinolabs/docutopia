@@ -1,7 +1,6 @@
 "use client";
 
 import type * as React from "react";
-
 import { CommandIcon } from "lucide-react";
 
 import { NavMain } from "./nav-main";
@@ -15,12 +14,11 @@ import {
 	SidebarRail,
 } from "@rhino-ui/ui";
 
-import { mockOpenApiDoc } from "@/mocks/api-data";
-import { transformOpenApiToSidebar } from "@/utils/api/openapi-adapter";
 import { SearchBar } from "../search-bar/search-bar";
+import { useOpenApi } from "@/contexts/open-api-context";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const sidebarData = transformOpenApiToSidebar(mockOpenApiDoc);
+	const { sidebar } = useOpenApi();
 
 	return (
 		<Sidebar {...props}>
@@ -40,13 +38,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 					<SidebarMenuItem>
-						<SearchBar navItems={sidebarData} />
+						<SearchBar navItems={sidebar} />
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>
-
 			<SidebarContent>
-				<NavMain items={sidebarData} />
+				<NavMain items={sidebar} />
 			</SidebarContent>
 			<SidebarRail />
 		</Sidebar>

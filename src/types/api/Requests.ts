@@ -1,13 +1,13 @@
 export const REQUEST_TYPES = [
-	"GET",
-	"POST",
-	"PUT",
-	"DELETE",
-	"PATCH",
-	"HEAD",
-	"OPTIONS",
-	"CONNECT",
-	"TRACE",
+	"get",
+	"post",
+	"put",
+	"delete",
+	"patch",
+	"head",
+	"options",
+	"connect",
+	"trace",
 ];
 
 export type RequestType = (typeof REQUEST_TYPES)[number];
