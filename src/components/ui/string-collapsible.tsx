@@ -1,16 +1,4 @@
-import {
-	Button,
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-	Input,
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@rhino-ui/ui";
+import { Button, Collapsible, Input, Select } from "@rhinolabs/ui";
 import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 
@@ -38,7 +26,7 @@ export const StringCollapsible = ({
 			className="border rounded-lg bg-white mb-4"
 		>
 			<div className="flex items-center justify-between space-x-4 pl-4 pr-2 py-2">
-				<CollapsibleTrigger asChild>
+				<Collapsible.Trigger asChild>
 					<div className="flex justify-between items-center w-full cursor-pointer">
 						<h4 className="text-sm font-medium">STRING</h4>
 						<div>
@@ -62,27 +50,27 @@ export const StringCollapsible = ({
 							</Button>
 						</div>
 					</div>
-				</CollapsibleTrigger>
+				</Collapsible.Trigger>
 			</div>
-			<CollapsibleContent>
+			<Collapsible.Content>
 				<div className="px-4 py-4 text-sm border-t">
 					{hasOptions && options.length > 0 ? (
 						<Select>
-							<SelectTrigger>
-								<SelectValue placeholder="Select" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectGroup>
+							<Select.Trigger>
+								<Select.Value placeholder="Select" />
+							</Select.Trigger>
+							<Select.Content>
+								<Select.Group>
 									{options.map((option) => (
-										<SelectItem
+										<Select.Item
 											key={`option-${encodeURIComponent(option)}`}
 											value={option}
 										>
 											{option}
-										</SelectItem>
+										</Select.Item>
 									))}
-								</SelectGroup>
-							</SelectContent>
+								</Select.Group>
+							</Select.Content>
 						</Select>
 					) : hasOptions ? (
 						<p className="text-muted-foreground">No options Available</p>
@@ -90,7 +78,7 @@ export const StringCollapsible = ({
 						<Input id={`input-${id}`} className="border bg-white" type="text" />
 					)}
 				</div>
-			</CollapsibleContent>
+			</Collapsible.Content>
 		</Collapsible>
 	);
 };

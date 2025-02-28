@@ -1,5 +1,5 @@
 import type { SchemaObject } from "@/types/api/openapi";
-import { Separator } from "@rhino-ui/ui";
+import { Separator } from "@rhinolabs/ui";
 import type React from "react";
 import { ParamField } from "@/components/ui/fields/param-field";
 import { mapSchemaToParamField } from "@/utils/fields/map-schema-to-param-field";

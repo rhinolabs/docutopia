@@ -1,14 +1,5 @@
 import type { SchemaObject } from "@/types/api/openapi";
-import {
-	Badge,
-	Input,
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@rhino-ui/ui";
+import { Badge, Input, Select } from "@rhinolabs/ui";
 
 interface StringFieldProps {
 	field: SchemaObject;
@@ -37,7 +28,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 						return (
 							<Badge
 								key={optionStr}
-								variant="ghost"
+								variant="outline"
 								className="h-6 text-muted font-normal m-1 rounded-sm bg-gray-100"
 							>
 								{optionStr}
@@ -51,23 +42,23 @@ export const StringField: React.FC<StringFieldProps> = ({
 		return (
 			<div className="col-span-4 lg:col-span-1">
 				<Select>
-					<SelectTrigger className="m-auto">
-						<SelectValue placeholder="Select" />
-					</SelectTrigger>
-					<SelectContent>
-						<SelectGroup>
+					<Select.Trigger className="m-auto">
+						<Select.Value placeholder="Select" />
+					</Select.Trigger>
+					<Select.Content>
+						<Select.Group>
 							{field.enum?.map((option) => {
 								const optionStr = String(option);
 								const key = `select-item-${optionStr.replace(" ", "-")}`;
 
 								return (
-									<SelectItem key={key} value={optionStr}>
+									<Select.Item key={key} value={optionStr}>
 										{option}
-									</SelectItem>
+									</Select.Item>
 								);
 							})}
-						</SelectGroup>
-					</SelectContent>
+						</Select.Group>
+					</Select.Content>
 				</Select>
 			</div>
 		);

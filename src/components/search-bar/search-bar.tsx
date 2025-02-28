@@ -1,14 +1,6 @@
 "use client";
 
-import {
-	Button,
-	CommandDialog,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList,
-} from "@rhino-ui/ui";
+import { Button, Command } from "@rhinolabs/ui";
 import type { SidebarCollection } from "@/types/components/sidebar";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
@@ -82,19 +74,19 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 					<span className="text-sm">{isMac ? "⌘" : "Ctrl+"}</span>K
 				</kbd>
 			</Button>
-			<CommandDialog open={open} onOpenChange={setOpen}>
-				<CommandInput
+			<Command.Dialog open={open} onOpenChange={setOpen}>
+				<Command.Input
 					placeholder="Type a command or search..."
 					value={query}
 					onValueChange={(value) => setQuery(value)}
 				/>
-				<CommandList>
+				<Command.List>
 					{filteredResults.length === 0 ? (
-						<CommandEmpty>No results found.</CommandEmpty>
+						<Command.Empty>No results found.</Command.Empty>
 					) : (
-						<CommandGroup heading="Links">
+						<Command.Group heading="Links">
 							{filteredResults.map((result) => (
-								<CommandItem
+								<Command.Item
 									key={result.label}
 									value={result.label}
 									onSelect={() => setOpen(false)}
@@ -109,12 +101,12 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 									>
 										{result.label}
 									</Link>
-								</CommandItem>
+								</Command.Item>
 							))}
-						</CommandGroup>
+						</Command.Group>
 					)}
-				</CommandList>
-			</CommandDialog>
+				</Command.List>
+			</Command.Dialog>
 		</>
 	);
 };

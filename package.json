@@ -13,7 +13,7 @@
 		"generate-spec": "tsx src/cli/cli.ts generate --spec ./src/mocks/openapi.yaml"
 	},
 	"dependencies": {
-		"@rhino-ui/ui": "{file}",
+		"@rhinolabs/ui": "{file}",
 		"@tanstack/react-query": "^5.62.11",
 		"@tanstack/react-router": "^1.94.0",
 		"lucide-react": "^0.474.0",

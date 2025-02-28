@@ -5,19 +5,7 @@ import { ChevronRight } from "lucide-react";
 import { getRequestTypeClass } from "@/utils/api/request-type";
 import type { SidebarCollection } from "@/types/components/sidebar";
 
-import {
-	Badge,
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-	SidebarGroup,
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
-	SidebarMenuSub,
-	SidebarMenuSubButton,
-	SidebarMenuSubItem,
-} from "@rhino-ui/ui";
+import { Badge, Collapsible, Sidebar } from "@rhinolabs/ui";
 
 export function NavMain({
 	items,
@@ -25,8 +13,8 @@ export function NavMain({
 	items: SidebarCollection[];
 }) {
 	return (
-		<SidebarGroup>
-			<SidebarMenu>
+		<Sidebar.Group>
+			<Sidebar.Menu>
 				{items.map((collection, collectionIndex) => (
 					<div key={collection.collectionName}>
 						{collection.collectionName && (
@@ -44,23 +32,23 @@ export function NavMain({
 								defaultOpen={request.isActive}
 								className="group/collapsible"
 							>
-								<SidebarMenuItem>
+								<Sidebar.MenuItem>
 									{request.items && request.items.length > 0 ? (
 										<>
-											<CollapsibleTrigger asChild>
-												<SidebarMenuButton tooltip={request.name}>
+											<Collapsible.Trigger asChild>
+												<Sidebar.MenuButton tooltip={request.name}>
 													<span>{request.name}</span>
 													<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-												</SidebarMenuButton>
-											</CollapsibleTrigger>
-											<CollapsibleContent>
-												<SidebarMenuSub className="border-0 px-0">
+												</Sidebar.MenuButton>
+											</Collapsible.Trigger>
+											<Collapsible.Content>
+												<Sidebar.MenuSub className="border-0 px-0">
 													{request.items.map((subItem) => (
-														<SidebarMenuSubItem
+														<Sidebar.MenuSubItem
 															className="my-1"
 															key={subItem.name}
 														>
-															<SidebarMenuSubButton className="h-auto" asChild>
+															<Sidebar.MenuSubButton className="h-auto" asChild>
 																<Link
 																	to={`/docs/${subItem.url}`}
 																	mask={{
@@ -70,19 +58,19 @@ export function NavMain({
 																>
 																	<span>{subItem.name}</span>
 																	<Badge
-																		className={`${getRequestTypeClass(subItem.requestType)} text-[10px] h-[17px] px-3`}
+																		className={`${getRequestTypeClass(subItem.requestType)} text-badge-foreground text-[10px] h-[17px] px-3`}
 																	>
 																		{subItem.requestType}
 																	</Badge>
 																</Link>
-															</SidebarMenuSubButton>
-														</SidebarMenuSubItem>
+															</Sidebar.MenuSubButton>
+														</Sidebar.MenuSubItem>
 													))}
-												</SidebarMenuSub>
-											</CollapsibleContent>
+												</Sidebar.MenuSub>
+											</Collapsible.Content>
 										</>
 									) : (
-										<SidebarMenuButton asChild>
+										<Sidebar.MenuButton asChild>
 											<Link
 												to={`/docs/${request.url}`}
 												mask={{
@@ -92,14 +80,14 @@ export function NavMain({
 											>
 												<span>{request.name}</span>
 											</Link>
-										</SidebarMenuButton>
+										</Sidebar.MenuButton>
 									)}
-								</SidebarMenuItem>
+								</Sidebar.MenuItem>
 							</Collapsible>
 						))}
 					</div>
 				))}
-			</SidebarMenu>
-		</SidebarGroup>
+			</Sidebar.Menu>
+		</Sidebar.Group>
 	);
 }

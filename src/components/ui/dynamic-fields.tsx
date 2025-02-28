@@ -1,4 +1,4 @@
-import { Button } from "@rhino-ui/ui";
+import { Button } from "@rhinolabs/ui";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { StringCollapsible } from "./string-collapsible";

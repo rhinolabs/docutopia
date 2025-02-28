@@ -2,13 +2,7 @@ import { mapSchemaToParamField } from "@/utils/fields/map-schema-to-param-field"
 import { DynamicFields } from "../dynamic-fields";
 import type { SchemaObject } from "@/types/api/openapi";
 import { ParamField } from "./param-field";
-import {
-	Separator,
-	Collapsible,
-	CollapsibleTrigger,
-	CollapsibleContent,
-	Card,
-} from "@rhino-ui/ui";
+import { Separator, Collapsible, Card } from "@rhinolabs/ui";
 import { useMemo } from "react";
 
 interface ArrayFieldProps {
@@ -29,14 +23,14 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 				<Card className="shadow-none bg-primary-foreground">
 					<Collapsible>
 						<div className="">
-							<CollapsibleTrigger asChild>
+							<Collapsible.Trigger asChild>
 								<div className="w-full cursor-pointer">
 									<p className="text-sm font-medium text-muted-foreground px-6 py-4">
 										{String(field.items.type.toUpperCase() ?? "Unknown type")}
 									</p>
 								</div>
-							</CollapsibleTrigger>
-							<CollapsibleContent>
+							</Collapsible.Trigger>
+							<Collapsible.Content>
 								{Object.entries(field.items.properties ?? {}).map(
 									([propertyKey, propertyObj]) => {
 										return (
@@ -55,7 +49,7 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 										);
 									},
 								)}
-							</CollapsibleContent>
+							</Collapsible.Content>
 						</div>
 					</Collapsible>
 				</Card>

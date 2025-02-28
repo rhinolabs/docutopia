@@ -3,14 +3,7 @@ import type {
 	ResponseEntry,
 	SchemaObject,
 } from "@/types/api/openapi";
-import {
-	Collapsible,
-	CollapsibleTrigger,
-	Button,
-	CollapsibleContent,
-	Card,
-	CardContent,
-} from "@rhino-ui/ui";
+import { Collapsible, Button, Card } from "@rhinolabs/ui";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { memo } from "react";
 import {
@@ -71,7 +64,7 @@ export const ResponseCard: React.FC<ResponseCardProps> = memo(
 				className={index > 0 ? "border-t" : ""}
 			>
 				<div className="flex items-center justify-between space-x-4 px-4 py-3">
-					<CollapsibleTrigger asChild>
+					<Collapsible.Trigger asChild>
 						<div className="flex justify-between items-center w-full cursor-pointer">
 							<div>
 								<div className="flex items-center">
@@ -100,20 +93,20 @@ export const ResponseCard: React.FC<ResponseCardProps> = memo(
 								<span className="sr-only">Toggle</span>
 							</Button>
 						</div>
-					</CollapsibleTrigger>
+					</Collapsible.Trigger>
 				</div>
-				<CollapsibleContent>
+				<Collapsible.Content>
 					<div className="px-4 py-4 border-t">
 						<h4 className="text-sm font-medium text-muted-foreground">
 							RESPONSE BODY
 						</h4>
 						<Card className={cardClasses}>
-							<CardContent className="p-0">
+							<Card.Content className="p-0">
 								{renderMediaContent(response.content, doc)}
-							</CardContent>
+							</Card.Content>
 						</Card>
 					</div>
-				</CollapsibleContent>
+				</Collapsible.Content>
 			</Collapsible>
 		);
 	},

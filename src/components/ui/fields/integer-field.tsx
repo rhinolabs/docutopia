@@ -1,5 +1,5 @@
 import type { SchemaObject } from "@/types/api/openapi";
-import { Input } from "@rhino-ui/ui";
+import { Input } from "@rhinolabs/ui";
 
 interface IntegerFieldProps {
 	field: SchemaObject;
