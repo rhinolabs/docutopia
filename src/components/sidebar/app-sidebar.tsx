@@ -10,7 +10,8 @@ import { SearchBar } from "../search-bar/search-bar";
 import { useOpenApi } from "@/contexts/open-api-context";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const { sidebar } = useOpenApi();
+	const { doc } = useOpenApi();
+	const sidebarData = doc.sidebar;
 
 	return (
 		<Sidebar {...props}>
@@ -30,13 +31,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 						</Sidebar.MenuButton>
 					</Sidebar.MenuItem>
 					<Sidebar.MenuItem>
-						<SearchBar navItems={sidebar} />
+						<SearchBar navItems={sidebarData} />
 					</Sidebar.MenuItem>
 				</Sidebar.Menu>
 			</Sidebar.Header>
 
 			<Sidebar.Content>
-				<NavMain items={sidebar} />
+				<NavMain items={sidebarData} />
 			</Sidebar.Content>
 			<Sidebar.Rail />
 		</Sidebar>

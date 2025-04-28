@@ -1,5 +1,3 @@
-import type { SidebarCollection } from "@/types/components/sidebar";
-import { transformOpenApiToSidebar } from "@/utils/api/openapi-adapter";
 import {
 	createContext,
 	type ReactNode,
@@ -9,6 +7,7 @@ import {
 } from "react";
 
 import type { OpenApiDocument } from "@/types/api/openapi";
+import type { SidebarCollection } from "@/types/components/sidebar";
 
 interface OpenApiProviderProps {
 	specPath: string;
@@ -16,8 +15,7 @@ interface OpenApiProviderProps {
 }
 
 export interface OpenApiData {
-	doc: OpenApiDocument;
-	sidebar: SidebarCollection[];
+	doc: OpenApiDocument & { sidebar: SidebarCollection[] };
 }
 
 const OpenApiContext = createContext<OpenApiData | null>(null);
@@ -37,12 +35,12 @@ export const OpenApiProvider = ({
 					throw new Error(`Unable to fetch spec from ${specPath}`);
 				}
 
-				const oaData = await res.json();
+				const oaData = (await res.json()) as OpenApiDocument & {
+					sidebar: SidebarCollection[];
+				};
 
-				const sidebar = await transformOpenApiToSidebar(oaData);
 				setData({
 					doc: oaData,
-					sidebar,
 				});
 			} catch (error) {
 				console.error("Error loading OpenAPI data:", error);
