@@ -10,7 +10,7 @@
 		"preview": "rsbuild preview",
 		"lint": "biome format && biome lint",
 		"lint:fix": "biome format --write && biome lint --fix",
-		"generate-spec": "tsx src/cli/cli.ts generate --spec ./src/mocks/openapi.yaml"
+		"generate-spec": "tsx src/scripts/generate-spec.ts --spec ./src/mocks/openapi.yaml"
 	},
 	"dependencies": {
 		"@rhinolabs/ui": "{file}",
