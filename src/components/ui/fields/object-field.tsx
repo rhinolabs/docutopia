@@ -1,10 +1,4 @@
-import {
-	Button,
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-	Separator,
-} from "@rhino-ui/ui";
+import { Button, Collapsible, Separator } from "@rhinolabs/ui";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { ParamField } from "./param-field";
@@ -49,7 +43,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 				className="border rounded-lg bg-white"
 			>
 				<div className="flex items-center justify-between space-x-4 px-4 py-2">
-					<CollapsibleTrigger asChild>
+					<Collapsible.Trigger asChild>
 						<div className="flex justify-between items-center w-full cursor-pointer">
 							<h4 className="text-sm font-semibold">
 								{name.toUpperCase()} OBJECT
@@ -59,9 +53,9 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 								<span className="sr-only">Toggle</span>
 							</Button>
 						</div>
-					</CollapsibleTrigger>
+					</Collapsible.Trigger>
 				</div>
-				<CollapsibleContent>
+				<Collapsible.Content>
 					{propertyEntries.map(([propName, subSchema]) => (
 						<React.Fragment key={propName}>
 							<Separator />
@@ -77,7 +71,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 							/>
 						</React.Fragment>
 					))}
-				</CollapsibleContent>
+				</Collapsible.Content>
 			</Collapsible>
 		</div>
 	);

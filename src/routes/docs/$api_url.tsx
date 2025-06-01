@@ -1,18 +1,14 @@
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { mockOpenApiDoc } from "@/mocks/api-data";
-import { Badge, Button, Separator, SidebarTrigger } from "@rhino-ui/ui";
+import { Badge, Button, Separator, Sidebar } from "@rhinolabs/ui";
 import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
 import { ResponseTypes } from "@/components/api-docs/api-response";
-import type {
-	ApiLoaderData,
-	EnhancedOperation,
-	ResponseEntry,
-} from "@/types/api/openapi";
+import type { EnhancedOperation, ResponseEntry } from "@/types/api/openapi";
 import { classifyParameters, getBodyParams } from "@/utils/api/api-helpers";
 import { useMemo } from "react";
 import { slugifyOperation } from "@/utils/slugify-operation";
+import { useOpenApi } from "@/contexts/open-api-context";
 
 /**
  * Loads API data based on the provided parameters.
@@ -24,38 +20,8 @@ async function loadApiData({
 	params,
 }: {
 	params: { api_url: string };
-}): Promise<ApiLoaderData> {
-	let foundOperation: EnhancedOperation | undefined;
-
-	for (const [path, pathItem] of Object.entries(mockOpenApiDoc.paths)) {
-		for (const [method, operation] of Object.entries(pathItem)) {
-			if (!operation) continue;
-
-			const slug =
-				slugifyOperation(operation.summary) ||
-				`${method.toUpperCase()} ${path}`;
-
-			if (slug === params.api_url) {
-				foundOperation = {
-					...operation,
-					path,
-					method: method.toUpperCase(),
-				};
-				break;
-			}
-		}
-
-		if (foundOperation) break;
-	}
-
-	if (!foundOperation) {
-		throw new Error(`API operation "${params.api_url}" not found`);
-	}
-
-	return {
-		doc: mockOpenApiDoc,
-		operation: foundOperation,
-	};
+}): Promise<{ api_url: string }> {
+	return { api_url: params.api_url };
 }
 
 /**
@@ -84,11 +50,32 @@ function ErrorBoundary({ error }: { error: Error }) {
  * @returns JSX element displaying the API documentation.
  */
 function RouteComponent() {
-	const { doc, operation } = useLoaderData({
+	const { api_url } = useLoaderData({
 		from: "/docs/$api_url",
-	}) as ApiLoaderData;
+	}) as { api_url: string };
 
-	if (!operation) {
+	const { doc } = useOpenApi();
+	let foundOperation: EnhancedOperation | undefined;
+
+	for (const [path, pathItem] of Object.entries(doc.paths)) {
+		for (const [method, operation] of Object.entries(pathItem)) {
+			if (!operation) continue;
+			const slug =
+				slugifyOperation(operation.summary) ||
+				`${method.toUpperCase()} ${path}`;
+			if (slug === api_url) {
+				foundOperation = {
+					...operation,
+					path,
+					method: method.toUpperCase(),
+				};
+				break;
+			}
+		}
+		if (foundOperation) break;
+	}
+
+	if (!foundOperation) {
 		return (
 			<div className="p-8 text-center">
 				<h1 className="text-2xl font-bold mb-4">Operation Not Found</h1>
@@ -99,22 +86,22 @@ function RouteComponent() {
 		);
 	}
 
-	const endpoint = `${doc.servers?.[0].url}${operation.path}`;
-	const requestType = operation.method;
+	const endpoint = `${doc.servers?.[0].url}${foundOperation.path}`;
+	const requestType = foundOperation.method;
 
 	const { pathParams, queryParams } = useMemo(() => {
-		return classifyParameters(operation.parameters ?? []);
-	}, [operation.parameters]);
+		return classifyParameters(foundOperation.parameters ?? []);
+	}, [foundOperation.parameters]);
 
 	const bodySchema =
-		operation.requestBody?.content?.["application/json"]?.schema;
+		foundOperation.requestBody?.content?.["application/json"]?.schema;
 
 	const bodyParams = useMemo(() => {
 		return getBodyParams(bodySchema);
 	}, [bodySchema]);
 
 	const responseEntries: ResponseEntry[] = Object.entries(
-		operation.responses,
+		foundOperation.responses,
 	).map(([status, response]) => {
 		if ("$ref" in response) {
 			return {
@@ -132,18 +119,18 @@ function RouteComponent() {
 		};
 	});
 
-	const { api_url } = Route.useParams();
-
 	return (
 		<div key={api_url} className="container px-6 py-8">
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<div className="lg:col-span-2">
 					<div className="head">
-						<SidebarTrigger className="pb-4" />
+						<Sidebar.Trigger className="pb-4" />
 						<Separator />
-						<h1 className="text-2xl font-semibold my-3">{operation.summary}</h1>
+						<h1 className="text-2xl font-semibold my-3">
+							{foundOperation.summary}
+						</h1>
 						<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
-							<Badge className="mr-3 font-normal py-1 px-3">
+							<Badge className="mr-3 font-normal text-badge-foreground py-1 px-3">
 								{requestType}
 							</Badge>
 							{endpoint}

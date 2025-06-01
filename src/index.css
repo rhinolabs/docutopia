@@ -5,11 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	--color-primary-foreground: hsl(var(--primary-foreground));
-	--color-sidebar-primary: hsl(var(--rhinolabs-sidebar-primary));
-	--color-sidebar-primary-foreground: hsl(
-		var(--rhinolabs-sidebar-primary-foreground)
-	);
+	--color-primary-foreground: hsl(var(--rui-primary-foreground));
+	--color-sidebar-primary: hsl(var(--rui-sidebar-primary));
+	--color-sidebar-primary-foreground: hsl(var(--rui-sidebar-primary-foreground));
 
 	--color-get: hsl(240 6% 10%);
 	--color-post: hsl(240 6% 10%);
@@ -20,6 +18,7 @@
 	--color-options: hsl(240 6% 10%);
 	--color-connect: hsl(240 6% 10%);
 	--color-trace: hsl(240 6% 10%);
+	--color-badge-foreground: hsl(0 0% 98%);
 }
 
 @layer base {

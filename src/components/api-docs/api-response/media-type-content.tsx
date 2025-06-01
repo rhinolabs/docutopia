@@ -5,14 +5,7 @@ import type {
 } from "@/types/api/openapi";
 import { resolveRef } from "@/utils/api/resolve-ref";
 import { memo, useState } from "react";
-import {
-	Button,
-	Card,
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-	Separator,
-} from "@rhino-ui/ui";
+import { Button, Card, Collapsible, Separator } from "@rhinolabs/ui";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { PropertiesList } from "./properties-list";
 
@@ -107,7 +100,7 @@ export const MediaTypeExamplesContent: React.FC<MediaTypeExamplesContentProps> =
 							className={index > 0 ? "border-t" : ""}
 						>
 							<div className="flex items-center justify-between space-x-4 px-4 py-3">
-								<CollapsibleTrigger asChild>
+								<Collapsible.Trigger asChild>
 									<div className="flex justify-between items-center w-full cursor-pointer">
 										<div>{exampleKey.toUpperCase()}</div>
 										<Button
@@ -124,9 +117,9 @@ export const MediaTypeExamplesContent: React.FC<MediaTypeExamplesContentProps> =
 											<span className="sr-only">Toggle</span>
 										</Button>
 									</div>
-								</CollapsibleTrigger>
+								</Collapsible.Trigger>
 							</div>
-							<CollapsibleContent>
+							<Collapsible.Content>
 								<Separator />
 								<Card className="m-4 shadow-none rounded-lg bg-primary-foreground">
 									<p className="text-sm font-medium text-muted-foreground px-6 py-4">
@@ -140,7 +133,7 @@ export const MediaTypeExamplesContent: React.FC<MediaTypeExamplesContentProps> =
 										/>
 									</div>
 								</Card>
-							</CollapsibleContent>
+							</Collapsible.Content>
 						</Collapsible>
 					),
 				)}

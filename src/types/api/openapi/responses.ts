@@ -22,3 +22,5 @@ export interface RequestBodyObject {
 	content: Record<string, MediaTypeObject>;
 	description?: string;
 }
+
+export type RequestBodyOrRef = RequestBodyObject | ReferenceObject;

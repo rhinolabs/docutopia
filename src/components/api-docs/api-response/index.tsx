@@ -1,6 +1,6 @@
 import type React from "react";
 import { useState } from "react";
-import { Card, CardContent } from "@rhino-ui/ui";
+import { Card } from "@rhinolabs/ui";
 
 import type { ResponseEntry, OpenApiDocument } from "@/types/api/openapi";
 
@@ -27,7 +27,7 @@ export const ResponseTypes: React.FC<ResponseTypesProps> = ({
 		<div className="mt-5">
 			<h3 className="text-sm font-semibold mb-4">RESPONSE</h3>
 			<Card className="bg-primary-foreground border shadow-xs rounded-lg">
-				<CardContent className="py-2 px-0">
+				<Card.Content className="py-2 px-0">
 					{responses.map((response, index) => {
 						const success = isSuccess(response.status);
 
@@ -43,7 +43,7 @@ export const ResponseTypes: React.FC<ResponseTypesProps> = ({
 							/>
 						);
 					})}
-				</CardContent>
+				</Card.Content>
 			</Card>
 		</div>
 	);
