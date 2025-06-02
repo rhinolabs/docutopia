@@ -1,4 +1,4 @@
-import { createFileRoute, useLoaderData } from "@tanstack/react-router";
+import { useParams } from "react-router-dom";
 import { Badge, Button, Separator, Sidebar } from "@rhinolabs/ui";
 import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
@@ -11,50 +11,27 @@ import { slugifyOperation } from "@/utils/slugify-operation";
 import { useOpenApi } from "@/contexts/open-api-context";
 
 /**
- * Loads API data based on the provided parameters.
- *
- * @param params - The parameters containing the api_url.
- * @returns The loaded API documentation data.
- */
-async function loadApiData({
-	params,
-}: {
-	params: { api_url: string };
-}): Promise<{ api_url: string }> {
-	return { api_url: params.api_url };
-}
-
-/**
- * Error boundary component for handling loader errors.
- *
- * @param error - The error object.
- * @returns JSX element displaying the error message.
- */
-function ErrorBoundary({ error }: { error: Error }) {
-	return (
-		<div className="p-8 text-center">
-			<h1 className="text-2xl font-bold text-red-600 mb-4">
-				Documentation Error
-			</h1>
-			<p className="text-muted-foreground mb-6">{error.message}</p>
-			<Button variant="outline" onClick={() => window.location.reload()}>
-				Reload Documentation
-			</Button>
-		</div>
-	);
-}
-
-/**
  * Component responsible for rendering the API documentation based on the route.
- *
- * @returns JSX element displaying the API documentation.
  */
-function RouteComponent() {
-	const { api_url } = useLoaderData({
-		from: "/docs/$api_url",
-	}) as { api_url: string };
-
+export function DocutopiaPage() {
+	const { apiUrl } = useParams<{ apiUrl: string }>();
 	const { doc } = useOpenApi();
+
+	if (!apiUrl) {
+		return (
+			<div className="container px-6 py-8">
+				<div className="text-center">
+					<Sidebar.Trigger className="pb-4" />
+					<Separator className="mb-8" />
+					<h1 className="text-3xl font-bold mb-4">Welcome to API Documentation</h1>
+					<p className="text-muted-foreground mb-6">
+						Select an endpoint from the sidebar to view its documentation.
+					</p>
+				</div>
+			</div>
+		);
+	}
+
 	let foundOperation: EnhancedOperation | undefined;
 
 	for (const [path, pathItem] of Object.entries(doc.paths)) {
@@ -63,7 +40,7 @@ function RouteComponent() {
 			const slug =
 				slugifyOperation(operation.summary) ||
 				`${method.toUpperCase()} ${path}`;
-			if (slug === api_url) {
+			if (slug === apiUrl) {
 				foundOperation = {
 					...operation,
 					path,
@@ -74,7 +51,6 @@ function RouteComponent() {
 		}
 		if (foundOperation) break;
 	}
-
 	if (!foundOperation) {
 		return (
 			<div className="p-8 text-center">
@@ -118,9 +94,8 @@ function RouteComponent() {
 			content: response.content || {},
 		};
 	});
-
 	return (
-		<div key={api_url} className="container px-6 py-8">
+		<div key={apiUrl} className="container px-6 py-8">
 			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<div className="lg:col-span-2">
 					<div className="head">
@@ -164,12 +139,3 @@ function RouteComponent() {
 		</div>
 	);
 }
-
-export const Route = createFileRoute("/docs/$api_url")({
-	component: RouteComponent,
-	loader: async ({ params }) => {
-		const typedParams = params as { api_url: string };
-		return loadApiData({ params: typedParams });
-	},
-	errorComponent: ErrorBoundary,
-});

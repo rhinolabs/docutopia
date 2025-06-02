@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { getRequestTypeClass } from "@/utils/api/request-type";
 import type { SidebarCollection } from "@/types/components/sidebar";
@@ -50,10 +50,7 @@ export function NavMain({
 														>
 															<Sidebar.MenuSubButton className="h-auto" asChild>
 																<Link
-																	to={`/docs/${subItem.url}`}
-																	mask={{
-																		to: `/docs#${subItem.url}`,
-																	}}
+																	to={`/${subItem.url}`}
 																	className="[&.active]:font-bold"
 																>
 																	<span>{subItem.name}</span>
@@ -72,10 +69,7 @@ export function NavMain({
 									) : (
 										<Sidebar.MenuButton asChild>
 											<Link
-												to={`/docs/${request.url}`}
-												mask={{
-													to: `/docs#${request.url}`,
-												}}
+												to={`/${request.url}`}
 												className="[&.active]:font-bold"
 											>
 												<span>{request.name}</span>
