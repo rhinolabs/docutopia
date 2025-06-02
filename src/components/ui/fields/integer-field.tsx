@@ -20,7 +20,7 @@ export const IntegerField: React.FC<IntegerFieldProps> = ({
 		<div className="col-span-4 lg:col-span-1 m-auto w-full">
 			<Input
 				id={`pathParam${name}`}
-				className="border border-border bg-input text-foreground"
+				className="border  bg-input text-foreground"
 				type="number"
 				min={field.minimum}
 				max={field.maximum}

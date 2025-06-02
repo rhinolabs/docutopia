@@ -42,10 +42,10 @@ export const StringField: React.FC<StringFieldProps> = ({
 		return (
 			<div className="col-span-4 lg:col-span-1">
 				<Select>
-					<Select.Trigger className="m-auto bg-input border-border text-foreground">
+					<Select.Trigger className="m-auto bg-input  text-foreground">
 						<Select.Value placeholder="Select" />
 					</Select.Trigger>
-					<Select.Content className="bg-input border-border">
+					<Select.Content className="bg-input ">
 						<Select.Group>
 							{field.enum?.map((option) => {
 								const optionStr = String(option);
@@ -72,7 +72,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 		<div className="col-span-4 lg:col-span-1">
 			<Input
 				id={`pathParam${name}`}
-				className="border border-border bg-input text-foreground m-auto"
+				className="border  bg-input text-foreground m-auto"
 				type="text"
 				minLength={field.minLength}
 				maxLength={field.maxLength}

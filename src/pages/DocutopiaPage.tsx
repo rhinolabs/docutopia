@@ -4,6 +4,7 @@ import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
 import { ResponseTypes } from "@/components/api-docs/api-response";
+import { TryApiPanel } from "@/components/api-docs/try-api-panel";
 import type { EnhancedOperation, ResponseEntry } from "@/types/api/openapi";
 import { classifyParameters, getBodyParams } from "@/utils/api/api-helpers";
 import { useMemo } from "react";
@@ -107,7 +108,7 @@ export function DocutopiaPage() {
 							{foundOperation.summary}
 						</h1>
 						<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
-							<Badge className="mr-3 font-normal bg-muted text-foreground py-1 px-3 border border-border">
+							<Badge className="mr-3 font-normal bg-muted text-foreground py-1 px-3 border ">
 								{requestType}
 							</Badge>
 							{endpoint}
@@ -129,13 +130,7 @@ export function DocutopiaPage() {
 				</div>
 
 				<div className="lg:col-span-1">
-					<div className="sidebar bg-muted border border-border p-4 rounded-md">
-						<h2 className="text-xl font-semibold text-foreground">Content</h2>
-						<p className="text-muted-foreground">
-							This is the sidebar content. It will take up 1/3 of the width on
-							desktop.
-						</p>
-					</div>
+					<TryApiPanel operation={foundOperation} />
 				</div>
 			</div>
 		</div>
