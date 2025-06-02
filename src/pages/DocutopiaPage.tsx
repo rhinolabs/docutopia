@@ -107,7 +107,7 @@ export function DocutopiaPage() {
 							{foundOperation.summary}
 						</h1>
 						<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
-							<Badge className="mr-3 font-normal text-badge-foreground py-1 px-3">
+							<Badge className="mr-3 font-normal bg-muted text-foreground py-1 px-3 border border-border">
 								{requestType}
 							</Badge>
 							{endpoint}
@@ -129,9 +129,9 @@ export function DocutopiaPage() {
 				</div>
 
 				<div className="lg:col-span-1">
-					<div className="sidebar bg-gray-100 p-4 rounded-md">
-						<h2 className="text-xl font-semibold">Content</h2>
-						<p>
+					<div className="sidebar bg-muted border border-border p-4 rounded-md">
+						<h2 className="text-xl font-semibold text-foreground">Content</h2>
+						<p className="text-muted-foreground">
 							This is the sidebar content. It will take up 1/3 of the width on
 							desktop.
 						</p>

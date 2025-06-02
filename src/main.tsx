@@ -6,6 +6,9 @@ import { DocutopiaPage } from "./pages";
 
 import "./index.css";
 
+// Set dark mode as default
+document.documentElement.classList.add("dark");
+
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root") as HTMLElement).render(
