@@ -40,7 +40,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 			<Collapsible
 				open={isOpen}
 				onOpenChange={setIsOpen}
-				className="border rounded-lg bg-white"
+				className="border border-border rounded-lg bg-card"
 			>
 				<div className="flex items-center justify-between space-x-4 px-4 py-2">
 					<Collapsible.Trigger asChild>

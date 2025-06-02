@@ -5,20 +5,58 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+	/* Dark mode color scheme - default */
 	--color-primary-foreground: hsl(var(--rui-primary-foreground));
 	--color-sidebar-primary: hsl(var(--rui-sidebar-primary));
 	--color-sidebar-primary-foreground: hsl(var(--rui-sidebar-primary-foreground));
 
-	--color-get: hsl(240 6% 10%);
-	--color-post: hsl(240 6% 10%);
-	--color-put: hsl(240 6% 10%);
-	--color-patch: hsl(240 6% 10%);
-	--color-delete: hsl(0 72% 51%);
-	--color-head: hsl(240 6% 10%);
-	--color-options: hsl(240 6% 10%);
-	--color-connect: hsl(240 6% 10%);
-	--color-trace: hsl(240 6% 10%);
-	--color-badge-foreground: hsl(0 0% 98%);
+	/* HTTP Method colors for dark theme - better contrast */
+	--color-get: hsl(120 55% 45%);      /* Green - readable on dark */
+	--color-post: hsl(210 65% 50%);     /* Blue - readable on dark */
+	--color-put: hsl(45 70% 50%);       /* Yellow/Orange - readable on dark */
+	--color-patch: hsl(30 65% 55%);     /* Orange - readable on dark */
+	--color-delete: hsl(0 65% 55%);     /* Red - readable on dark */
+	--color-head: hsl(270 55% 60%);     /* Purple - readable on dark */
+	--color-options: hsl(180 55% 50%);  /* Cyan - readable on dark */
+	--color-connect: hsl(300 55% 60%);  /* Magenta - readable on dark */
+	--color-trace: hsl(200 55% 55%);    /* Light blue - readable on dark */
+	--color-badge-foreground: hsl(0 0% 100%); /* White text for badges */
+
+	/* Dark theme base colors with proper hierarchy */
+	--color-background: hsl(240 10% 3.9%); /* Darkest - main background */
+	--color-foreground: hsl(0 0% 98%);
+	--color-card: hsl(240 5.9% 10%); /* Level 1 - containers/cards */
+	--color-card-foreground: hsl(0 0% 98%);
+	--color-popover: hsl(240 10% 3.9%);
+	--color-popover-foreground: hsl(0 0% 98%);
+	--color-primary: hsl(0 0% 98%);
+	--color-primary-foreground: hsl(240 5.9% 10%);
+	--color-secondary: hsl(240 3.7% 15.9%); /* Level 2 - secondary containers */
+	--color-secondary-foreground: hsl(0 0% 98%);
+	--color-muted: hsl(240 3.7% 15.9%); /* Level 2 - muted elements */
+	--color-muted-foreground: hsl(240 5% 64.9%);
+	--color-accent: hsl(240 3.7% 20%); /* Level 3 - interactive elements */
+	--color-accent-foreground: hsl(0 0% 98%);
+	--color-input: hsl(240 4% 25%); /* Level 3 - inputs/selects */
+	--color-destructive: hsl(0 62.8% 30.6%);
+	--color-destructive-foreground: hsl(0 0% 98%);
+	--color-border: hsl(240 3.7% 15.9%);
+	--color-ring: hsl(240 4.9% 83.9%);
+	--color-chart-1: hsl(220 70% 50%);
+	--color-chart-2: hsl(160 60% 45%);
+	--color-chart-3: hsl(30 80% 55%);
+	--color-chart-4: hsl(280 65% 60%);
+	--color-chart-5: hsl(340 75% 55%);
+
+	/* Sidebar specific dark colors */
+	--color-sidebar-background: hsl(240 5.9% 10%);
+	--color-sidebar-foreground: hsl(240 4.9% 83.9%);
+	--color-sidebar-primary: hsl(224.3 76.3% 94.1%);
+	--color-sidebar-primary-foreground: hsl(240 5.9% 10%);
+	--color-sidebar-accent: hsl(240 3.7% 15.9%);
+	--color-sidebar-accent-foreground: hsl(240 4.9% 83.9%);
+	--color-sidebar-border: hsl(240 3.7% 15.9%);
+	--color-sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 @layer base {
@@ -27,6 +65,54 @@
 	::before,
 	::backdrop,
 	::file-selector-button {
-		border-color: var(--color-gray-200, currentColor);
+		border-color: var(--color-border, currentColor);
+	}
+
+	/* Set dark mode as default for the root element */
+	:root {
+		color-scheme: dark;
+	}
+
+	/* Dark mode body styling */
+	body {
+		background-color: var(--color-background);
+		color: var(--color-foreground);
+	}
+
+	/* Override any light backgrounds that might interfere */
+	.bg-gray-100 {
+		background-color: var(--color-muted) !important;
+	}
+
+	/* Ensure text is readable in dark mode */
+	.text-muted-foreground {
+		color: var(--color-muted-foreground);
+	}
+
+	/* Force dark mode styling for input elements with proper hierarchy */
+	input[type="text"],
+	input[type="number"],
+	input[type="email"],
+	input[type="password"],
+	input[type="search"],
+	select,
+	textarea {
+		background-color: var(--color-input) !important;
+		color: var(--color-foreground) !important;
+		border-color: var(--color-border) !important;
+	}
+
+	/* Ensure select dropdowns use proper hierarchy */
+	[data-radix-select-content] {
+		background-color: var(--color-input) !important;
+		color: var(--color-foreground) !important;
+		border-color: var(--color-border) !important;
+	}
+
+	/* Ensure command dialog uses proper hierarchy */
+	[data-radix-dialog-content] {
+		background-color: var(--color-card) !important;
+		color: var(--color-foreground) !important;
+		border-color: var(--color-border) !important;
 	}
 }

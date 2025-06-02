@@ -20,7 +20,7 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 	if (field.items?.type === "object") {
 		return (
 			<div className="col-span-4">
-				<Card className="shadow-none bg-primary-foreground">
+				<Card className="shadow-none bg-card">
 					<Collapsible>
 						<div className="">
 							<Collapsible.Trigger asChild>

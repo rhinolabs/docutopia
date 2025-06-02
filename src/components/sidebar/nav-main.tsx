@@ -55,7 +55,7 @@ export function NavMain({
 																>
 																	<span>{subItem.name}</span>
 																	<Badge
-																		className={`${getRequestTypeClass(subItem.requestType)} text-badge-foreground text-[10px] h-[17px] px-3`}
+																		className={`${getRequestTypeClass(subItem.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
 																	>
 																		{subItem.requestType}
 																	</Badge>
