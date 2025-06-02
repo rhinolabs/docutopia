@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Badge, Button, Separator, Sidebar } from "@rhinolabs/ui";
+import { Badge, Separator, Sidebar } from "@rhinolabs/ui";
 import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
@@ -23,7 +23,9 @@ export function DocutopiaPage() {
 				<div className="text-center">
 					<Sidebar.Trigger className="pb-4" />
 					<Separator className="mb-8" />
-					<h1 className="text-3xl font-bold mb-4">Welcome to API Documentation</h1>
+					<h1 className="text-3xl font-bold mb-4">
+						Welcome to API Documentation
+					</h1>
 					<p className="text-muted-foreground mb-6">
 						Select an endpoint from the sidebar to view its documentation.
 					</p>
