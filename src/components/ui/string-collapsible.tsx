@@ -23,7 +23,7 @@ export const StringCollapsible = ({
 		<Collapsible
 			open={isOpen}
 			onOpenChange={setIsOpen}
-			className="border border-border rounded-lg bg-muted mb-4"
+			className="border  rounded-lg bg-muted mb-4"
 		>
 			<div className="flex items-center justify-between space-x-4 pl-4 pr-2 py-2">
 				<Collapsible.Trigger asChild>
@@ -56,10 +56,10 @@ export const StringCollapsible = ({
 				<div className="px-4 py-4 text-sm border-t">
 					{hasOptions && options.length > 0 ? (
 						<Select>
-							<Select.Trigger className="bg-input border-border text-foreground">
+							<Select.Trigger className="bg-input  text-foreground">
 								<Select.Value placeholder="Select" />
 							</Select.Trigger>
-							<Select.Content className="bg-input border-border">
+							<Select.Content className="bg-input ">
 								<Select.Group>
 									{options.map((option) => (
 										<Select.Item
@@ -78,7 +78,7 @@ export const StringCollapsible = ({
 					) : (
 						<Input
 							id={`input-${id}`}
-							className="border border-border bg-input text-foreground"
+							className="border  bg-input text-foreground"
 							type="text"
 						/>
 					)}

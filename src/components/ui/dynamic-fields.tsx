@@ -39,7 +39,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 			))}
 			<Button
 				variant="outline"
-				className="w-full rounded-lg justify-between h-[40px] border-border bg-muted hover:bg-accent"
+				className="w-full rounded-lg justify-between h-[40px]  bg-muted hover:bg-accent"
 				onClick={addField}
 			>
 				ADD STRING

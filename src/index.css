@@ -11,15 +11,15 @@
 	--color-sidebar-primary-foreground: hsl(var(--rui-sidebar-primary-foreground));
 
 	/* HTTP Method colors for dark theme - better contrast */
-	--color-get: hsl(120 55% 45%);      /* Green - readable on dark */
-	--color-post: hsl(210 65% 50%);     /* Blue - readable on dark */
-	--color-put: hsl(45 70% 50%);       /* Yellow/Orange - readable on dark */
-	--color-patch: hsl(30 65% 55%);     /* Orange - readable on dark */
-	--color-delete: hsl(0 65% 55%);     /* Red - readable on dark */
-	--color-head: hsl(270 55% 60%);     /* Purple - readable on dark */
-	--color-options: hsl(180 55% 50%);  /* Cyan - readable on dark */
-	--color-connect: hsl(300 55% 60%);  /* Magenta - readable on dark */
-	--color-trace: hsl(200 55% 55%);    /* Light blue - readable on dark */
+	--color-get: hsl(120 55% 45%); /* Green - readable on dark */
+	--color-post: hsl(210 65% 50%); /* Blue - readable on dark */
+	--color-put: hsl(45 70% 50%); /* Yellow/Orange - readable on dark */
+	--color-patch: hsl(30 65% 55%); /* Orange - readable on dark */
+	--color-delete: hsl(0 65% 55%); /* Red - readable on dark */
+	--color-head: hsl(270 55% 60%); /* Purple - readable on dark */
+	--color-options: hsl(180 55% 50%); /* Cyan - readable on dark */
+	--color-connect: hsl(300 55% 60%); /* Magenta - readable on dark */
+	--color-trace: hsl(200 55% 55%); /* Light blue - readable on dark */
 	--color-badge-foreground: hsl(0 0% 100%); /* White text for badges */
 
 	/* Dark theme base colors with proper hierarchy */

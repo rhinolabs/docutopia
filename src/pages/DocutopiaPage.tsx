@@ -108,7 +108,7 @@ export function DocutopiaPage() {
 							{foundOperation.summary}
 						</h1>
 						<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
-							<Badge className="mr-3 font-normal bg-muted text-foreground py-1 px-3 border border-border">
+							<Badge className="mr-3 font-normal bg-muted text-foreground py-1 px-3 border ">
 								{requestType}
 							</Badge>
 							{endpoint}
