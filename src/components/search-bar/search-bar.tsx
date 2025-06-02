@@ -3,7 +3,7 @@
 import { Button, Command } from "@rhinolabs/ui";
 import type { SidebarCollection } from "@/types/components/sidebar";
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 
 interface SearchBarProps {
 	navItems: SidebarCollection[];
@@ -92,10 +92,7 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 									onSelect={() => setOpen(false)}
 								>
 									<Link
-										to={`/docs/${result.url}`}
-										mask={{
-											to: `/docs#${result.url}`,
-										}}
+										to={`/${result.url}`}
 										onClick={() => setOpen(false)}
 										className="[&.active]:font-bold"
 									>
