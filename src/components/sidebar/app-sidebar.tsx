@@ -7,11 +7,21 @@ import { NavMain } from "./nav-main";
 import { Sidebar } from "@rhinolabs/ui";
 
 import { SearchBar } from "../search-bar/search-bar";
-import { useOpenApi } from "@/contexts/open-api-context";
+import { useOpenApiStore } from "@/stores/openapi-store";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const { doc } = useOpenApi();
-	const sidebarData = doc.sidebar;
+	const { spec, isLoading } = useOpenApiStore();
+	const sidebarData = spec?.sidebar || [];
+
+	if (isLoading) {
+		return (
+			<Sidebar {...props}>
+				<Sidebar.Header>
+					<div className="p-4">Loading...</div>
+				</Sidebar.Header>
+			</Sidebar>
+		);
+	}
 
 	return (
 		<Sidebar {...props}>
