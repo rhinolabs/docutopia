@@ -47,7 +47,7 @@ export const DocutopiaPage: React.FC = () => {
 		);
 	}
 
-	const endpoint = `${spec?.servers?.[0]?.url}${operation.path}`;
+	const endpoint = `${spec.servers[0].url}${operation.path}`;
 	const { pathParams, queryParams } = parameters;
 
 	return (
@@ -80,8 +80,7 @@ export const DocutopiaPage: React.FC = () => {
 										content: response.content || {},
 									}),
 								)}
-								// biome-ignore lint/style/noNonNullAssertion: `spec` is guaranteed to be defined here
-								doc={spec!}
+								doc={spec}
 							/>
 						)}
 					</div>
