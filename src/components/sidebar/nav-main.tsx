@@ -57,7 +57,7 @@ export function NavMain({
 																	<Badge
 																		className={`${getRequestTypeClass(subItem.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
 																	>
-																		{subItem.requestType}
+																		{subItem.requestType.toUpperCase()}
 																	</Badge>
 																</Link>
 															</Sidebar.MenuSubButton>

@@ -11,7 +11,7 @@ interface SidebarData {
 		title: string;
 		version: string;
 		serversCount: number;
-	};
+	} | null;
 }
 
 export const useSidebarData = (): SidebarData => {
@@ -28,8 +28,24 @@ export const useSidebarData = (): SidebarData => {
 			};
 		}
 
-		if (error || !spec) {
-			throw new Error(error || "No specification loaded");
+		if (error) {
+			return {
+				collections: [],
+				totalEndpoints: 0,
+				isLoading: false,
+				error: error,
+				specInfo: null,
+			};
+		}
+
+		if (!spec) {
+			return {
+				collections: [],
+				totalEndpoints: 0,
+				isLoading: false,
+				error: "No specification loaded",
+				specInfo: null,
+			};
 		}
 
 		const collections = spec.sidebar;

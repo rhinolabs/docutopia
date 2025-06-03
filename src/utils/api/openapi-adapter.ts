@@ -17,8 +17,10 @@ export async function transformOpenApiToSidebar(
 							tag,
 							item: {
 								name: operation.summary,
-								url: slugifyOperation(operation.operationId),
-								requestType: method.toUpperCase(),
+								url: slugifyOperation(
+									operation.operationId || operation.summary || path,
+								),
+								requestType: method.toLowerCase(),
 							},
 						};
 					},

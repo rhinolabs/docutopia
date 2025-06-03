@@ -30,6 +30,7 @@ export const TryApiPanel = memo<TryApiPanelProps>(({ operation }) => {
 		<div className="space-y-6">
 			<CredentialsForm />
 			<CurlDisplay curlCommand={curlCommand} />
+
 			<div className="text-center">
 				<Button
 					size="lg"
@@ -40,7 +41,12 @@ export const TryApiPanel = memo<TryApiPanelProps>(({ operation }) => {
 					{isLoading ? "Executing..." : "Try It!"}
 				</Button>
 			</div>
-			<ResponseDisplay response={response} error={error} />
+
+			<ResponseDisplay
+				response={response}
+				error={error}
+				operation={operation}
+			/>
 		</div>
 	);
 });

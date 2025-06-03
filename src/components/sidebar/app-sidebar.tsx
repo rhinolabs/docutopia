@@ -32,13 +32,13 @@ export const AppSidebar = memo<AppSidebarProps>((props) => {
 		<Sidebar {...props}>
 			<Sidebar.Header>
 				<SidebarHeader
-					title={specInfo.title}
-					version={specInfo.version}
-					serversCount={specInfo.serversCount}
+					title={specInfo?.title || "Docutopia"}
+					version={specInfo?.version}
+					serversCount={specInfo?.serversCount || 0}
 				/>
 				<SidebarContent
 					collections={collections}
-					specTitle={specInfo.title}
+					specTitle={specInfo?.title || "API"}
 				/>
 			</Sidebar.Header>
 			<Sidebar.Rail />

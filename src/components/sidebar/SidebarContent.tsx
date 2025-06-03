@@ -15,9 +15,11 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
 }) => {
 	return (
 		<>
-			<Sidebar.MenuItem>
-				<SearchBar navItems={collections} />
-			</Sidebar.MenuItem>
+			<Sidebar.Menu>
+				<Sidebar.MenuItem>
+					<SearchBar navItems={collections} />
+				</Sidebar.MenuItem>
+			</Sidebar.Menu>
 
 			<Sidebar.Content>
 				<NavMain items={collections} />

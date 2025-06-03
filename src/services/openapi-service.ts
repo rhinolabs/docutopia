@@ -35,9 +35,9 @@ export class OpenApiService {
 			for (const [method, operation] of Object.entries(pathItem)) {
 				if (!operation) continue;
 
-				const operationSlug =
-					this.generateSlug(operation.summary) ||
-					`${method.toUpperCase()}-${path.replace(/\//g, "-")}`;
+				const operationSlug = this.generateSlug(
+					operation.operationId || operation.summary || path,
+				);
 
 				if (operationSlug === slug) {
 					return { ...operation, path, method: method.toUpperCase() };
@@ -47,11 +47,13 @@ export class OpenApiService {
 		return null;
 	}
 
-	private generateSlug(summary?: string): string {
-		if (!summary) return "";
-		return summary
+	private generateSlug(input: string): string {
+		return input
 			.toLowerCase()
-			.replace(/[^a-z0-9]+/g, "-")
-			.replace(/^-|-$/g, "");
+			.replace(/[^\w\s-]/g, "")
+			.replace(/\s+/g, "-")
+			.replace(/-+/g, "-")
+			.replace(/^-+/, "")
+			.replace(/-+$/, "");
 	}
 }

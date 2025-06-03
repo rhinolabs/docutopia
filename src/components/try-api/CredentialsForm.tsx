@@ -18,32 +18,23 @@ export const CredentialsForm: React.FC = () => {
 				</h3>
 			</Card.Header>
 			<Card.Content className="space-y-4">
-				<Select
-					value={credentials.type}
-					onValueChange={(type: AuthCredentials["type"]) =>
-						updateCredentials({ type: type })
-					}
-				>
-					<Select.Trigger className="w-32 bg-input text-foreground">
-						<Select.Value />
-					</Select.Trigger>
-					<Select.Content className="bg-input">
-						<Select.Item value="apiKey">API Key</Select.Item>
-						<Select.Item value="bearer">Bearer Token</Select.Item>
-						<Select.Item value="basic">Basic Auth</Select.Item>
-					</Select.Content>
-				</Select>
-
-				{credentials.type === "basic" && (
-					<Input
-						placeholder="Username"
-						value={credentials.username || ""}
-						onChange={(e) => updateCredentials({ username: e.target.value })}
-						className="font-mono text-sm bg-input text-foreground"
-					/>
-				)}
-
 				<div className="flex items-center space-x-2">
+					<Select
+						value={credentials.type}
+						onValueChange={(type: AuthCredentials["type"]) =>
+							updateCredentials({ type: type })
+						}
+					>
+						<Select.Trigger className="w-32 bg-input text-foreground">
+							<Select.Value />
+						</Select.Trigger>
+						<Select.Content className="bg-input">
+							<Select.Item value="apiKey">API Key</Select.Item>
+							<Select.Item value="bearer">Bearer Token</Select.Item>
+							<Select.Item value="basic">Basic Auth</Select.Item>
+						</Select.Content>
+					</Select>
+
 					<Input
 						type={showPassword ? "text" : "password"}
 						placeholder={
@@ -73,6 +64,15 @@ export const CredentialsForm: React.FC = () => {
 
 					<CopyButton text={credentials.value} className="hover:bg-accent" />
 				</div>
+
+				{credentials.type === "basic" && (
+					<Input
+						placeholder="Username"
+						value={credentials.username || ""}
+						onChange={(e) => updateCredentials({ username: e.target.value })}
+						className="font-mono text-sm bg-input text-foreground"
+					/>
+				)}
 			</Card.Content>
 		</Card>
 	);

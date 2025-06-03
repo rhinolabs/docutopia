@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { OpenApiDocument, EnhancedOperation } from "@/core/types";
 import { OpenApiService } from "@/services/openapi-service";
+import { mockOpenApiDoc } from "@/mocks/api-data";
 
 interface OpenApiState {
 	spec: OpenApiDocument | null;
@@ -29,9 +30,11 @@ export const useOpenApiStore = create<OpenApiState>((set, get) => ({
 			const spec = await openApiService.loadSpec(specPath);
 			set({ spec, isLoading: false, error: null });
 		} catch (error) {
+			console.warn("Failed to load spec from", specPath, "- using mock data");
 			set({
-				error: error instanceof Error ? error.message : "Unknown error",
+				spec: mockOpenApiDoc,
 				isLoading: false,
+				error: null,
 			});
 		}
 	},
