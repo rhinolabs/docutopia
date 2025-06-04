@@ -28,7 +28,7 @@ export function getFieldConstraints(field: ParameterObject): string | null {
 	const rangeCheck = (
 		min: number | undefined,
 		max: number | undefined,
-		type: string,
+		_type: string,
 	) => {
 		if (min !== undefined && max !== undefined) {
 			return `${min} to ${max}`;

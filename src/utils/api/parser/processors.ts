@@ -10,7 +10,7 @@ import type {
 } from "@/types/api/openapi";
 import { OpenAPIParserError } from "./errors";
 import { validatePathSyntax } from "./validators";
-import { REQUEST_TYPES } from "@/types/api/requests";
+import { REQUEST_TYPES } from "@/types/api/Requests";
 
 export default class OpenAPIProcessors {
 	private refCache: Map<string, unknown>;
@@ -81,7 +81,7 @@ export default class OpenAPIProcessors {
 	}
 
 	private async processResponses(responses: ResponsesObject): Promise<void> {
-		for (const [statusCode, response] of Object.entries(responses)) {
+		for (const [_statusCode, response] of Object.entries(responses)) {
 			if ("$ref" in response) {
 				await this.resolveRef(response.$ref);
 			} else {

@@ -19,12 +19,11 @@ export class OpenApiService {
 		}
 	}
 
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	private transformSpec(rawSpec: any): OpenApiDocument {
-		if (!rawSpec.openapi) {
+	private transformSpec(rawSpec: unknown): OpenApiDocument {
+		if (!rawSpec || typeof rawSpec !== "object" || !("openapi" in rawSpec)) {
 			throw new OpenApiError("Invalid OpenAPI specification");
 		}
-		return rawSpec;
+		return rawSpec as OpenApiDocument;
 	}
 
 	findOperationBySlug(

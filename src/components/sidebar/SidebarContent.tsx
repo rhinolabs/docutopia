@@ -11,7 +11,6 @@ interface SidebarContentProps {
 
 export const SidebarContent: React.FC<SidebarContentProps> = ({
 	collections,
-	specTitle,
 }) => {
 	return (
 		<>

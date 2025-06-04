@@ -1,5 +1,3 @@
-import type { RequestType } from "@/types/api/requests";
-
 const requestTypeClasses: Record<string, string> = Object.freeze({
 	GET: "bg-get",
 	POST: "bg-post",
@@ -12,6 +10,6 @@ const requestTypeClasses: Record<string, string> = Object.freeze({
 	TRACE: "bg-trace",
 });
 
-export const getRequestTypeClass = (requestType: RequestType): string => {
+export const getRequestTypeClass = (requestType: string): string => {
 	return requestTypeClasses[requestType.toUpperCase()] || "bg-gray-300";
 };

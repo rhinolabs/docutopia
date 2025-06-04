@@ -1,6 +1,9 @@
 // Re-export existing OpenAPI types
 export * from "../../types/api/openapi";
 
+// Explicit re-exports for commonly used types
+export type { ParameterObject } from "../../types/api/openapi";
+
 // New centralized types for the application
 export interface RequestState {
 	isLoading: boolean;
