@@ -1,27 +1,57 @@
 import { useMemo } from "react";
 import type {
 	EnhancedOperation,
-	AuthCredentials,
 	RequestParameters,
+	AuthCredentials,
 } from "@/core/types";
+
+interface CurlOptions {
+	baseUrl?: string;
+	includeHeaders?: boolean;
+	includeBody?: boolean;
+	prettify?: boolean;
+}
 
 export const useCurlGenerator = (
 	operation: EnhancedOperation,
 	credentials: AuthCredentials,
-	parameters: RequestParameters = { path: {}, query: {} },
+	parameters: RequestParameters,
+	options: CurlOptions = {},
 ) => {
-	return useMemo(() => {
-		const baseUrl = "https://api.example.com";
-		let url = `${baseUrl}${operation.path}`;
+	const {
+		baseUrl = "https://api.example.com",
+		includeHeaders = true,
+		includeBody = true,
+		prettify = true,
+	} = options;
 
-		for (const [key, value] of Object.entries(parameters.path)) {
+	return useMemo(() => {
+		const parts: string[] = ["curl"];
+
+		// Add request method
+		if (operation.method.toUpperCase() !== "GET") {
+			parts.push(`--request ${operation.method.toUpperCase()}`);
+		}
+
+		// Build URL with path parameters
+		let url = baseUrl + operation.path;
+		for (const [key, value] of Object.entries(parameters.path || {})) {
 			url = url.replace(`{${key}}`, encodeURIComponent(String(value)));
 		}
 
+		// Add query parameters
 		const queryParams = new URLSearchParams();
-		for (const [key, value] of Object.entries(parameters.query)) {
-			if (value !== undefined && value !== null) {
+		for (const [key, value] of Object.entries(parameters.query || {})) {
+			if (value !== undefined && value !== null && value !== "") {
 				queryParams.append(key, String(value));
+			}
+		}
+
+		// Add auth query parameters if applicable
+		if (credentials.value && credentials.location === "query") {
+			const authQuery = generateAuthQuery(credentials);
+			for (const [key, value] of Object.entries(authQuery)) {
+				queryParams.append(key, value);
 			}
 		}
 
@@ -29,40 +59,95 @@ export const useCurlGenerator = (
 			url += `?${queryParams.toString()}`;
 		}
 
-		const headers = ["accept: application/json"];
+		// Add URL (escaped for shell)
+		parts.push(`"${url}"`);
 
-		switch (credentials.type) {
-			case "apiKey":
-				if (credentials.value) {
-					headers.push(`X-API-Key: ${credentials.value}`);
+		if (includeHeaders) {
+			// Add standard headers
+			parts.push('--header "Accept: application/json"');
+			parts.push('--header "Content-Type: application/json"');
+
+			// Add authentication headers
+			if (credentials.value) {
+				const authHeaders = generateAuthHeaders(credentials);
+				for (const [key, value] of Object.entries(authHeaders)) {
+					parts.push(`--header "${key}: ${value}"`);
 				}
-				break;
-			case "bearer":
-				if (credentials.value) {
-					headers.push(`Authorization: Bearer ${credentials.value}`);
-				}
-				break;
-			case "basic":
-				if (credentials.value && credentials.username) {
-					const encoded = btoa(`${credentials.username}:${credentials.value}`);
-					headers.push(`Authorization: Basic ${encoded}`);
-				}
-				break;
+			}
 		}
 
-		let curl = `curl --request ${operation.method} \\\n  --url '${url}'`;
-
-		for (const header of headers) {
-			curl += ` \\\n  --header '${header}'`;
-		}
-
+		// Add request body if applicable
 		if (
-			["POST", "PUT", "PATCH"].includes(operation.method) &&
-			parameters.body
+			includeBody &&
+			parameters.body &&
+			["POST", "PUT", "PATCH"].includes(operation.method.toUpperCase())
 		) {
-			curl += ` \\\n  --data '${JSON.stringify(parameters.body, null, 2)}'`;
+			const bodyString =
+				typeof parameters.body === "string"
+					? parameters.body
+					: JSON.stringify(parameters.body, null, 2);
+			parts.push(`--data '${bodyString}'`);
 		}
 
-		return curl;
-	}, [operation, credentials, parameters]);
+		// Join parts
+		return prettify ? parts.join(" \\\n  ") : parts.join(" ");
+	}, [
+		operation,
+		credentials,
+		parameters,
+		baseUrl,
+		includeHeaders,
+		includeBody,
+		prettify,
+	]);
 };
+
+// Helper functions (extracted from the auth store logic)
+function generateAuthHeaders(
+	credentials: AuthCredentials,
+): Record<string, string> {
+	const headers: Record<string, string> = {};
+
+	if (!credentials.value) return headers;
+
+	switch (credentials.type) {
+		case "apiKey":
+			if (credentials.location === "header") {
+				headers[credentials.keyName || "x-api-key"] = credentials.value;
+			}
+			break;
+
+		case "bearer":
+			headers.Authorization = `${credentials.prefix || "Bearer "}${credentials.value}`;
+			break;
+
+		case "basic":
+			if (credentials.username) {
+				const encoded = btoa(`${credentials.username}:${credentials.value}`);
+				headers.Authorization = `Basic ${encoded}`;
+			}
+			break;
+
+		case "cookie":
+			if (credentials.location === "header") {
+				headers.Cookie = `${credentials.keyName || "session_token"}=${credentials.value}`;
+			}
+			break;
+	}
+
+	return headers;
+}
+
+function generateAuthQuery(
+	credentials: AuthCredentials,
+): Record<string, string> {
+	const query: Record<string, string> = {};
+
+	if (!credentials.value || credentials.location !== "query") return query;
+
+	if (credentials.type === "apiKey") {
+		query[credentials.keyName || "api_key"] = credentials.value;
+	}
+
+	return query;
+}

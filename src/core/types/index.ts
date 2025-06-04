@@ -22,14 +22,17 @@ export interface RequestConfig {
 	path: string;
 	headers?: Record<string, string>;
 	body?: unknown;
+	query?: Record<string, string>;
 	timeout?: number;
 }
 
 export interface AuthCredentials {
-	type: "apiKey" | "bearer" | "basic";
+	type: "apiKey" | "bearer" | "basic" | "cookie";
 	value: string;
 	username?: string; // For basic auth
-	keyName?: string; // For API key location (header, query)
+	keyName?: string; // For API key location (x-api-key, api-key, etc.)
+	location?: "header" | "query" | "cookie"; // Where to send the credential
+	prefix?: string; // e.g., "Bearer ", "Token ", etc.
 }
 
 export interface ParameterValue {

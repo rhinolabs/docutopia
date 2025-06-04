@@ -13,7 +13,21 @@ export class ApiClient {
 		const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
 		try {
-			const response = await fetch(`${this.baseURL}${config.path}`, {
+			// Build URL with query parameters
+			let url = `${this.baseURL}${config.path}`;
+			if (config.query && Object.keys(config.query).length > 0) {
+				const queryParams = new URLSearchParams();
+				for (const [key, value] of Object.entries(config.query)) {
+					if (value !== undefined && value !== null && value !== "") {
+						queryParams.append(key, String(value));
+					}
+				}
+				if (queryParams.toString()) {
+					url += `?${queryParams.toString()}`;
+				}
+			}
+
+			const response = await fetch(url, {
 				method: config.method,
 				headers: { "Content-Type": "application/json", ...config.headers },
 				body: config.body ? JSON.stringify(config.body) : undefined,
