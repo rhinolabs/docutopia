@@ -8,6 +8,7 @@
 		"dev": "rsbuild dev --open",
 		"build": "rsbuild build",
 		"preview": "rsbuild preview",
+		"tsc": "tsc --noEmit",
 		"lint": "biome format && biome lint",
 		"lint:fix": "biome format --write && biome lint --fix --unsafe",
 		"generate-spec": "tsx src/scripts/generate-spec.ts --spec ./src/mocks/openapi.yaml"
@@ -19,7 +20,8 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router-dom": "^6.28.0",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"zustand": "^5.0.5"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

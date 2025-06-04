@@ -1,45 +1,49 @@
-"use client";
-
-import type * as React from "react";
-import { CommandIcon } from "lucide-react";
-
-import { NavMain } from "./nav-main";
+import type React from "react";
+import { memo } from "react";
 import { Sidebar } from "@rhinolabs/ui";
+import { useSidebarData } from "@/hooks/use-sidebar-data";
+import { SidebarHeader } from "./sidebar-header.tsx";
+import { SidebarContent } from "./sidebar-content.tsx";
+import { SidebarLoading } from "./sidebar-loading.tsx";
+import { SidebarError } from "./sidebar-error.tsx";
 
-import { SearchBar } from "../search-bar/search-bar";
-import { useOpenApi } from "@/contexts/open-api-context";
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {}
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const { doc } = useOpenApi();
-	const sidebarData = doc.sidebar;
+export const AppSidebar = memo<AppSidebarProps>((props) => {
+	const { collections, isLoading, error, specInfo } = useSidebarData();
+
+	if (isLoading) {
+		return (
+			<Sidebar {...props}>
+				<SidebarLoading />
+			</Sidebar>
+		);
+	}
+
+	if (error) {
+		return (
+			<Sidebar {...props}>
+				<SidebarError error={error} />
+			</Sidebar>
+		);
+	}
 
 	return (
 		<Sidebar {...props}>
 			<Sidebar.Header>
-				<Sidebar.Menu>
-					<Sidebar.MenuItem>
-						<Sidebar.MenuButton
-							size="lg"
-							className="data-(state=open):bg-sidebar-accent data-(state=open):text-sidebar-accent-foreground"
-						>
-							<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground mr-2">
-								<CommandIcon className="size-4" />
-							</div>
-							<div className="grid flex-1 text-left text-sm leading-tight">
-								<span className="truncate font-semibold">Docutopia</span>
-							</div>
-						</Sidebar.MenuButton>
-					</Sidebar.MenuItem>
-					<Sidebar.MenuItem>
-						<SearchBar navItems={sidebarData} />
-					</Sidebar.MenuItem>
-				</Sidebar.Menu>
+				<SidebarHeader
+					title={specInfo?.title || "Docutopia"}
+					version={specInfo?.version}
+					serversCount={specInfo?.serversCount || 0}
+				/>
+				<SidebarContent
+					collections={collections}
+					specTitle={specInfo?.title || "API"}
+				/>
 			</Sidebar.Header>
-
-			<Sidebar.Content>
-				<NavMain items={sidebarData} />
-			</Sidebar.Content>
 			<Sidebar.Rail />
 		</Sidebar>
 	);
-}
+});
+
+AppSidebar.displayName = "AppSidebar";

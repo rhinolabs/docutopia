@@ -5,11 +5,11 @@ import type { SchemaObject } from "./schemas";
 export interface OpenApiDocument {
 	openapi: string;
 	info: InfoObject;
-	servers?: ServerObject[];
+	servers: ServerObject[];
 	tags?: TagsObject[];
 	paths: Record<string, PathItemObject>;
 	components?: ComponentsObject;
-	sidebar?: SidebarCollection;
+	sidebar: SidebarCollection[];
 }
 
 export interface InfoObject {

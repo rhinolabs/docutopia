@@ -774,4 +774,5 @@ export const mockOpenApiDoc: OpenApiDocument = {
 			},
 		},
 	},
+	sidebar: [],
 };

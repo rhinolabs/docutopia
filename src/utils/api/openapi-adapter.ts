@@ -12,15 +12,15 @@ export async function transformOpenApiToSidebar(
 			(acc, [path, methods]) => {
 				const operations = Object.entries(methods).flatMap(
 					([method, operation]) => {
-						const tag = operation.tags?.[0] || "Other";
+						const tag = operation.tags[0];
 						return {
 							tag,
 							item: {
-								name: operation.summary || `${method.toUpperCase()} ${path}`,
+								name: operation.summary,
 								url: slugifyOperation(
 									operation.operationId || operation.summary || path,
 								),
-								requestType: method.toUpperCase(),
+								requestType: method.toLowerCase(),
 							},
 						};
 					},
@@ -51,6 +51,6 @@ export async function transformOpenApiToSidebar(
 		];
 	} catch (error) {
 		console.error("Error transforming OpenAPI to sidebar:", error);
-		return [];
+		throw error;
 	}
 }

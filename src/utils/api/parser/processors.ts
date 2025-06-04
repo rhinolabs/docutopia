@@ -1,12 +1,12 @@
 import type {
-	PathItemObject,
-	SchemaObject,
 	ComponentsObject,
-	ResponsesObject,
-	ParameterOrRef,
-	RequestBodyOrRef,
-	SchemaOrRef,
 	OpenApiDocument,
+	ParameterOrRef,
+	PathItemObject,
+	RequestBodyOrRef,
+	ResponsesObject,
+	SchemaObject,
+	SchemaOrRef,
 } from "@/types/api/openapi";
 import { OpenAPIParserError } from "./errors";
 import { validatePathSyntax } from "./validators";
@@ -29,9 +29,7 @@ export default class OpenAPIProcessors {
 	}
 
 	private async processPathItem(pathItem: PathItemObject): Promise<void> {
-		const operations = REQUEST_TYPES;
-
-		for (const op of operations) {
+		for (const op of REQUEST_TYPES) {
 			const operation = pathItem[op as keyof PathItemObject];
 			if (operation) {
 				if (operation.parameters) {
@@ -83,7 +81,7 @@ export default class OpenAPIProcessors {
 	}
 
 	private async processResponses(responses: ResponsesObject): Promise<void> {
-		for (const [statusCode, response] of Object.entries(responses)) {
+		for (const [_statusCode, response] of Object.entries(responses)) {
 			if ("$ref" in response) {
 				await this.resolveRef(response.$ref);
 			} else {

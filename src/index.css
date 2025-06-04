@@ -115,4 +115,41 @@
 		color: var(--color-foreground) !important;
 		border-color: var(--color-border) !important;
 	}
+
+	/* HTTP Method badges */
+	.bg-get {
+		background-color: var(--color-get) !important;
+	}
+
+	.bg-post {
+		background-color: var(--color-post) !important;
+	}
+
+	.bg-put {
+		background-color: var(--color-put) !important;
+	}
+
+	.bg-patch {
+		background-color: var(--color-patch) !important;
+	}
+
+	.bg-delete {
+		background-color: var(--color-delete) !important;
+	}
+
+	.bg-head {
+		background-color: var(--color-head) !important;
+	}
+
+	.bg-options {
+		background-color: var(--color-options) !important;
+	}
+
+	.bg-connect {
+		background-color: var(--color-connect) !important;
+	}
+
+	.bg-trace {
+		background-color: var(--color-trace) !important;
+	}
 }
