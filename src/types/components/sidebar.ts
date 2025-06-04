@@ -1,4 +1,4 @@
-import type { RequestType } from "@/types/api/Requests";
+import type { RequestType } from "@/types/api/requests";
 
 export interface SidebarRequestItem {
 	name: string;

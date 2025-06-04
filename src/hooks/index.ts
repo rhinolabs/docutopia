@@ -1,12 +1,12 @@
 // Export all custom hooks
-export { useEndpointData } from "./useEndpointData";
-export { useApiRequest } from "./useApiRequest";
-export { useCurlGenerator } from "./useCurlGenerator";
-export { useCopyToClipboard } from "./useCopyToClipboard";
-export { useSidebarData } from "./useSidebarData";
-export { useEndpointHeader } from "./useEndpointHeader";
-export { useEndpointParameters } from "./useEndpointParameters";
-export { useEndpointResponses } from "./useEndpointResponses";
+export { useEndpointData } from "./use-endpoint-data";
+export { useApiRequest } from "./use-api-request";
+export { useCurlGenerator } from "./use-curl-generator";
+export { useCopyToClipboard } from "./use-copy-to-clipboard";
+export { useSidebarData } from "./use-sidebar-data";
+export { useEndpointHeader } from "./use-endpoint-header";
+export { useEndpointParameter } from "./use-endpoint-parameter";
+export { useEndpointResponses } from "./use-endpoint-responses";
 
 // Re-export store hooks
 export { useAuth } from "@/stores/auth-store";

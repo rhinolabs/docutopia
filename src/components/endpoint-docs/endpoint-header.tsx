@@ -1,6 +1,6 @@
 import type React from "react";
 import { Badge, Separator, Sidebar } from "@rhinolabs/ui";
-import { useEndpointHeader } from "@/hooks/useEndpointHeader";
+import { useEndpointHeader } from "@/hooks/use-endpoint-header";
 import type { EnhancedOperation } from "@/core/types";
 
 interface EndpointHeaderProps {

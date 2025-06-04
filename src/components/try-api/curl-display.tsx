@@ -1,6 +1,6 @@
 import type React from "react";
 import { Card } from "@rhinolabs/ui";
-import { CopyButton } from "@/components/common/CopyButton";
+import { CopyButton } from "@/components/common/copy-button.tsx";
 
 interface CurlDisplayProps {
 	curlCommand: string;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, Select, Input, Button } from "@rhinolabs/ui";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/hooks";
-import { CopyButton } from "@/components/common/CopyButton";
+import { CopyButton } from "@/components/common/copy-button.tsx";
 import type { AuthCredentials } from "@/core/types";
 
 export const CredentialsForm: React.FC = () => {

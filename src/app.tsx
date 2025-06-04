@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Sidebar } from "@rhinolabs/ui";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { useOpenApiStore } from "@/stores/openapi-store";
-import { DocutopiaPage } from "@/pages/DocutopiaPage";
+import { DocutopiaPage } from "@/pages/docutopia.page.tsx";
 import { APP_CONFIG } from "@/core/config/constants";
 
 export function App() {

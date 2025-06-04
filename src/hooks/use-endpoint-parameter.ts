@@ -8,7 +8,7 @@ interface EndpointParametersData {
 	hasParameters: boolean;
 }
 
-export const useEndpointParameters = (
+export const useEndpointParameter = (
 	parameters: { pathParams: ParameterObject[]; queryParams: ParameterObject[] },
 	bodyParams: ParameterObject[],
 ): EndpointParametersData => {

@@ -10,7 +10,7 @@ import type {
 } from "@/types/api/openapi";
 import { OpenAPIParserError } from "./errors";
 import { validatePathSyntax } from "./validators";
-import { REQUEST_TYPES } from "@/types/api/Requests";
+import { REQUEST_TYPES } from "@/types/api/requests";
 
 export default class OpenAPIProcessors {
 	private refCache: Map<string, unknown>;

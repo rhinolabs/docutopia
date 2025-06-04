@@ -1,6 +1,6 @@
 import type React from "react";
 import { Sidebar } from "@rhinolabs/ui";
-import { LoadingSpinner } from "@/components/common/LoadingSpinner";
+import { LoadingSpinner } from "@/components/common/loading-spinner.tsx";
 
 export const SidebarLoading: React.FC = () => {
 	return (

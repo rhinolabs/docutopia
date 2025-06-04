@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { EndpointHeader } from "./EndpointHeader";
-import { EndpointParameters } from "./EndpointParameters";
-import { EndpointResponses } from "./EndpointResponses";
+import { EndpointHeader } from "./endpoint-header.tsx";
+import { EndpointParams } from "./endpoint-params.tsx";
+import { EndpointResponses } from "./endpoint-responses.tsx";
 import type { EnhancedOperation, ParameterObject } from "@/core/types";
 
 interface EndpointDocumentationProps {
@@ -16,7 +16,7 @@ export const EndpointDocumentation = memo<EndpointDocumentationProps>(
 			<div className="lg:col-span-2">
 				<EndpointHeader operation={operation} />
 				<div className="content">
-					<EndpointParameters parameters={parameters} bodyParams={bodyParams} />
+					<EndpointParams parameters={parameters} bodyParams={bodyParams} />
 					<EndpointResponses operation={operation} />
 				</div>
 			</div>

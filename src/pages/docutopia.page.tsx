@@ -1,11 +1,11 @@
 import type React from "react";
 import { useParams } from "react-router-dom";
-import { useEndpointData } from "@/hooks/useEndpointData";
-import { LoadingSpinner } from "@/components/common/LoadingSpinner";
-import { ErrorDisplay } from "@/components/common/ErrorDisplay";
+import { useEndpointData } from "@/hooks/use-endpoint-data";
+import { LoadingSpinner } from "@/components/common/loading-spinner.tsx";
+import { ErrorDisplay } from "@/components/common/error-display.tsx";
 import { Separator, Sidebar } from "@rhinolabs/ui";
 import { EndpointDocumentation } from "@/components/endpoint-docs";
-import { TryApiPanel } from "@/components/try-api/TryApiPanel";
+import { TryApiPanel } from "@/components/try-api/try-api-panel.tsx";
 
 export const DocutopiaPage: React.FC = () => {
 	const { apiUrl } = useParams<{ apiUrl: string }>();

@@ -6,7 +6,9 @@ interface EndpointResponsesData {
 	hasResponses: boolean;
 }
 
-export const useEndpointResponses = (operation: EnhancedOperation): EndpointResponsesData => {
+export const useEndpointResponses = (
+	operation: EnhancedOperation,
+): EndpointResponsesData => {
 	return useMemo(() => {
 		if (!operation.responses) {
 			return {
@@ -20,7 +22,7 @@ export const useEndpointResponses = (operation: EnhancedOperation): EndpointResp
 				status,
 				description: response.description || "No description",
 				content: response.content,
-			})
+			}),
 		);
 
 		return {

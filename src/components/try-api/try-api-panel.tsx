@@ -2,9 +2,9 @@ import { memo, useState } from "react";
 import { Button } from "@rhinolabs/ui";
 import type { EnhancedOperation, RequestParameters } from "@/core/types";
 import { useAuth, useApiRequest, useCurlGenerator } from "@/hooks";
-import { CredentialsForm } from "./CredentialsForm";
-import { CurlDisplay } from "./CurlDisplay";
-import { ResponseDisplay } from "./ResponseDisplay";
+import { CredentialsForm } from "./credentials-form.tsx";
+import { CurlDisplay } from "./curl-display.tsx";
+import { ResponseDisplay } from "./response-display.tsx";
 
 interface TryApiPanelProps {
 	operation: EnhancedOperation;

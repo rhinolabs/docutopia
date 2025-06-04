@@ -1,1 +1,1 @@
-export { DocutopiaPage } from "./DocutopiaPage.tsx";
+export { DocutopiaPage } from "./docutopia.page.tsx";

@@ -1,11 +1,11 @@
 import type React from "react";
 import { memo } from "react";
 import { Sidebar } from "@rhinolabs/ui";
-import { useSidebarData } from "@/hooks/useSidebarData";
-import { SidebarHeader } from "./SidebarHeader";
-import { SidebarContent } from "./SidebarContent";
-import { SidebarLoading } from "./SidebarLoading";
-import { SidebarError } from "./SidebarError";
+import { useSidebarData } from "@/hooks/use-sidebar-data";
+import { SidebarHeader } from "./sidebar-header.tsx";
+import { SidebarContent } from "./sidebar-content.tsx";
+import { SidebarLoading } from "./sidebar-loading.tsx";
+import { SidebarError } from "./sidebar-error.tsx";
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {}
 

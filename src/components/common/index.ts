@@ -1,4 +1,4 @@
 // Export common components
-export { LoadingSpinner } from "./LoadingSpinner";
-export { ErrorDisplay } from "./ErrorDisplay";
-export { CopyButton } from "./CopyButton";
+export { LoadingSpinner } from "./loading-spinner.tsx";
+export { ErrorDisplay } from "./error-display.tsx";
+export { CopyButton } from "./copy-button.tsx";

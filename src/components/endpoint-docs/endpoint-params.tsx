@@ -2,7 +2,7 @@ import type React from "react";
 import { PathParams } from "@/components/api-docs/path-params";
 import { QueryParams } from "@/components/api-docs/query-params";
 import { BodyParams } from "@/components/api-docs/body-params";
-import { useEndpointParameters } from "@/hooks/useEndpointParameters";
+import { useEndpointParameter } from "@/hooks/use-endpoint-parameter";
 import type { ParameterObject } from "@/core/types";
 
 interface EndpointParametersProps {
@@ -10,7 +10,7 @@ interface EndpointParametersProps {
 	bodyParams: ParameterObject[];
 }
 
-export const EndpointParameters: React.FC<EndpointParametersProps> = ({
+export const EndpointParams: React.FC<EndpointParametersProps> = ({
 	parameters,
 	bodyParams,
 }) => {
@@ -19,7 +19,7 @@ export const EndpointParameters: React.FC<EndpointParametersProps> = ({
 		queryParams,
 		bodyParams: processedBodyParams,
 		hasParameters,
-	} = useEndpointParameters(parameters, bodyParams);
+	} = useEndpointParameter(parameters, bodyParams);
 
 	if (!hasParameters) {
 		return null;
