@@ -45,20 +45,27 @@ export const useAuthStore = create<AuthState>()(
 	persist(
 		(set, get) => ({
 			credentials: defaultCredentials,
-
-			get isAuthenticated() {
-				const creds = get().credentials;
-				return Boolean(
-					creds.value && (creds.type !== "basic" || creds.username),
-				);
-			},
+			isAuthenticated: false,
 
 			updateCredentials: (newCredentials) =>
-				set((state) => ({
-					credentials: { ...state.credentials, ...newCredentials },
-				})),
+				set((state) => {
+					const updatedCredentials = {
+						...state.credentials,
+						...newCredentials,
+					};
+					const isAuthenticated = Boolean(
+						updatedCredentials.value &&
+							(updatedCredentials.type !== "basic" ||
+								updatedCredentials.username),
+					);
+					return {
+						credentials: updatedCredentials,
+						isAuthenticated,
+					};
+				}),
 
-			clearCredentials: () => set({ credentials: defaultCredentials }),
+			clearCredentials: () =>
+				set({ credentials: defaultCredentials, isAuthenticated: false }),
 
 			setAuthType: (type) =>
 				set((state) => ({
@@ -68,6 +75,7 @@ export const useAuthStore = create<AuthState>()(
 						...authTypeDefaults[type],
 						value: "", // Reset value when changing type
 					},
+					isAuthenticated: false,
 				})),
 
 			generateAuthHeaders: () => {
@@ -122,22 +130,33 @@ export const useAuthStore = create<AuthState>()(
 		}),
 		{
 			name: "docutopia-auth",
-			partialize: (state) => ({ credentials: state.credentials }),
+			partialize: (state) => ({
+				credentials: state.credentials,
+				isAuthenticated: state.isAuthenticated,
+			}),
 		},
 	),
 );
 
 // Export hook for easier consumption
 export const useAuth = () => {
-	const store = useAuthStore();
+	const credentials = useAuthStore((state) => state.credentials);
+	const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+	const updateCredentials = useAuthStore((state) => state.updateCredentials);
+	const clearCredentials = useAuthStore((state) => state.clearCredentials);
+	const setAuthType = useAuthStore((state) => state.setAuthType);
+	const generateAuthHeaders = useAuthStore(
+		(state) => state.generateAuthHeaders,
+	);
+	const generateAuthQuery = useAuthStore((state) => state.generateAuthQuery);
 
 	return {
-		credentials: store.credentials,
-		isAuthenticated: store.isAuthenticated,
-		updateCredentials: store.updateCredentials,
-		clearCredentials: store.clearCredentials,
-		setAuthType: store.setAuthType,
-		generateAuthHeaders: store.generateAuthHeaders,
-		generateAuthQuery: store.generateAuthQuery,
+		credentials,
+		isAuthenticated,
+		updateCredentials,
+		clearCredentials,
+		setAuthType,
+		generateAuthHeaders,
+		generateAuthQuery,
 	};
 };

@@ -27,20 +27,30 @@ export class ApiClient {
 				}
 			}
 
+			// GET and HEAD requests cannot have a body
+			const canHaveBody = !["GET", "HEAD"].includes(
+				config.method.toUpperCase(),
+			);
+
 			const response = await fetch(url, {
 				method: config.method,
 				headers: { "Content-Type": "application/json", ...config.headers },
-				body: config.body ? JSON.stringify(config.body) : undefined,
+				body:
+					canHaveBody && config.body ? JSON.stringify(config.body) : undefined,
 				signal: controller.signal,
 			});
 
 			clearTimeout(timeoutId);
 
+			// Read response text first (can only be read once)
+			const responseText = await response.text();
+
+			// Try to parse as JSON, fallback to text
 			let data: T;
 			try {
-				data = await response.json();
+				data = responseText ? JSON.parse(responseText) : ({} as T);
 			} catch {
-				data = (await response.text()) as unknown as T;
+				data = responseText as unknown as T;
 			}
 
 			if (!response.ok) {

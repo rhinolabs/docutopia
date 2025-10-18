@@ -8,10 +8,13 @@ import { APP_CONFIG } from "@/core/config/constants";
 
 export function App() {
 	const { loadSpec, isLoading, error } = useOpenApiStore();
+	const specUrl = "https://petstore3.swagger.io/api/v3/openapi.json";
 
 	useEffect(() => {
-		loadSpec(APP_CONFIG.DEFAULT_SPEC_PATH);
-	}, [loadSpec]);
+		// Check if there's a spec URL in query params (e.g., ?spec=https://mockhttp.org/docs/json)
+		const specPath = specUrl || APP_CONFIG.DEFAULT_SPEC_PATH;
+		loadSpec(specPath);
+	}, [loadSpec, specUrl]);
 
 	if (isLoading) {
 		return (

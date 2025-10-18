@@ -10,6 +10,8 @@ interface ObjectFieldProps {
 	name: string;
 	defaultOpen?: boolean;
 	readOnly?: boolean;
+	paramType?: "path" | "query" | "body";
+	bodyPath?: string[];
 }
 
 const isObjectField = (field: SchemaObject): boolean =>
@@ -20,6 +22,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 	name,
 	defaultOpen = false,
 	readOnly = false,
+	// paramType and bodyPath not used yet, but needed for type compatibility
 }) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 

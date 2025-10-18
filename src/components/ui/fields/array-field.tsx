@@ -7,12 +7,16 @@ import { useMemo } from "react";
 
 interface ArrayFieldProps {
 	field: SchemaObject;
+	name?: string;
 	readOnly?: boolean;
+	paramType?: "path" | "query" | "body";
+	bodyPath?: string[];
 }
 
 export const ArrayField: React.FC<ArrayFieldProps> = ({
 	field,
 	readOnly = false,
+	// paramType and bodyPath not used yet, but needed for type compatibility
 }) => {
 	const itemsType = field.items?.type;
 

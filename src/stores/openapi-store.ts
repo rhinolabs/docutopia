@@ -30,12 +30,22 @@ export const useOpenApiStore = create<OpenApiState>((set, get) => ({
 			const spec = await openApiService.loadSpec(specPath);
 			set({ spec, isLoading: false, error: null });
 		} catch (error) {
-			console.warn("Failed to load spec from", specPath, "- using mock data");
-			set({
-				spec: mockOpenApiDoc,
-				isLoading: false,
-				error: null,
-			});
+			console.error("Failed to load spec from", specPath, error);
+			// Only use mock data for local specs, not external URLs
+			if (specPath.startsWith("http://") || specPath.startsWith("https://")) {
+				set({
+					spec: null,
+					isLoading: false,
+					error: `Failed to load spec: ${error instanceof Error ? error.message : "Unknown error"}`,
+				});
+			} else {
+				console.warn("Using mock data for local spec");
+				set({
+					spec: mockOpenApiDoc,
+					isLoading: false,
+					error: null,
+				});
+			}
 		}
 	},
 

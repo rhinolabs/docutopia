@@ -1,10 +1,14 @@
 import type { SchemaObject } from "@/types/api/openapi";
 import { Badge, Input, Select } from "@rhinolabs/ui";
+import { useState, useEffect } from "react";
+import { useRequestParamsStore } from "@/stores/request-params-store";
 
 interface StringFieldProps {
 	field: SchemaObject;
 	name: string;
 	readOnly?: boolean;
+	paramType?: "path" | "query" | "body";
+	bodyPath?: string[];
 }
 
 const isEnumField = (field: SchemaObject): boolean =>
@@ -14,9 +18,42 @@ export const StringField: React.FC<StringFieldProps> = ({
 	field,
 	name,
 	readOnly = false,
+	paramType = "body",
+	bodyPath = [],
 }) => {
+	const { updatePathParam, updateQueryParam, updateBodyParam } =
+		useRequestParamsStore();
+	const [value, setValue] = useState<string>((field.default as string) || "");
+
+	// Update store when value changes
+	useEffect(() => {
+		if (readOnly) return;
+
+		if (paramType === "path") {
+			updatePathParam(name, value);
+		} else if (paramType === "query") {
+			updateQueryParam(name, value);
+		} else if (paramType === "body") {
+			const path = bodyPath.length > 0 ? bodyPath : [name];
+			updateBodyParam(path, value);
+		}
+	}, [
+		value,
+		paramType,
+		name,
+		bodyPath,
+		updatePathParam,
+		updateQueryParam,
+		updateBodyParam,
+		readOnly,
+	]);
+
+	const handleChange = (newValue: string) => {
+		setValue(newValue);
+	};
+
 	if (readOnly && !isEnumField(field)) {
-		return;
+		return null;
 	}
 
 	if (isEnumField(field)) {
@@ -41,11 +78,11 @@ export const StringField: React.FC<StringFieldProps> = ({
 
 		return (
 			<div className="col-span-4 lg:col-span-1">
-				<Select>
-					<Select.Trigger className="m-auto bg-input  text-foreground">
+				<Select value={value} onValueChange={handleChange}>
+					<Select.Trigger className="m-auto bg-input text-foreground">
 						<Select.Value placeholder="Select" />
 					</Select.Trigger>
-					<Select.Content className="bg-input ">
+					<Select.Content className="bg-input">
 						<Select.Group>
 							{field.enum?.map((option) => {
 								const optionStr = String(option);
@@ -71,12 +108,15 @@ export const StringField: React.FC<StringFieldProps> = ({
 	return (
 		<div className="col-span-4 lg:col-span-1">
 			<Input
-				id={`pathParam${name}`}
-				className="border  bg-input text-foreground m-auto"
+				id={`param-${paramType}-${name}`}
+				className="border bg-input text-foreground m-auto"
 				type="text"
+				value={value}
+				onChange={(e) => handleChange(e.target.value)}
 				minLength={field.minLength}
 				maxLength={field.maxLength}
 				pattern={field.pattern}
+				placeholder={field.example as string}
 			/>
 		</div>
 	);
