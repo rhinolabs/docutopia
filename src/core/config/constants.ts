@@ -1,5 +1,4 @@
 export const APP_CONFIG = {
-	DEFAULT_SPEC_PATH: "/specs/openapi.json",
 	REQUEST_TIMEOUT: 30000,
 	MAX_RESPONSE_SIZE: 1024 * 1024, // 1MB
 	SUPPORTED_AUTH_TYPES: ["apiKey", "bearer", "basic"] as const,

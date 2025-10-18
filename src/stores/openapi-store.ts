@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import type { OpenApiDocument, EnhancedOperation } from "@/core/types";
 import { OpenApiService } from "@/services/openapi-service";
-import { mockOpenApiDoc } from "@/mocks/api-data";
 
 interface OpenApiState {
 	spec: OpenApiDocument | null;
@@ -31,21 +30,11 @@ export const useOpenApiStore = create<OpenApiState>((set, get) => ({
 			set({ spec, isLoading: false, error: null });
 		} catch (error) {
 			console.error("Failed to load spec from", specPath, error);
-			// Only use mock data for local specs, not external URLs
-			if (specPath.startsWith("http://") || specPath.startsWith("https://")) {
-				set({
-					spec: null,
-					isLoading: false,
-					error: `Failed to load spec: ${error instanceof Error ? error.message : "Unknown error"}`,
-				});
-			} else {
-				console.warn("Using mock data for local spec");
-				set({
-					spec: mockOpenApiDoc,
-					isLoading: false,
-					error: null,
-				});
-			}
+			set({
+				spec: null,
+				isLoading: false,
+				error: `Failed to load spec: ${error instanceof Error ? error.message : "Unknown error"}`,
+			});
 		}
 	},
 

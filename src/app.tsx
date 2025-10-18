@@ -4,17 +4,15 @@ import { Sidebar } from "@rhinolabs/ui";
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { useOpenApiStore } from "@/stores/openapi-store";
 import { DocutopiaPage } from "@/pages/docutopia.page.tsx";
-import { APP_CONFIG } from "@/core/config/constants";
 
 export function App() {
 	const { loadSpec, isLoading, error } = useOpenApiStore();
 	const specUrl = "https://petstore3.swagger.io/api/v3/openapi.json";
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Load spec only once on mount
 	useEffect(() => {
-		// Check if there's a spec URL in query params (e.g., ?spec=https://mockhttp.org/docs/json)
-		const specPath = specUrl || APP_CONFIG.DEFAULT_SPEC_PATH;
-		loadSpec(specPath);
-	}, [loadSpec, specUrl]);
+		loadSpec(specUrl);
+	}, []);
 
 	if (isLoading) {
 		return (

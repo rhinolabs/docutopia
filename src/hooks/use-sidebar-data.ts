@@ -1,6 +1,11 @@
 import { useMemo } from "react";
 import { useOpenApiStore } from "@/stores/openapi-store";
 import type { SidebarCollection } from "@/types/components/sidebar";
+import type {
+	OpenApiDocument,
+	PathItemObject,
+	OperationObject,
+} from "@/core/types";
 
 interface SidebarData {
 	collections: SidebarCollection[];
@@ -26,17 +31,34 @@ const generateSlug = (input: string): string => {
 };
 
 // Generate sidebar data from raw OpenAPI spec
-const generateSidebarFromSpec = (spec: any): SidebarCollection[] => {
-	const tagGroups = new Map<string, any[]>();
+const generateSidebarFromSpec = (
+	spec: OpenApiDocument,
+): SidebarCollection[] => {
+	const tagGroups = new Map<
+		string,
+		Array<{
+			id: string;
+			name: string;
+			method: string;
+			path: string;
+			url: string;
+		}>
+	>();
 
 	// Group operations by tags
 	for (const [path, pathItem] of Object.entries(spec.paths || {})) {
-		for (const [method, operation] of Object.entries(pathItem as any)) {
+		for (const [method, operation] of Object.entries(
+			pathItem as PathItemObject,
+		)) {
 			if (typeof operation !== "object" || !operation) continue;
+			const op = operation as OperationObject;
 
-			const tags = operation.tags || ["Untagged"];
+			const tags = op.tags || ["Untagged"];
 			// Use same fallback logic as OpenApiService.findOperationBySlug
-			const operationId = operation.operationId || operation.summary || path;
+			const operationId =
+				(op as OperationObject & { operationId?: string }).operationId ||
+				op.summary ||
+				path;
 			const slug = generateSlug(operationId);
 
 			for (const tag of tags) {
@@ -46,9 +68,7 @@ const generateSidebarFromSpec = (spec: any): SidebarCollection[] => {
 				tagGroups.get(tag)?.push({
 					id: operationId,
 					name:
-						operation.summary ||
-						operation.description ||
-						`${method.toUpperCase()} ${path}`,
+						op.summary || op.description || `${method.toUpperCase()} ${path}`,
 					method: method.toUpperCase(),
 					path: path,
 					url: slug, // Use slug directly without /api/ prefix
