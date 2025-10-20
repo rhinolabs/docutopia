@@ -1,4 +1,3 @@
-import type { SidebarCollection } from "@/types/components/sidebar";
 import type { PathItemObject } from "./paths";
 import type { SchemaObject } from "./schemas";
 
@@ -9,7 +8,6 @@ export interface OpenApiDocument {
 	tags?: TagsObject[];
 	paths: Record<string, PathItemObject>;
 	components?: ComponentsObject;
-	sidebar: SidebarCollection[];
 }
 
 export interface InfoObject {
