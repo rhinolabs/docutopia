@@ -1,4 +1,5 @@
 import { ArrayField } from "@/components/ui/fields/array-field";
+import { BooleanField } from "@/components/ui/fields/boolean-field";
 import { IntegerField } from "@/components/ui/fields/integer-field";
 import { ObjectField } from "@/components/ui/fields/object-field";
 import { StringField } from "@/components/ui/fields/string-field";
@@ -25,5 +26,7 @@ export const getFieldComponent = (type: string): FieldComponent | null => {
 
 registerFieldType("string", StringField);
 registerFieldType("integer", IntegerField);
+registerFieldType("number", IntegerField); // number uses same component as integer
+registerFieldType("boolean", BooleanField);
 registerFieldType("array", ArrayField);
 registerFieldType("object", ObjectField);

@@ -4,8 +4,8 @@ export interface SchemaObject {
 	type?: string;
 	format?: string;
 	description?: string;
-	properties?: Record<string, SchemaObject>;
-	items?: SchemaObject;
+	properties?: Record<string, SchemaOrRef>;
+	items?: SchemaOrRef;
 	required?: string[];
 	enum?: (string | number | boolean)[];
 	default?: number | string;

@@ -1,24 +1,28 @@
 import type { ParameterObject } from "@/types/api/openapi";
+import { asSchemaObject } from "../type-guards";
 
 export function getFieldType(field: ParameterObject): string {
 	if (!field.schema) {
 		return "Undefined Type";
 	}
 
-	switch (field.schema.type) {
-		case "array":
-			if (
-				"items" in field.schema &&
-				field.schema.items &&
-				field.schema.items.type
-			) {
-				return `array of ${field.schema.items.type} [ ]`;
+	const schema = asSchemaObject(field.schema);
+	if (!schema) {
+		return "Reference (unresolved)";
+	}
+
+	switch (schema.type) {
+		case "array": {
+			const items = asSchemaObject(schema.items);
+			if (items?.type) {
+				return `array of ${items.type} [ ]`;
 			}
 			return "array [ ]";
+		}
 		case "object":
 			return "object { }";
 		default:
-			return field.schema?.type || "Undefined Type";
+			return schema.type || "Undefined Type";
 	}
 }
 

@@ -2,8 +2,10 @@ import type {
 	MediaTypeObject,
 	OpenApiDocument,
 	SchemaObject,
+	SchemaOrRef,
 } from "@/types/api/openapi";
 import { resolveRef } from "@/utils/api/resolve-ref";
+import { asSchemaObject } from "@/utils/type-guards";
 import { Button, Card, Collapsible, Separator } from "@rhinolabs/ui";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { memo, useState } from "react";
@@ -18,7 +20,7 @@ interface MediaTypeContentProps {
 interface MediaTypeExamplesContentProps {
 	mediaType: string;
 	mediaObject: {
-		examples?: Record<string, SchemaObject>;
+		examples?: Record<string, SchemaOrRef>;
 	};
 	doc: OpenApiDocument;
 }
@@ -92,50 +94,55 @@ export const MediaTypeExamplesContent: React.FC<MediaTypeExamplesContentProps> =
 		return (
 			<div key={`${mediaType}-examples`}>
 				{Object.entries(mediaObject.examples).map(
-					([exampleKey, exampleObj], index) => (
-						<Collapsible
-							key={`${mediaType}-collapsible-${exampleKey}`}
-							open={openIndex === index}
-							onOpenChange={() => handleToggle(index)}
-							className={index > 0 ? "border-t" : ""}
-						>
-							<div className="flex items-center justify-between space-x-4 px-4 py-3">
-								<Collapsible.Trigger asChild>
-									<div className="flex justify-between items-center w-full cursor-pointer">
-										<div>{exampleKey.toUpperCase()}</div>
-										<Button
-											variant="ghost"
-											size="sm"
-											className="w-9 p-0"
-											aria-label="Toggle response details"
-										>
-											{openIndex === index ? (
-												<MinusIcon className="h-4 w-4 text-muted-foreground" />
-											) : (
-												<PlusIcon className="h-4 w-4 text-muted-foreground" />
-											)}
-											<span className="sr-only">Toggle</span>
-										</Button>
-									</div>
-								</Collapsible.Trigger>
-							</div>
-							<Collapsible.Content>
-								<Separator />
-								<Card className="m-4 shadow-none rounded-lg bg-primary-foreground">
-									<p className="text-sm font-medium text-muted-foreground px-6 py-4">
-										{String(exampleObj.type ?? "Unknown type")}
-									</p>
-									<div className="mb-2">
-										<PropertiesList
-											mediaType={mediaType}
-											properties={exampleObj.properties ?? {}}
-											required={exampleObj.required}
-										/>
-									</div>
-								</Card>
-							</Collapsible.Content>
-						</Collapsible>
-					),
+					([exampleKey, exampleObjOrRef], index) => {
+						const exampleObj = asSchemaObject(exampleObjOrRef);
+						if (!exampleObj) return null;
+
+						return (
+							<Collapsible
+								key={`${mediaType}-collapsible-${exampleKey}`}
+								open={openIndex === index}
+								onOpenChange={() => handleToggle(index)}
+								className={index > 0 ? "border-t" : ""}
+							>
+								<div className="flex items-center justify-between space-x-4 px-4 py-3">
+									<Collapsible.Trigger asChild>
+										<div className="flex justify-between items-center w-full cursor-pointer">
+											<div>{exampleKey.toUpperCase()}</div>
+											<Button
+												variant="ghost"
+												size="sm"
+												className="w-9 p-0"
+												aria-label="Toggle response details"
+											>
+												{openIndex === index ? (
+													<MinusIcon className="h-4 w-4 text-muted-foreground" />
+												) : (
+													<PlusIcon className="h-4 w-4 text-muted-foreground" />
+												)}
+												<span className="sr-only">Toggle</span>
+											</Button>
+										</div>
+									</Collapsible.Trigger>
+								</div>
+								<Collapsible.Content>
+									<Separator />
+									<Card className="m-4 shadow-none rounded-lg bg-primary-foreground">
+										<p className="text-sm font-medium text-muted-foreground px-6 py-4">
+											{String(exampleObj.type ?? "Unknown type")}
+										</p>
+										<div className="mb-2">
+											<PropertiesList
+												mediaType={mediaType}
+												properties={exampleObj.properties ?? {}}
+												required={exampleObj.required}
+											/>
+										</div>
+									</Card>
+								</Collapsible.Content>
+							</Collapsible>
+						);
+					},
 				)}
 			</div>
 		);

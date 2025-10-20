@@ -5,7 +5,28 @@ interface RefObject {
 }
 
 const isSchemaObject = (obj: unknown): obj is SchemaObject => {
-	return typeof obj === "object" && obj !== null && "type" in obj;
+	if (typeof obj !== "object" || obj === null) return false;
+
+	// A valid SchemaObject can have any of these properties
+	// Note: 'type' is optional in OpenAPI - it can be inferred from other properties
+	const validProps = [
+		"type",
+		"properties",
+		"items",
+		"enum",
+		"format",
+		"description",
+		"required",
+		"default",
+		"example",
+		"pattern",
+		"minimum",
+		"maximum",
+		"minLength",
+		"maxLength",
+	];
+
+	return validProps.some((prop) => prop in obj);
 };
 
 export const resolveRef = (
