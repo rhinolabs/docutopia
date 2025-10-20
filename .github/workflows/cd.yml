@@ -1,0 +1,56 @@
+name: Continuous Deployment
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-core:
+    if: startsWith(github.event.release.tag_name, 'core@')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🛠 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 🏷️ Get version from release
+        id: get_version
+        run: echo "VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/core@//')" >> $GITHUB_OUTPUT
+
+      - name: 🔄 Update package version
+        run: npx tsx scripts/version.ts core ${{ steps.get_version.outputs.VERSION }}
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🛠️ Build core package
+        run: pnpm --filter @docutopia/core build
+
+      - name: ✏️ Fix linting issues
+        run: pnpm lint:fix
+
+      - name: 📢 Publish core package
+        run: cd packages/core && npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 💾 Commit version changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Bump @docutopia/core version to ${{ steps.get_version.outputs.VERSION }}"
+          file_pattern: 'packages/core/package.json pnpm-lock.yaml'
+          branch: main
+          push_options: '--force'

@@ -1,46 +1,19 @@
 {
-	"name": "docutopia",
-	"private": true,
+	"name": "@docutopia/monorepo",
 	"version": "1.0.0",
-	"type": "module",
+	"private": true,
+	"packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
 	"scripts": {
-		"predev": "pnpm run generate-spec",
-		"dev": "rsbuild dev --open",
-		"build": "rsbuild build",
-		"preview": "rsbuild preview",
-		"tsc": "tsc --noEmit",
-		"lint": "biome format && biome lint",
-		"lint:fix": "biome format --write && biome lint --fix --unsafe",
-		"generate-spec": "tsx src/scripts/generate-spec.ts --spec ./src/mocks/openapi.yaml"
-	},
-	"dependencies": {
-		"@rhinolabs/ui": "^1.1.0",
-		"@tanstack/react-query": "^5.62.11",
-		"lucide-react": "^0.474.0",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"react-router-dom": "^6.28.0",
-		"tailwindcss-animate": "^1.0.7",
-		"zustand": "^5.0.5"
+		"build": "pnpm -r build",
+		"dev": "pnpm -r --parallel dev",
+		"preview": "pnpm -r preview",
+		"tsc": "pnpm -r tsc",
+		"lint": "biome check .",
+		"lint:fix": "biome check . --fix --unsafe"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@rsbuild/core": "^1.1.8",
-		"@rsbuild/plugin-react": "^1.0.7",
-		"@rsbuild/plugin-yaml": "^1.0.2",
-		"@tailwindcss/postcss": "^4.0.3",
-		"@tanstack/react-query-devtools": "^5.62.11",
-		"@types/js-yaml": "^4.0.9",
 		"@types/node": "^22.10.3",
-		"@types/react": "^19.0.0",
-		"@types/react-dom": "^19.0.0",
-		"commander": "^13.1.0",
-		"js-yaml": "^4.1.0",
-		"postcss": "^8.4.49",
-		"tailwind-merge": "^3.0.1",
-		"tailwindcss": "^4.0.3",
-		"tsx": "^4.19.2",
-		"typescript": "^5.7.2"
-	},
-	"packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
+		"tsx": "^4.19.2"
+	}
 }
