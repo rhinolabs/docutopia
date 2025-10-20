@@ -1,5 +1,6 @@
 import type { EnhancedOperation, OpenApiDocument } from "@/core/types";
 import { OpenApiError } from "@/core/types/errors";
+import { slugifyOperation } from "@/utils/slugify-operation";
 
 export class OpenApiService {
 	async loadSpec(specPath: string): Promise<OpenApiDocument> {
@@ -34,7 +35,7 @@ export class OpenApiService {
 			for (const [method, operation] of Object.entries(pathItem)) {
 				if (!operation) continue;
 
-				const operationSlug = this.generateSlug(
+				const operationSlug = slugifyOperation(
 					operation.operationId || operation.summary || path,
 				);
 
@@ -44,15 +45,5 @@ export class OpenApiService {
 			}
 		}
 		return null;
-	}
-
-	private generateSlug(input: string): string {
-		return input
-			.toLowerCase()
-			.replace(/[^\w\s-]/g, "")
-			.replace(/\s+/g, "-")
-			.replace(/-+/g, "-")
-			.replace(/^-+/, "")
-			.replace(/-+$/, "");
 	}
 }

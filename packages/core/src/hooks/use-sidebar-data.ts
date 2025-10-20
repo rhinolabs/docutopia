@@ -9,6 +9,7 @@ import type {
 	SidebarCollection,
 	SidebarRequestItem,
 } from "@/types/components/sidebar";
+import { slugifyOperation } from "@/utils/slugify-operation";
 import { useMemo } from "react";
 
 interface SidebarData {
@@ -22,17 +23,6 @@ interface SidebarData {
 		serversCount: number;
 	} | null;
 }
-
-// Helper to generate slug from string (matches OpenApiService.generateSlug)
-const generateSlug = (input: string): string => {
-	return input
-		.toLowerCase()
-		.replace(/[^\w\s-]/g, "")
-		.replace(/\s+/g, "-")
-		.replace(/-+/g, "-")
-		.replace(/^-+/, "")
-		.replace(/-+$/, "");
-};
 
 // Generate sidebar data from raw OpenAPI spec
 const generateSidebarFromSpec = (
@@ -56,7 +46,7 @@ const generateSidebarFromSpec = (
 				(op as OperationObject & { operationId?: string }).operationId ||
 				op.summary ||
 				path;
-			const slug = generateSlug(operationId);
+			const slug = slugifyOperation(operationId);
 
 			// Create the sidebar request item
 			const item: SidebarRequestItem = {

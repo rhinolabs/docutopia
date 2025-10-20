@@ -1,9 +1,9 @@
+import slugify from "@sindresorhus/slugify";
+
 export function slugifyOperation(input: string) {
-	return input
-		.toLowerCase()
-		.replace(/[^\w\s-]/g, "")
-		.replace(/\s+/g, "-")
-		.replace(/-+/g, "-")
-		.replace(/^-+/, "")
-		.replace(/-+$/, "");
+	return slugify(input, {
+		decamelize: true, // Converts camelCase to kebab-case
+		lowercase: true,
+		separator: "-",
+	});
 }
