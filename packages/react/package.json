@@ -33,8 +33,6 @@
 		"@rhinolabs/ui": "^1.1.0",
 		"@sindresorhus/slugify": "^3.0.0",
 		"lucide-react": "^0.474.0",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
 		"react-router-dom": "^6.28.0",
 		"tailwindcss-animate": "^1.0.7",
 		"zustand": "^5.0.5"
