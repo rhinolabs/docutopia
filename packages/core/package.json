@@ -7,12 +7,10 @@
 	"types": "dist/index.d.ts",
 	"files": ["dist/**/*"],
 	"scripts": {
-		"predev": "pnpm run generate-spec",
 		"dev": "rsbuild dev --open",
 		"build": "rsbuild build",
 		"preview": "rsbuild preview",
-		"tsc": "tsc --noEmit",
-		"generate-spec": "tsx src/scripts/generate-spec.ts --spec ./src/mocks/openapi.yaml"
+		"tsc": "tsc --noEmit"
 	},
 	"keywords": [
 		"openapi",

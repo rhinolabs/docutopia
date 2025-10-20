@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 
 export function App() {
 	const { loadSpec, isLoading, error } = useOpenApiStore();
+	// TODO: Make this a prop instead of hardcoded URL
 	const specUrl = "https://petstore3.swagger.io/api/v3/openapi.json";
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Load spec only once on mount
