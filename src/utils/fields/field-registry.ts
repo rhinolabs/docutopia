@@ -9,6 +9,8 @@ type FieldComponent = React.FC<{
 	field: SchemaObject;
 	name: string;
 	readOnly?: boolean;
+	paramType?: "path" | "query" | "body";
+	bodyPath?: string[];
 }>;
 
 const fieldRegistry: Record<string, FieldComponent> = {};

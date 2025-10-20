@@ -1,16 +1,24 @@
 import type React from "react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { useEndpointData } from "@/hooks/use-endpoint-data";
 import { LoadingSpinner } from "@/components/common/loading-spinner.tsx";
 import { ErrorDisplay } from "@/components/common/error-display.tsx";
 import { Separator, Sidebar } from "@rhinolabs/ui";
 import { EndpointDocumentation } from "@/components/endpoint-docs";
 import { TryApiPanel } from "@/components/try-api/try-api-panel.tsx";
+import { useRequestParamsStore } from "@/stores/request-params-store";
 
 export const DocutopiaPage: React.FC = () => {
 	const { apiUrl } = useParams<{ apiUrl: string }>();
 	const { operation, parameters, bodyParams, isLoading, error } =
 		useEndpointData(apiUrl);
+	const { clearParams } = useRequestParamsStore();
+
+	// Clear parameters when endpoint changes
+	useEffect(() => {
+		clearParams();
+	}, [clearParams]);
 
 	if (isLoading) {
 		return <LoadingSpinner message="Loading API documentation..." />;

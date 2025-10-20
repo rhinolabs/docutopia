@@ -1,11 +1,13 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Button, Badge } from "@rhinolabs/ui";
 import { Play, Loader2, CheckCircle, XCircle } from "lucide-react";
-import type { EnhancedOperation, RequestParameters } from "@/core/types";
+import type { EnhancedOperation } from "@/core/types";
 import { useAuth, useApiRequest, useCurlGenerator } from "@/hooks";
 import { EnhancedCredentialsForm } from "./enhanced-credentials-form";
 import { EnhancedCurlDisplay } from "./enhanced-curl-display";
 import { ResponseDisplay } from "./response-display";
+import { useRequestParamsStore } from "@/stores/request-params-store";
+import { useOpenApiStore } from "@/stores/openapi-store";
 
 interface TryApiPanelProps {
 	operation: EnhancedOperation;
@@ -20,16 +22,16 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 			generateAuthHeaders,
 			generateAuthQuery,
 		} = useAuth();
-		const { executeRequest, isLoading, response, error } = useApiRequest();
-		const [parameters] = useState<RequestParameters>({
-			path: {},
-			query: {},
-			body: {},
-		});
+		const { params } = useRequestParamsStore();
+		const spec = useOpenApiStore((state) => state.spec);
+		const baseUrl = spec?.servers?.[0]?.url;
+
+		const { executeRequest, isLoading, response, error } =
+			useApiRequest(baseUrl);
 
 		// Generate cURL command with current settings
-		const curlCommand = useCurlGenerator(operation, credentials, parameters, {
-			baseUrl: "https://api.example.com",
+		const curlCommand = useCurlGenerator(operation, credentials, params, {
+			baseUrl,
 			prettify: true,
 		});
 
@@ -38,23 +40,29 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 				const authHeaders = generateAuthHeaders();
 				const authQuery = generateAuthQuery();
 
-				// Convert parameters.query to strings and merge with auth query
+				// Convert params.query to strings and merge with auth query
 				const queryParams: Record<string, string> = {};
-				for (const [key, value] of Object.entries(parameters.query || {})) {
+				for (const [key, value] of Object.entries(params.query || {})) {
 					if (value !== undefined && value !== null) {
 						queryParams[key] = String(value);
 					}
 				}
 
+				// Replace path parameters in the URL
+				let requestPath = operation.path;
+				for (const [key, value] of Object.entries(params.path || {})) {
+					requestPath = requestPath.replace(`{${key}}`, String(value));
+				}
+
 				await executeRequest({
 					method: operation.method,
-					path: operation.path,
+					path: requestPath,
 					headers: {
 						"Content-Type": "application/json",
 						Accept: "application/json",
 						...authHeaders,
 					},
-					body: parameters.body,
+					body: params.body,
 					query: { ...queryParams, ...authQuery },
 				});
 			} catch (err) {

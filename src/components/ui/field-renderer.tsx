@@ -6,11 +6,13 @@ import UnsupportedField from "./fields/unsupported-field";
 interface RenderFieldProps {
 	field: ParameterObject;
 	readOnly?: boolean;
+	bodyPath?: string[];
 }
 
 export const RenderField: React.FC<RenderFieldProps> = ({
 	field,
 	readOnly = false,
+	bodyPath = [],
 }) => {
 	if (!field.schema) {
 		console.warn(`Missing schema for field: ${field.name}`);
@@ -28,11 +30,17 @@ export const RenderField: React.FC<RenderFieldProps> = ({
 		return <UnsupportedField type={field.schema?.type || "unknown"} />;
 	}
 
+	// Determine param type from field.in
+	const paramType =
+		field.in === "path" || field.in === "query" ? field.in : "body";
+
 	return (
 		<FieldComponent
 			field={field.schema}
 			name={field.name}
 			readOnly={readOnly}
+			paramType={paramType}
+			bodyPath={bodyPath}
 		/>
 	);
 };
