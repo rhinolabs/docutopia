@@ -28,10 +28,10 @@ export const useEndpointData = (slug?: string) => {
 			};
 		}
 
-		const parameters = classifyParameters(operation.parameters ?? []);
+		const parameters = classifyParameters(operation.parameters ?? [], spec);
 		const bodySchema =
 			operation.requestBody?.content?.["application/json"]?.schema;
-		const bodyParams = getBodyParams(bodySchema);
+		const bodyParams = getBodyParams(bodySchema, spec);
 
 		return {
 			operation,

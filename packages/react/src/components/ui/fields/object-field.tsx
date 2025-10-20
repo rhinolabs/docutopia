@@ -1,4 +1,5 @@
 import type { SchemaObject } from "@/types/api/openapi";
+import { asSchemaObject } from "@/utils/type-guards";
 import { Button, Collapsible, Separator } from "@rhinolabs/ui";
 import { Plus } from "lucide-react";
 import { useState } from "react";
@@ -59,21 +60,26 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 					</Collapsible.Trigger>
 				</div>
 				<Collapsible.Content>
-					{propertyEntries.map(([propName, subSchema]) => (
-						<React.Fragment key={propName}>
-							<Separator />
-							<ParamField
-								field={{
-									name: propName,
-									in: "body",
-									required: field.required?.includes(propName) ?? false,
-									schema: subSchema,
-									description: subSchema.description,
-								}}
-								readOnly={readOnly}
-							/>
-						</React.Fragment>
-					))}
+					{propertyEntries.map(([propName, subSchemaOrRef]) => {
+						const subSchema = asSchemaObject(subSchemaOrRef);
+						if (!subSchema) return null;
+
+						return (
+							<React.Fragment key={propName}>
+								<Separator />
+								<ParamField
+									field={{
+										name: propName,
+										in: "body",
+										required: field.required?.includes(propName) ?? false,
+										schema: subSchema,
+										description: subSchema.description,
+									}}
+									readOnly={readOnly}
+								/>
+							</React.Fragment>
+						);
+					})}
 				</Collapsible.Content>
 			</Collapsible>
 		</div>
