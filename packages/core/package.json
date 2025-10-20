@@ -5,9 +5,7 @@
 	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist/**/*"
-	],
+	"files": ["dist/**/*"],
 	"scripts": {
 		"dev": "rsbuild dev --open",
 		"build": "rsbuild build",
