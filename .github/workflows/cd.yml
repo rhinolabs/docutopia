@@ -5,8 +5,8 @@ on:
     types: [published]
 
 jobs:
-  publish-core:
-    if: startsWith(github.event.release.tag_name, 'core@')
+  publish-react:
+    if: startsWith(github.event.release.tag_name, 'react@')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,29 +28,29 @@ jobs:
 
       - name: 🏷️ Get version from release
         id: get_version
-        run: echo "VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/core@//')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/react@//')" >> $GITHUB_OUTPUT
 
       - name: 🔄 Update package version
-        run: npx tsx scripts/version.ts core ${{ steps.get_version.outputs.VERSION }}
+        run: npx tsx scripts/version.ts react ${{ steps.get_version.outputs.VERSION }}
 
       - name: 📦 Install dependencies
         run: pnpm install
 
-      - name: 🛠️ Build core package
-        run: pnpm --filter @docutopia/core build
+      - name: 🛠️ Build react package
+        run: pnpm --filter @docutopia/react build
 
       - name: ✏️ Fix linting issues
         run: pnpm lint:fix
 
-      - name: 📢 Publish core package
-        run: cd packages/core && npm publish --access public
+      - name: 📢 Publish react package
+        run: cd packages/react && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 💾 Commit version changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Bump @docutopia/core version to ${{ steps.get_version.outputs.VERSION }}"
-          file_pattern: 'packages/core/package.json pnpm-lock.yaml'
+          commit_message: "Bump @docutopia/react version to ${{ steps.get_version.outputs.VERSION }}"
+          file_pattern: 'packages/react/package.json pnpm-lock.yaml'
           branch: main
           push_options: '--force'

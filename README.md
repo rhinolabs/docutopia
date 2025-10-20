@@ -6,7 +6,7 @@ A modern, interactive API documentation library built on React. Docutopia brings
 
 This project is structured as a monorepo using pnpm workspaces:
 
-- **`packages/core`** - Core library package (`@docutopia/core`)
+- **`packages/react`** - React library package (`@docutopia/react`)
   The main Docutopia library that renders interactive API documentation from OpenAPI specifications with built-in testing capabilities.
 
 ## Overview
@@ -25,20 +25,20 @@ The fastest way to use Docutopia is to install it in your project:
 
 ```bash
 # Install the package
-npm install @docutopia/core
+npm install @docutopia/react
 
 # Or with pnpm
-pnpm add @docutopia/core
+pnpm add @docutopia/react
 
 # Or with yarn
-yarn add @docutopia/core
+yarn add @docutopia/react
 ```
 
 Then import and use it in your application:
 
 ```jsx
-import { Docutopia } from '@docutopia/core';
-import '@docutopia/core/dist/style.css';
+import { Docutopia } from '@docutopia/react';
+import '@docutopia/react/dist/style.css';
 
 function App() {
   return (
@@ -49,7 +49,7 @@ function App() {
 
 For more detailed instructions, check the package documentation:
 
-- [`@docutopia/core`](./packages/core/README.md) - Core library with API documentation rendering
+- [`@docutopia/react`](./packages/react/README.md) - React library with API documentation rendering
 
 ## Key Features
 

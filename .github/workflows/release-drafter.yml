@@ -14,9 +14,9 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - name: Draft Core release
+      - name: Draft React release
         uses: release-drafter/release-drafter@v6
         with:
-          config-name: release-drafter-core.yml
+          config-name: release-drafter-react.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
