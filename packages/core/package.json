@@ -1,0 +1,66 @@
+{
+	"name": "@docutopia/core",
+	"version": "1.0.0",
+	"description": "A modern, interactive API documentation library - The beautiful alternative to Swagger UI",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": ["dist/**/*"],
+	"scripts": {
+		"predev": "pnpm run generate-spec",
+		"dev": "rsbuild dev --open",
+		"build": "rsbuild build",
+		"preview": "rsbuild preview",
+		"tsc": "tsc --noEmit",
+		"generate-spec": "tsx src/scripts/generate-spec.ts --spec ./src/mocks/openapi.yaml"
+	},
+	"keywords": [
+		"openapi",
+		"swagger",
+		"api-documentation",
+		"react",
+		"web-components",
+		"documentation",
+		"api",
+		"rest"
+	],
+	"author": "",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rhinolabs/docutopia.git",
+		"directory": "packages/core"
+	},
+	"dependencies": {
+		"@rhinolabs/ui": "^1.1.0",
+		"@tanstack/react-query": "^5.62.11",
+		"lucide-react": "^0.474.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-router-dom": "^6.28.0",
+		"tailwindcss-animate": "^1.0.7",
+		"zustand": "^5.0.5"
+	},
+	"devDependencies": {
+		"@rsbuild/core": "^1.1.8",
+		"@rsbuild/plugin-react": "^1.0.7",
+		"@rsbuild/plugin-yaml": "^1.0.2",
+		"@tailwindcss/postcss": "^4.0.3",
+		"@tanstack/react-query-devtools": "^5.62.11",
+		"@types/js-yaml": "^4.0.9",
+		"@types/node": "^22.10.3",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0",
+		"commander": "^13.1.0",
+		"js-yaml": "^4.1.0",
+		"postcss": "^8.4.49",
+		"tailwind-merge": "^3.0.1",
+		"tailwindcss": "^4.0.3",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.2"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0 || ^19.0.0",
+		"react-dom": "^18.0.0 || ^19.0.0"
+	}
+}

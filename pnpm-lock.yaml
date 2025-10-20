@@ -7,6 +7,18 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: 1.9.4
+        version: 1.9.4
+      '@types/node':
+        specifier: ^22.10.3
+        version: 22.13.4
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.2
+
+  packages/core:
     dependencies:
       '@rhinolabs/ui':
         specifier: ^1.1.0
@@ -33,9 +45,6 @@ importers:
         specifier: ^5.0.5
         version: 5.0.5(@types/react@19.0.4)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
     devDependencies:
-      '@biomejs/biome':
-        specifier: 1.9.4
-        version: 1.9.4
       '@rsbuild/core':
         specifier: ^1.1.8
         version: 1.1.13
