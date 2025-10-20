@@ -14,8 +14,6 @@ A modern, interactive API documentation library built with React. Docutopia tran
 - **🔄 Interactive Testing** - Built-in "Try It!" panel to test endpoints directly in the documentation
 - **🔐 Multiple Auth Methods** - Support for Bearer Token, API Key, and Basic Authentication
 - **📋 cURL Generation** - Automatically generate cURL commands for any request
-- **🌐 Web Components** - Use as React component or framework-agnostic Web Component
-- **🎯 Type-Safe** - Built with TypeScript for excellent developer experience
 - **📱 Responsive** - Works seamlessly on desktop and mobile devices
 
 ## Installation
@@ -33,8 +31,6 @@ yarn add @docutopia/core
 
 ## Quick Start
 
-### As a React Component
-
 ```jsx
 import { Docutopia } from '@docutopia/core';
 import '@docutopia/core/dist/style.css';
@@ -46,23 +42,6 @@ function App() {
 }
 
 export default App;
-```
-
-### As a Web Component
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="node_modules/@docutopia/core/dist/style.css">
-  <script type="module" src="node_modules/@docutopia/core/dist/web-component.js"></script>
-</head>
-<body>
-  <docutopia-viewer
-    spec-url="https://petstore3.swagger.io/api/v3/openapi.json"
-  ></docutopia-viewer>
-</body>
-</html>
 ```
 
 ## Props

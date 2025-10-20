@@ -18,8 +18,6 @@ Docutopia simplifies creating beautiful API documentation by providing:
 - **Multiple authentication methods** (Bearer Token, API Key, Basic Auth)
 - **Automatic cURL generation** for all API requests
 - **Dark mode support** out of the box
-- **Type-safe development** with full TypeScript support
-- **Web Components support** for framework-agnostic integration
 
 ## Getting Started
 
@@ -99,35 +97,6 @@ curl -X GET "https://api.example.com/users/123" \
 ```
 
 Perfect for sharing API examples or debugging.
-
-### 🌐 Multiple Integration Options
-
-Use Docutopia as a React component or Web Component:
-
-```html
-<!-- As a Web Component -->
-<docutopia-viewer
-  spec-url="https://api.example.com/openapi.json"
-></docutopia-viewer>
-```
-
-### 🎯 Type-Safe Development
-
-Built with TypeScript for better developer experience:
-
-- Full type inference for OpenAPI schemas
-- IntelliSense support in modern editors
-- Catch errors during development
-
-## Architecture
-
-The library leverages modern web technologies:
-
-- **React 19** - Latest React features for optimal performance
-- **Zustand** - Lightweight state management
-- **TanStack Query** - Powerful async state management
-- **Tailwind CSS** - Utility-first styling
-- **Rsbuild** - Fast bundler built on Rspack
 
 ## Development
 
