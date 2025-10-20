@@ -1,5 +1,5 @@
 {
-	"name": "@docutopia/core",
+	"name": "@docutopia/react",
 	"version": "1.0.0",
 	"description": "A modern, interactive API documentation library - The beautiful alternative to Swagger UI",
 	"type": "module",
@@ -27,7 +27,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/rhinolabs/docutopia.git",
-		"directory": "packages/core"
+		"directory": "packages/react"
 	},
 	"dependencies": {
 		"@rhinolabs/ui": "^1.1.0",

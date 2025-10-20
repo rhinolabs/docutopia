@@ -1,6 +1,7 @@
 _extends: docutopia:.github/release-drafter-base.yml
-name-template: 'core@$RESOLVED_VERSION'
-tag-template: 'core@$RESOLVED_VERSION'
-tag-prefix: 'core@'
+name-template: 'react@$RESOLVED_VERSION'
+tag-template: 'react@$RESOLVED_VERSION'
+tag-prefix: 'react@'
 include-paths:
-  - "packages/core/"
+  - "packages/react/"
+  
