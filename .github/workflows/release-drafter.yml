@@ -17,6 +17,6 @@ jobs:
       - name: Draft Core release
         uses: release-drafter/release-drafter@v6
         with:
-          config-name: release-drafter-core.yml
+          config-name: release-drafter-react.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
