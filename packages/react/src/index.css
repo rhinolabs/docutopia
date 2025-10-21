@@ -97,7 +97,7 @@
 	input[type="search"],
 	select,
 	textarea {
-		background-color: var(--color-input) !important;
+		background-color: var(--color-input);
 		color: var(--color-foreground) !important;
 		border-color: var(--color-border) !important;
 	}
