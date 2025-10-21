@@ -34,7 +34,7 @@ export const useCurlGenerator = (
 		}
 
 		// Build URL with path parameters
-		let url = baseUrl + operation.path;
+		let url = new URL(operation.path, baseUrl).toString();
 		for (const [key, value] of Object.entries(parameters.path || {})) {
 			url = url.replace(`{${key}}`, encodeURIComponent(String(value)));
 		}

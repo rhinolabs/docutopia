@@ -8,7 +8,7 @@ import { memo } from "react";
 import { EnhancedCredentialsForm } from "./enhanced-credentials-form";
 import { EnhancedCurlDisplay } from "./enhanced-curl-display";
 import { ResponseDisplay } from "./response-display";
-
+import { isAbsoluteUrlRegex } from "@/utils/url-helpers";
 interface TryApiPanelProps {
 	operation: EnhancedOperation;
 	className?: string;
@@ -24,7 +24,13 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		} = useAuth();
 		const { params } = useRequestParamsStore();
 		const spec = useOpenApiStore((state) => state.spec);
-		const baseUrl = spec?.servers?.[0]?.url;
+		let baseUrl = spec?.servers?.[0]?.url ?? "";
+
+		const isAbsolute = isAbsoluteUrlRegex(baseUrl)
+
+		if (!isAbsolute) {
+			baseUrl = new URL(baseUrl, window.location.origin).toString()
+		}
 
 		const { executeRequest, isLoading, response, error } =
 			useApiRequest(baseUrl);
