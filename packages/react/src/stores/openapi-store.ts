@@ -7,6 +7,7 @@ interface OpenApiState {
 	isLoading: boolean;
 	error: string | null;
 	selectedEndpoint: string | null;
+	specPath: string | null;
 
 	loadSpec: (specPath: string) => Promise<void>;
 	selectEndpoint: (endpoint: string) => void;
@@ -20,6 +21,7 @@ export const useOpenApiStore = create<OpenApiState>((set, get) => ({
 	isLoading: false,
 	error: null,
 	selectedEndpoint: null,
+	specPath: null,
 
 	loadSpec: async (specPath: string) => {
 		set({ isLoading: true, error: null });
@@ -27,7 +29,7 @@ export const useOpenApiStore = create<OpenApiState>((set, get) => ({
 		try {
 			const openApiService = new OpenApiService();
 			const spec = await openApiService.loadSpec(specPath);
-			set({ spec, isLoading: false, error: null });
+			set({ spec, isLoading: false, error: null, specPath });
 		} catch (error) {
 			console.error("Failed to load spec from", specPath, error);
 			set({

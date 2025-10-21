@@ -23,13 +23,13 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 			generateAuthQuery,
 		} = useAuth();
 		const { params } = useRequestParamsStore();
-		const spec = useOpenApiStore((state) => state.spec);
+		const { spec, specPath } = useOpenApiStore();
 		let baseUrl = spec?.servers?.[0]?.url ?? "";
 
 		const isAbsolute = isAbsoluteUrlRegex(baseUrl);
 
-		if (!isAbsolute) {
-			baseUrl = new URL(baseUrl, window.location.origin).toString();
+		if (!isAbsolute && specPath) {
+			baseUrl = new URL(baseUrl, specPath).toString();
 		}
 
 		const { executeRequest, isLoading, response, error } =
