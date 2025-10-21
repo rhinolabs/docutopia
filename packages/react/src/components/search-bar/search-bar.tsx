@@ -1,7 +1,8 @@
 "use client";
 
 import type { SidebarCollection } from "@/types/components/sidebar";
-import { Button, Command } from "@rhinolabs/ui";
+import { getRequestTypeClass } from "@/utils/api/request-type";
+import { Badge, Button, Command } from "@rhinolabs/ui";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -29,6 +30,7 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 								{
 									label: request.name,
 									url: request.url,
+									requestType: ""
 								},
 							],
 				),
@@ -94,9 +96,18 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 									<Link
 										to={`/${result.url}`}
 										onClick={() => setOpen(false)}
-										className="[&.active]:font-bold"
+										className="[&.active]:font-bold flex justify-between items-center w-full"
 									>
-										{result.label}
+										<span>
+											{result.label}
+										</span>
+										{result.requestType && (
+											<Badge
+											className={`${getRequestTypeClass(result.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
+										>
+											{result.requestType.toUpperCase()}
+										</Badge>
+										)}
 									</Link>
 								</Command.Item>
 							))}
