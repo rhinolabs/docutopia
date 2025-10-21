@@ -2,13 +2,13 @@ import type { EnhancedOperation } from "@/core/types";
 import { useApiRequest, useAuth, useCurlGenerator } from "@/hooks";
 import { useOpenApiStore } from "@/stores/openapi-store";
 import { useRequestParamsStore } from "@/stores/request-params-store";
+import { isAbsoluteUrlRegex } from "@/utils/url-helpers";
 import { Badge, Button } from "@rhinolabs/ui";
 import { CheckCircle, Loader2, Play, XCircle } from "lucide-react";
 import { memo } from "react";
 import { EnhancedCredentialsForm } from "./enhanced-credentials-form";
 import { EnhancedCurlDisplay } from "./enhanced-curl-display";
 import { ResponseDisplay } from "./response-display";
-import { isAbsoluteUrlRegex } from "@/utils/url-helpers";
 interface TryApiPanelProps {
 	operation: EnhancedOperation;
 	className?: string;
@@ -26,10 +26,10 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		const spec = useOpenApiStore((state) => state.spec);
 		let baseUrl = spec?.servers?.[0]?.url ?? "";
 
-		const isAbsolute = isAbsoluteUrlRegex(baseUrl)
+		const isAbsolute = isAbsoluteUrlRegex(baseUrl);
 
 		if (!isAbsolute) {
-			baseUrl = new URL(baseUrl, window.location.origin).toString()
+			baseUrl = new URL(baseUrl, window.location.origin).toString();
 		}
 
 		const { executeRequest, isLoading, response, error } =
