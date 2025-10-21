@@ -36,7 +36,6 @@ export const useCurlGenerator = (
 
 		// Build URL with path parameters
 		let url = joinPaths(baseUrl, operation.path);
-		console.log("url: ", url);
 		for (const [key, value] of Object.entries(parameters.path || {})) {
 			url = url.replace(`{${key}}`, encodeURIComponent(String(value)));
 		}
