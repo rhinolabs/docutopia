@@ -10,13 +10,19 @@ interface SearchBarProps {
 	navItems: SidebarCollection[];
 }
 
+interface NavigationItem {
+	label: string;
+	url: string;
+	requestType?: string;
+}
+
 export const SearchBar = ({ navItems }: SearchBarProps) => {
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
 
 	const isMac = navigator.platform.toUpperCase().includes("MAC");
 
-	const searchResults = useMemo(
+	const searchResults: NavigationItem[] = useMemo(
 		() =>
 			navItems.flatMap((collection) =>
 				collection.requests.flatMap((request) =>
