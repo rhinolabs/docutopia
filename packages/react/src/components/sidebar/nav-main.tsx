@@ -48,12 +48,18 @@ export function NavMain({
 															className="my-1"
 															key={subItem.name}
 														>
-															<Sidebar.MenuSubButton className="h-auto" asChild title={subItem.name}>
+															<Sidebar.MenuSubButton
+																className="h-auto"
+																asChild
+																title={subItem.name}
+															>
 																<Link
 																	to={`/${subItem.url}`}
 																	className="[&.active]:font-bold"
 																>
-																	<span className="flex-1 text-nowrap overflow-ellipsis overflow-hidden">{subItem.name}</span>
+																	<span className="flex-1 text-nowrap overflow-ellipsis overflow-hidden">
+																		{subItem.name}
+																	</span>
 																	<Badge
 																		className={`${getRequestTypeClass(subItem.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
 																	>

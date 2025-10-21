@@ -30,7 +30,7 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 								{
 									label: request.name,
 									url: request.url,
-									requestType: ""
+									requestType: "",
 								},
 							],
 				),
@@ -98,15 +98,13 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 										onClick={() => setOpen(false)}
 										className="[&.active]:font-bold flex justify-between items-center w-full"
 									>
-										<span>
-											{result.label}
-										</span>
+										<span>{result.label}</span>
 										{result.requestType && (
 											<Badge
-											className={`${getRequestTypeClass(result.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
-										>
-											{result.requestType.toUpperCase()}
-										</Badge>
+												className={`${getRequestTypeClass(result.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
+											>
+												{result.requestType.toUpperCase()}
+											</Badge>
 										)}
 									</Link>
 								</Command.Item>
