@@ -2,13 +2,14 @@ import type { EnhancedOperation } from "@/core/types";
 import { useApiRequest, useAuth, useCurlGenerator } from "@/hooks";
 import { useOpenApiStore } from "@/stores/openapi-store";
 import { useRequestParamsStore } from "@/stores/request-params-store";
-import { isAbsoluteUrlRegex } from "@/utils/url-helpers";
+import { isAbsoluteUrlRegex, joinPaths } from "@/utils/url-helpers";
 import { Badge, Button } from "@rhinolabs/ui";
 import { CheckCircle, Loader2, Play, XCircle } from "lucide-react";
 import { memo } from "react";
 import { EnhancedCredentialsForm } from "./enhanced-credentials-form";
 import { EnhancedCurlDisplay } from "./enhanced-curl-display";
 import { ResponseDisplay } from "./response-display";
+
 interface TryApiPanelProps {
 	operation: EnhancedOperation;
 	className?: string;
@@ -23,17 +24,18 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 			generateAuthQuery,
 		} = useAuth();
 		const { params } = useRequestParamsStore();
-		const { spec, specPath } = useOpenApiStore();
-		let baseUrl = spec?.servers?.[0]?.url ?? "";
+		const { spec, baseUrl } = useOpenApiStore();
 
-		const isAbsolute = isAbsoluteUrlRegex(baseUrl);
+		const serverUrlFromSpec = spec?.servers?.[0]?.url ?? "";
 
-		if (!isAbsolute && specPath) {
-			baseUrl = new URL(baseUrl, specPath).toString();
+		let endpointBaseUrl = serverUrlFromSpec;
+
+		if (!isAbsoluteUrlRegex(serverUrlFromSpec) && baseUrl) {
+			endpointBaseUrl = joinPaths(baseUrl, serverUrlFromSpec);
 		}
 
 		const { executeRequest, isLoading, response, error } =
-			useApiRequest(baseUrl);
+			useApiRequest(endpointBaseUrl);
 
 		// Generate cURL command with current settings
 		const curlCommand = useCurlGenerator(operation, credentials, params, {
