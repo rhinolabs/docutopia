@@ -14,8 +14,8 @@ export const EndpointHeader: React.FC<EndpointHeaderProps> = ({
 
 	return (
 		<div className="head">
-			<h1 className="text-2xl font-semibold my-3">{title}</h1>
-			<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
+			<h1 className="text-2xl font-semibold my-1 ">{title}</h1>
+			<div className="text-xs text-muted-foreground flex items-center overflow-x-auto pb-3">
 				<Badge
 					className={`${methodClass} text-white text-[10px] h-[17px] px-3 font-medium mr-3`}
 				>
