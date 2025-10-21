@@ -1,6 +1,6 @@
 import type { EnhancedOperation } from "@/core/types";
 import { useEndpointHeader } from "@/hooks/use-endpoint-header";
-import { Badge, Separator, Sidebar } from "@rhinolabs/ui";
+import { Badge } from "@rhinolabs/ui";
 import type React from "react";
 
 interface EndpointHeaderProps {
@@ -14,8 +14,6 @@ export const EndpointHeader: React.FC<EndpointHeaderProps> = ({
 
 	return (
 		<div className="head">
-			<Sidebar.Trigger className="pb-4" />
-			<Separator />
 			<h1 className="text-2xl font-semibold my-3">{title}</h1>
 			<div className="text-xs text-muted-foreground flex items-center overflow-x-scroll">
 				<Badge
