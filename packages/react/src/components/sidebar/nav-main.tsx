@@ -36,7 +36,10 @@ export function NavMain({
 									{request.items && request.items.length > 0 ? (
 										<>
 											<Collapsible.Trigger asChild>
-												<Sidebar.MenuButton tooltip={request.name}>
+												<Sidebar.MenuButton
+													tooltip={request.name}
+													className="font-medium"
+												>
 													<span>{request.name}</span>
 													<ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
 												</Sidebar.MenuButton>
@@ -44,16 +47,19 @@ export function NavMain({
 											<Collapsible.Content>
 												<Sidebar.MenuSub className="border-0 px-0">
 													{request.items.map((subItem) => (
-														<Sidebar.MenuSubItem
-															className="my-1"
-															key={subItem.name}
-														>
-															<Sidebar.MenuSubButton className="h-auto" asChild>
+														<Sidebar.MenuSubItem key={subItem.name}>
+															<Sidebar.MenuSubButton
+																className="h-8"
+																asChild
+																title={subItem.name}
+															>
 																<Link
 																	to={`/${subItem.url}`}
 																	className="[&.active]:font-bold"
 																>
-																	<span>{subItem.name}</span>
+																	<span className="flex-1 text-nowrap overflow-ellipsis overflow-hidden text-muted-foreground">
+																		{subItem.name}
+																	</span>
 																	<Badge
 																		className={`${getRequestTypeClass(subItem.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
 																	>
