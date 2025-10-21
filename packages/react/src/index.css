@@ -118,38 +118,56 @@
 
 	/* HTTP Method badges */
 	.bg-get {
-		background-color: var(--color-get) !important;
+		color: var(--color-get) !important;
+		border: 1px solid var(--color-get) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-post {
-		background-color: var(--color-post) !important;
+		color: var(--color-post) !important;
+		border: 1px solid var(--color-post) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-put {
-		background-color: var(--color-put) !important;
+		color: var(--color-put) !important;
+		border: 1px solid var(--color-put) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-patch {
-		background-color: var(--color-patch) !important;
+		color: var(--color-patch) !important;
+		border: 1px solid var(--color-patch) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-delete {
-		background-color: var(--color-delete) !important;
+		color: var(--color-delete) !important;
+		border: 1px solid var(--color-delete) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-head {
-		background-color: var(--color-head) !important;
+		color: var(--color-head) !important;
+		border: 1px solid var(--color-head) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-options {
-		background-color: var(--color-options) !important;
+		color: var(--color-options) !important;
+		border: 1px solid var(--color-options) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-connect {
-		background-color: var(--color-connect) !important;
+		color: var(--color-connect) !important;
+		border: 1px solid var(--color-connect) !important;
+		background-color: transparent !important;
 	}
 
 	.bg-trace {
-		background-color: var(--color-trace) !important;
+		color: var(--color-trace) !important;
+		border: 1px solid var(--color-trace) !important;
+		background-color: transparent !important;
 	}
 }
