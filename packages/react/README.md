@@ -1,22 +1,39 @@
 # @docutopia/react
 
-A modern, interactive API documentation library - The beautiful alternative to Swagger UI.
+A modern, interactive API documentation library built with React. Docutopia transforms your OpenAPI specifications into beautiful, interactive documentation with built-in testing capabilities.
+
+<p align="center">
+  <img src="https://img.shields.io/npm/v/@docutopia/react" alt="npm version">
+  <img src="https://img.shields.io/npm/l/@docutopia/react" alt="license">
+  <img src="https://img.shields.io/github/stars/rhinolabs/docutopia" alt="github stars">
+</p>
+
+## Features
+
+- **🎨 Beautiful UI** - Clean, modern interface with dark mode support
+- **🔄 Interactive Testing** - Built-in "Try It!" panel to test endpoints directly in the documentation
+- **🔐 Multiple Auth Methods** - Support for Bearer Token, API Key, and Basic Authentication
+- **📋 cURL Generation** - Automatically generate cURL commands for any request
+- **📱 Responsive** - Works seamlessly on desktop and mobile devices
 
 ## Installation
 
 ```bash
+# Using npm
 npm install @docutopia/react
-# or
+
+# Using pnpm
 pnpm add @docutopia/react
-# or
+
+# Using yarn
 yarn add @docutopia/react
 ```
 
-## Usage
+## Quick Start
 
-```tsx
+```jsx
 import { Docutopia } from '@docutopia/react';
-import '@docutopia/react/styles';
+import '@docutopia/react/dist/style.css';
 
 function App() {
   return (
@@ -26,43 +43,83 @@ function App() {
     />
   );
 }
+
+export default App;
 ```
 
 ## Props
 
 ### `specUrl` (required)
 
-URL to the OpenAPI specification (JSON or YAML format).
-
-- Type: `string`
+- **Type:** `string`
+- **Description:** URL to your OpenAPI specification (JSON or YAML format)
 
 ### `baseUrl` (required)
 
-Base URL for the API endpoints.
+- **Type:** `string`
+- **Description:** Base URL for the API endpoints
 
-- Type: `string`
+```jsx
+<Docutopia
+  specUrl="https://api.example.com/openapi.json"
+  baseUrl="https://api.example.com"
+/>
+```
 
-### `className` (optional)
+## Framework Integration
 
-Additional CSS classes to apply to the root container.
+### Next.js
 
-- Type: `string`
+```jsx
+// app/docs/page.tsx
+'use client';
 
-### `basename` (optional)
+import { Docutopia } from '@docutopia/react';
+import '@docutopia/react/dist/style.css';
 
-Custom router basename for nested routing.
+export default function DocsPage() {
+  return (
+    <Docutopia
+      specUrl="/api/openapi.json"
+      baseUrl="https://api.example.com"
+    />
+  );
+}
+```
 
-- Type: `string`
+### Remix
 
-## Features
+```jsx
+// app/routes/docs.tsx
+import { Docutopia } from '@docutopia/react';
+import '@docutopia/react/dist/style.css';
 
-- 🎨 Beautiful, modern UI with dark mode
-- 🔍 Interactive API exploration
-- 🧪 Built-in API testing ("Try It" feature)
-- 🔐 Multiple authentication methods (Bearer, API Key, Basic Auth)
-- 📝 Full TypeScript support
-- ⚡ Fast and lightweight
-- 🎯 OpenAPI 3.0 compliant
+export default function DocsRoute() {
+  return (
+    <Docutopia
+      specUrl="/api/openapi.json"
+      baseUrl="https://api.example.com"
+    />
+  );
+}
+```
+
+### Vite
+
+```jsx
+// src/App.jsx
+import { Docutopia } from '@docutopia/react';
+import '@docutopia/react/dist/style.css';
+
+function App() {
+  return (
+    <Docutopia
+      specUrl="https://api.example.com/openapi.json"
+      baseUrl="https://api.example.com"
+    />
+  );
+}
+```
 
 ## License
 
