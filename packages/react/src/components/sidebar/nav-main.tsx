@@ -13,7 +13,7 @@ export function NavMain({
 	items: SidebarCollection[];
 }) {
 	return (
-		<Sidebar.Group>
+		<Sidebar.Group className="px-1">
 			<Sidebar.Menu>
 				{items.map((collection, collectionIndex) => (
 					<div key={collection.collectionName}>
@@ -45,11 +45,11 @@ export function NavMain({
 												</Sidebar.MenuButton>
 											</Collapsible.Trigger>
 											<Collapsible.Content>
-												<Sidebar.MenuSub className="border-0 px-0">
+												<Sidebar.MenuSub className="border-0 px-0 mr-1 ml-3">
 													{request.items.map((subItem) => (
 														<Sidebar.MenuSubItem key={subItem.name}>
 															<Sidebar.MenuSubButton
-																className="h-8"
+																className="py-1.5 h-auto"
 																asChild
 																title={subItem.name}
 															>
@@ -57,13 +57,14 @@ export function NavMain({
 																	to={`/${subItem.url}`}
 																	className="[&.active]:font-bold"
 																>
-																	<span className="flex-1 text-nowrap overflow-ellipsis overflow-hidden text-muted-foreground">
+																	<span className="flex-1 line-clamp-2 leading-tight overflow-ellipsis overflow-hidden text-muted-foreground">
 																		{subItem.name}
 																	</span>
 																	<Badge
 																		className={`${getRequestTypeClass(subItem.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
 																	>
-																		{subItem.requestType.toUpperCase()}
+																		{/* Stop badge label to grow to much, this works excelent for http methods. */}
+																		{subItem.requestType.length > 4 ? subItem.requestType.slice(0,3).toUpperCase() : subItem.requestType.toUpperCase()}
 																	</Badge>
 																</Link>
 															</Sidebar.MenuSubButton>
