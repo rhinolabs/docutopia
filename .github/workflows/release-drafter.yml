@@ -20,3 +20,10 @@ jobs:
           config-name: release-drafter-react.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Draft Fastify release
+        uses: release-drafter/release-drafter@v6
+        with:
+          config-name: release-drafter-fastify.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
