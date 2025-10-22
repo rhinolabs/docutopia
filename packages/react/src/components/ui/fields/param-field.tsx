@@ -25,6 +25,7 @@ const FieldMetadata: React.FC<{ field: ParamFieldProps["field"] }> = ({
 export const ParamField: React.FC<ParamFieldProps> = ({
 	field,
 	readOnly = false,
+	bodyPath = [],
 }) => {
 	return (
 		<div className="grid grid-cols-4 gap-4 py-4 px-6">
@@ -35,7 +36,7 @@ export const ParamField: React.FC<ParamFieldProps> = ({
 					<p className="text-sm font-medium mt-2">{field.description}</p>
 				)}
 			</div>
-			<RenderField field={field} readOnly={readOnly} />
+			<RenderField field={field} readOnly={readOnly} bodyPath={bodyPath} />
 		</div>
 	);
 };

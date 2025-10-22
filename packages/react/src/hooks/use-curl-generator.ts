@@ -83,11 +83,14 @@ export const useCurlGenerator = (
 			parameters.body &&
 			["POST", "PUT", "PATCH"].includes(operation.method.toUpperCase())
 		) {
+			// Use compact JSON format for better shell compatibility
 			const bodyString =
 				typeof parameters.body === "string"
 					? parameters.body
-					: JSON.stringify(parameters.body, null, 2);
-			parts.push(`--data '${bodyString}'`);
+					: JSON.stringify(parameters.body);
+			// Escape single quotes for bash: ' becomes '\''
+			const escapedBody = bodyString.replace(/'/g, "'\\''");
+			parts.push(`--data '${escapedBody}'`);
 		}
 
 		// Join parts

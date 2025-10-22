@@ -23,7 +23,8 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 	name,
 	defaultOpen = false,
 	readOnly = false,
-	// paramType and bodyPath not used yet, but needed for type compatibility
+	paramType = "body",
+	bodyPath = [],
 }) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -64,6 +65,10 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 						const subSchema = asSchemaObject(subSchemaOrRef);
 						if (!subSchema) return null;
 
+						// Construct nested bodyPath for this property
+						const nestedBodyPath =
+							bodyPath.length > 0 ? [...bodyPath, propName] : [name, propName];
+
 						return (
 							<React.Fragment key={propName}>
 								<Separator />
@@ -76,6 +81,7 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 										description: subSchema.description,
 									}}
 									readOnly={readOnly}
+									bodyPath={nestedBodyPath}
 								/>
 							</React.Fragment>
 						);
