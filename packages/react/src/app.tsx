@@ -5,11 +5,13 @@ import { Sidebar } from "@rhinolabs/ui";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-export function App() {
+export interface AppProps {
+	specUrl: string;
+	baseUrl: string;
+}
+
+export function App({ specUrl, baseUrl }: AppProps) {
 	const { loadSpec, isLoading, error } = useOpenApiStore();
-	// TODO: Make this a prop instead of hardcoded URL
-	const specUrl = "https://petstore3.swagger.io/api/v3/openapi.json";
-	const baseUrl = "https://petstore3.swagger.io";
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Load spec only once on mount
 	useEffect(() => {

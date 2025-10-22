@@ -6,7 +6,7 @@ import UnsupportedField from "./fields/unsupported-field";
 interface RenderFieldProps {
 	field: ParameterObject;
 	readOnly?: boolean;
-	bodyPath?: string[];
+	bodyPath?: (string | number)[];
 }
 
 export const RenderField: React.FC<RenderFieldProps> = ({

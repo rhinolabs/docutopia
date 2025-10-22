@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { App } from "./app";
+import { Docutopia } from "./docutopia";
 
 import "./index.css";
 
@@ -8,7 +7,8 @@ import "./index.css";
 document.documentElement.classList.add("dark");
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>,
+	<Docutopia
+		specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
+		baseUrl="https://petstore3.swagger.io"
+	/>,
 );

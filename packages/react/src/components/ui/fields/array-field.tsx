@@ -12,14 +12,14 @@ interface ArrayFieldProps {
 	name?: string;
 	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
-	bodyPath?: string[];
+	bodyPath?: (string | number)[];
 }
 
 export const ArrayField: React.FC<ArrayFieldProps> = ({
 	field,
 	name = "items",
 	readOnly = false,
-	paramType = "body",
+	paramType: _paramType = "body",
 	bodyPath = [],
 }) => {
 	const items = asSchemaObject(field.items);

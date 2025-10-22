@@ -8,7 +8,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface DynamicObjectFieldsProps {
 	itemSchema: SchemaObject;
-	bodyPath: string[];
+	bodyPath: (string | number)[];
 }
 
 interface ObjectItem {

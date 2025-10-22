@@ -1,18 +1,30 @@
 import path from "node:path";
-import { defineConfig } from "@rsbuild/core";
+import { defineConfig } from "@rslib/core";
 import { pluginReact } from "@rsbuild/plugin-react";
 
-// This config is only used for development (pnpm dev)
-// For library builds, we use rslib.config.ts
 export default defineConfig({
+	lib: [
+		{
+			format: "esm",
+			syntax: "es2021",
+			dts: {
+				bundle: true,
+			},
+		},
+	],
 	source: {
 		entry: {
-			index: "./src/main.tsx",
+			index: "./src/index.ts",
+		},
+	},
+	output: {
+		target: "web",
+		distPath: {
+			root: "./dist",
 		},
 	},
 	plugins: [pluginReact()],
 	resolve: {
-		extensions: [".js", ".jsx", ".ts", ".tsx"],
 		alias: {
 			"@": path.resolve(__dirname, "./src"),
 		},

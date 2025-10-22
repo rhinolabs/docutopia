@@ -8,7 +8,7 @@ interface IntegerFieldProps {
 	name: string;
 	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
-	bodyPath?: string[];
+	bodyPath?: (string | number)[];
 }
 
 export const IntegerField: React.FC<IntegerFieldProps> = ({

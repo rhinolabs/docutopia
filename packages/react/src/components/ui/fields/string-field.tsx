@@ -8,7 +8,7 @@ interface StringFieldProps {
 	name: string;
 	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
-	bodyPath?: string[];
+	bodyPath?: (string | number)[];
 }
 
 const isEnumField = (field: SchemaObject): boolean =>

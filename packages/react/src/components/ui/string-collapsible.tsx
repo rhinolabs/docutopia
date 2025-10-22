@@ -10,7 +10,7 @@ type StringCollapsibleProps = {
 	hasOptions?: boolean;
 	options?: string[];
 	defaultOpen?: boolean;
-	bodyPath: string[];
+	bodyPath: (string | number)[];
 	value?: string;
 };
 
