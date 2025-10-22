@@ -40,7 +40,7 @@ export function App() {
 
 	return (
 		<Sidebar.Provider>
-			<AppSidebar />
+			<AppSidebar collapsible="none" className="h-screen" />
 			<Sidebar.Inset>
 				<Routes>
 					<Route index element={<DocutopiaPage />} />
