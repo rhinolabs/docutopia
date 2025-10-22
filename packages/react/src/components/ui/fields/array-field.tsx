@@ -4,6 +4,7 @@ import { asSchemaObject } from "@/utils/type-guards";
 import { Card, Collapsible, Separator } from "@rhinolabs/ui";
 import { useMemo } from "react";
 import { DynamicFields } from "../dynamic-fields";
+import { DynamicObjectFields } from "../dynamic-object-fields";
 import { ParamField } from "./param-field";
 
 interface ArrayFieldProps {
@@ -26,51 +27,59 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 
 	// Array of objects
 	if (itemsType === "object" && items) {
-		// For now, show read-only schema representation
-		// TODO: Implement dynamic add/remove for object arrays
+		if (readOnly) {
+			// Show read-only schema representation
+			const arrayBodyPath = bodyPath.length > 0 ? [...bodyPath] : [name];
+
+			return (
+				<div className="col-span-4">
+					<Card className="shadow-none bg-card">
+						<Collapsible>
+							<div className="">
+								<Collapsible.Trigger asChild>
+									<div className="w-full cursor-pointer">
+										<p className="text-sm font-medium text-muted-foreground px-6 py-4">
+											{String(itemsType?.toUpperCase() ?? "Unknown type")}{" "}
+											(Schema - Read Only)
+										</p>
+									</div>
+								</Collapsible.Trigger>
+								<Collapsible.Content>
+									{Object.entries(items.properties ?? {}).map(
+										([propertyKey, propertyObj]) => {
+											const propSchema = asSchemaObject(propertyObj);
+											if (!propSchema) return null;
+
+											return (
+												<div key={propertyKey} className="">
+													<Separator />
+													<ParamField
+														field={mapSchemaToParamField(
+															propertyKey,
+															propSchema,
+															items.required?.includes(propertyKey) ?? false,
+														)}
+														readOnly={true}
+														bodyPath={[...arrayBodyPath, 0, propertyKey]}
+													/>
+												</div>
+											);
+										},
+									)}
+								</Collapsible.Content>
+							</div>
+						</Collapsible>
+					</Card>
+				</div>
+			);
+		}
+
+		// Editable array of objects
 		const arrayBodyPath = bodyPath.length > 0 ? [...bodyPath] : [name];
 
 		return (
 			<div className="col-span-4">
-				<Card className="shadow-none bg-card">
-					<Collapsible>
-						<div className="">
-							<Collapsible.Trigger asChild>
-								<div className="w-full cursor-pointer">
-									<p className="text-sm font-medium text-muted-foreground px-6 py-4">
-										{String(itemsType?.toUpperCase() ?? "Unknown type")} (Schema
-										- Read Only)
-									</p>
-								</div>
-							</Collapsible.Trigger>
-							<Collapsible.Content>
-								{Object.entries(items.properties ?? {}).map(
-									([propertyKey, propertyObj]) => {
-										const propSchema = asSchemaObject(propertyObj);
-										if (!propSchema) return null;
-
-										// For object arrays, we'd need index: [...arrayBodyPath, 0, propertyKey]
-										// But since we don't have dynamic add/remove yet, keep as read-only
-										return (
-											<div key={propertyKey} className="">
-												<Separator />
-												<ParamField
-													field={mapSchemaToParamField(
-														propertyKey,
-														propSchema,
-														items.required?.includes(propertyKey) ?? false,
-													)}
-													readOnly={true}
-													bodyPath={[...arrayBodyPath, 0, propertyKey]}
-												/>
-											</div>
-										);
-									},
-								)}
-							</Collapsible.Content>
-						</div>
-					</Collapsible>
-				</Card>
+				<DynamicObjectFields itemSchema={items} bodyPath={arrayBodyPath} />
 			</div>
 		);
 	}
