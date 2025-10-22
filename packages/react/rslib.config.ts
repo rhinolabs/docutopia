@@ -8,9 +8,7 @@ export default defineConfig({
 			// ESM build for npm consumption
 			format: "esm",
 			syntax: "es2021",
-			dts: {
-				bundle: true,
-			},
+			dts: true,
 			source: {
 				entry: {
 					index: "./src/index.ts",
