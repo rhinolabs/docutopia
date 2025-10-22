@@ -3,6 +3,7 @@ import type {
 	EnhancedOperation,
 	RequestParameters,
 } from "@/core/types";
+import { joinPaths } from "@/utils/url-helpers";
 import { useMemo } from "react";
 
 interface CurlOptions {
@@ -34,7 +35,7 @@ export const useCurlGenerator = (
 		}
 
 		// Build URL with path parameters
-		let url = baseUrl + operation.path;
+		let url = joinPaths(baseUrl, operation.path);
 		for (const [key, value] of Object.entries(parameters.path || {})) {
 			url = url.replace(`{${key}}`, encodeURIComponent(String(value)));
 		}

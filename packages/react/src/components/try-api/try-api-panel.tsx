@@ -2,6 +2,7 @@ import type { EnhancedOperation } from "@/core/types";
 import { useApiRequest, useAuth, useCurlGenerator } from "@/hooks";
 import { useOpenApiStore } from "@/stores/openapi-store";
 import { useRequestParamsStore } from "@/stores/request-params-store";
+import { isAbsoluteUrlRegex, joinPaths } from "@/utils/url-helpers";
 import { Badge, Button } from "@rhinolabs/ui";
 import { CheckCircle, Loader2, Play, XCircle } from "lucide-react";
 import { memo } from "react";
@@ -23,11 +24,18 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 			generateAuthQuery,
 		} = useAuth();
 		const { params } = useRequestParamsStore();
-		const spec = useOpenApiStore((state) => state.spec);
-		const baseUrl = spec?.servers?.[0]?.url;
+		const { spec, baseUrl } = useOpenApiStore();
+
+		const serverUrlFromSpec = spec?.servers?.[0]?.url ?? "";
+
+		let endpointBaseUrl = serverUrlFromSpec;
+
+		if (!isAbsoluteUrlRegex(serverUrlFromSpec) && baseUrl) {
+			endpointBaseUrl = joinPaths(baseUrl, serverUrlFromSpec);
+		}
 
 		const { executeRequest, isLoading, response, error } =
-			useApiRequest(baseUrl);
+			useApiRequest(endpointBaseUrl);
 
 		// Generate cURL command with current settings
 		const curlCommand = useCurlGenerator(operation, credentials, params, {
