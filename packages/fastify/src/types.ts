@@ -24,8 +24,8 @@ export interface DocutopiaFastifyOptions {
 	/**
 	 * Configuration for @fastify/swagger
 	 * If @fastify/swagger is not already registered, it will be registered automatically with this configuration
-	 * The plugin automatically adds "docutopia" to `hiddenTag` to hide documentation routes from the spec
-	 * If you provide your own `hiddenTag`, "docutopia" will be appended to it
+	 *
+	 * Note: Docutopia routes (/, /*, /json) use `hide: true` in their schema and are always excluded from the spec
 	 */
 	swagger?: SwaggerOptions;
 

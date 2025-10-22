@@ -51,7 +51,7 @@ export async function routes(
 		url: "/",
 		method: "GET",
 		schema: {
-			tags: ["docutopia"],
+			hide: true,
 		},
 		handler: htmlHandler,
 	});
@@ -62,7 +62,7 @@ export async function routes(
 		url: "/*",
 		method: "GET",
 		schema: {
-			tags: ["docutopia"],
+			hide: true,
 		},
 		handler: htmlHandler,
 	});
@@ -76,7 +76,7 @@ export async function routes(
 		url: "/json",
 		method: "GET",
 		schema: {
-			tags: ["docutopia"],
+			hide: true,
 		},
 		handler: async (request, reply) => {
 			if (typeof fastify.swagger !== "function") {
