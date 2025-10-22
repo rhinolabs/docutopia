@@ -71,9 +71,7 @@ export function Docutopia({
 	// Default: use BrowserRouter with optional basename
 	return (
 		<div className={className}>
-			<BrowserRouter basename={basename}>
-				{app}
-			</BrowserRouter>
+			<BrowserRouter basename={basename}>{app}</BrowserRouter>
 		</div>
 	);
 }

@@ -1,6 +1,6 @@
-import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 const require = createRequire(import.meta.url);
 

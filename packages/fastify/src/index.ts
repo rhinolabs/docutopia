@@ -1,7 +1,7 @@
-import fp from "fastify-plugin";
 import swagger from "@fastify/swagger";
-import type { DocutopiaFastifyPlugin } from "./types";
+import fp from "fastify-plugin";
 import { routes } from "../lib/routes";
+import type { DocutopiaFastifyPlugin } from "./types";
 
 const docutopiaPlugin: DocutopiaFastifyPlugin = async (fastify, options) => {
 	const routePrefix = options.routePrefix || "/documentation";

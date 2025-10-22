@@ -1,5 +1,9 @@
-import type { FastifyPluginCallback, FastifyRequest, FastifyReply } from "fastify";
 import type { SwaggerOptions } from "@fastify/swagger";
+import type {
+	FastifyPluginCallback,
+	FastifyReply,
+	FastifyRequest,
+} from "fastify";
 
 export interface DocutopiaFastifyOptions {
 	/**
