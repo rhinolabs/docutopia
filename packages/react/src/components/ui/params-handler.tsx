@@ -16,7 +16,7 @@ export const Params: React.FC<ParamsProps> = ({ params, title }) => {
 				<Card.Content className="p-0">
 					{params.map((param, index) => (
 						<React.Fragment key={param.name}>
-							<ParamField field={param} />
+							<ParamField field={param} bodyPath={[]} />
 							{index < params.length - 1 && <Separator />}
 						</React.Fragment>
 					))}

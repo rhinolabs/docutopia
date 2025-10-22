@@ -38,6 +38,10 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
 
 	const boolValue = currentValue === "true" || currentValue === true;
 
+	if (readOnly) {
+		return null;
+	}
+
 	const handleChange = (checked: boolean) => {
 		if (paramType === "path") {
 			updatePathParam(name, checked);
