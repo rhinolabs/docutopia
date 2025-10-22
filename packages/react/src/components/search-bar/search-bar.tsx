@@ -36,7 +36,6 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 								{
 									label: request.name,
 									url: request.url,
-									requestType: "",
 								},
 							],
 				),
