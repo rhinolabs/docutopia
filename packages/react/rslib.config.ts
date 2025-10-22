@@ -11,6 +11,11 @@ export default defineConfig({
 			dts: {
 				bundle: true,
 			},
+			source: {
+				entry: {
+					index: "./src/index.ts",
+				},
+			},
 			output: {
 				distPath: {
 					root: "./dist",
@@ -18,10 +23,15 @@ export default defineConfig({
 			},
 		},
 		{
-			// UMD build for browser
+			// UMD build for browser with self-initialization
 			format: "umd",
 			syntax: "es2021",
 			umdName: "Docutopia",
+			source: {
+				entry: {
+					index: "./src/browser.tsx",
+				},
+			},
 			output: {
 				distPath: {
 					root: "./dist/browser",
@@ -29,11 +39,6 @@ export default defineConfig({
 			},
 		},
 	],
-	source: {
-		entry: {
-			index: "./src/index.ts",
-		},
-	},
 	output: {
 		target: "web",
 	},

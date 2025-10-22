@@ -1,7 +1,11 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import yaml from "yaml";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 interface RoutesOptions {
 	prefix: string;
@@ -168,32 +172,47 @@ function generateDocutopiaHTML(options: {
 	</script>
 
 	<script>
-		// Initialize Docutopia
-		if (window.Docutopia && window.Docutopia.Docutopia) {
-			const React = window.React;
-			const ReactDOM = window.ReactDOM;
-
-			const config = {
-				specUrl: ${JSON.stringify(specUrl)},
-				baseUrl: window.location.origin
-			};
-
-			const root = ReactDOM.createRoot(document.getElementById('root'));
-			root.render(React.createElement(window.Docutopia.Docutopia, config));
-		} else {
-			document.getElementById('root').innerHTML = \`
-				<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui;">
-					<div style="text-align: center;">
-						<h1 style="color: #dc2626;">Error Loading Docutopia</h1>
-						<p>The Docutopia component could not be loaded.</p>
-						<p style="color: #666; margin-top: 2rem;">
-							You can still access the OpenAPI spec at:
-							<a href="${specUrl}" style="color: #0066cc;">${specUrl}</a>
-						</p>
+		// Initialize Docutopia after DOM is ready
+		document.addEventListener('DOMContentLoaded', () => {
+			try {
+				if (typeof window.Docutopia === 'object' && typeof window.Docutopia.init === 'function') {
+					// Initialize Docutopia with the spec URL and base URL
+					window.Docutopia.init('root', {
+						specUrl: '${specUrl}',
+						baseUrl: window.location.origin
+					});
+					console.log('Docutopia initialized successfully');
+				} else {
+					console.error('Docutopia.init not found');
+					document.getElementById('root').innerHTML = \`
+						<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui;">
+							<div style="text-align: center;">
+								<h1 style="color: #dc2626;">Docutopia Not Found</h1>
+								<p>The Docutopia bundle did not load correctly.</p>
+								<p style="color: #666; margin-top: 2rem;">
+									You can still access the OpenAPI spec at:
+									<a href="${specUrl}" style="color: #0066cc;">${specUrl}</a>
+								</p>
+							</div>
+						</div>
+					\`;
+				}
+			} catch (error) {
+				console.error('Error initializing Docutopia:', error);
+				document.getElementById('root').innerHTML = \`
+					<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui;">
+						<div style="text-align: center;">
+							<h1 style="color: #dc2626;">Error Loading Docutopia</h1>
+							<p>Failed to initialize: \${error.message}</p>
+							<p style="color: #666; margin-top: 2rem;">
+								You can still access the OpenAPI spec at:
+								<a href="${specUrl}" style="color: #0066cc;">${specUrl}</a>
+							</p>
+						</div>
 					</div>
-				</div>
-			\`;
-		}
+				\`;
+			}
+		});
 	</script>
 </body>
 </html>`;
