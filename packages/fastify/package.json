@@ -39,12 +39,14 @@
 	},
 	"dependencies": {
 		"@docutopia/react": "workspace:*",
+		"@fastify/swagger": "^9.3.0",
 		"fastify-plugin": "^5.0.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router-dom": "^6.28.0"
 	},
 	"devDependencies": {
+		"@fastify/swagger": "^9.3.0",
 		"@types/node": "^22.10.3",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",

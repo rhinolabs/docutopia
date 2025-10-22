@@ -1,4 +1,5 @@
 import type { FastifyPluginCallback, FastifyRequest, FastifyReply } from "fastify";
+import type { SwaggerOptions } from "@fastify/swagger";
 
 export interface DocutopiaFastifyOptions {
 	/**
@@ -9,11 +10,20 @@ export interface DocutopiaFastifyOptions {
 
 	/**
 	 * URL to the OpenAPI specification (JSON or YAML)
-	 * @example "/docs/json" - Use Fastify's swagger endpoint
+	 * If not provided, defaults to `{routePrefix}/json`
+	 * @example "/docs/json" - Use auto-generated endpoint
 	 * @example "/api/openapi.json" - Custom endpoint
 	 * @example "https://api.example.com/spec.json" - External spec
 	 */
-	specUrl: string;
+	specUrl?: string;
+
+	/**
+	 * Configuration for @fastify/swagger
+	 * If @fastify/swagger is not already registered, it will be registered automatically with this configuration
+	 * The plugin automatically adds "docutopia" to `hiddenTag` to hide documentation routes from the spec
+	 * If you provide your own `hiddenTag`, "docutopia" will be appended to it
+	 */
+	swagger?: SwaggerOptions;
 
 	/**
 	 * Function to transform the swagger specification dynamically per request

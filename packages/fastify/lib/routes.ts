@@ -1,11 +1,7 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 
 interface RoutesOptions {
@@ -23,12 +19,10 @@ export async function routes(
 	fastify: FastifyInstance,
 	opts: RoutesOptions,
 ): Promise<void> {
-	// Read CSS and JS from @docutopia/react package using its exports
 	let css = "";
 	let js = "";
 
 	try {
-		// Use require.resolve with the package exports
 		const cssPath = require.resolve("@docutopia/react/browser/styles");
 		const jsPath = require.resolve("@docutopia/react/browser");
 
@@ -56,6 +50,9 @@ export async function routes(
 	fastify.route({
 		url: "/",
 		method: "GET",
+		schema: {
+			tags: ["docutopia"],
+		},
 		handler: htmlHandler,
 	});
 
@@ -64,6 +61,9 @@ export async function routes(
 	fastify.route({
 		url: "/*",
 		method: "GET",
+		schema: {
+			tags: ["docutopia"],
+		},
 		handler: htmlHandler,
 	});
 
@@ -75,6 +75,9 @@ export async function routes(
 	fastify.route({
 		url: "/json",
 		method: "GET",
+		schema: {
+			tags: ["docutopia"],
+		},
 		handler: async (request, reply) => {
 			if (typeof fastify.swagger !== "function") {
 				return reply.code(404).send({
@@ -84,13 +87,14 @@ export async function routes(
 				});
 			}
 
-			let swaggerObject = fastify.swagger();
+			let swaggerObject: unknown = fastify.swagger();
 
 			if (hasTransformSpecificationFn) {
 				if (shouldCloneSwaggerObject) {
 					// Deep clone to avoid mutation
 					swaggerObject = JSON.parse(JSON.stringify(swaggerObject));
 				}
+				// biome-ignore lint/style/noNonNullAssertion:
 				swaggerObject = opts.transformSpecification!(
 					swaggerObject,
 					request,
