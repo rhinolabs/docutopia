@@ -8,6 +8,14 @@ export interface DocutopiaFastifyOptions {
 	routePrefix?: string;
 
 	/**
+	 * URL to the OpenAPI specification (JSON or YAML)
+	 * @example "/docs/json" - Use Fastify's swagger endpoint
+	 * @example "/api/openapi.json" - Custom endpoint
+	 * @example "https://api.example.com/spec.json" - External spec
+	 */
+	specUrl: string;
+
+	/**
 	 * UI configuration options
 	 */
 	uiConfig?: Record<string, unknown>;

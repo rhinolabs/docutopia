@@ -9,6 +9,7 @@ const __dirname = dirname(__filename);
 
 interface RoutesOptions {
 	prefix: string;
+	specUrl: string;
 	uiConfig?: Record<string, unknown>;
 	hooks?: {
 		onRequest?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
@@ -60,20 +61,34 @@ export async function routes(
 	}
 
 	// Serve main documentation UI
+	const htmlHandler = async (request: FastifyRequest, reply: FastifyReply) => {
+		const html = generateDocutopiaHTML({
+			css,
+			js,
+			specUrl: opts.specUrl,
+			basename: opts.prefix,
+		});
+
+		reply.header("content-type", "text/html; charset=utf-8").send(html);
+	};
+
+	// Root route for documentation
 	fastify.route({
 		url: "/",
 		method: "GET",
 		schema: { hide: true },
 		...hooks,
-		handler: async (request, reply) => {
-			const html = generateDocutopiaHTML({
-				css,
-				js,
-				specUrl: `${opts.prefix}/json`,
-			});
+		handler: htmlHandler,
+	});
 
-			reply.header("content-type", "text/html; charset=utf-8").send(html);
-		},
+	// Wildcard route to handle all sub-routes (for React Router)
+	// This allows URLs like /docs/get-users to work with BrowserRouter
+	fastify.route({
+		url: "/*",
+		method: "GET",
+		schema: { hide: true },
+		...hooks,
+		handler: htmlHandler,
 	});
 
 	// Serve OpenAPI spec as JSON
@@ -152,8 +167,9 @@ function generateDocutopiaHTML(options: {
 	css: string;
 	js: string;
 	specUrl: string;
+	basename: string;
 }): string {
-	const { css, js, specUrl } = options;
+	const { css, js, specUrl, basename } = options;
 
 	return `<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -176,14 +192,13 @@ function generateDocutopiaHTML(options: {
 		document.addEventListener('DOMContentLoaded', () => {
 			try {
 				if (typeof window.Docutopia === 'object' && typeof window.Docutopia.init === 'function') {
-					// Initialize Docutopia with the spec URL and base URL
+					// Initialize Docutopia with the spec URL, base URL, and basename
 					window.Docutopia.init('root', {
 						specUrl: '${specUrl}',
-						baseUrl: window.location.origin
+						baseUrl: window.location.origin,
+						basename: '${basename}'
 					});
-					console.log('Docutopia initialized successfully');
 				} else {
-					console.error('Docutopia.init not found');
 					document.getElementById('root').innerHTML = \`
 						<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui;">
 							<div style="text-align: center;">
@@ -198,7 +213,6 @@ function generateDocutopiaHTML(options: {
 					\`;
 				}
 			} catch (error) {
-				console.error('Error initializing Docutopia:', error);
 				document.getElementById('root').innerHTML = \`
 					<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: system-ui;">
 						<div style="text-align: center;">

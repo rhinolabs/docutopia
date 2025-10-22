@@ -6,6 +6,7 @@ const docutopiaPlugin: DocutopiaFastifyPlugin = async (fastify, options) => {
 	await fastify.register(routes, {
 		...options,
 		prefix: options.routePrefix || "/documentation",
+		specUrl: options.specUrl,
 		uiConfig: options.uiConfig || {},
 		hooks: options.uiHooks,
 	});
