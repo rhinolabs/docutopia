@@ -37,7 +37,10 @@ import '@docutopia/react/dist/style.css';
 
 function App() {
   return (
-    <Docutopia specUrl="https://petstore3.swagger.io/api/v3/openapi.json" />
+    <Docutopia
+      specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
+      baseUrl="https://petstore3.swagger.io"
+    />
   );
 }
 
@@ -51,11 +54,17 @@ export default App;
 - **Type:** `string`
 - **Description:** URL to your OpenAPI specification (JSON or YAML format)
 
-```jsx
-<Docutopia specUrl="https://api.example.com/openapi.json" />
-```
+### `baseUrl` (required)
 
-That's it! Docutopia handles everything else automatically.
+- **Type:** `string`
+- **Description:** Base URL for the API endpoints
+
+```jsx
+<Docutopia
+  specUrl="https://api.example.com/openapi.json"
+  baseUrl="https://api.example.com"
+/>
+```
 
 ## Framework Integration
 
@@ -69,7 +78,12 @@ import { Docutopia } from '@docutopia/react';
 import '@docutopia/react/dist/style.css';
 
 export default function DocsPage() {
-  return <Docutopia specUrl="/api/openapi.json" />;
+  return (
+    <Docutopia
+      specUrl="/api/openapi.json"
+      baseUrl="https://api.example.com"
+    />
+  );
 }
 ```
 
@@ -81,7 +95,12 @@ import { Docutopia } from '@docutopia/react';
 import '@docutopia/react/dist/style.css';
 
 export default function DocsRoute() {
-  return <Docutopia specUrl="/api/openapi.json" />;
+  return (
+    <Docutopia
+      specUrl="/api/openapi.json"
+      baseUrl="https://api.example.com"
+    />
+  );
 }
 ```
 
@@ -93,7 +112,12 @@ import { Docutopia } from '@docutopia/react';
 import '@docutopia/react/dist/style.css';
 
 function App() {
-  return <Docutopia specUrl="https://api.example.com/openapi.json" />;
+  return (
+    <Docutopia
+      specUrl="https://api.example.com/openapi.json"
+      baseUrl="https://api.example.com"
+    />
+  );
 }
 ```
 

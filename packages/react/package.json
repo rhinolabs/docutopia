@@ -4,11 +4,21 @@
 	"description": "A modern, interactive API documentation library - The beautiful alternative to Swagger UI",
 	"type": "module",
 	"main": "dist/index.js",
+	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		},
+		"./styles": "./dist/index.css"
+	},
+	"sideEffects": ["*.css"],
 	"files": ["dist/**/*"],
 	"scripts": {
 		"dev": "rsbuild dev --open",
-		"build": "rsbuild build",
+		"build": "rslib build",
 		"preview": "rsbuild preview",
 		"tsc": "tsc --noEmit"
 	},
@@ -38,9 +48,10 @@
 		"zustand": "^5.0.5"
 	},
 	"devDependencies": {
-		"@rsbuild/core": "^1.1.8",
-		"@rsbuild/plugin-react": "^1.0.7",
-		"@rsbuild/plugin-yaml": "^1.0.2",
+		"@microsoft/api-extractor": "^7.53.2",
+		"@rsbuild/core": "^1.5.17",
+		"@rsbuild/plugin-react": "^1.4.1",
+		"@rslib/core": "^0.16.0",
 		"@tailwindcss/postcss": "^4.0.3",
 		"@types/js-yaml": "^4.0.9",
 		"@types/node": "^22.10.3",

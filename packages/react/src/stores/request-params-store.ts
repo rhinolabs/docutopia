@@ -5,7 +5,7 @@ interface RequestParamsState {
 	params: RequestParameters;
 	updatePathParam: (name: string, value: unknown) => void;
 	updateQueryParam: (name: string, value: unknown) => void;
-	updateBodyParam: (path: string[], value: unknown) => void;
+	updateBodyParam: (path: (string | number)[], value: unknown) => void;
 	clearParams: () => void;
 	setAllParams: (params: RequestParameters) => void;
 }
@@ -54,16 +54,29 @@ export const useRequestParamsStore = create<RequestParamsState>((set) => ({
 					const key = path[i];
 					const nextKey = path[i + 1];
 
+					// Type-safe access for arrays and objects
+					const currentValue = Array.isArray(current)
+						? current[Number(key)]
+						: (current as Record<string, unknown>)[key];
+
 					// Check if current position exists and is the right type
-					if (!current[key] || typeof current[key] !== "object") {
+					if (!currentValue || typeof currentValue !== "object") {
 						// Create array if next key is a number, otherwise create object
-						current[key] =
+						const newValue =
 							typeof nextKey === "number" || !Number.isNaN(Number(nextKey))
 								? []
 								: {};
-					}
 
-					current = current[key] as Record<string, unknown> | unknown[];
+						if (Array.isArray(current)) {
+							current[Number(key)] = newValue;
+						} else {
+							(current as Record<string, unknown>)[key] = newValue;
+						}
+
+						current = newValue as Record<string, unknown> | unknown[];
+					} else {
+						current = currentValue as Record<string, unknown> | unknown[];
+					}
 				}
 
 				const lastKey = path[path.length - 1];

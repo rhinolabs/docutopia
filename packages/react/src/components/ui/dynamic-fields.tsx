@@ -7,7 +7,7 @@ import { StringCollapsible } from "./string-collapsible";
 type DynamicFieldsProps = {
 	hasOptions: boolean;
 	options: string[];
-	bodyPath: string[];
+	bodyPath: (string | number)[];
 };
 
 interface Field {

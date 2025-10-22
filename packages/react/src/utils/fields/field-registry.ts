@@ -11,7 +11,7 @@ type FieldComponent = React.FC<{
 	name: string;
 	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
-	bodyPath?: string[];
+	bodyPath?: (string | number)[];
 }>;
 
 const fieldRegistry: Record<string, FieldComponent> = {};
