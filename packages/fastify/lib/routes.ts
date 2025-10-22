@@ -1,20 +1,16 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import yaml from "yaml";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const require = createRequire(import.meta.url);
 
 interface RoutesOptions {
 	prefix: string;
 	specUrl: string;
-	uiConfig?: Record<string, unknown>;
-	hooks?: {
-		onRequest?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
-		preHandler?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
-	};
 	transformSpecification?: (
 		swaggerObject: unknown,
 		request: FastifyRequest,
@@ -27,36 +23,20 @@ export async function routes(
 	fastify: FastifyInstance,
 	opts: RoutesOptions,
 ): Promise<void> {
-	const hooks = Object.create(null);
-	if (opts.hooks) {
-		const additionalHooks = ["onRequest", "preHandler"] as const;
-		for (const hook of additionalHooks) {
-			if (opts.hooks[hook]) {
-				hooks[hook] = opts.hooks[hook];
-			}
-		}
-	}
-
-	// Read CSS and JS from @docutopia/react browser bundle
-	const cssPath = join(__dirname, "../../react/dist/browser/index.css");
-	const jsPath = join(__dirname, "../../react/dist/browser/index.js");
-
+	// Read CSS and JS from @docutopia/react package using its exports
 	let css = "";
 	let js = "";
 
 	try {
-		css = readFileSync(cssPath, "utf-8");
-	} catch (error) {
-		fastify.log.warn(
-			`Could not read Docutopia CSS file: ${(error as Error).message}`,
-		);
-	}
+		// Use require.resolve with the package exports
+		const cssPath = require.resolve("@docutopia/react/browser/styles");
+		const jsPath = require.resolve("@docutopia/react/browser");
 
-	try {
+		css = readFileSync(cssPath, "utf-8");
 		js = readFileSync(jsPath, "utf-8");
 	} catch (error) {
-		fastify.log.warn(
-			`Could not read Docutopia JS file: ${(error as Error).message}`,
+		fastify.log.error(
+			`Could not read Docutopia assets from @docutopia/react package: ${(error as Error).message}`,
 		);
 	}
 
@@ -76,8 +56,6 @@ export async function routes(
 	fastify.route({
 		url: "/",
 		method: "GET",
-		schema: { hide: true },
-		...hooks,
 		handler: htmlHandler,
 	});
 
@@ -86,8 +64,6 @@ export async function routes(
 	fastify.route({
 		url: "/*",
 		method: "GET",
-		schema: { hide: true },
-		...hooks,
 		handler: htmlHandler,
 	});
 
@@ -99,8 +75,6 @@ export async function routes(
 	fastify.route({
 		url: "/json",
 		method: "GET",
-		schema: { hide: true },
-		...hooks,
 		handler: async (request, reply) => {
 			if (typeof fastify.swagger !== "function") {
 				return reply.code(404).send({
@@ -126,39 +100,6 @@ export async function routes(
 
 			reply.header("content-type", "application/json; charset=utf-8");
 			return swaggerObject;
-		},
-	});
-
-	// Serve OpenAPI spec as YAML
-	fastify.route({
-		url: "/yaml",
-		method: "GET",
-		schema: { hide: true },
-		...hooks,
-		handler: async (request, reply) => {
-			if (typeof fastify.swagger !== "function") {
-				return reply.code(404).send({
-					error: "Not Found",
-					message:
-						"OpenAPI specification not available. Please register @fastify/swagger first.",
-				});
-			}
-
-			let swaggerObject = fastify.swagger();
-
-			if (hasTransformSpecificationFn) {
-				if (shouldCloneSwaggerObject) {
-					swaggerObject = JSON.parse(JSON.stringify(swaggerObject));
-				}
-				swaggerObject = opts.transformSpecification!(
-					swaggerObject,
-					request,
-					reply,
-				);
-			}
-
-			reply.header("content-type", "application/x-yaml; charset=utf-8");
-			return yaml.stringify(swaggerObject);
 		},
 	});
 }

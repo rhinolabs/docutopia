@@ -7,8 +7,6 @@ const docutopiaPlugin: DocutopiaFastifyPlugin = async (fastify, options) => {
 		...options,
 		prefix: options.routePrefix || "/documentation",
 		specUrl: options.specUrl,
-		uiConfig: options.uiConfig || {},
-		hooks: options.uiHooks,
 	});
 };
 

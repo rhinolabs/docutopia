@@ -16,19 +16,6 @@ export interface DocutopiaFastifyOptions {
 	specUrl: string;
 
 	/**
-	 * UI configuration options
-	 */
-	uiConfig?: Record<string, unknown>;
-
-	/**
-	 * Route hooks
-	 */
-	uiHooks?: {
-		onRequest?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
-		preHandler?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
-	};
-
-	/**
 	 * Function to transform the swagger specification dynamically per request
 	 */
 	transformSpecification?: (
