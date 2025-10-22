@@ -1,9 +1,9 @@
 import { useCopyToClipboard } from "@/hooks";
+import { useHighlightedCode } from "@/hooks/use-highlighted-code";
 import { Button, Card } from "@rhinolabs/ui";
+import { Pre } from "codehike/code";
 import { Copy, Terminal } from "lucide-react";
 import type React from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { tomorrowNightBright } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 interface EnhancedCurlDisplayProps {
 	curlCommand: string;
@@ -17,7 +17,7 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 	className = "",
 }) => {
 	const { copy, isCopied } = useCopyToClipboard();
-
+	const highlightedCurlCommand = useHighlightedCode("bash", curlCommand);
 	const handleCopy = () => {
 		copy(curlCommand);
 	};
@@ -47,19 +47,11 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 			</Card.Header>
 
 			<Card.Content className="pb-5 px-5">
-				<pre className="text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-card p-3 rounded-md border">
-					<code>
-						<SyntaxHighlighter
-							customStyle={{
-								backgroundColor: "transparent",
-							}}
-							language="bash"
-							style={tomorrowNightBright}
-						>
-							{curlCommand}
-						</SyntaxHighlighter>
-					</code>
-				</pre>
+				<div className="text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-card p-3 rounded-md border">
+					{highlightedCurlCommand && (
+						<Pre code={highlightedCurlCommand} />
+					)}
+				</div>
 			</Card.Content>
 		</Card>
 	);

@@ -39,6 +39,7 @@ const authTypeDefaults: Record<
 		keyName: "session_token",
 		location: "cookie",
 	},
+	none: {},
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -75,7 +76,7 @@ export const useAuthStore = create<AuthState>()(
 						...authTypeDefaults[type],
 						value: "", // Reset value when changing type
 					},
-					isAuthenticated: false,
+					isAuthenticated: type === "none",
 				})),
 
 			generateAuthHeaders: () => {
@@ -108,6 +109,9 @@ export const useAuthStore = create<AuthState>()(
 						if (credentials.location === "header") {
 							headers.Cookie = `${credentials.keyName || "session_token"}=${credentials.value}`;
 						}
+						break;
+					case "none":
+						// No auth needed
 						break;
 				}
 

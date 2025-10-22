@@ -1,7 +1,15 @@
 import type { AuthCredentials } from "@/core/types";
 import { useAuth } from "@/hooks";
 import { Button, Card, Input, Select } from "@rhinolabs/ui";
-import { Code, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
+import {
+	Code,
+	Eye,
+	EyeOff,
+	IdCard,
+	Key,
+	Shield,
+	UserRoundX,
+} from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
@@ -38,6 +46,14 @@ const authConfigs: AuthTypeConfig[] = [
 		description: "Authenticate with username and password",
 		placeholder: "Enter password",
 		fieldName: "password",
+	},
+	{
+		type: "none",
+		icon: UserRoundX,
+		label: "Public / No Auth",
+		description: "No authentication required",
+		placeholder: "",
+		fieldName: "",
 	},
 ];
 
@@ -117,37 +133,43 @@ export const EnhancedCredentialsForm: React.FC = () => {
 						</div>
 					)}
 
-					<div className="space-y-2">
-						<label
-							className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
-							htmlFor={currentConfig.fieldName}
-						>
-							{currentConfig.fieldName}
-						</label>
-						<div className="flex items-center gap-2 relative">
-							<Input
-								name={currentConfig.fieldName}
-								type={showPassword ? "text" : "password"}
-								placeholder={currentConfig.placeholder}
-								value={credentials.value}
-								onChange={(e) => updateCredentials({ value: e.target.value })}
-								className="flex-1 font-mono text-sm bg-card text-foreground"
-							/>
-
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => setShowPassword(!showPassword)}
-								className="hover:bg-accent absolute right-0.5"
+					{credentials.type !== "none" ? (
+						<div className="space-y-2">
+							<label
+								className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
+								htmlFor={currentConfig.fieldName}
 							>
-								{showPassword ? (
-									<EyeOff className="h-4 w-4" />
-								) : (
-									<Eye className="h-4 w-4" />
-								)}
-							</Button>
+								{currentConfig.fieldName}
+							</label>
+							<div className="flex items-center gap-2 relative">
+								<Input
+									name={currentConfig.fieldName}
+									type={showPassword ? "text" : "password"}
+									placeholder={currentConfig.placeholder}
+									value={credentials.value}
+									onChange={(e) => updateCredentials({ value: e.target.value })}
+									className="flex-1 font-mono text-sm bg-card text-foreground"
+								/>
+
+								<Button
+									variant="ghost"
+									size="sm"
+									onClick={() => setShowPassword(!showPassword)}
+									className="hover:bg-accent absolute right-0.5"
+								>
+									{showPassword ? (
+										<EyeOff className="h-4 w-4" />
+									) : (
+										<Eye className="h-4 w-4" />
+									)}
+								</Button>
+							</div>
 						</div>
-					</div>
+					) : (
+						<div className="text-sm text-muted-foreground">
+							No authentication is required for this API.
+						</div>
+					)}
 				</div>
 
 				{/* Status Indicator */}
