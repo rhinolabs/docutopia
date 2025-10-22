@@ -3,8 +3,8 @@ import { create } from "zustand";
 
 interface RequestParamsState {
 	params: RequestParameters;
-	updatePathParam: (name: string, value: string) => void;
-	updateQueryParam: (name: string, value: string) => void;
+	updatePathParam: (name: string, value: unknown) => void;
+	updateQueryParam: (name: string, value: unknown) => void;
 	updateBodyParam: (path: string[], value: unknown) => void;
 	clearParams: () => void;
 	setAllParams: (params: RequestParameters) => void;

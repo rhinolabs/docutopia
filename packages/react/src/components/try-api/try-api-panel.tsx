@@ -39,7 +39,7 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 
 		// Generate cURL command with current settings
 		const curlCommand = useCurlGenerator(operation, credentials, params, {
-			baseUrl,
+			baseUrl: endpointBaseUrl,
 			prettify: true,
 		});
 
