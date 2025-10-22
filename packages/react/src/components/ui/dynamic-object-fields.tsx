@@ -128,8 +128,9 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 				return (
 					<div key={id} className="border rounded-lg bg-muted mb-3">
 						<div className="flex items-center justify-between space-x-4 pl-4 pr-2 py-2">
-							<div
-								className="flex justify-between items-center w-full cursor-pointer"
+							<button
+								type="button"
+								className="flex justify-between items-center w-full cursor-pointer bg-transparent border-0 p-0 text-left"
 								onClick={() => toggleItem(id)}
 							>
 								<h4 className="text-sm font-semibold">ITEM {index}</h4>
@@ -152,7 +153,7 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 										}`}
 									/>
 								</div>
-							</div>
+							</button>
 						</div>
 						{isOpen && (
 							<div className="border-t">
@@ -176,7 +177,7 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 														description: propSchema.description || "",
 													}}
 													readOnly={false}
-													bodyPath={propertyBodyPath}
+													bodyPath={propertyBodyPath as string[]}
 												/>
 											</React.Fragment>
 										);

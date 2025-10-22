@@ -31,6 +31,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 	}, params.body);
 
 	// Initialize fields from store values
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Only run on mount to initialize from store
 	useEffect(() => {
 		if (Array.isArray(currentArray) && currentArray.length > 0) {
 			const initialFields = currentArray.map((_, index) => ({
