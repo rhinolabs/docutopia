@@ -1,7 +1,7 @@
 import type { AuthCredentials } from "@/core/types";
 import { useAuth } from "@/hooks";
 import { Button, Card, Input, Select } from "@rhinolabs/ui";
-import { Code, Cookie, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
+import { Code, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
@@ -38,14 +38,6 @@ const authConfigs: AuthTypeConfig[] = [
 		description: "Authenticate with username and password",
 		placeholder: "Enter password",
 		fieldName: "password",
-	},
-	{
-		type: "cookie",
-		icon: Cookie,
-		label: "Cookie",
-		description: "Authenticate with session cookie",
-		placeholder: "Enter cookie value",
-		fieldName: "session_token",
 	},
 ];
 
