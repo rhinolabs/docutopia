@@ -48,9 +48,7 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 
 			<Card.Content className="pb-5 px-5">
 				<div className="text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-card p-3 rounded-md border">
-					{highlightedCurlCommand && (
-						<Pre code={highlightedCurlCommand} />
-					)}
+					{highlightedCurlCommand && <Pre code={highlightedCurlCommand} />}
 				</div>
 			</Card.Content>
 		</Card>

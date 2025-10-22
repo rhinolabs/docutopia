@@ -1,11 +1,7 @@
 import type { ApiResponse, EnhancedOperation } from "@/core/types";
 import { useHighlightedCode } from "@/hooks/use-highlighted-code";
 import { Badge, Card, Tabs } from "@rhinolabs/ui";
-import {
-	type AnnotationHandler,
-	InnerLine,
-	Pre,
-} from "codehike/code";
+import { type AnnotationHandler, InnerLine, Pre } from "codehike/code";
 import type React from "react";
 
 export const lineNumbers: AnnotationHandler = {
@@ -36,7 +32,8 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
 	error,
 	operation,
 }) => {
-	const highlightedData = useHighlightedCode("json", 
+	const highlightedData = useHighlightedCode(
+		"json",
 		response ? JSON.stringify(response.data, null, 2) : undefined,
 	);
 	const highlightedHeaders = useHighlightedCode(

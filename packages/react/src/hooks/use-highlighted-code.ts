@@ -1,20 +1,25 @@
-import { highlight, HighlightedCode as HighlightedCodeType } from "codehike/code";
+import {
+	type HighlightedCode as HighlightedCodeType,
+	highlight,
+} from "codehike/code";
 import { useEffect, useState } from "react";
 
 export const useHighlightedCode = (lang: string, code?: string) => {
-  const [highlightedCode, setHighlightedCode] = useState<HighlightedCodeType>();
-  async function generateHighlightedCode(value: string) {
-    const highlightedCode = await highlight({value, lang, meta: ""}, "github-dark");
-    setHighlightedCode(highlightedCode);
-  }
+	const [highlightedCode, setHighlightedCode] = useState<HighlightedCodeType>();
 
-    useEffect(() => {
-      if (code) {
-        generateHighlightedCode(
-          code
-        );
-      }
-    }, [code])
+	useEffect(() => {
+		async function generateHighlightedCode(value: string) {
+			const highlightedCode = await highlight(
+				{ value, lang, meta: "" },
+				"github-dark",
+			);
+			setHighlightedCode(highlightedCode);
+		}
 
-  return highlightedCode;
-}
+		if (code) {
+			generateHighlightedCode(code);
+		}
+	}, [code, lang]);
+
+	return highlightedCode;
+};
