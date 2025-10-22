@@ -49,15 +49,29 @@ export const useRequestParamsStore = create<RequestParamsState>((set) => ({
 			if (path.length === 1) {
 				newBody[path[0]] = value;
 			} else {
-				let current: Record<string, unknown> = newBody;
+				let current: Record<string, unknown> | unknown[] = newBody;
 				for (let i = 0; i < path.length - 1; i++) {
 					const key = path[i];
+					const nextKey = path[i + 1];
+
+					// Check if current position exists and is the right type
 					if (!current[key] || typeof current[key] !== "object") {
-						current[key] = {};
+						// Create array if next key is a number, otherwise create object
+						current[key] =
+							typeof nextKey === "number" || !Number.isNaN(Number(nextKey))
+								? []
+								: {};
 					}
-					current = current[key] as Record<string, unknown>;
+
+					current = current[key] as Record<string, unknown> | unknown[];
 				}
-				current[path[path.length - 1]] = value;
+
+				const lastKey = path[path.length - 1];
+				if (Array.isArray(current)) {
+					current[Number(lastKey)] = value;
+				} else {
+					(current as Record<string, unknown>)[lastKey] = value;
+				}
 			}
 
 			return {

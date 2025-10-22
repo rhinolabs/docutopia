@@ -16,14 +16,20 @@ interface ArrayFieldProps {
 
 export const ArrayField: React.FC<ArrayFieldProps> = ({
 	field,
+	name = "items",
 	readOnly = false,
-	// paramType and bodyPath not used yet, but needed for type compatibility
+	paramType = "body",
+	bodyPath = [],
 }) => {
 	const items = asSchemaObject(field.items);
 	const itemsType = items?.type;
 
 	// Array of objects
 	if (itemsType === "object" && items) {
+		// For now, show read-only schema representation
+		// TODO: Implement dynamic add/remove for object arrays
+		const arrayBodyPath = bodyPath.length > 0 ? [...bodyPath] : [name];
+
 		return (
 			<div className="col-span-4">
 				<Card className="shadow-none bg-card">
@@ -32,7 +38,8 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 							<Collapsible.Trigger asChild>
 								<div className="w-full cursor-pointer">
 									<p className="text-sm font-medium text-muted-foreground px-6 py-4">
-										{String(itemsType?.toUpperCase() ?? "Unknown type")}
+										{String(itemsType?.toUpperCase() ?? "Unknown type")} (Schema
+										- Read Only)
 									</p>
 								</div>
 							</Collapsible.Trigger>
@@ -42,6 +49,8 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 										const propSchema = asSchemaObject(propertyObj);
 										if (!propSchema) return null;
 
+										// For object arrays, we'd need index: [...arrayBodyPath, 0, propertyKey]
+										// But since we don't have dynamic add/remove yet, keep as read-only
 										return (
 											<div key={propertyKey} className="">
 												<Separator />
@@ -52,6 +61,7 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 														items.required?.includes(propertyKey) ?? false,
 													)}
 													readOnly={true}
+													bodyPath={[...arrayBodyPath, 0, propertyKey]}
 												/>
 											</div>
 										);
@@ -84,9 +94,16 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 
 		const hasOptions = options.length > 0;
 
+		// Construct bodyPath for this array
+		const arrayBodyPath = bodyPath.length > 0 ? [...bodyPath] : [name];
+
 		return (
 			<div className="col-span-4">
-				<DynamicFields hasOptions={hasOptions} options={options} />
+				<DynamicFields
+					hasOptions={hasOptions}
+					options={options}
+					bodyPath={arrayBodyPath}
+				/>
 			</div>
 		);
 	}

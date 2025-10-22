@@ -1,23 +1,36 @@
+import { useRequestParamsStore } from "@/stores/request-params-store";
 import { Button, Collapsible, Input, Select } from "@rhinolabs/ui";
 import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 
 type StringCollapsibleProps = {
 	id: number;
+	index: number;
 	onDelete: (id: number) => void;
 	hasOptions?: boolean;
 	options?: string[];
 	defaultOpen?: boolean;
+	bodyPath: string[];
+	value?: string;
 };
 
 export const StringCollapsible = ({
 	id,
+	index,
 	onDelete,
 	hasOptions = false,
 	options = [],
 	defaultOpen = false,
+	bodyPath,
+	value = "",
 }: StringCollapsibleProps) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
+	const { updateBodyParam } = useRequestParamsStore();
+
+	const handleChange = (newValue: string) => {
+		// bodyPath already includes the array name, we just add the index
+		updateBodyParam([...bodyPath, index], newValue);
+	};
 
 	return (
 		<Collapsible
@@ -55,7 +68,7 @@ export const StringCollapsible = ({
 			<Collapsible.Content>
 				<div className="px-4 py-4 text-sm border-t">
 					{hasOptions && options.length > 0 ? (
-						<Select>
+						<Select value={value} onValueChange={handleChange}>
 							<Select.Trigger className="bg-input  text-foreground">
 								<Select.Value placeholder="Select" />
 							</Select.Trigger>
@@ -80,6 +93,8 @@ export const StringCollapsible = ({
 							id={`input-${id}`}
 							className="border  bg-input text-foreground"
 							type="text"
+							value={value}
+							onChange={(e) => handleChange(e.target.value)}
 						/>
 					)}
 				</div>
