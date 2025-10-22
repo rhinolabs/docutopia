@@ -18,7 +18,7 @@ export const DocutopiaPage: React.FC = () => {
 	// Clear parameters when endpoint changes
 	useEffect(() => {
 		clearParams();
-	}, [clearParams]);
+	}, [apiUrl, clearParams]);
 
 	if (isLoading) {
 		return <LoadingSpinner message="Loading API documentation..." />;
