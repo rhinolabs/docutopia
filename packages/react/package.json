@@ -12,7 +12,9 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
 		},
-		"./styles": "./dist/index.css"
+		"./styles": "./dist/index.css",
+		"./browser": "./dist/browser/index.js",
+		"./browser/styles": "./dist/browser/index.css"
 	},
 	"sideEffects": ["*.css"],
 	"files": ["dist/**/*"],

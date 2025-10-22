@@ -1,0 +1,58 @@
+{
+	"name": "@docutopia/fastify",
+	"version": "1.0.0",
+	"description": "Fastify plugin for Docutopia - A modern alternative to @fastify/swagger-ui",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		}
+	},
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"tsc": "tsc --noEmit"
+	},
+	"keywords": [
+		"fastify",
+		"fastify-plugin",
+		"openapi",
+		"swagger",
+		"swagger-ui",
+		"api-documentation",
+		"documentation"
+	],
+	"author": "",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rhinolabs/docutopia.git",
+		"directory": "packages/fastify"
+	},
+	"dependencies": {
+		"@docutopia/react": "workspace:*",
+		"fastify-plugin": "^5.0.1",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"react-router-dom": "^6.28.0",
+		"yaml": "^2.8.1"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.3",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0",
+		"tsup": "^8.3.5",
+		"typescript": "^5.7.2"
+	},
+	"peerDependencies": {
+		"fastify": "^5.0.0"
+	}
+}
