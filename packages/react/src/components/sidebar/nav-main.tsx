@@ -62,9 +62,14 @@ export function NavMain({
 																	</span>
 																	<Badge
 																		className={`${getRequestTypeClass(subItem.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
+																		title={subItem.requestType}
 																	>
 																		{/* Stop badge label to grow to much, this works excelent for http methods. */}
-																		{subItem.requestType.length > 4 ? subItem.requestType.slice(0,3).toUpperCase() : subItem.requestType.toUpperCase()}
+																		{subItem.requestType.length > 4
+																			? subItem.requestType
+																					.slice(0, 3)
+																					.toUpperCase()
+																			: subItem.requestType.toUpperCase()}
 																	</Badge>
 																</Link>
 															</Sidebar.MenuSubButton>

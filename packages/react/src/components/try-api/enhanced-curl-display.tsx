@@ -2,6 +2,8 @@ import { useCopyToClipboard } from "@/hooks";
 import { Button, Card } from "@rhinolabs/ui";
 import { Copy, Terminal } from "lucide-react";
 import type React from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { tomorrowNightBright } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 interface EnhancedCurlDisplayProps {
 	curlCommand: string;
@@ -46,7 +48,17 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 
 			<Card.Content className="pb-5 px-5">
 				<pre className="text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-card p-3 rounded-md border">
-					<code className="text-foreground">{curlCommand}</code>
+					<code>
+						<SyntaxHighlighter
+							customStyle={{
+								backgroundColor: "transparent",
+							}}
+							language="bash"
+							style={tomorrowNightBright}
+						>
+							{curlCommand}
+						</SyntaxHighlighter>
+					</code>
 				</pre>
 			</Card.Content>
 		</Card>

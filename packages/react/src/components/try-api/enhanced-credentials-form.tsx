@@ -1,6 +1,6 @@
 import type { AuthCredentials } from "@/core/types";
 import { useAuth } from "@/hooks";
-import { Badge, Button, Card, Input, Select } from "@rhinolabs/ui";
+import { Button, Card, Input, Select } from "@rhinolabs/ui";
 import { Code, Cookie, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
@@ -103,7 +103,6 @@ export const EnhancedCredentialsForm: React.FC = () => {
 			</Card.Header>
 
 			<Card.Content className="space-y-4 pb-5 px-5">
-
 				{/* Credential Input Fields */}
 				<div className="space-y-2">
 					{credentials.type === "basic" && (
