@@ -9,8 +9,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"declaration": true,
 		"outDir": "./dist",
-		"rootDir": "./"
-	},
+		"rootDir": "./",
+    "jsx": "react"
+  },
 	"include": ["packages/*/src/**/*"],
 	"exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
 }
