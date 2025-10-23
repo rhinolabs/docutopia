@@ -52,7 +52,7 @@ export const useAuthStore = create<AuthState>()(
 					const isAuthenticated = Boolean(
 						updatedCredentials.value &&
 							(updatedCredentials.type !== "basic" ||
-								updatedCredentials.username),
+								updatedCredentials.username)
 					);
 					return {
 						credentials: updatedCredentials,

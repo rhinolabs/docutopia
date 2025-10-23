@@ -25,7 +25,6 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		} = useAuth();
 		const { params } = useRequestParamsStore();
 		const { spec, baseUrl } = useOpenApiStore();
-
 		const serverUrlFromSpec = spec?.servers?.[0]?.url ?? "";
 
 		let endpointBaseUrl = serverUrlFromSpec;
@@ -42,6 +41,20 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 			baseUrl: endpointBaseUrl,
 			prettify: true,
 		});
+
+		const getPathSecurity = () => {
+			const rootSecurity = spec?.security || [];
+			const pathSecurity = operation.security;
+
+			if (pathSecurity) {
+				return pathSecurity;
+			}
+
+			return rootSecurity;
+		};
+
+		const security = getPathSecurity();
+		const disabledDueToAuth = security.length === 0 ? false : !isAuthenticated;
 
 		const handleTryRequest = async () => {
 			try {
@@ -81,7 +94,7 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		return (
 			<div className={`sticky top-4 h-fit space-y-6 ${className}`}>
 				{/* Authentication Section */}
-				<EnhancedCredentialsForm />
+				{getPathSecurity().length > 0 && <EnhancedCredentialsForm />}
 
 				{/* cURL Preview */}
 				<EnhancedCurlDisplay curlCommand={curlCommand} title="cURL Request" />
@@ -91,7 +104,7 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 					<Button
 						size="lg"
 						onClick={handleTryRequest}
-						disabled={isLoading || !isAuthenticated}
+						disabled={isLoading || disabledDueToAuth}
 						className="w-full cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						{isLoading ? (
@@ -107,7 +120,7 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 						)}
 					</Button>
 
-					{!isAuthenticated && (
+					{disabledDueToAuth && (
 						<p className="text-xs text-muted-foreground text-center">
 							Configure authentication credentials to test this endpoint
 						</p>
