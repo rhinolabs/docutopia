@@ -1,14 +1,7 @@
 import type { AuthCredentials } from "@/core/types";
 import { useAuth } from "@/hooks";
 import { Button, Card, Input, Select } from "@rhinolabs/ui";
-import {
-	Code,
-	Eye,
-	EyeOff,
-	IdCard,
-	Key,
-	Shield,
-} from "lucide-react";
+import { Code, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
