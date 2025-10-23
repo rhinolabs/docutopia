@@ -5,7 +5,6 @@ import { TryApiPanel } from "@/components/try-api/try-api-panel.tsx";
 import { useEndpointData } from "@/hooks/use-endpoint-data";
 import { useRequestParamsStore } from "@/stores/request-params-store";
 import { Sidebar } from "@rhinolabs/ui";
-import { CommandIcon } from "lucide-react";
 import type React from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -57,7 +56,8 @@ export const DocutopiaPage: React.FC = () => {
 
 	return (
 		<div key={apiUrl} className="container h-full">
-			<header className="flex justify-between gap-3 items-center border-b py-3 pl-6 pr-5 lg:hidden">
+			<header className="flex gap-3 items-center border-b py-3 px-5 lg:hidden">
+				<Sidebar.Trigger variant="outline" className="size-9" />
 				<div className="flex flex-col">
 					<span className="truncate font-medium text-sm">
 						{spec.info.title || "Docutopia"}
@@ -66,7 +66,6 @@ export const DocutopiaPage: React.FC = () => {
 						{spec.info.version}
 					</span>
 				</div>
-				<Sidebar.Trigger variant="outline" className="size-9" />
 			</header>
 			<main className="grid grid-cols-1 lg:grid-cols-20 gap-8 px-6 py-4 lg:py-7">
 				<EndpointDocumentation
