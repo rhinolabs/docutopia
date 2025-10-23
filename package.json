@@ -1,13 +1,17 @@
 {
 	"name": "@docutopia/monorepo",
 	"version": "1.0.0",
+	"description": "Monorepo for Docutopia - A modern API documentation library",
+	"author": {
+		"name": "Rhinolabs Agency",
+		"email": "hello@rhinolabs.agency",
+		"url": "https://rhinolabs.agency"
+	},
 	"private": true,
-	"packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
+	"keywords": ["api-documentation", "openapi", "swagger", "react", "fastify", "documentation"],
 	"scripts": {
 		"build": "pnpm -r build",
 		"dev": "pnpm -r --parallel dev",
-		"preview": "pnpm -r preview",
-		"tsc": "pnpm -r tsc",
 		"lint": "biome check .",
 		"lint:fix": "biome check . --fix --unsafe"
 	},
@@ -15,5 +19,7 @@
 		"@biomejs/biome": "1.9.4",
 		"@types/node": "^22.10.3",
 		"tsx": "^4.19.2"
-	}
+	},
+	"license": "MIT",
+	"packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
 }

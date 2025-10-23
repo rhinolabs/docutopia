@@ -2,6 +2,11 @@
 	"name": "@docutopia/react",
 	"version": "1.0.0",
 	"description": "A modern, interactive API documentation library - The beautiful alternative to Swagger UI",
+	"author": {
+		"name": "Rhinolabs Agency",
+		"email": "hello@rhinolabs.agency",
+		"url": "https://rhinolabs.agency"
+	},
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -19,12 +24,6 @@
 	},
 	"sideEffects": ["*.css"],
 	"files": ["dist/**/*"],
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"tsc": "tsc --noEmit"
-	},
 	"keywords": [
 		"openapi",
 		"swagger",
@@ -35,12 +34,11 @@
 		"api",
 		"rest"
 	],
-	"author": "",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/rhinolabs/docutopia.git",
-		"directory": "packages/react"
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"tsc": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@rhinolabs/ui": "^1.1.0",
@@ -69,5 +67,11 @@
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
 		"react-dom": "^18.0.0 || ^19.0.0"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rhinolabs/docutopia.git",
+		"directory": "packages/react"
 	}
 }

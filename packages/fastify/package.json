@@ -2,6 +2,11 @@
 	"name": "@docutopia/fastify",
 	"version": "1.0.0",
 	"description": "Fastify plugin for Docutopia - A modern alternative to @fastify/swagger-ui",
+	"author": {
+		"name": "Rhinolabs Agency",
+		"email": "hello@rhinolabs.agency",
+		"url": "https://rhinolabs.agency"
+	},
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -14,11 +19,6 @@
 		}
 	},
 	"files": ["dist/**/*"],
-	"scripts": {
-		"build": "vite build",
-		"dev": "vite build --watch",
-		"tsc": "tsc --noEmit"
-	},
 	"keywords": [
 		"fastify",
 		"fastify-plugin",
@@ -28,12 +28,10 @@
 		"api-documentation",
 		"documentation"
 	],
-	"author": "",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/rhinolabs/docutopia.git",
-		"directory": "packages/fastify"
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite build --watch",
+		"tsc": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@docutopia/react": "workspace:*",
@@ -42,6 +40,9 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router-dom": "^6.28.0"
+	},
+	"peerDependencies": {
+		"fastify": "^5.0.0"
 	},
 	"devDependencies": {
 		"@fastify/swagger": "^9.3.0",
@@ -52,7 +53,10 @@
 		"vite": "^7.1.11",
 		"vite-plugin-dts": "^4.5.4"
 	},
-	"peerDependencies": {
-		"fastify": "^5.0.0"
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rhinolabs/docutopia.git",
+		"directory": "packages/fastify"
 	}
 }
