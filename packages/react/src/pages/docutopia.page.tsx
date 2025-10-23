@@ -1,7 +1,7 @@
-import { ErrorDisplay } from "@/components/common/error-display.tsx";
-import { LoadingSpinner } from "@/components/common/loading-spinner.tsx";
+import { ErrorDisplay } from "@/components/common/error-display";
+import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { EndpointDocumentation } from "@/components/endpoint-docs";
-import { TryApiPanel } from "@/components/try-api/try-api-panel.tsx";
+import { TryApiPanel } from "@/components/try-api/try-api-panel";
 import { useEndpointData } from "@/hooks/use-endpoint-data";
 import { useRequestParamsStore } from "@/stores/request-params-store";
 import { Sidebar } from "@rhinolabs/ui";
