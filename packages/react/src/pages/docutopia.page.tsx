@@ -49,13 +49,13 @@ export const DocutopiaPage: React.FC = () => {
 
 	return (
 		<div key={apiUrl} className="container px-6 py-8">
-			<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+			<div className="grid grid-cols-1 lg:grid-cols-20 gap-8">
 				<EndpointDocumentation
 					operation={operation}
 					parameters={parameters}
 					bodyParams={bodyParams}
 				/>
-				<div className="lg:col-span-1">
+				<div className="lg:col-span-7">
 					<TryApiPanel operation={operation} />
 				</div>
 			</div>

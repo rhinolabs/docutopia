@@ -35,10 +35,6 @@ const authTypeDefaults: Record<
 	basic: {
 		location: "header",
 	},
-	cookie: {
-		keyName: "session_token",
-		location: "cookie",
-	},
 };
 
 export const useAuthStore = create<AuthState>()(
@@ -75,7 +71,6 @@ export const useAuthStore = create<AuthState>()(
 						...authTypeDefaults[type],
 						value: "", // Reset value when changing type
 					},
-					isAuthenticated: false,
 				})),
 
 			generateAuthHeaders: () => {
@@ -101,12 +96,6 @@ export const useAuthStore = create<AuthState>()(
 								`${credentials.username}:${credentials.value}`,
 							);
 							headers.Authorization = `Basic ${encoded}`;
-						}
-						break;
-
-					case "cookie":
-						if (credentials.location === "header") {
-							headers.Cookie = `${credentials.keyName || "session_token"}=${credentials.value}`;
 						}
 						break;
 				}

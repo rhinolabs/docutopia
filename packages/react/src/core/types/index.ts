@@ -27,11 +27,11 @@ export interface RequestConfig {
 }
 
 export interface AuthCredentials {
-	type: "apiKey" | "bearer" | "basic" | "cookie";
+	type: "apiKey" | "bearer" | "basic";
 	value: string;
 	username?: string; // For basic auth
 	keyName?: string; // For API key location (x-api-key, api-key, etc.)
-	location?: "header" | "query" | "cookie"; // Where to send the credential
+	location?: "header" | "query"; // Where to send the credential
 	prefix?: string; // e.g., "Bearer ", "Token ", etc.
 }
 

@@ -1,7 +1,7 @@
 import type { AuthCredentials } from "@/core/types";
 import { useAuth } from "@/hooks";
-import { Badge, Button, Card, Input, Select } from "@rhinolabs/ui";
-import { Code, Cookie, Eye, EyeOff, Key, Shield } from "lucide-react";
+import { Button, Card, Input, Select } from "@rhinolabs/ui";
+import { Code, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 
@@ -39,14 +39,6 @@ const authConfigs: AuthTypeConfig[] = [
 		placeholder: "Enter password",
 		fieldName: "password",
 	},
-	{
-		type: "cookie",
-		icon: Cookie,
-		label: "Cookie",
-		description: "Authenticate with session cookie",
-		placeholder: "Enter cookie value",
-		fieldName: "session_token",
-	},
 ];
 
 export const EnhancedCredentialsForm: React.FC = () => {
@@ -63,32 +55,24 @@ export const EnhancedCredentialsForm: React.FC = () => {
 	};
 
 	return (
-		<Card className="border shadow-none rounded-lg bg-card">
-			<Card.Header className="pb-3">
-				<div className="flex items-center justify-between">
+		<Card className="border shadow-none rounded-lg bg-card/60">
+			<Card.Header className="pb-2 pt-4 px-5">
+				<div className="flex items-top justify-between">
 					<div className="flex items-center gap-2">
-						<Key className="h-4 w-4 text-primary" />
+						<IdCard className="h-4 w-4 text-muted-foreground" />
 						<h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-							CREDENTIALS
+							AUTH CONFIGURATION
 						</h3>
 					</div>
-					<Badge variant="outline" className="text-xs font-medium">
-						{currentConfig.label}
-					</Badge>
-				</div>
-			</Card.Header>
-
-			<Card.Content className="space-y-4">
-				{/* Auth Type Selector */}
-				<div className="space-y-2">
+					{/* Auth Type Selector */}
 					<Select value={credentials.type} onValueChange={handleAuthTypeChange}>
-						<Select.Trigger className="w-full bg-input text-foreground">
+						<Select.Trigger className="w-[200px] h-8 text-foreground bg-card">
 							<div className="flex items-center gap-2">
 								<IconComponent className="h-4 w-4 text-muted-foreground" />
 								<span className="font-medium">{currentConfig.label}</span>
 							</div>
 						</Select.Trigger>
-						<Select.Content className="bg-input">
+						<Select.Content className="" align="end">
 							{authConfigs.map((config) => {
 								const ConfigIcon = config.icon;
 								return (
@@ -108,13 +92,15 @@ export const EnhancedCredentialsForm: React.FC = () => {
 						</Select.Content>
 					</Select>
 				</div>
+			</Card.Header>
 
+			<Card.Content className="space-y-4 pb-5 px-5">
 				{/* Credential Input Fields */}
-				<div className="space-y-3">
+				<div className="space-y-2">
 					{credentials.type === "basic" && (
 						<div className="space-y-2">
 							<label
-								className="text-xs font-medium text-muted-foreground uppercase tracking-wider"
+								className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
 								htmlFor="username"
 							>
 								Username
@@ -126,33 +112,33 @@ export const EnhancedCredentialsForm: React.FC = () => {
 								onChange={(e) =>
 									updateCredentials({ username: e.target.value })
 								}
-								className="font-mono text-sm bg-input text-foreground"
+								className="font-mono text-sm bg-card text-foreground"
 							/>
 						</div>
 					)}
 
 					<div className="space-y-2">
 						<label
-							className="text-xs font-medium text-muted-foreground uppercase tracking-wider"
+							className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
 							htmlFor={currentConfig.fieldName}
 						>
 							{currentConfig.fieldName}
 						</label>
-						<div className="flex items-center gap-2">
+						<div className="flex items-center gap-2 relative">
 							<Input
 								name={currentConfig.fieldName}
 								type={showPassword ? "text" : "password"}
 								placeholder={currentConfig.placeholder}
 								value={credentials.value}
 								onChange={(e) => updateCredentials({ value: e.target.value })}
-								className="flex-1 font-mono text-sm bg-input text-foreground"
+								className="flex-1 font-mono text-sm bg-card text-foreground"
 							/>
 
 							<Button
 								variant="ghost"
 								size="sm"
 								onClick={() => setShowPassword(!showPassword)}
-								className="hover:bg-accent"
+								className="hover:bg-accent absolute right-0.5"
 							>
 								{showPassword ? (
 									<EyeOff className="h-4 w-4" />

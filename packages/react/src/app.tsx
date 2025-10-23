@@ -41,9 +41,9 @@ export function App({ specUrl, baseUrl }: AppProps) {
 	}
 
 	return (
-		<Sidebar.Provider>
-			<AppSidebar collapsible="none" className="h-screen" />
-			<Sidebar.Inset>
+		<Sidebar.Provider className="">
+			<AppSidebar collapsible="none" className="min-h-screen h-auto" />
+			<Sidebar.Inset className="items-center">
 				<Routes>
 					<Route index element={<DocutopiaPage />} />
 					<Route path=":apiUrl" element={<DocutopiaPage />} />

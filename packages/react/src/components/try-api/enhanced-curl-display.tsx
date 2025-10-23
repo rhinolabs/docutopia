@@ -1,5 +1,7 @@
 import { useCopyToClipboard } from "@/hooks";
+import { useHighlightedCode } from "@/hooks/use-highlighted-code";
 import { Button, Card } from "@rhinolabs/ui";
+import { Pre } from "codehike/code";
 import { Copy, Terminal } from "lucide-react";
 import type React from "react";
 
@@ -15,14 +17,14 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 	className = "",
 }) => {
 	const { copy, isCopied } = useCopyToClipboard();
-
+	const highlightedCurlCommand = useHighlightedCode("bash", curlCommand);
 	const handleCopy = () => {
 		copy(curlCommand);
 	};
 
 	return (
-		<Card className={`border ${className}`}>
-			<Card.Header className="pb-2">
+		<Card className={`border bg-card/70 ${className}`}>
+			<Card.Header className="pb-3 pt-4 px-5">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-2">
 						<Terminal className="h-4 w-4 text-muted-foreground" />
@@ -31,21 +33,23 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 						</h3>
 					</div>
 					<Button
-						variant="ghost"
+						variant="outline"
 						size="sm"
 						onClick={handleCopy}
-						className="text-muted-foreground hover:text-foreground"
+						className="text-muted-foreground bg-inherit font-normal hover:text-foreground"
 					>
 						<Copy className="h-4 w-4" />
-						{isCopied ? "Copied!" : "Copy"}
+						<span className="leading-none">
+							{isCopied ? "Copied!" : "Copy"}
+						</span>
 					</Button>
 				</div>
 			</Card.Header>
 
-			<Card.Content>
-				<pre className="text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-muted/50 p-3 rounded-md border">
-					<code className="text-foreground">{curlCommand}</code>
-				</pre>
+			<Card.Content className="pb-5 px-5">
+				<div className="text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap break-all bg-card p-3 rounded-md border">
+					{highlightedCurlCommand && <Pre code={highlightedCurlCommand} />}
+				</div>
 			</Card.Content>
 		</Card>
 	);

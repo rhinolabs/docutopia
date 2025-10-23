@@ -131,12 +131,6 @@ function generateAuthHeaders(
 				headers.Authorization = `Basic ${encoded}`;
 			}
 			break;
-
-		case "cookie":
-			if (credentials.location === "header") {
-				headers.Cookie = `${credentials.keyName || "session_token"}=${credentials.value}`;
-			}
-			break;
 	}
 
 	return headers;
