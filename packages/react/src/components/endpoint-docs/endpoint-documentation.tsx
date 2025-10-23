@@ -1,8 +1,8 @@
 import type { EnhancedOperation, ParameterObject } from "@/core/types";
 import { memo } from "react";
-import { EndpointHeader } from "./endpoint-header.tsx";
-import { EndpointParams } from "./endpoint-params.tsx";
-import { EndpointResponses } from "./endpoint-responses.tsx";
+import { EndpointHeader } from "./endpoint-header";
+import { EndpointParams } from "./endpoint-params";
+import { EndpointResponses } from "./endpoint-responses";
 
 interface EndpointDocumentationProps {
 	operation: EnhancedOperation;

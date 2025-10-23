@@ -1,7 +1,7 @@
 // Export try-api components
-export { TryApiPanel } from "./try-api-panel.tsx";
-export { CredentialsForm } from "./credentials-form.tsx";
-export { EnhancedCredentialsForm } from "./enhanced-credentials-form.tsx";
-export { CurlDisplay } from "./curl-display.tsx";
-export { EnhancedCurlDisplay } from "./enhanced-curl-display.tsx";
-export { ResponseDisplay } from "./response-display.tsx";
+export { TryApiPanel } from "./try-api-panel";
+export { CredentialsForm } from "./credentials-form";
+export { EnhancedCredentialsForm } from "./enhanced-credentials-form";
+export { CurlDisplay } from "./curl-display";
+export { EnhancedCurlDisplay } from "./enhanced-curl-display";
+export { ResponseDisplay } from "./response-display";
