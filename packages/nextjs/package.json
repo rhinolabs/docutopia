@@ -1,0 +1,55 @@
+{
+	"name": "@docutopia/nextjs",
+	"version": "1.0.0",
+	"description": "Next.js (App Router) adapter for Docutopia - A modern alternative to swagger-ui",
+	"author": {
+		"name": "Rhinolabs Agency",
+		"email": "hello@rhinolabs.agency",
+		"url": "https://rhinolabs.agency"
+	},
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		}
+	},
+	"files": ["dist/**/*"],
+	"keywords": [
+		"nextjs",
+		"app-router",
+		"openapi",
+		"swagger",
+		"swagger-ui",
+		"api-documentation",
+		"documentation"
+	],
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite build --watch",
+		"tsc": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@docutopia/react": "workspace:*"
+	},
+	"peerDependencies": {
+		"next": "^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.3",
+		"next": "^16.0.0",
+		"typescript": "^5.7.2",
+		"vite": "^7.1.11",
+		"vite-plugin-dts": "^4.5.4"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rhinolabs/docutopia.git",
+		"directory": "packages/nextjs"
+	}
+}
