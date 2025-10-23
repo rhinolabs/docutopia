@@ -5,23 +5,40 @@ import { defineConfig } from "@rslib/core";
 export default defineConfig({
 	lib: [
 		{
+			// ESM build for npm consumption
 			format: "esm",
 			syntax: "es2021",
-			dts: {
-				bundle: true,
+			dts: true,
+			source: {
+				entry: {
+					index: "./src/index.ts",
+				},
+			},
+			output: {
+				distPath: {
+					root: "./dist",
+				},
+			},
+		},
+		{
+			// UMD build for browser with self-initialization
+			format: "umd",
+			syntax: "es2021",
+			umdName: "Docutopia",
+			source: {
+				entry: {
+					index: "./src/browser.tsx",
+				},
+			},
+			output: {
+				distPath: {
+					root: "./dist/browser",
+				},
 			},
 		},
 	],
-	source: {
-		entry: {
-			index: "./src/index.ts",
-		},
-	},
 	output: {
 		target: "web",
-		distPath: {
-			root: "./dist",
-		},
 	},
 	plugins: [pluginReact()],
 	resolve: {

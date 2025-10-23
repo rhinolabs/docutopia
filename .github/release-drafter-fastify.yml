@@ -1,0 +1,6 @@
+_extends: docutopia:.github/release-drafter-base.yml
+name-template: 'fastify@$RESOLVED_VERSION'
+tag-template: 'fastify@$RESOLVED_VERSION'
+tag-prefix: 'fastify@'
+include-paths:
+  - "packages/fastify/"
