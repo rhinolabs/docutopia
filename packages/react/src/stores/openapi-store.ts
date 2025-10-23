@@ -30,6 +30,7 @@ export const useOpenApiStore = create<OpenApiState>((set, get) => ({
 			const openApiService = new OpenApiService();
 			const spec = await openApiService.loadSpec(specPath);
 			set({ spec, isLoading: false, error: null, specPath, baseUrl });
+			console.log("Loaded OpenAPI spec: ", spec);
 		} catch (error) {
 			console.error("Failed to load spec from", specPath, error);
 			set({

@@ -39,6 +39,7 @@ export const useEndpointData = (slug?: string) => {
 			bodyParams,
 			isLoading: false,
 			error: null,
+			spec,
 		};
 	}, [spec, slug, isLoading, error, getOperationBySlug]);
 };

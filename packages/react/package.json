@@ -42,6 +42,7 @@
 		"directory": "packages/react"
 	},
 	"dependencies": {
+		"@rhinolabs/react-hooks": "^1.0.3",
 		"@rhinolabs/ui": "^1.1.0",
 		"@sindresorhus/slugify": "^3.0.0",
 		"codehike": "^1.0.7",

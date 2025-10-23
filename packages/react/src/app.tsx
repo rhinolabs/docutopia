@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { DocutopiaPage } from "@/pages/docutopia.page.tsx";
 import { useOpenApiStore } from "@/stores/openapi-store";
+import { useWindowSize } from "@rhinolabs/react-hooks";
 import { Sidebar } from "@rhinolabs/ui";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -12,7 +13,7 @@ export interface AppProps {
 
 export function App({ specUrl, baseUrl }: AppProps) {
 	const { loadSpec, isLoading, error } = useOpenApiStore();
-
+	const { isDesktop } = useWindowSize();
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Load spec only once on mount
 	useEffect(() => {
 		loadSpec(specUrl, baseUrl);
@@ -42,7 +43,10 @@ export function App({ specUrl, baseUrl }: AppProps) {
 
 	return (
 		<Sidebar.Provider className="">
-			<AppSidebar collapsible="none" className="min-h-screen h-auto" />
+			<AppSidebar
+				collapsible={isDesktop ? "none" : "offcanvas"}
+				className="min-h-screen h-auto"
+			/>
 			<Sidebar.Inset className="items-center">
 				<Routes>
 					<Route index element={<DocutopiaPage />} />
