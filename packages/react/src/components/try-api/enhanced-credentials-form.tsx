@@ -8,7 +8,6 @@ import {
 	IdCard,
 	Key,
 	Shield,
-	UserRoundX,
 } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
