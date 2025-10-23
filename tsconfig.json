@@ -10,8 +10,8 @@
 		"declaration": true,
 		"outDir": "./dist",
 		"rootDir": "./",
-    "jsx": "react"
-  },
+		"jsx": "react"
+	},
 	"include": ["packages/*/src/**/*"],
 	"exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
 }
