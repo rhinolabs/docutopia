@@ -94,7 +94,7 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		return (
 			<div className={`sticky top-4 h-fit space-y-6 ${className}`}>
 				{/* Authentication Section */}
-				{getPathSecurity().length > 0 && <EnhancedCredentialsForm />}
+				{security.length > 0 && <EnhancedCredentialsForm />}
 
 				{/* cURL Preview */}
 				<EnhancedCurlDisplay curlCommand={curlCommand} title="cURL Request" />
