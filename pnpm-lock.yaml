@@ -18,25 +18,6 @@ importers:
         specifier: ^4.19.2
         version: 4.19.2
 
-  examples/fastify-api:
-    dependencies:
-      '@docutopia/fastify':
-        specifier: workspace:*
-        version: link:../../packages/fastify
-      fastify:
-        specifier: ^5.2.1
-        version: 5.6.1
-    devDependencies:
-      '@types/node':
-        specifier: ^22.10.3
-        version: 22.13.4
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.2
-      typescript:
-        specifier: ^5.7.2
-        version: 5.8.2
-
   packages/fastify:
     dependencies:
       '@docutopia/react':
@@ -82,6 +63,9 @@ importers:
 
   packages/react:
     dependencies:
+      '@rhinolabs/react-hooks':
+        specifier: ^1.0.3
+        version: 1.0.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@rhinolabs/ui':
         specifier: ^1.1.0
         version: 1.1.0(@types/react-dom@19.0.2(@types/react@19.0.4))(@types/react@19.0.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -5654,7 +5638,8 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  typescript@5.8.2: {}
+  typescript@5.8.2:
+    optional: true
 
   ufo@1.6.1: {}
 
