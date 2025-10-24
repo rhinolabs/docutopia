@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
-import { DocutopiaPage } from "@/pages/docutopia.page.tsx";
+import { DocutopiaPage } from "@/pages/docutopia.page";
 import { useOpenApiStore } from "@/stores/openapi-store";
 import { useWindowSize } from "@rhinolabs/react-hooks";
 import { Sidebar } from "@rhinolabs/ui";

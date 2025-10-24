@@ -1,27 +1,37 @@
 {
-	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDir": "./src",
+		"outDir": "./dist",
 		"paths": {
 			"@/*": ["src/*"]
 		},
 		"lib": ["DOM", "ES2020"],
 		"jsx": "react-jsx",
 		"target": "ES2020",
-		"noEmit": true,
 		"skipLibCheck": true,
 		"useDefineForClassFields": true,
 		"module": "ESNext",
 		"isolatedModules": true,
 		"resolveJsonModule": true,
 		"moduleResolution": "Bundler",
-		"allowImportingTsExtensions": true,
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"declaration": true,
-		"outDir": "./dist"
+		"declarationMap": true,
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"preserveConstEnums": true,
+		"removeComments": false
 	},
-	"include": ["src"]
+	"include": ["src/**/*"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"src/**/*.test.ts",
+		"src/**/*.test.tsx",
+		"src/main.tsx",
+		"src/browser.tsx"
+	]
 }
