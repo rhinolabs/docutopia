@@ -1,5 +1,6 @@
 import type { ParameterOrRef } from "./parameters";
 import type { RequestBodyObject, ResponseObject } from "./responses";
+import type { SecurityObject } from "./security";
 
 export interface PathItemObject {
 	get?: OperationObject;
@@ -18,4 +19,5 @@ export interface OperationObject {
 	responses: {
 		[statusCode: string]: ResponseObject;
 	};
+	security?: SecurityObject[];
 }

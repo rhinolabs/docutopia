@@ -1,5 +1,6 @@
 import type { PathItemObject } from "./paths";
 import type { SchemaObject } from "./schemas";
+import type { SecurityObject } from "./security";
 
 export interface OpenApiDocument {
 	openapi: string;
@@ -7,6 +8,7 @@ export interface OpenApiDocument {
 	servers: ServerObject[];
 	tags?: TagsObject[];
 	paths: Record<string, PathItemObject>;
+	security?: SecurityObject[];
 	components?: ComponentsObject;
 }
 
