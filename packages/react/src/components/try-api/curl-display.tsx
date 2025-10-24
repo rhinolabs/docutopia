@@ -1,4 +1,4 @@
-import { CopyButton } from "@/components/common/copy-button.tsx";
+import { CopyButton } from "@/components/common/copy-button";
 import { Card } from "@rhinolabs/ui";
 import type React from "react";
 

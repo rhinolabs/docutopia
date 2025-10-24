@@ -1,4 +1,4 @@
-import { LoadingSpinner } from "@/components/common/loading-spinner.tsx";
+import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { Sidebar } from "@rhinolabs/ui";
 import type React from "react";
 
