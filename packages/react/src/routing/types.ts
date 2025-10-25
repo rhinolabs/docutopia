@@ -77,4 +77,11 @@ export interface RoutingAdapter {
 	 * For file-based routing (Next.js), this should be undefined
 	 */
 	Route?: ComponentType<RouteProps>;
+
+	/**
+	 * Base path for routing (optional)
+	 * Used to prefix all links when docs are mounted at a subdirectory
+	 * Example: "/docs" for routes like /docs/endpoint-slug
+	 */
+	basePath?: string;
 }

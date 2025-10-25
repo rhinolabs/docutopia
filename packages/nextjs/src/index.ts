@@ -7,6 +7,7 @@
  * It re-exports all of @docutopia/react plus Next.js-specific integrations.
  *
  * @example
+ * Basic usage with auto-detection:
  * ```tsx
  * // app/docs/[[...slug]]/page.tsx
  * import { Docutopia } from '@docutopia/nextjs';
@@ -21,6 +22,21 @@
  *   );
  * }
  * ```
+ *
+ * @example
+ * With custom base path:
+ * ```tsx
+ * // app/api/v1/docs/[[...slug]]/page.tsx
+ * export default function DocsPage() {
+ *   return (
+ *     <Docutopia
+ *       specUrl="/api/openapi.json"
+ *       baseUrl="http://localhost:3000"
+ *       basePath="/api/v1/docs"
+ *     />
+ *   );
+ * }
+ * ```
  */
 
 // Re-export everything from @docutopia/react
@@ -31,4 +47,5 @@ export { Docutopia } from "./docutopia";
 export type { DocutopiaProps } from "./docutopia";
 
 // Export Next.js adapter (for advanced use cases)
-export { NextJSAdapter } from "./adapter";
+export { NextJSAdapter, createNextJSAdapter } from "./adapter";
+export type { NextJSAdapterOptions } from "./adapter";

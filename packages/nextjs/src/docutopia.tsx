@@ -1,7 +1,8 @@
 "use client";
 
 import { Docutopia as DocutopiaCore } from "@docutopia/react";
-import { NextJSAdapter } from "./adapter";
+import { useMemo } from "react";
+import { createNextJSAdapter } from "./adapter";
 
 export interface DocutopiaProps {
 	/**
@@ -16,22 +17,31 @@ export interface DocutopiaProps {
 	 * Additional CSS classes to apply to the root container
 	 */
 	className?: string;
+	/**
+	 * Base path for documentation routing (optional)
+	 *
+	 * If not provided, the base path will be auto-detected from the current URL.
+	 * For example, if your docs are at `/docs/[[...slug]]`, it will automatically
+	 * use `/docs` as the base path.
+	 *
+	 * Only specify this if you need to override the auto-detection.
+	 *
+	 * @example "/docs" for routes like /docs/endpoint-slug
+	 * @example "/api/v1/docs" for nested routes
+	 */
+	basePath?: string;
 }
 
 /**
  * Docutopia component for Next.js App Router
  *
  * This is a wrapper around the core Docutopia component that automatically
- * configures the Next.js routing adapter.
+ * configures the Next.js routing adapter with base path detection.
  *
  * @example
- * File structure:
- * ```
- * app/docs/[[...slug]]/page.tsx
- * ```
- *
- * Usage:
+ * Basic usage with auto-detection:
  * ```tsx
+ * // File: app/docs/[[...slug]]/page.tsx
  * import { Docutopia } from '@docutopia/nextjs';
  * import '@docutopia/nextjs/styles';
  *
@@ -44,14 +54,37 @@ export interface DocutopiaProps {
  *   );
  * }
  * ```
+ *
+ * @example
+ * With custom base path:
+ * ```tsx
+ * // File: app/api/v1/docs/[[...slug]]/page.tsx
+ * export default function DocsPage() {
+ *   return (
+ *     <Docutopia
+ *       specUrl="/api/openapi.json"
+ *       baseUrl="http://localhost:3000"
+ *       basePath="/api/v1/docs"
+ *     />
+ *   );
+ * }
+ * ```
  */
-export function Docutopia({ specUrl, baseUrl, className }: DocutopiaProps) {
+export function Docutopia({
+	specUrl,
+	baseUrl,
+	className,
+	basePath,
+}: DocutopiaProps) {
+	// Create adapter with base path configuration
+	const adapter = useMemo(() => createNextJSAdapter({ basePath }), [basePath]);
+
 	return (
 		<DocutopiaCore
 			specUrl={specUrl}
 			baseUrl={baseUrl}
 			className={className}
-			adapter={NextJSAdapter}
+			adapter={adapter}
 		/>
 	);
 }
