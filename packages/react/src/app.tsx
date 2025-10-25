@@ -45,14 +45,15 @@ export function App({ specUrl, baseUrl }: AppProps) {
 
 	// For SPA routers (React Router), use Routes/Route
 	// For file-based routers (Next.js), render page directly
-	const content = routing.Routes && routing.Route ? (
-		<routing.Routes>
-			<routing.Route index element={<DocutopiaPage />} />
-			<routing.Route path=":apiUrl" element={<DocutopiaPage />} />
-		</routing.Routes>
-	) : (
-		<DocutopiaPage />
-	);
+	const content =
+		routing.Routes && routing.Route ? (
+			<routing.Routes>
+				<routing.Route index element={<DocutopiaPage />} />
+				<routing.Route path=":apiUrl" element={<DocutopiaPage />} />
+			</routing.Routes>
+		) : (
+			<DocutopiaPage />
+		);
 
 	return (
 		<Sidebar.Provider className="">
