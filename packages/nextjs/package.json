@@ -1,7 +1,7 @@
 {
-	"name": "@docutopia/react",
+	"name": "@docutopia/nextjs",
 	"version": "1.0.0",
-	"description": "A modern, interactive API documentation library - The beautiful alternative to Swagger UI",
+	"description": "Next.js adapter for Docutopia - A modern, interactive API documentation library",
 	"author": {
 		"name": "Rhinolabs Agency",
 		"email": "hello@rhinolabs.agency",
@@ -18,67 +18,48 @@
 			"require": "./dist/index.js"
 		},
 		"./styles": {
-			"import": "./dist/index.css",
-			"require": "./dist/index.css"
+			"import": "../react/dist/index.css",
+			"require": "../react/dist/index.css"
 		}
 	},
-	"sideEffects": ["*.css"],
 	"files": ["dist/**/*"],
 	"keywords": [
 		"openapi",
 		"swagger",
 		"api-documentation",
 		"react",
-		"web-components",
+		"nextjs",
+		"next.js",
 		"documentation",
 		"api",
 		"rest"
 	],
 	"scripts": {
-		"dev": "vite",
 		"build": "vite build",
-		"preview": "vite preview",
 		"tsc": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@rhinolabs/react-hooks": "^1.0.3",
-		"@rhinolabs/ui": "^1.1.0",
-		"@sindresorhus/slugify": "^3.0.0",
-		"codehike": "^1.0.7",
-		"lucide-react": "^0.474.0",
-		"tailwindcss-animate": "^1.0.7",
-		"zustand": "^5.0.5"
+		"@docutopia/react": "workspace:*"
 	},
 	"devDependencies": {
-		"@tailwindcss/postcss": "^4.0.3",
-		"@types/js-yaml": "^4.0.9",
 		"@types/node": "^22.10.3",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"@vitejs/plugin-react": "^5.0.4",
-		"js-yaml": "^4.1.0",
-		"postcss": "^8.4.49",
-		"react-router-dom": "^6.28.0",
-		"tailwind-merge": "^3.0.1",
-		"tailwindcss": "^4.0.3",
+		"next": "^15.1.7",
 		"typescript": "^5.7.2",
 		"vite": "^7.1.11",
 		"vite-plugin-dts": "^4.5.4"
 	},
 	"peerDependencies": {
+		"next": "^14.0.0 || ^15.0.0",
 		"react": "^18.0.0 || ^19.0.0",
-		"react-dom": "^18.0.0 || ^19.0.0",
-		"react-router-dom": "^6.0.0"
-	},
-	"peerDependenciesMeta": {
-		"react-router-dom": {
-			"optional": true
-		}
+		"react-dom": "^18.0.0 || ^19.0.0"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/rhinolabs/docutopia.git",
-		"directory": "packages/react"
+		"directory": "packages/nextjs"
 	}
 }

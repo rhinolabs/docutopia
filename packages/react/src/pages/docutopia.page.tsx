@@ -3,14 +3,15 @@ import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { EndpointDocumentation } from "@/components/endpoint-docs";
 import { TryApiPanel } from "@/components/try-api/try-api-panel";
 import { useEndpointData } from "@/hooks/use-endpoint-data";
+import { useRouting } from "@/routing/context";
 import { useRequestParamsStore } from "@/stores/request-params-store";
 import { Sidebar } from "@rhinolabs/ui";
 import type React from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 export const DocutopiaPage: React.FC = () => {
-	const { apiUrl } = useParams<{ apiUrl: string }>();
+	const routing = useRouting();
+	const { apiUrl } = routing.useRouteParams();
 	const { operation, parameters, bodyParams, isLoading, error, spec } =
 		useEndpointData(apiUrl);
 	const { clearParams } = useRequestParamsStore();
