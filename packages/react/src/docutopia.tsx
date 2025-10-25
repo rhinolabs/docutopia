@@ -1,6 +1,8 @@
-import type { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./app";
+import { ReactRouterAdapter } from "./routing/adapters/react-router";
+import { RoutingProvider } from "./routing/context";
+import type { RoutingAdapter } from "./routing/types";
 
 export interface DocutopiaProps {
 	/**
@@ -17,15 +19,16 @@ export interface DocutopiaProps {
 	className?: string;
 	/**
 	 * Custom router basename for nested routing (e.g., "/docs")
-	 * Only used when no custom router wrapper is provided
+	 * Only used with React Router adapter
 	 */
 	basename?: string;
 	/**
-	 * Custom router wrapper for framework integrations
-	 * If provided, Docutopia won't wrap App with BrowserRouter
-	 * This allows frameworks like Next.js to provide their own routing
+	 * Routing adapter for framework integration
+	 * Defaults to ReactRouterAdapter (with BrowserRouter)
+	 *
+	 * For Next.js, use NextJSAdapter from @docutopia/nextjs
 	 */
-	routerWrapper?: (children: ReactNode) => ReactNode;
+	adapter?: RoutingAdapter;
 }
 
 /**
@@ -33,7 +36,7 @@ export interface DocutopiaProps {
  *
  * @example
  * ```tsx
- * // Standalone usage with BrowserRouter
+ * // Standalone usage with React Router (default)
  * <Docutopia
  *   specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
  *   baseUrl="https://petstore3.swagger.io"
@@ -46,11 +49,13 @@ export interface DocutopiaProps {
  *   basename="/docs"
  * />
  *
- * // With custom router for Next.js or other frameworks
+ * // With custom adapter for Next.js
+ * import { NextJSAdapter } from '@docutopia/nextjs';
+ *
  * <Docutopia
  *   specUrl="/api/openapi.json"
  *   baseUrl="http://localhost:3000"
- *   routerWrapper={(children) => <NextRouter>{children}</NextRouter>}
+ *   adapter={NextJSAdapter}
  * />
  * ```
  */
@@ -59,19 +64,26 @@ export function Docutopia({
 	baseUrl,
 	className,
 	basename,
-	routerWrapper,
+	adapter = ReactRouterAdapter,
 }: DocutopiaProps) {
-	const app = <App specUrl={specUrl} baseUrl={baseUrl} />;
+	const app = (
+		<RoutingProvider adapter={adapter}>
+			<App specUrl={specUrl} baseUrl={baseUrl} />
+		</RoutingProvider>
+	);
 
-	// If custom router wrapper provided, use it (for Next.js, etc.)
-	if (routerWrapper) {
-		return <div className={className}>{routerWrapper(app)}</div>;
+	// For React Router, wrap with BrowserRouter
+	// For Next.js or other file-based routers, render directly
+	const isReactRouter = adapter === ReactRouterAdapter;
+
+	if (isReactRouter) {
+		return (
+			<div className={className}>
+				<BrowserRouter basename={basename}>{app}</BrowserRouter>
+			</div>
+		);
 	}
 
-	// Default: use BrowserRouter with optional basename
-	return (
-		<div className={className}>
-			<BrowserRouter basename={basename}>{app}</BrowserRouter>
-		</div>
-	);
+	// For other adapters (Next.js), no router wrapper needed
+	return <div className={className}>{app}</div>;
 }

@@ -1,9 +1,9 @@
 "use client";
 
+import { useRouting } from "@/routing/context";
 import type { SidebarCollection } from "@/types/components/sidebar";
 import { getRequestTypeClass } from "@/utils/api/request-type";
 import { ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
 
 import { Badge, Collapsible, Sidebar } from "@rhinolabs/ui";
 
@@ -12,6 +12,8 @@ export function NavMain({
 }: {
 	items: SidebarCollection[];
 }) {
+	const { Link } = useRouting();
+
 	return (
 		<Sidebar.Group className="px-1">
 			<Sidebar.Menu>
