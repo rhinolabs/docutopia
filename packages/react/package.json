@@ -36,7 +36,7 @@
 	],
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "rm -rf dist && tsc && tsc-alias && postcss src/index.css -o dist/index.css",
 		"preview": "vite preview",
 		"tsc": "tsc --noEmit"
 	},
@@ -58,9 +58,11 @@
 		"@vitejs/plugin-react": "^5.0.4",
 		"js-yaml": "^4.1.0",
 		"postcss": "^8.4.49",
+		"postcss-cli": "^11.0.1",
 		"react-router-dom": "^6.28.0",
 		"tailwind-merge": "^3.0.1",
 		"tailwindcss": "^4.0.3",
+		"tsc-alias": "^1.8.16",
 		"typescript": "^5.7.2",
 		"vite": "^7.1.11",
 		"vite-plugin-dts": "^4.5.4"

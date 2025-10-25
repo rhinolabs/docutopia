@@ -11,17 +11,6 @@
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.js"
-		},
-		"./styles": {
-			"import": "../react/dist/index.css",
-			"require": "../react/dist/index.css"
-		}
-	},
 	"files": ["dist/**/*"],
 	"keywords": [
 		"openapi",
@@ -35,8 +24,7 @@
 		"rest"
 	],
 	"scripts": {
-		"build": "vite build",
-		"tsc": "tsc --noEmit"
+		"build": "tsc && tsc-alias"
 	},
 	"dependencies": {
 		"@docutopia/react": "workspace:*"
@@ -47,6 +35,7 @@
 		"@types/react-dom": "^19.0.0",
 		"@vitejs/plugin-react": "^5.0.4",
 		"next": "^15.1.7",
+		"tsc-alias": "^1.8.16",
 		"typescript": "^5.7.2",
 		"vite": "^7.1.11",
 		"vite-plugin-dts": "^4.5.4"
