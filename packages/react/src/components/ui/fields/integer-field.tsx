@@ -61,7 +61,7 @@ export const IntegerField: React.FC<IntegerFieldProps> = ({
 		<div className="col-span-4 lg:col-span-1 m-auto w-full">
 			<Input
 				id={`param-${paramType}-${name}`}
-				className="border bg-input text-foreground"
+				className="border bg-card text-foreground"
 				type="number"
 				value={value}
 				onChange={handleChange}

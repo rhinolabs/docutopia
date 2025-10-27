@@ -23,7 +23,7 @@ export const PropertiesList: React.FC<PropertiesListProps> = ({
 				if (!value) return null;
 
 				return (
-					<div key={`${mediaType}-${key}`} className="mb-2">
+					<div key={`${mediaType}-${key}`} className="">
 						<Separator />
 						<ParamField
 							field={mapSchemaToParamField(key, value, required.includes(key))}

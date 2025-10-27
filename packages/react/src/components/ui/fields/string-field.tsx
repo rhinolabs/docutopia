@@ -59,17 +59,19 @@ export const StringField: React.FC<StringFieldProps> = ({
 	if (isEnumField(field)) {
 		if (readOnly) {
 			return (
-				<div className="col-span-4 flex flex-wrap">
+				<div className="col-span-4 lg:col-span-1 flex flex-row-reverse my-auto">
 					{field.enum?.map((option) => {
 						const optionStr = String(option);
 						return (
-							<Badge
-								key={optionStr}
-								variant="outline"
-								className="h-6 text-muted-foreground font-normal m-1 rounded-sm bg-muted"
-							>
-								{optionStr}
-							</Badge>
+							<>
+								<Badge
+									key={optionStr}
+									variant="outline"
+									className="h-6 text-muted-foreground font-normal m-1 rounded-sm bg-muted"
+								>
+									{optionStr}
+								</Badge>
+							</>
 						);
 					})}
 				</div>
@@ -77,12 +79,12 @@ export const StringField: React.FC<StringFieldProps> = ({
 		}
 
 		return (
-			<div className="col-span-4 lg:col-span-1">
+			<div className="col-span-4 lg:col-span-1 my-auto">
 				<Select value={value} onValueChange={handleChange}>
-					<Select.Trigger className="m-auto bg-input text-foreground">
+					<Select.Trigger className="m-auto bg-card text-foreground">
 						<Select.Value placeholder="Select" />
 					</Select.Trigger>
-					<Select.Content className="bg-input">
+					<Select.Content className="bg-card">
 						<Select.Group>
 							{field.enum?.map((option) => {
 								const optionStr = String(option);
@@ -106,10 +108,10 @@ export const StringField: React.FC<StringFieldProps> = ({
 	}
 
 	return (
-		<div className="col-span-4 lg:col-span-1">
+		<div className="col-span-4 lg:col-span-1 my-auto">
 			<Input
 				id={`param-${paramType}-${name}`}
-				className="border bg-input text-foreground m-auto"
+				className="border bg-card text-foreground m-auto"
 				type="text"
 				value={value}
 				onChange={(e) => handleChange(e.target.value)}

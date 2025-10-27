@@ -32,6 +32,8 @@ const renderMediaContent = (
 		);
 	}
 
+	// ?: content may have duplicate schemas
+
 	return Object.entries(content).map(([mediaType, mediaObject]) =>
 		mediaObject.examples ? (
 			<MediaTypeExamplesContent
@@ -66,16 +68,14 @@ export const ResponseCard: React.FC<ResponseCardProps> = memo(
 				<div className="flex items-center justify-between space-x-4 px-4 py-3">
 					<Collapsible.Trigger asChild>
 						<div className="flex justify-between items-center w-full cursor-pointer">
-							<div>
-								<div className="flex items-center">
-									<span
-										className={`rounded-full h-3 w-3 mr-2 ${
-											success ? "bg-green-500" : "bg-red-500"
-										}`}
-									/>
-									<h4 className="text-xs font-medium">{response.status}</h4>
-								</div>
-								<p className="text-xs text-muted-foreground mt-2">
+							<div className="flex items-center">
+								<span
+									className={`rounded-full h-3 w-3 mr-2 border mt-0.5 ${
+										success ? "border-green-500" : "border-red-500"
+									}`}
+								/>
+								<h4 className="text-xs font-medium">{response.status}</h4>
+								<p className="text-xs text-muted-foreground ml-2">
 									{response.description}
 								</p>
 							</div>
@@ -96,11 +96,11 @@ export const ResponseCard: React.FC<ResponseCardProps> = memo(
 					</Collapsible.Trigger>
 				</div>
 				<Collapsible.Content>
-					<div className="px-4 py-4 border-t">
+					<div className="px-4 py-4 border-t rounded-b-lg overflow-hidden bg-background/50">
 						<h4 className="text-sm font-medium text-muted-foreground">
 							RESPONSE BODY
 						</h4>
-						<Card className={cardClasses}>
+						<Card className={`${cardClasses} bg-card/60`}>
 							<Card.Content className="p-0">
 								{renderMediaContent(response.content, doc)}
 							</Card.Content>
