@@ -81,7 +81,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 		return (
 			<div className="col-span-4 lg:col-span-1 my-auto">
 				<Select value={value} onValueChange={handleChange}>
-					<Select.Trigger className="m-auto bg-card text-foreground">
+					<Select.Trigger className="m-auto bg-input text-foreground">
 						<Select.Value placeholder="Select" />
 					</Select.Trigger>
 					<Select.Content className="bg-card">
@@ -111,7 +111,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 		<div className="col-span-4 lg:col-span-1 my-auto">
 			<Input
 				id={`param-${paramType}-${name}`}
-				className="border bg-card text-foreground m-auto"
+				className="border bg-input text-foreground m-auto"
 				type="text"
 				value={value}
 				onChange={(e) => handleChange(e.target.value)}

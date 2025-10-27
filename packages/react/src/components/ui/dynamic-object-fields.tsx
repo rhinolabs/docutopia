@@ -205,7 +205,7 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 
 			<Button
 				variant="secondary"
-				className="w-full rounded-lg justify-center gap-2 h-[40px] bg-card"
+				className="w-full rounded-lg justify-center gap-2 h-[40px]"
 				onClick={addItem}
 			>
 				ADD ITEM

@@ -72,7 +72,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 	};
 
 	return (
-		<div>
+		<div className="space-y-2">
 			{fields.map(({ id, index }) => {
 				// Get current value from store
 				const value =
@@ -95,7 +95,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 			})}
 			<Button
 				variant="secondary"
-				className="w-full rounded-lg justify-center gap-2 h-[40px] bg-card hover:bg-accent"
+				className="w-full rounded-lg justify-center gap-2 h-[40px] hover:bg-accent"
 				onClick={addField}
 			>
 				ADD STRING
