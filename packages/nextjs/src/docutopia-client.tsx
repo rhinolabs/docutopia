@@ -5,8 +5,8 @@ import {
 	AuthProvider,
 	OpenAPIProvider,
 	RequestParamsProvider,
-	SidebarStateProvider,
 	RoutingProvider,
+	SidebarStateProvider,
 } from "@docutopia/react";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";

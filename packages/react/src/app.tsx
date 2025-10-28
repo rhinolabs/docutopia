@@ -30,10 +30,7 @@ export function App() {
 
 	return (
 		<Sidebar.Provider className="">
-			<AppSidebar
-				collapsible="none"
-				className="min-h-screen h-auto"
-			/>
+			<AppSidebar collapsible="none" className="min-h-screen h-auto" />
 			<Sidebar.Inset className="items-center">{content}</Sidebar.Inset>
 		</Sidebar.Provider>
 	);
