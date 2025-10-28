@@ -1,18 +1,18 @@
-import { useOpenApiStore } from "@/stores/openapi-store";
+import { useOpenAPI } from "@/contexts";
 import { classifyParameters, getBodyParams } from "@/utils/api/api-helpers";
 import { useMemo } from "react";
 
 export const useEndpointData = (slug?: string) => {
-	const { spec, isLoading, error, getOperationBySlug } = useOpenApiStore();
+	const { spec, getOperationBySlug } = useOpenAPI();
 
 	return useMemo(() => {
-		if (!spec || isLoading || !slug) {
+		if (!slug) {
 			return {
 				operation: null,
 				parameters: { pathParams: [], queryParams: [] },
 				bodyParams: [],
-				isLoading,
-				error,
+				error: null,
+				spec,
 			};
 		}
 
@@ -23,8 +23,8 @@ export const useEndpointData = (slug?: string) => {
 				operation: null,
 				parameters: { pathParams: [], queryParams: [] },
 				bodyParams: [],
-				isLoading: false,
 				error: "Operation not found",
+				spec,
 			};
 		}
 
@@ -37,9 +37,8 @@ export const useEndpointData = (slug?: string) => {
 			operation,
 			parameters,
 			bodyParams,
-			isLoading: false,
 			error: null,
 			spec,
 		};
-	}, [spec, slug, isLoading, error, getOperationBySlug]);
+	}, [spec, slug, getOperationBySlug]);
 };

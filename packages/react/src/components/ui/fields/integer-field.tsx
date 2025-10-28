@@ -1,4 +1,4 @@
-import { useRequestParamsStore } from "@/stores/request-params-store";
+import { useRequestParams } from "@/contexts";
 import type { SchemaObject } from "@/types/api/openapi";
 import { Input } from "@rhinolabs/ui";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ export const IntegerField: React.FC<IntegerFieldProps> = ({
 	bodyPath = [],
 }) => {
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
-		useRequestParamsStore();
+		useRequestParams();
 	const [value, setValue] = useState<number | "">(
 		(field.default as number) ?? "",
 	);

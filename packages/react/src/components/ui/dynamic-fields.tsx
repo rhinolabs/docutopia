@@ -1,4 +1,4 @@
-import { useRequestParamsStore } from "@/stores/request-params-store";
+import { useRequestParams } from "@/contexts";
 import { Button } from "@rhinolabs/ui";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ export const DynamicFields: React.FC<DynamicFieldsProps> = ({
 	bodyPath,
 }) => {
 	const [fields, setFields] = useState<Field[]>([]);
-	const { params, updateBodyParam } = useRequestParamsStore();
+	const { params, updateBodyParam } = useRequestParams();
 
 	// Read current array values from store
 	const currentArray = bodyPath.reduce<unknown>((obj, key) => {

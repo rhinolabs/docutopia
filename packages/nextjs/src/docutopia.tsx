@@ -1,14 +1,32 @@
 "use client";
 
+import type { OpenApiDocument } from "@docutopia/react";
 import { Docutopia as DocutopiaCore } from "@docutopia/react";
 import { useMemo } from "react";
 import { createNextJSAdapter } from "./adapter";
 
 export interface DocutopiaProps {
 	/**
-	 * URL to the OpenAPI specification (JSON or YAML)
+	 * Pre-loaded OpenAPI specification (for SSR/server-side loading)
+	 * If provided, specUrl is ignored
+	 *
+	 * @example
+	 * ```tsx
+	 * // Server Component (app/docs/[[...slug]]/page.tsx)
+	 * import { Docutopia } from '@docutopia/nextjs';
+	 *
+	 * async function DocsPage() {
+	 *   const spec = await fetch('https://api.example.com/openapi.json').then(r => r.json());
+	 *   return <Docutopia spec={spec} baseUrl="https://api.example.com" />;
+	 * }
+	 * ```
 	 */
-	specUrl: string;
+	spec?: OpenApiDocument;
+	/**
+	 * URL to the OpenAPI specification (JSON or YAML)
+	 * Used for client-side loading if spec prop is not provided
+	 */
+	specUrl?: string;
 	/**
 	 * Base URL for the API endpoints
 	 */
@@ -39,7 +57,25 @@ export interface DocutopiaProps {
  * configures the Next.js routing adapter with base path detection.
  *
  * @example
- * Basic usage with auto-detection:
+ * Server-side spec loading (recommended):
+ * ```tsx
+ * // File: app/docs/[[...slug]]/page.tsx (Server Component)
+ * import { Docutopia } from '@docutopia/nextjs';
+ * import '@docutopia/nextjs/styles';
+ *
+ * export default async function DocsPage() {
+ *   const spec = await fetch('https://api.example.com/openapi.json').then(r => r.json());
+ *   return (
+ *     <Docutopia
+ *       spec={spec}
+ *       baseUrl="https://api.example.com"
+ *     />
+ *   );
+ * }
+ * ```
+ *
+ * @example
+ * Client-side spec loading (legacy):
  * ```tsx
  * // File: app/docs/[[...slug]]/page.tsx
  * import { Docutopia } from '@docutopia/nextjs';
@@ -59,10 +95,11 @@ export interface DocutopiaProps {
  * With custom base path:
  * ```tsx
  * // File: app/api/v1/docs/[[...slug]]/page.tsx
- * export default function DocsPage() {
+ * export default async function DocsPage() {
+ *   const spec = await fetch('/api/openapi.json').then(r => r.json());
  *   return (
  *     <Docutopia
- *       specUrl="/api/openapi.json"
+ *       spec={spec}
  *       baseUrl="http://localhost:3000"
  *       basePath="/api/v1/docs"
  *     />
@@ -71,6 +108,7 @@ export interface DocutopiaProps {
  * ```
  */
 export function Docutopia({
+	spec,
 	specUrl,
 	baseUrl,
 	className,
@@ -81,6 +119,7 @@ export function Docutopia({
 
 	return (
 		<DocutopiaCore
+			spec={spec}
 			specUrl={specUrl}
 			baseUrl={baseUrl}
 			className={className}

@@ -1,5 +1,5 @@
 import { ParamField } from "@/components/ui/fields/param-field";
-import { useRequestParamsStore } from "@/stores/request-params-store";
+import { useRequestParams } from "@/contexts";
 import type { SchemaObject } from "@/types/api/openapi";
 import { asSchemaObject } from "@/utils/type-guards";
 import { Button, Separator } from "@rhinolabs/ui";
@@ -23,6 +23,7 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 	const [items, setItems] = useState<ObjectItem[]>([]);
 	const [openItems, setOpenItems] = useState<Set<number>>(new Set());
 	const initializedRef = useRef(false);
+	const { params, updateBodyParam } = useRequestParams();
 
 	console.log(
 		"DynamicObjectFields render, items:",
@@ -37,8 +38,8 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 		if (!initializedRef.current && items.length === 0) {
 			initializedRef.current = true;
 
-			// Read from store without subscribing
-			const bodyParams = useRequestParamsStore.getState().params.body;
+			// Read from context
+			const bodyParams = params.body;
 			const currentArray = bodyPath.reduce<unknown>((obj, key) => {
 				return obj && typeof obj === "object"
 					? (obj as Record<string, unknown>)[key]
@@ -80,7 +81,6 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 		});
 
 		// Update store: remove the item from the array
-		const { updateBodyParam, params } = useRequestParamsStore.getState();
 		const currentArray = bodyPath.reduce<unknown>((obj, key) => {
 			return obj && typeof obj === "object"
 				? (obj as Record<string, unknown>)[key]
