@@ -1,7 +1,13 @@
 "use client";
 
 import type { AuthCredentials } from "@/core/types";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 import type { ReactNode } from "react";
 import type { AuthContextValue } from "./types";
 
@@ -116,8 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 				};
 
 				const authenticated = Boolean(
-					updated.value &&
-						(updated.type !== "basic" || updated.username),
+					updated.value && (updated.type !== "basic" || updated.username),
 				);
 
 				setIsAuthenticated(authenticated);
@@ -159,9 +164,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 			case "basic":
 				if (credentials.username) {
-					const encoded = btoa(
-						`${credentials.username}:${credentials.value}`,
-					);
+					const encoded = btoa(`${credentials.username}:${credentials.value}`);
 					headers.Authorization = `Basic ${encoded}`;
 				}
 				break;

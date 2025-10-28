@@ -1,9 +1,9 @@
+import { useOpenAPI } from "@/contexts";
 import type {
 	OpenApiDocument,
 	OperationObject,
 	PathItemObject,
 } from "@/core/types";
-import { useOpenAPI } from "@/contexts";
 import type { RequestType } from "@/types/api/requests";
 import type {
 	SidebarCollection,

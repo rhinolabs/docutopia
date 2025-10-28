@@ -1,5 +1,5 @@
-import type { EnhancedOperation } from "@/core/types";
 import { useOpenAPI } from "@/contexts";
+import type { EnhancedOperation } from "@/core/types";
 import { getRequestTypeClass } from "@/utils/api/request-type";
 import { useMemo } from "react";
 

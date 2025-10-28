@@ -1,5 +1,5 @@
-import type { EnhancedOperation } from "@/core/types";
 import { useOpenAPI, useRequestParams } from "@/contexts";
+import type { EnhancedOperation } from "@/core/types";
 import { useApiRequest, useAuth, useCurlGenerator } from "@/hooks";
 import { isAbsoluteUrlRegex, joinPaths } from "@/utils/url-helpers";
 import { Badge, Button } from "@rhinolabs/ui";

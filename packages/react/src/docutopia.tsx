@@ -1,14 +1,18 @@
 "use client";
 
+import { OpenApiService } from "@/services";
+import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./app";
-import { AuthProvider, OpenAPIProvider, RequestParamsProvider } from "./contexts";
+import {
+	AuthProvider,
+	OpenAPIProvider,
+	RequestParamsProvider,
+} from "./contexts";
 import type { OpenApiDocument } from "./core/types";
 import { ReactRouterAdapter } from "./routing/adapters/react-router";
 import { RoutingProvider } from "./routing/context";
 import type { RoutingAdapter } from "./routing/types";
-import { OpenApiService } from "@/services";
-import { useEffect, useState } from "react";
 
 export interface DocutopiaProps {
 	/**
