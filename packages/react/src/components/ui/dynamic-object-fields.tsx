@@ -38,7 +38,6 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 		if (!initializedRef.current && items.length === 0) {
 			initializedRef.current = true;
 
-			// Read from context
 			const bodyParams = params.body;
 			const currentArray = bodyPath.reduce<unknown>((obj, key) => {
 				return obj && typeof obj === "object"
@@ -54,7 +53,7 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 				setItems(initialItems);
 			}
 		}
-	}, [items.length, bodyPath]);
+	}, [items.length, bodyPath, params]);
 
 	const addItem = () => {
 		const newIndex = items.length;

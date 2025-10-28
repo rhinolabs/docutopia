@@ -105,7 +105,7 @@ export function createNextJSAdapter(
 
 				// Auto-detect from pathname
 				return extractBasePath(pathname, params.slug as string | string[]);
-			}, [pathname, params.slug]);
+			}, [pathname, params.slug, options]);
 
 			// Construct the full href with base path
 			const href = basePath ? `${basePath}${to}` : to;
