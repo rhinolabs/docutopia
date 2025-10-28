@@ -1,10 +1,10 @@
 "use client";
 
+import { useRouting } from "@/routing/context";
 import type { SidebarCollection } from "@/types/components/sidebar";
 import { getRequestTypeClass } from "@/utils/api/request-type";
 import { Badge, Button, Command } from "@rhinolabs/ui";
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 
 interface SearchBarProps {
 	navItems: SidebarCollection[];
@@ -17,10 +17,17 @@ interface NavigationItem {
 }
 
 export const SearchBar = ({ navItems }: SearchBarProps) => {
+	const { Link } = useRouting();
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
+	const [isMac, setIsMac] = useState(true); // Default: Mac (most common)
 
-	const isMac = navigator.platform.toUpperCase().includes("MAC");
+	// Detect platform after mount
+	useEffect(() => {
+		if (typeof navigator !== "undefined") {
+			setIsMac(navigator.platform.toUpperCase().includes("MAC"));
+		}
+	}, []);
 
 	const searchResults: NavigationItem[] = useMemo(
 		() =>
@@ -78,7 +85,10 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 				onClick={() => setOpen(true)}
 			>
 				Search documentation...
-				<kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+				<kbd
+					className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100"
+					suppressHydrationWarning
+				>
 					<span className="text-sm">{isMac ? "⌘" : "Ctrl+"}</span>K
 				</kbd>
 			</Button>

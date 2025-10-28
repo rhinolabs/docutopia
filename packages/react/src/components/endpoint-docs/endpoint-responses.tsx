@@ -1,7 +1,7 @@
 import { ResponseTypes } from "@/components/api-docs/api-response";
+import { useOpenAPI } from "@/contexts";
 import type { EnhancedOperation } from "@/core/types";
 import { useEndpointResponses } from "@/hooks/use-endpoint-responses";
-import { useOpenApiStore } from "@/stores/openapi-store";
 import type React from "react";
 
 interface EndpointResponsesProps {
@@ -11,10 +11,10 @@ interface EndpointResponsesProps {
 export const EndpointResponses: React.FC<EndpointResponsesProps> = ({
 	operation,
 }) => {
-	const { spec } = useOpenApiStore();
+	const { spec } = useOpenAPI();
 	const { responses, hasResponses } = useEndpointResponses(operation);
 
-	if (!hasResponses || !spec) {
+	if (!hasResponses) {
 		return null;
 	}
 

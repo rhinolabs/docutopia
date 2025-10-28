@@ -1,7 +1,6 @@
+import { useOpenAPI, useRequestParams } from "@/contexts";
 import type { EnhancedOperation } from "@/core/types";
 import { useApiRequest, useAuth, useCurlGenerator } from "@/hooks";
-import { useOpenApiStore } from "@/stores/openapi-store";
-import { useRequestParamsStore } from "@/stores/request-params-store";
 import { isAbsoluteUrlRegex, joinPaths } from "@/utils/url-helpers";
 import { Badge, Button } from "@rhinolabs/ui";
 import { CheckCircle, Loader2, Play, XCircle } from "lucide-react";
@@ -23,9 +22,9 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 			generateAuthHeaders,
 			generateAuthQuery,
 		} = useAuth();
-		const { params } = useRequestParamsStore();
-		const { spec, baseUrl } = useOpenApiStore();
-		const serverUrlFromSpec = spec?.servers?.[0]?.url ?? "";
+		const { params } = useRequestParams();
+		const { spec, baseUrl } = useOpenAPI();
+		const serverUrlFromSpec = spec.servers?.[0]?.url ?? "";
 
 		let endpointBaseUrl = serverUrlFromSpec;
 

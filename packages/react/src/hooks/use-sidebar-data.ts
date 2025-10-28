@@ -1,9 +1,9 @@
+import { useOpenAPI } from "@/contexts";
 import type {
 	OpenApiDocument,
 	OperationObject,
 	PathItemObject,
 } from "@/core/types";
-import { useOpenApiStore } from "@/stores/openapi-store";
 import type { RequestType } from "@/types/api/requests";
 import type {
 	SidebarCollection,
@@ -15,13 +15,11 @@ import { useMemo } from "react";
 interface SidebarData {
 	collections: SidebarCollection[];
 	totalEndpoints: number;
-	isLoading: boolean;
-	error: string | null;
 	specInfo: {
 		title: string;
 		version: string;
 		serversCount: number;
-	} | null;
+	};
 }
 
 // Generate sidebar data from raw OpenAPI spec
@@ -77,39 +75,9 @@ const generateSidebarFromSpec = (
 };
 
 export const useSidebarData = (): SidebarData => {
-	const { spec, isLoading, error } = useOpenApiStore();
+	const { spec } = useOpenAPI();
 
 	return useMemo(() => {
-		if (isLoading) {
-			return {
-				collections: [],
-				totalEndpoints: 0,
-				isLoading: true,
-				error: null,
-				specInfo: null,
-			};
-		}
-
-		if (error) {
-			return {
-				collections: [],
-				totalEndpoints: 0,
-				isLoading: false,
-				error: error,
-				specInfo: null,
-			};
-		}
-
-		if (!spec) {
-			return {
-				collections: [],
-				totalEndpoints: 0,
-				isLoading: false,
-				error: "No specification loaded",
-				specInfo: null,
-			};
-		}
-
 		// Generate sidebar on-the-fly from the OpenAPI spec
 		const collections = generateSidebarFromSpec(spec);
 		const totalEndpoints = collections.reduce((total, collection) => {
@@ -124,13 +92,11 @@ export const useSidebarData = (): SidebarData => {
 		return {
 			collections,
 			totalEndpoints,
-			isLoading: false,
-			error: null,
 			specInfo: {
 				title: spec.info.title,
 				version: spec.info.version,
 				serversCount: spec.servers?.length || 0,
 			},
 		};
-	}, [spec, isLoading, error]);
+	}, [spec]);
 };

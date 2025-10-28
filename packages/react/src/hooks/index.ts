@@ -8,6 +8,7 @@ export { useEndpointHeader } from "./use-endpoint-header";
 export { useEndpointParameter } from "./use-endpoint-parameter";
 export { useEndpointResponses } from "./use-endpoint-responses";
 
-// Re-export store hooks
-export { useAuth } from "@/stores/auth-store";
-export { useOpenApiStore } from "@/stores/openapi-store";
+// Re-export context hooks
+export { useAuth } from "@/contexts/auth-context";
+export { useOpenAPI } from "@/contexts/openapi-context";
+export { useRequestParams } from "@/contexts/request-params-context";

@@ -1,4 +1,4 @@
-import { useRequestParamsStore } from "@/stores/request-params-store";
+import { useRequestParams } from "@/contexts";
 import { Button, Collapsible, Input, Select } from "@rhinolabs/ui";
 import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
@@ -25,7 +25,7 @@ export const StringCollapsible = ({
 	value = "",
 }: StringCollapsibleProps) => {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
-	const { updateBodyParam } = useRequestParamsStore();
+	const { updateBodyParam } = useRequestParams();
 
 	const handleChange = (newValue: string) => {
 		// bodyPath already includes the array name, we just add the index
