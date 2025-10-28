@@ -4,6 +4,7 @@ export interface SidebarRequestItem {
 	name: string;
 	url: string;
 	requestType: RequestType;
+	isActive?: boolean;
 }
 
 export interface SidebarRequest {

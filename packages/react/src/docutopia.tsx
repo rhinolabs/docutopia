@@ -8,6 +8,7 @@ import {
 	AuthProvider,
 	OpenAPIProvider,
 	RequestParamsProvider,
+	SidebarStateProvider,
 } from "./contexts";
 import type { OpenApiDocument } from "./core/types";
 import { ReactRouterAdapter } from "./routing/adapters/react-router";
@@ -60,6 +61,18 @@ export interface DocutopiaProps {
 	 * For Next.js, use NextJSAdapter from @docutopia/nextjs
 	 */
 	adapter?: RoutingAdapter;
+	/**
+	 * Current slug/path for marking the active menu item
+	 * Used by Next.js adapter to sync sidebar state with URL
+	 *
+	 * @example
+	 * ```tsx
+	 * // Next.js extracts from params
+	 * const currentSlug = params.slug?.[0];
+	 * <Docutopia spec={spec} currentSlug={currentSlug} />
+	 * ```
+	 */
+	currentSlug?: string;
 }
 
 /**
@@ -72,6 +85,7 @@ function DocutopiaInner({
 	className,
 	basename,
 	adapter = ReactRouterAdapter,
+	currentSlug,
 }: DocutopiaProps) {
 	const [spec, setSpec] = useState<OpenApiDocument | null>(initialSpec || null);
 	const [isLoading, setIsLoading] = useState(!initialSpec && !!specUrl);
@@ -142,12 +156,14 @@ function DocutopiaInner({
 	}
 
 	const app = (
-		<OpenAPIProvider spec={spec} baseUrl={baseUrl}>
+		<OpenAPIProvider spec={spec} baseUrl={baseUrl} currentSlug={currentSlug}>
 			<AuthProvider>
 				<RequestParamsProvider>
-					<RoutingProvider adapter={adapter}>
-						<App />
-					</RoutingProvider>
+					<SidebarStateProvider>
+						<RoutingProvider adapter={adapter}>
+							<App />
+						</RoutingProvider>
+					</SidebarStateProvider>
 				</RequestParamsProvider>
 			</AuthProvider>
 		</OpenAPIProvider>

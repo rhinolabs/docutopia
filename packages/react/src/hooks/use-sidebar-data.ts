@@ -25,6 +25,7 @@ interface SidebarData {
 // Generate sidebar data from raw OpenAPI spec
 const generateSidebarFromSpec = (
 	spec: OpenApiDocument,
+	currentSlug?: string,
 ): SidebarCollection[] => {
 	const tagGroups = new Map<string, Array<SidebarRequestItem>>();
 
@@ -51,6 +52,7 @@ const generateSidebarFromSpec = (
 				name: op.summary || op.description || `${method.toUpperCase()} ${path}`,
 				url: slug,
 				requestType: method.toLowerCase() as RequestType,
+				isActive: currentSlug ? slug === currentSlug : false,
 			};
 
 			// Group by tag
@@ -75,11 +77,11 @@ const generateSidebarFromSpec = (
 };
 
 export const useSidebarData = (): SidebarData => {
-	const { spec } = useOpenAPI();
+	const { spec, currentSlug } = useOpenAPI();
 
 	return useMemo(() => {
 		// Generate sidebar on-the-fly from the OpenAPI spec
-		const collections = generateSidebarFromSpec(spec);
+		const collections = generateSidebarFromSpec(spec, currentSlug);
 		const totalEndpoints = collections.reduce((total, collection) => {
 			return (
 				total +
@@ -98,5 +100,5 @@ export const useSidebarData = (): SidebarData => {
 				serversCount: spec.servers?.length || 0,
 			},
 		};
-	}, [spec]);
+	}, [spec, currentSlug]);
 };

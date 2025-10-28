@@ -19,6 +19,11 @@ export interface OpenAPIContextValue {
 	 */
 	baseUrl?: string;
 	/**
+	 * Current slug for tracking active menu item
+	 * Used by Next.js adapter to sync sidebar with URL
+	 */
+	currentSlug?: string;
+	/**
 	 * Find an operation by its slug
 	 */
 	getOperationBySlug: (slug: string) => EnhancedOperation | null;

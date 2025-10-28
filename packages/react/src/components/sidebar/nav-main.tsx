@@ -1,5 +1,6 @@
 "use client";
 
+import { useSidebarState } from "@/contexts";
 import { useRouting } from "@/routing/context";
 import type { SidebarCollection } from "@/types/components/sidebar";
 import { getRequestTypeClass } from "@/utils/api/request-type";
@@ -13,6 +14,7 @@ export function NavMain({
 	items: SidebarCollection[];
 }) {
 	const { Link } = useRouting();
+	const { expandedGroups, toggleGroup } = useSidebarState();
 
 	return (
 		<Sidebar.Group className="px-1">
@@ -27,13 +29,24 @@ export function NavMain({
 							</h4>
 						)}
 
-						{collection.requests.map((request) => (
-							<Collapsible
-								key={request.name}
-								asChild
-								defaultOpen={request.isActive}
-								className="group/collapsible"
-							>
+						{collection.requests.map((request) => {
+							// Check if this group has any active items
+							const hasActiveItem = request.items?.some((item) => item.isActive);
+
+							// Determine if this group should be open:
+							// 1. If user has explicitly set it (from localStorage)
+							// 2. Otherwise, if it has an active item, open it automatically
+							const isOpen =
+								expandedGroups[request.name] ?? hasActiveItem ?? false;
+
+							return (
+								<Collapsible
+									key={request.name}
+									asChild
+									open={isOpen}
+									onOpenChange={() => toggleGroup(request.name)}
+									className="group/collapsible"
+								>
 								<Sidebar.MenuItem>
 									{request.items && request.items.length > 0 ? (
 										<>
@@ -92,7 +105,8 @@ export function NavMain({
 									)}
 								</Sidebar.MenuItem>
 							</Collapsible>
-						))}
+							);
+						})}
 					</div>
 				))}
 			</Sidebar.Menu>

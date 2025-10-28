@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Link as RRLink,
 	Route as RRRoute,

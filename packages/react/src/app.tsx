@@ -1,7 +1,8 @@
+"use client";
+
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { DocutopiaPage } from "@/pages/docutopia.page";
 import { useRouting } from "@/routing/context";
-import { useWindowSize } from "@rhinolabs/react-hooks";
 import { Sidebar } from "@rhinolabs/ui";
 
 /**
@@ -11,7 +12,8 @@ import { Sidebar } from "@rhinolabs/ui";
  * The OpenAPI spec is provided via OpenAPIContext.
  */
 export function App() {
-	const { isDesktop } = useWindowSize();
+	// SSR-safe: Don't use useWindowSize() since it accesses window during module load
+	// Default to desktop (collapsible: "none") for simplicity
 	const routing = useRouting();
 
 	// For SPA routers (React Router), use Routes/Route
@@ -29,7 +31,7 @@ export function App() {
 	return (
 		<Sidebar.Provider className="">
 			<AppSidebar
-				collapsible={isDesktop ? "none" : "offcanvas"}
+				collapsible="none"
 				className="min-h-screen h-auto"
 			/>
 			<Sidebar.Inset className="items-center">{content}</Sidebar.Inset>

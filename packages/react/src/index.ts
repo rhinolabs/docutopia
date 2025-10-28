@@ -1,6 +1,7 @@
 // Main component export
 export { Docutopia } from "./docutopia";
 export type { DocutopiaProps } from "./docutopia";
+export { App } from "./app";
 
 // Context exports
 export {
@@ -12,6 +13,10 @@ export {
 	useRequestParams,
 } from "./contexts/request-params-context";
 export { AuthProvider, useAuth } from "./contexts/auth-context";
+export {
+	SidebarStateProvider,
+	useSidebarState,
+} from "./contexts/sidebar-state-context";
 
 // Type exports
 export type { OpenApiDocument } from "./core/types";

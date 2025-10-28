@@ -5,6 +5,10 @@ export {
 	useRequestParams,
 } from "./request-params-context";
 export { AuthProvider, useAuth } from "./auth-context";
+export {
+	SidebarStateProvider,
+	useSidebarState,
+} from "./sidebar-state-context";
 
 // Export types
 export type {
@@ -12,3 +16,4 @@ export type {
 	RequestParamsContextValue,
 	AuthContextValue,
 } from "./types";
+export type { SidebarStateContextValue } from "./sidebar-state-context";
