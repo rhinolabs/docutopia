@@ -1,5 +1,3 @@
-"use client";
-
 import { Docutopia } from "@docutopia/nextjs";
 import "@docutopia/react/styles";
 

@@ -48,10 +48,12 @@ export function useOpenAPI(): OpenAPIContextValue {
 export function OpenAPIProvider({
 	spec,
 	baseUrl,
+	currentSlug,
 	children,
 }: {
 	spec: OpenApiDocument;
 	baseUrl?: string;
+	currentSlug?: string;
 	children: ReactNode;
 }) {
 	const value = useMemo<OpenAPIContextValue>(() => {
@@ -60,11 +62,12 @@ export function OpenAPIProvider({
 		return {
 			spec,
 			baseUrl,
+			currentSlug,
 			getOperationBySlug: (slug: string): EnhancedOperation | null => {
 				return openApiService.findOperationBySlug(spec, slug);
 			},
 		};
-	}, [spec, baseUrl]);
+	}, [spec, baseUrl, currentSlug]);
 
 	return (
 		<OpenAPIContext.Provider value={value}>{children}</OpenAPIContext.Provider>

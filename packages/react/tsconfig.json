@@ -31,7 +31,6 @@
 		"dist",
 		"src/**/*.test.ts",
 		"src/**/*.test.tsx",
-		"src/main.tsx",
-		"src/browser.tsx"
+		"src/main.tsx"
 	]
 }
