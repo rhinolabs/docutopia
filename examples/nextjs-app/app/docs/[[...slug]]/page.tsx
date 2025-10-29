@@ -1,5 +1,4 @@
 import { Docutopia } from "@docutopia/nextjs";
-import "@docutopia/react/styles";
 
 export default function DocsPage() {
 	return (
