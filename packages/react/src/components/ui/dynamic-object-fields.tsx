@@ -3,7 +3,7 @@ import { useRequestParams } from "@/contexts";
 import type { SchemaObject } from "@/types/api/openapi";
 import { asSchemaObject } from "@/utils/type-guards";
 import { Button, Separator } from "@rhinolabs/ui";
-import { Plus, Trash } from "lucide-react";
+import { ChevronRight, Plus, Trash } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
 interface DynamicObjectFieldsProps {
@@ -125,37 +125,51 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 				);
 
 				return (
-					<div key={id} className="border rounded-lg bg-muted mb-3">
+					<div
+						key={id}
+						className="border rounded-lg bg-card mb-3 overflow-hidden"
+					>
 						<div className="flex items-center justify-between space-x-4 pl-4 pr-2 py-2">
-							<button
+							{/* <button
 								type="button"
 								className="flex justify-between items-center w-full cursor-pointer bg-transparent border-0 p-0 text-left"
 								onClick={() => toggleItem(id)}
-							>
-								<h4 className="text-sm font-semibold">ITEM {index}</h4>
-								<div className="flex gap-1">
-									<Button
-										variant="ghost"
-										size="sm"
-										className="w-9 p-0"
-										onClick={(e) => {
-											e.stopPropagation();
-											deleteItem(id);
-										}}
-									>
-										<Trash className="h-4 w-4 text-destructive" />
-										<span className="sr-only">Delete</span>
-									</Button>
-									<Plus
+							> */}
+							<h4 className="text-sm font-semibold">ITEM {index}</h4>
+							<div>
+								<Button
+									variant="ghost"
+									size="sm"
+									className="w-9 p-0 bg-transparent hover:bg-destructive group"
+									onClick={(e) => {
+										e.stopPropagation();
+										deleteItem(id);
+									}}
+								>
+									<Trash className="h-4 w-4 group-hover:text-destructive-foreground" />
+									<span className="sr-only">Delete</span>
+								</Button>
+								<Button
+									variant="ghost"
+									size="sm"
+									className="w-9 p-0 bg-transparent"
+									onClick={(e) => {
+										e.stopPropagation();
+										toggleItem(id);
+									}}
+								>
+									<ChevronRight
 										className={`h-4 w-4 text-muted-foreground transition-transform ${
-											isOpen ? "rotate-45" : ""
+											isOpen ? "rotate-90" : ""
 										}`}
 									/>
-								</div>
-							</button>
+									<span className="sr-only">Toggle</span>
+								</Button>
+							</div>
+							{/* </button> */}
 						</div>
 						{isOpen && (
-							<div className="border-t">
+							<div className="border-t bg-background/50">
 								{Object.entries(properties).map(
 									([propertyKey, propertySchemaOrRef], propIndex) => {
 										const propSchema = asSchemaObject(propertySchemaOrRef);
@@ -189,12 +203,12 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 			})}
 
 			<Button
-				variant="outline"
-				className="w-full rounded-lg justify-between h-[40px] bg-muted hover:bg-accent"
+				variant="secondary"
+				className="w-full rounded-lg justify-center gap-2 h-[40px]"
 				onClick={addItem}
 			>
 				ADD ITEM
-				<Plus className="text-muted-foreground" />
+				<Plus />
 			</Button>
 		</div>
 	);

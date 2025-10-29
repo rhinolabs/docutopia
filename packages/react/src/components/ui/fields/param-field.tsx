@@ -5,17 +5,17 @@ import { RenderField } from "../field-renderer";
 const FieldMetadata: React.FC<{ field: ParamFieldProps["field"] }> = ({
 	field,
 }) => (
-	<div className="text-sm">
-		<span className="font-semibold mr-1">{field.name}</span>
-		<span className="text-muted-foreground mr-1">{getFieldType(field)}</span>
-		{field.required && <span className="text-red-500 mr-1">required</span>}
+	<div className="text-sm flex gap-1.5 items-center">
+		<span className="text-base">{field.name}</span>
+		<span className="text-muted-foreground ">{getFieldType(field)}</span>
+		{field.required && <span className="text-red-400 ">required</span>}
 		{getFieldConstraints(field) && (
-			<span className="text-muted-foreground mr-1">
+			<span className="text-muted-foreground ">
 				{getFieldConstraints(field)}
 			</span>
 		)}
 		{field.schema?.default && (
-			<span className="text-muted-foreground mr-1">
+			<span className="text-muted-foreground ">
 				Defaults to {field.schema.default}
 			</span>
 		)}
@@ -28,12 +28,12 @@ export const ParamField: React.FC<ParamFieldProps> = ({
 	bodyPath = [],
 }) => {
 	return (
-		<div className="grid grid-cols-4 gap-4 py-4 px-6">
-			<div className="col-span-4 lg:col-span-3">
+		<div className="grid grid-cols-4 gap-4 py-3 pl-5 pr-3 place-content-center">
+			<div className="col-span-4 lg:col-span-3 my-auto">
 				<FieldMetadata field={field} />
 
 				{field.description && (
-					<p className="text-sm font-medium mt-2">{field.description}</p>
+					<p className="text-sm text-muted-foreground">{field.description}</p>
 				)}
 			</div>
 			<RenderField field={field} readOnly={readOnly} bodyPath={bodyPath} />

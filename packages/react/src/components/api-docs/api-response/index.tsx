@@ -26,8 +26,8 @@ export const ResponseTypes: React.FC<ResponseTypesProps> = ({
 	return (
 		<div className="mt-5">
 			<h3 className="text-sm font-semibold mb-4">RESPONSE</h3>
-			<Card className="bg-primary-foreground border shadow-xs rounded-lg">
-				<Card.Content className="py-2 px-0">
+			<Card className="bg-card/60 border shadow-xs rounded-lg">
+				<Card.Content className="p-0">
 					{responses.map((response, index) => {
 						const success = isSuccess(response.status);
 

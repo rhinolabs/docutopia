@@ -54,7 +54,7 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
 	};
 
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex items-center gap-2 my-auto">
 			<Switch
 				id={`${paramType}-${name}`}
 				checked={boolValue}

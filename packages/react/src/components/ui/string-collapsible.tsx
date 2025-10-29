@@ -1,7 +1,6 @@
 import { useRequestParams } from "@/contexts";
-import { Button, Collapsible, Input, Select } from "@rhinolabs/ui";
-import { Plus, Trash } from "lucide-react";
-import { useState } from "react";
+import { Button, Input, Select } from "@rhinolabs/ui";
+import { Trash } from "lucide-react";
 
 type StringCollapsibleProps = {
 	id: number;
@@ -20,11 +19,9 @@ export const StringCollapsible = ({
 	onDelete,
 	hasOptions = false,
 	options = [],
-	defaultOpen = false,
 	bodyPath,
 	value = "",
 }: StringCollapsibleProps) => {
-	const [isOpen, setIsOpen] = useState(defaultOpen);
 	const { updateBodyParam } = useRequestParams();
 
 	const handleChange = (newValue: string) => {
@@ -33,72 +30,53 @@ export const StringCollapsible = ({
 	};
 
 	return (
-		<Collapsible
-			open={isOpen}
-			onOpenChange={setIsOpen}
-			className="border  rounded-lg bg-muted mb-4"
-		>
-			<div className="flex items-center justify-between space-x-4 pl-4 pr-2 py-2">
-				<Collapsible.Trigger asChild>
-					<div className="flex justify-between items-center w-full cursor-pointer">
-						<h4 className="text-sm font-medium">STRING</h4>
-						<div>
-							<Button
-								variant="ghost"
-								size="sm"
-								className="w-9 p-0"
-								onClick={() => onDelete(id)}
-							>
-								<Trash className="h-4 w-4 text-destructive" />
-								<span className="sr-only">Delete</span>
-							</Button>
-							<Button
-								variant="ghost"
-								size="sm"
-								className="w-9 p-0"
-								onClick={() => setIsOpen(!isOpen)}
-							>
-								<Plus className="h-4 w-4 text-muted-foreground" />
-								<span className="sr-only">Toggle</span>
-							</Button>
-						</div>
-					</div>
-				</Collapsible.Trigger>
-			</div>
-			<Collapsible.Content>
-				<div className="px-4 py-4 text-sm border-t">
-					{hasOptions && options.length > 0 ? (
-						<Select value={value} onValueChange={handleChange}>
-							<Select.Trigger className="bg-input  text-foreground">
-								<Select.Value placeholder="Select" />
-							</Select.Trigger>
-							<Select.Content className="bg-input ">
-								<Select.Group>
-									{options.map((option) => (
-										<Select.Item
-											key={`option-${encodeURIComponent(option)}`}
-											value={option}
-											className="text-foreground hover:bg-accent"
-										>
-											{option}
-										</Select.Item>
-									))}
-								</Select.Group>
-							</Select.Content>
-						</Select>
-					) : hasOptions ? (
-						<p className="text-muted-foreground">No options Available</p>
-					) : (
+		<div className="flex justify-between items-center w-full cursor-pointer border rounded-lg px-2 py-2">
+			<div>
+				{hasOptions && options.length > 0 ? (
+					<Select value={value} onValueChange={handleChange}>
+						<Select.Trigger className="bg-card  text-foreground">
+							<Select.Value placeholder="Select" />
+						</Select.Trigger>
+						<Select.Content className="bg-card ">
+							<Select.Group>
+								{options.map((option) => (
+									<Select.Item
+										key={`option-${encodeURIComponent(option)}`}
+										value={option}
+										className="text-foreground hover:bg-accent"
+									>
+										{option}
+									</Select.Item>
+								))}
+							</Select.Group>
+						</Select.Content>
+					</Select>
+				) : hasOptions ? (
+					<p className="text-muted-foreground">No options Available</p>
+				) : (
+					<div>
 						<Input
 							id={`input-${id}`}
-							className="border  bg-input text-foreground"
+							className="border bg-input text-foreground min-w-[300px]"
+							placeholder="String..."
 							type="text"
 							value={value}
 							onChange={(e) => handleChange(e.target.value)}
 						/>
-					)}
-				</div>
-			</Collapsible.Content>
-		</Collapsible>
+					</div>
+				)}
+			</div>
+			<div>
+				<Button
+					variant="ghost"
+					size="sm"
+					className="w-9 p-0 bg-transparent  hover:bg-destructive group"
+					onClick={() => onDelete(id)}
+				>
+					<Trash className="h-4 w-4 text-muted-foreground group-hover:text-destructive-foreground" />
+					<span className="sr-only">Delete</span>
+				</Button>
+			</div>
+		</div>
 	);
 };

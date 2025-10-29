@@ -12,7 +12,7 @@ export const Params: React.FC<ParamsProps> = ({ params, title }) => {
 	return (
 		<div className="mt-5">
 			<h3 className="text-sm font-semibold mb-4">{title}</h3>
-			<Card className="bg-card border shadow-xs rounded-lg">
+			<Card className="bg-card/60 border shadow-xs rounded-lg">
 				<Card.Content className="p-0">
 					{params.map((param, index) => (
 						<React.Fragment key={param.name}>

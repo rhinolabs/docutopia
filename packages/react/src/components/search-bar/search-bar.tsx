@@ -119,7 +119,10 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 											<Badge
 												className={`${getRequestTypeClass(result.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
 											>
-												{result.requestType.toUpperCase()}
+												{/* Stop badge label to grow to much, this works excelent for http methods. */}
+												{result.requestType.length > 4
+													? result.requestType.slice(0, 3).toUpperCase()
+													: result.requestType.toUpperCase()}
 											</Badge>
 										)}
 									</Link>

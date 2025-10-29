@@ -33,7 +33,7 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 
 			return (
 				<div className="col-span-4">
-					<Card className="shadow-none bg-card">
+					<Card className="shadow-none bg-card/60">
 						<Collapsible>
 							<div className="">
 								<Collapsible.Trigger asChild>
