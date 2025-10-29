@@ -27,3 +27,10 @@ jobs:
           config-name: release-drafter-fastify.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Draft Next.js release
+        uses: release-drafter/release-drafter@v6
+        with:
+          config-name: release-drafter-nextjs.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,58 +1,37 @@
+"use client";
+
 import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import { DocutopiaPage } from "@/pages/docutopia.page";
-import { useOpenApiStore } from "@/stores/openapi-store";
-import { useWindowSize } from "@rhinolabs/react-hooks";
+import { useRouting } from "@/routing/context";
 import { Sidebar } from "@rhinolabs/ui";
-import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
 
-export interface AppProps {
-	specUrl: string;
-	baseUrl: string;
-}
+/**
+ * Main App component
+ *
+ * This component is now stateless and simply renders the UI.
+ * The OpenAPI spec is provided via OpenAPIContext.
+ */
+export function App() {
+	// SSR-safe: Don't use useWindowSize() since it accesses window during module load
+	// Default to desktop (collapsible: "none") for simplicity
+	const routing = useRouting();
 
-export function App({ specUrl, baseUrl }: AppProps) {
-	const { loadSpec, isLoading, error } = useOpenApiStore();
-	const { isDesktop } = useWindowSize();
-	// biome-ignore lint/correctness/useExhaustiveDependencies: Load spec only once on mount
-	useEffect(() => {
-		loadSpec(specUrl, baseUrl);
-	}, []);
-
-	if (isLoading) {
-		return (
-			<div className="flex items-center justify-center min-h-screen">
-				<div className="text-center">
-					<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4" />
-					<p>Loading API Documentation...</p>
-				</div>
-			</div>
+	// For SPA routers (React Router), use Routes/Route
+	// For file-based routers (Next.js), render page directly
+	const content =
+		routing.Routes && routing.Route ? (
+			<routing.Routes>
+				<routing.Route index element={<DocutopiaPage />} />
+				<routing.Route path=":apiUrl" element={<DocutopiaPage />} />
+			</routing.Routes>
+		) : (
+			<DocutopiaPage />
 		);
-	}
-
-	if (error) {
-		return (
-			<div className="flex items-center justify-center min-h-screen">
-				<div className="text-center text-red-500">
-					<p>Error loading API documentation:</p>
-					<p className="text-sm mt-2">{error}</p>
-				</div>
-			</div>
-		);
-	}
 
 	return (
 		<Sidebar.Provider className="">
-			<AppSidebar
-				collapsible={isDesktop ? "none" : "offcanvas"}
-				className="min-h-screen h-auto"
-			/>
-			<Sidebar.Inset className="items-center">
-				<Routes>
-					<Route index element={<DocutopiaPage />} />
-					<Route path=":apiUrl" element={<DocutopiaPage />} />
-				</Routes>
-			</Sidebar.Inset>
+			<AppSidebar collapsible="none" className="min-h-screen h-auto" />
+			<Sidebar.Inset className="items-center">{content}</Sidebar.Inset>
 		</Sidebar.Provider>
 	);
 }

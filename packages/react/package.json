@@ -17,6 +17,10 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.js"
 		},
+		"./browser": {
+			"import": "./dist/browser/docutopia.js",
+			"require": "./dist/browser/docutopia.js"
+		},
 		"./styles": {
 			"import": "./dist/index.css",
 			"require": "./dist/index.css"
@@ -36,7 +40,10 @@
 	],
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"build": "pnpm build:lib && pnpm build:css && pnpm build:browser",
+		"build:lib": "rm -rf dist && tsc && tsc-alias",
+		"build:browser": "vite build --config vite.browser.config.ts",
+		"build:css": "postcss src/index.css -o dist/index.css",
 		"preview": "vite preview",
 		"tsc": "tsc --noEmit"
 	},
@@ -46,9 +53,7 @@
 		"@sindresorhus/slugify": "^3.0.0",
 		"codehike": "^1.0.7",
 		"lucide-react": "^0.474.0",
-		"react-router-dom": "^6.28.0",
-		"tailwindcss-animate": "^1.0.7",
-		"zustand": "^5.0.5"
+		"tailwindcss-animate": "^1.0.7"
 	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4.0.3",
@@ -59,15 +64,24 @@
 		"@vitejs/plugin-react": "^5.0.4",
 		"js-yaml": "^4.1.0",
 		"postcss": "^8.4.49",
+		"postcss-cli": "^11.0.1",
+		"react-router-dom": "^6.28.0",
 		"tailwind-merge": "^3.0.1",
 		"tailwindcss": "^4.0.3",
+		"tsc-alias": "^1.8.16",
 		"typescript": "^5.7.2",
 		"vite": "^7.1.11",
 		"vite-plugin-dts": "^4.5.4"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
-		"react-dom": "^18.0.0 || ^19.0.0"
+		"react-dom": "^18.0.0 || ^19.0.0",
+		"react-router-dom": "^6.0.0"
+	},
+	"peerDependenciesMeta": {
+		"react-router-dom": {
+			"optional": true
+		}
 	},
 	"license": "MIT",
 	"repository": {

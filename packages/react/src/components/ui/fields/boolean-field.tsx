@@ -1,4 +1,4 @@
-import { useRequestParamsStore } from "@/stores/request-params-store";
+import { useRequestParams } from "@/contexts";
 import type { SchemaObject } from "@/types/api/openapi";
 import { Switch } from "@rhinolabs/ui";
 import type React from "react";
@@ -18,7 +18,7 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
 	bodyPath = [],
 }) => {
 	const { params, updatePathParam, updateQueryParam, updateBodyParam } =
-		useRequestParamsStore();
+		useRequestParams();
 
 	// Get current value based on param type
 	let currentValue: unknown;

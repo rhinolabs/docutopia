@@ -30,8 +30,7 @@
 	],
 	"scripts": {
 		"build": "vite build",
-		"dev": "vite build --watch",
-		"tsc": "tsc --noEmit"
+		"dev": "vite build --watch"
 	},
 	"dependencies": {
 		"@docutopia/react": "workspace:*",
