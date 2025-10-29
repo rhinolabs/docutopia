@@ -1,5 +1,5 @@
 "use client";
-import './index.css';
+import "./index.css";
 
 import { OpenApiService } from "@/services";
 import { useEffect, useState } from "react";

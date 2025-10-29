@@ -3,7 +3,7 @@ import { Docutopia } from "./docutopia";
 
 export { Docutopia } from "./docutopia";
 export { App } from "./app";
-import './index.css';
+import "./index.css";
 
 /**
  * Render Docutopia to a container element
