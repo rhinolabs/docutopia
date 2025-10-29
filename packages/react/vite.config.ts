@@ -27,13 +27,6 @@ export default defineConfig({
 		},
 		rollupOptions: {
 			external: ["react", "react-dom", "react/jsx-runtime"],
-			output: {
-				assetFileNames: (assetInfo) => {
-					if (assetInfo.name === "style.css") return "index.css";
-					// biome-ignore lint/style/noNonNullAssertion:
-					return assetInfo.name!;
-				},
-			},
 		},
 		// Generate sourcemaps
 		sourcemap: true,
