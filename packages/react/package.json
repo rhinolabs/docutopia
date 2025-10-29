@@ -41,9 +41,9 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "pnpm build:lib && pnpm build:css && pnpm build:browser",
-    "build:lib": "rm -rf dist && tsc && tsc-alias",
+		"build:lib": "rm -rf dist && tsc && tsc-alias",
 		"build:browser": "vite build --config vite.browser.config.ts",
-    "build:css": "postcss src/index.css -o dist/index.css",
+		"build:css": "postcss src/index.css -o dist/index.css",
 		"preview": "vite preview",
 		"tsc": "tsc --noEmit"
 	},
