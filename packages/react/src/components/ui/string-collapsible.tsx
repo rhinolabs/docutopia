@@ -1,7 +1,6 @@
 import { useRequestParams } from "@/contexts";
 import { Button, Input, Select } from "@rhinolabs/ui";
-import { ChevronRight, Trash } from "lucide-react";
-import { useState } from "react";
+import { Trash } from "lucide-react";
 
 type StringCollapsibleProps = {
 	id: number;
@@ -20,11 +19,9 @@ export const StringCollapsible = ({
 	onDelete,
 	hasOptions = false,
 	options = [],
-	defaultOpen = false,
 	bodyPath,
 	value = "",
 }: StringCollapsibleProps) => {
-	const [isOpen, setIsOpen] = useState(defaultOpen);
 	const { updateBodyParam } = useRequestParams();
 
 	const handleChange = (newValue: string) => {
@@ -78,17 +75,6 @@ export const StringCollapsible = ({
 				>
 					<Trash className="h-4 w-4 text-muted-foreground group-hover:text-destructive-foreground" />
 					<span className="sr-only">Delete</span>
-				</Button>
-				<Button
-					variant="ghost"
-					size="sm"
-					className="w-9 p-0 bg-card"
-					onClick={() => setIsOpen(!isOpen)}
-				>
-					<ChevronRight
-						className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? "rotate-90" : ""}`}
-					/>
-					<span className="sr-only">Toggle</span>
 				</Button>
 			</div>
 		</div>
