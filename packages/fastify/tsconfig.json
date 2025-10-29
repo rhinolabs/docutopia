@@ -10,6 +10,8 @@
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
+    "sourceMap": false,
+    "declarationMap": false,
 		"forceConsistentCasingInFileNames": true,
 		"jsx": "react-jsx",
 		"types": ["node"]
