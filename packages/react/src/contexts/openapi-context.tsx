@@ -2,6 +2,7 @@
 
 import type { EnhancedOperation, OpenApiDocument } from "@/core/types";
 import { OpenApiService } from "@/services/openapi-service";
+import { getAvailableAuthTypes } from "@/utils/map-security-schemes";
 import { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
 import type { OpenAPIContextValue } from "./types";
@@ -58,11 +59,13 @@ export function OpenAPIProvider({
 }) {
 	const value = useMemo<OpenAPIContextValue>(() => {
 		const openApiService = new OpenApiService();
+		const availableAuthTypes = getAvailableAuthTypes(spec);
 
 		return {
 			spec,
 			baseUrl,
 			currentSlug,
+			availableAuthTypes,
 			getOperationBySlug: (slug: string): EnhancedOperation | null => {
 				return openApiService.findOperationBySlug(spec, slug);
 			},
