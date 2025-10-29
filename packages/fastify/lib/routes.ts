@@ -24,9 +24,14 @@ export async function routes(
 
 	try {
 		const cssPath = require.resolve("@docutopia/react/styles");
-		const jsPath = require.resolve("@docutopia/react");
+		const rhinolabsUiCssPath = require.resolve("@rhinolabs/ui/dist/styles.css");
+		const jsPath = require.resolve("@docutopia/react/browser");
 
-		css = readFileSync(cssPath, "utf-8");
+		const docutopiaCss = readFileSync(cssPath, "utf-8");
+		const rhinolabsUiCss = readFileSync(rhinolabsUiCssPath, "utf-8");
+
+		// Combine both CSS files - @rhinolabs/ui first, then @docutopia/react
+		css = `${rhinolabsUiCss}\n${docutopiaCss}`;
 		js = readFileSync(jsPath, "utf-8");
 	} catch (error) {
 		fastify.log.error(
@@ -135,27 +140,13 @@ function generateDocutopiaHTML(options: {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>API Documentation - Docutopia</title>
 	<style>${css}</style>
-
-	<!-- Import Maps for React dependencies from CDN -->
-	<script type="importmap">
-		{
-			"imports": {
-				"react": "https://esm.sh/react@19.0.0",
-				"react-dom": "https://esm.sh/react-dom@19.0.0",
-				"react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-				"react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime"
-			}
-		}
-	</script>
 </head>
 <body>
 	<div id="root"></div>
 
 	<!-- Initialize Docutopia -->
 	<script type="module">
-		import { Docutopia } from '${basename}/docutopia.js';
-		import { createRoot } from 'react-dom/client';
-		import React from 'react';
+		import { Docutopia, renderDocutopia } from '${basename}/docutopia.js';
 
 		try {
 			const element = document.getElementById('root');
@@ -163,14 +154,17 @@ function generateDocutopiaHTML(options: {
 				throw new Error('Root element not found');
 			}
 
-			const root = createRoot(element);
-			root.render(
-				React.createElement(Docutopia, {
+			// If renderDocutopia function exists, use it
+			if (typeof renderDocutopia === 'function') {
+				renderDocutopia(element, {
 					specUrl: '${specUrl}',
 					baseUrl: window.location.origin,
 					basename: '${basename}'
-				})
-			);
+				});
+			} else {
+				// Fallback error
+				throw new Error('renderDocutopia function not found');
+			}
 		} catch (error) {
 			console.error('Docutopia initialization error:', error);
 			document.getElementById('root').innerHTML = \`

@@ -36,7 +36,7 @@ export default defineConfig({
 		// Generate sourcemaps
 		sourcemap: true,
 		// Target Node.js environment
-		target: "node18",
+		target: "node22",
 		// Clear output directory before build
 		emptyOutDir: true,
 	},
