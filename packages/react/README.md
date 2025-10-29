@@ -54,10 +54,10 @@ export default App;
 - **Type:** `string`
 - **Description:** URL to your OpenAPI specification (JSON or YAML format)
 
-### `baseUrl` (required)
+### `baseUrl` (optional)
 
 - **Type:** `string`
-- **Description:** Base URL for the API endpoints
+- **Description:** Base URL for API requests. If not provided, uses the server URL from the OpenAPI spec
 
 ```jsx
 <Docutopia
@@ -68,56 +68,27 @@ export default App;
 
 ## Framework Integration
 
-### Next.js
+Works with any React framework:
 
+**Next.js:**
 ```jsx
-// app/docs/page.tsx
-'use client';
+'use client'; // Required for Next.js App Router
 
 import { Docutopia } from '@docutopia/react';
 import '@docutopia/react/dist/style.css';
 
 export default function DocsPage() {
-  return (
-    <Docutopia
-      specUrl="/api/openapi.json"
-      baseUrl="https://api.example.com"
-    />
-  );
+  return <Docutopia specUrl="/api/openapi.json" />;
 }
 ```
 
-### Remix
-
+**Vite/CRA:**
 ```jsx
-// app/routes/docs.tsx
-import { Docutopia } from '@docutopia/react';
-import '@docutopia/react/dist/style.css';
-
-export default function DocsRoute() {
-  return (
-    <Docutopia
-      specUrl="/api/openapi.json"
-      baseUrl="https://api.example.com"
-    />
-  );
-}
-```
-
-### Vite
-
-```jsx
-// src/App.jsx
 import { Docutopia } from '@docutopia/react';
 import '@docutopia/react/dist/style.css';
 
 function App() {
-  return (
-    <Docutopia
-      specUrl="https://api.example.com/openapi.json"
-      baseUrl="https://api.example.com"
-    />
-  );
+  return <Docutopia specUrl="https://api.example.com/openapi.json" />;
 }
 ```
 

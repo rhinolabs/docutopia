@@ -1,13 +1,12 @@
 # Docutopia
 
+<p align="center">
+  <img src="https://img.shields.io/npm/v/@docutopia/react" alt="npm version">
+  <img src="https://img.shields.io/npm/l/@docutopia/react" alt="license">
+  <img src="https://img.shields.io/github/stars/rhinolabs/docutopia" alt="github stars">
+</p>
+
 A modern, interactive API documentation library built on React. Docutopia brings beautiful, type-safe API documentation to your OpenAPI specifications with a focus on simplicity and developer experience.
-
-## Monorepo Structure
-
-This project is structured as a monorepo using pnpm workspaces:
-
-- **`packages/react`** - React library package (`@docutopia/react`)
-  The main Docutopia library that renders interactive API documentation from OpenAPI specifications with built-in testing capabilities.
 
 ## Overview
 
@@ -19,84 +18,47 @@ Docutopia simplifies creating beautiful API documentation by providing:
 - **Automatic cURL generation** for all API requests
 - **Dark mode support** out of the box
 
+## Packages
+
+- [`@docutopia/react`](./packages/react/README.md) - React library with API documentation rendering
+- [`@docutopia/fastify`](./packages/fastify/README.md) - Fastify plugin for serving Docutopia
+- [`@docutopia/nextjs`](./packages/nextjs/README.md) - Next.js adapter for Docutopia
+
 ## Getting Started
 
-The fastest way to use Docutopia is to install it in your project:
+Install the package:
 
 ```bash
-# Install the package
 npm install @docutopia/react
-
-# Or with pnpm
-pnpm add @docutopia/react
-
-# Or with yarn
-yarn add @docutopia/react
 ```
 
-Then import and use it in your application:
+Use it in your application:
 
 ```jsx
 import { Docutopia } from '@docutopia/react';
-import '@docutopia/react/dist/style.css';
 
 function App() {
   return (
-    <Docutopia specUrl="https://petstore3.swagger.io/api/v3/openapi.json" />
+    <Docutopia
+      specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
+      baseUrl="https://petstore3.swagger.io" // optional
+    />
   );
 }
 ```
 
-For more detailed instructions, check the package documentation:
+### Props
 
-- [`@docutopia/react`](./packages/react/README.md) - React library with API documentation rendering
+- **`specUrl`** (required) - URL to your OpenAPI specification
+- **`baseUrl`** (optional) - Base URL for API requests. If not provided, uses the server URL from the OpenAPI spec
 
-## Key Features
+## Features
 
-### 🎨 Beautiful UI
-
-Modern, clean interface with dark mode support by default:
-
-```jsx
-<Docutopia specUrl="https://api.example.com/openapi.json" />
-```
-
-That's it! Docutopia automatically renders:
-- Organized endpoint navigation by tags
-- Request/response schemas with examples
-- Interactive parameter fields
-- Response visualization
-
-### 🔄 Interactive Testing
-
-Built-in "Try It!" panel for testing endpoints directly:
-
-- Dynamic form generation from OpenAPI schemas
-- Support for path, query, and body parameters
-- Real-time request/response display
-- Automatic validation based on schemas
-
-### 🔐 Authentication Support
-
-Configure authentication credentials right in the UI:
-
-- **Bearer Token** - JWT and other token-based auth
-- **API Key** - Custom header or query parameter keys
-- **Basic Auth** - Username/password authentication
-
-Authentication is automatically applied to all requests with proper headers.
-
-### 📋 cURL Generation
-
-Every request can be exported as a cURL command:
-
-```bash
-curl -X GET "https://api.example.com/users/123" \
-  -H "Authorization: Bearer your-token" \
-  -H "Content-Type: application/json"
-```
-
-Perfect for sharing API examples or debugging.
+- **🎨 Beautiful UI** - Modern, responsive interface with dark mode support
+- **🔄 Interactive Testing** - Test API endpoints directly in the documentation
+- **🔐 Multiple Auth Methods** - Bearer Token, API Key, and Basic Auth support
+- **📋 cURL Generation** - Export any request as a cURL command
+- **📱 Responsive** - Works seamlessly on desktop and mobile
 
 ## Development
 

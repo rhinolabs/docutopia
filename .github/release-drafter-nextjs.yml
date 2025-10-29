@@ -1,0 +1,6 @@
+_extends: docutopia:.github/release-drafter-base.yml
+name-template: 'nextjs@$RESOLVED_VERSION'
+tag-template: 'nextjs@$RESOLVED_VERSION'
+tag-prefix: 'nextjs@'
+include-paths:
+  - "packages/nextjs/"
