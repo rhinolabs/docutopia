@@ -1,6 +1,6 @@
 import type { PathItemObject } from "./paths";
 import type { SchemaObject } from "./schemas";
-import type { SecurityObject } from "./security";
+import type { SecurityObject, SecuritySchemeObject } from "./security";
 
 export interface OpenApiDocument {
 	openapi: string;
@@ -30,4 +30,5 @@ export interface TagsObject {
 
 export interface ComponentsObject {
 	schemas?: Record<string, SchemaObject>;
+	securitySchemes?: Record<string, SecuritySchemeObject>;
 }

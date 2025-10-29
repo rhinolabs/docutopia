@@ -24,6 +24,11 @@ export interface OpenAPIContextValue {
 	 */
 	currentSlug?: string;
 	/**
+	 * Available authentication types based on the OpenAPI spec
+	 * Only auth types defined in spec.components.securitySchemes are included
+	 */
+	availableAuthTypes: AuthCredentials["type"][];
+	/**
 	 * Find an operation by its slug
 	 */
 	getOperationBySlug: (slug: string) => EnhancedOperation | null;
