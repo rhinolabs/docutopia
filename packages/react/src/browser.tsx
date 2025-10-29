@@ -12,7 +12,7 @@ export function renderDocutopia(
 	container: HTMLElement,
 	props: {
 		specUrl: string;
-		baseUrl?: string;
+		baseUrl: string;
 		basename?: string;
 	},
 ) {
