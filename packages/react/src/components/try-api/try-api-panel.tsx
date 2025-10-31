@@ -1,6 +1,7 @@
 import { useOpenAPI, useRequestParams } from "@/contexts";
 import type { EnhancedOperation } from "@/core/types";
 import { useApiRequest, useAuth, useCurlGenerator } from "@/hooks";
+import { normalizeExampleResponse } from "@/utils/api/normalize-parameters";
 import { isAbsoluteUrlRegex, joinPaths } from "@/utils/url-helpers";
 import { Badge, Button } from "@rhinolabs/ui";
 import { Loader2, Play } from "lucide-react";
@@ -8,7 +9,6 @@ import { memo, useState } from "react";
 import { EnhancedCredentialsForm } from "./enhanced-credentials-form";
 import { EnhancedCurlDisplay } from "./enhanced-curl-display";
 import { ResponseDisplay } from "./response-display";
-import { normalizeExampleResponse } from "@/utils/api/normalize-parameters";
 
 interface TryApiPanelProps {
 	operation: EnhancedOperation;

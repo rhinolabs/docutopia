@@ -146,11 +146,10 @@ export function normalizeExampleResponse(
 	}
 
 	if (normalizedSchema.type === "array" && normalizedSchema.items) {
-		schemaToProcess = { 
+		schemaToProcess = {
 			items: normalizedSchema,
 		};
 	}
-
 
 	if (schemaToProcess) {
 		const normalizedProps = Object.entries(schemaToProcess).map(
@@ -166,7 +165,7 @@ export function normalizeExampleResponse(
 					};
 				}
 
-				if (propSchema.type === "array" ) {
+				if (propSchema.type === "array") {
 					if (!propSchema.items) {
 						return {
 							name: propName,
@@ -190,8 +189,6 @@ export function normalizeExampleResponse(
 							example: itemSchema.type ? [itemSchema.type] : [],
 						};
 					}
-
-					
 
 					return {
 						name: propName,
@@ -239,12 +236,17 @@ export function normalizeParameter(
  * into a flat object structure
  */
 export function parseParametersToObject(
-	parameters: Array<{ name: string; example: unknown }>
+	parameters: Array<{ name: string; example: unknown }>,
 ): Record<string, unknown> {
 	const result: Record<string, unknown> = {};
 
 	for (const param of parameters) {
-		if (Array.isArray(param.example) && param.example.every(p => (typeof p === "object" && !!p.name && !!p.example))) {
+		if (
+			Array.isArray(param.example) &&
+			param.example.every(
+				(p) => typeof p === "object" && !!p.name && !!p.example,
+			)
+		) {
 			// If example is an array of parameter objects, recursively parse it
 			result[param.name] = parseParametersToObject(param.example);
 		} else {
@@ -255,4 +257,3 @@ export function parseParametersToObject(
 
 	return result;
 }
-
