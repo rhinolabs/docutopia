@@ -118,7 +118,7 @@ export const EnhancedCredentialsForm: React.FC = () => {
 
 			<Card.Content className="space-y-4 pb-5 px-5">
 				{/* Credential Input Fields */}
-				<div className="space-y-2">
+				<div>
 					{credentials.type === "basic" && (
 						<div className="space-y-2">
 							<label
@@ -170,17 +170,16 @@ export const EnhancedCredentialsForm: React.FC = () => {
 							</Button>
 						</div>
 					</div>
+					{/* Status Indicator */}
+					{credentials.value && (
+						<div className="flex items-center gap-2 mt-2">
+							<div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
+							<span className="text-xs text-muted-foreground">
+								Credentials configured
+							</span>
+						</div>
+					)}
 				</div>
-
-				{/* Status Indicator */}
-				{credentials.value && (
-					<div className="flex items-center gap-2 pt-2">
-						<div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
-						<span className="text-xs text-muted-foreground">
-							Credentials configured
-						</span>
-					</div>
-				)}
 			</Card.Content>
 		</Card>
 	);
