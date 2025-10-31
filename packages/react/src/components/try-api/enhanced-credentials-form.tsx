@@ -116,65 +116,61 @@ export const EnhancedCredentialsForm: React.FC = () => {
 				</div>
 			</Card.Header>
 
-			<Card.Content className="space-y-4 pb-5 px-5">
+			<Card.Content className="pb-5 px-5">
 				{/* Credential Input Fields */}
-				<div className="space-y-2">
-					{credentials.type === "basic" && (
-						<div className="space-y-2">
-							<label
-								className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
-								htmlFor="username"
-							>
-								Username
-							</label>
-							<Input
-								name="username"
-								placeholder="Enter username"
-								value={credentials.username || ""}
-								onChange={(e) =>
-									updateCredentials({ username: e.target.value })
-								}
-								className="font-mono text-sm bg-card text-foreground"
-							/>
-						</div>
-					)}
-
+				{credentials.type === "basic" && (
 					<div className="space-y-2">
 						<label
 							className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
-							htmlFor={currentConfig?.fieldName}
+							htmlFor="username"
 						>
-							{currentConfig?.fieldName || "credential"}
+							Username
 						</label>
-						<div className="flex items-center gap-2 relative">
-							<Input
-								name={currentConfig?.fieldName}
-								type={showPassword ? "text" : "password"}
-								placeholder={currentConfig?.placeholder || "Enter credential"}
-								value={credentials.value}
-								onChange={(e) => updateCredentials({ value: e.target.value })}
-								className="flex-1 font-mono text-sm bg-card text-foreground"
-							/>
+						<Input
+							name="username"
+							placeholder="Enter username"
+							value={credentials.username || ""}
+							onChange={(e) => updateCredentials({ username: e.target.value })}
+							className="font-mono text-sm bg-card text-foreground"
+						/>
+					</div>
+				)}
 
-							<Button
-								variant="ghost"
-								size="sm"
-								onClick={() => setShowPassword(!showPassword)}
-								className="hover:bg-accent absolute right-0.5"
-							>
-								{showPassword ? (
-									<EyeOff className="h-4 w-4" />
-								) : (
-									<Eye className="h-4 w-4" />
-								)}
-							</Button>
-						</div>
+				<div className="space-y-2">
+					<label
+						className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
+						htmlFor={currentConfig?.fieldName}
+					>
+						{currentConfig?.fieldName || "credential"}
+					</label>
+					<div className="flex items-center gap-2 relative">
+						<Input
+							name={currentConfig?.fieldName}
+							type={showPassword ? "text" : "password"}
+							placeholder={currentConfig?.placeholder || "Enter credential"}
+							value={credentials.value}
+							onChange={(e) => updateCredentials({ value: e.target.value })}
+							className="flex-1 font-mono text-sm bg-card text-foreground"
+						/>
+
+						<Button
+							variant="ghost"
+							size="sm"
+							onClick={() => setShowPassword(!showPassword)}
+							className="hover:bg-accent absolute right-0.5"
+						>
+							{showPassword ? (
+								<EyeOff className="h-4 w-4" />
+							) : (
+								<Eye className="h-4 w-4" />
+							)}
+						</Button>
 					</div>
 				</div>
 
 				{/* Status Indicator */}
 				{credentials.value && (
-					<div className="flex items-center gap-2 pt-2">
+					<div className="flex items-center gap-2 mt-2">
 						<div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
 						<span className="text-xs text-muted-foreground">
 							Credentials configured

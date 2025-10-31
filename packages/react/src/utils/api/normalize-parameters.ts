@@ -125,6 +125,96 @@ export function normalizeBodyParams(
 }
 
 /**
+ * Extracts and normalizes example parameter from a response body schema
+ * Similar to generateSidebarFromSpec, this centralizes parameter processing
+ */
+export function normalizeExampleResponse(
+	schema: SchemaOrRef | undefined,
+	spec: OpenApiDocument,
+): Record<string, unknown> {
+	if (!schema) {
+		return {};
+	}
+
+	// Normalize the root schema
+	const normalizedSchema = normalizeSchema(schema, spec);
+	let schemaToProcess: Record<string, SchemaOrRef> | undefined = undefined;
+
+	// Extract properties if it's an object
+	if (normalizedSchema.type === "object" && normalizedSchema.properties) {
+		schemaToProcess = normalizedSchema.properties;
+	}
+
+	if (normalizedSchema.type === "array" && normalizedSchema.items) {
+		schemaToProcess = {
+			items: normalizedSchema,
+		};
+	}
+
+	if (schemaToProcess) {
+		const normalizedProps = Object.entries(schemaToProcess).map(
+			([propName, propSchemaOrRef]) => {
+				// Properties are already normalized SchemaObject, but TypeScript doesn't know
+				const propSchema = propSchemaOrRef as SchemaObject;
+
+				if (propSchema.type === "object") {
+					const nestedExamples = normalizeExampleResponse(propSchema, spec);
+					return {
+						name: propName,
+						example: nestedExamples,
+					};
+				}
+
+				if (propSchema.type === "array") {
+					if (!propSchema.items) {
+						return {
+							name: propName,
+							example: [],
+						};
+					}
+
+					const itemSchema = normalizeSchema(propSchema.items, spec);
+
+					if (itemSchema.type === "object") {
+						const nestedExamples = normalizeExampleResponse(itemSchema, spec);
+						return {
+							name: propName,
+							example: [nestedExamples],
+						};
+					}
+
+					if (!itemSchema.example) {
+						return {
+							name: propName,
+							example: itemSchema.type ? [itemSchema.type] : [],
+						};
+					}
+
+					return {
+						name: propName,
+						example: [itemSchema.example],
+					};
+				}
+				const exampleResponse = {
+					name: propName,
+					example: propSchema.example || propSchema.type || "undefined",
+				};
+
+				return exampleResponse;
+			},
+		);
+
+		return parseParametersToObject(normalizedProps);
+	}
+
+	// If the response is not an object, log a warning
+	console.warn(
+		`Response schema is not an object nor an array type: ${normalizedSchema.type}. Expected object with properties.`,
+	);
+	return {};
+}
+
+/**
  * Normalizes path and query parameters by resolving their schemas
  */
 export function normalizeParameter(
@@ -139,4 +229,31 @@ export function normalizeParameter(
 		...param,
 		schema: normalizeSchema(param.schema, spec, param.name),
 	};
+}
+
+/**
+ * Parses an array of parameter objects with name and example properties
+ * into a flat object structure
+ */
+export function parseParametersToObject(
+	parameters: Array<{ name: string; example: unknown }>,
+): Record<string, unknown> {
+	const result: Record<string, unknown> = {};
+
+	for (const param of parameters) {
+		if (
+			Array.isArray(param.example) &&
+			param.example.every(
+				(p) => typeof p === "object" && !!p.name && !!p.example,
+			)
+		) {
+			// If example is an array of parameter objects, recursively parse it
+			result[param.name] = parseParametersToObject(param.example);
+		} else {
+			// Otherwise, use the example value directly
+			result[param.name] = param.example;
+		}
+	}
+
+	return result;
 }
