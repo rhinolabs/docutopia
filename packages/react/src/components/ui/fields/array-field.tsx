@@ -37,7 +37,7 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 					<Card className="shadow-none bg-card/60 overflow-hidden">
 						{/* data-[state=open]:[&>.chevron]:rotate-90  */}
 						<Collapsible>
-							<Collapsible.Trigger className="w-full cursor-pointer flex justify-between text-secondary-foreground bg-secondary px-4 py-3 items-center aria-expanded:[&>svg]:rotate-90 rounded-md group-data-[state=open]:bg-secondary/80 transition-colors">
+							<Collapsible.Trigger className="w-full cursor-pointer flex justify-between text-secondary-foreground bg-secondary px-4 py-3 items-center aria-expanded:[&>svg]:rotate-90 group-data-[state=open]:bg-secondary/80 transition-colors">
 								<span className="text-sm font-medium  ">
 									{String(itemsType ?? "Unknown type")}{" "}
 								</span>
