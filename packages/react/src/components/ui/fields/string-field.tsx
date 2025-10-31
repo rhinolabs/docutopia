@@ -59,7 +59,9 @@ export const StringField: React.FC<StringFieldProps> = ({
 	if (isEnumField(field)) {
 		if (readOnly) {
 			return (
-				<div className="col-span-4 lg:col-span-1 flex flex-row-reverse my-auto">
+				<div
+					className={`${(field.enum?.length ?? 0) > 3 ? "flex flex-wrap col-start-1 col-end-5 row-span-2" : "col-span-4 flex flex-row-reverse my-auto"}`}
+				>
 					{field.enum?.map((option) => {
 						const optionStr = String(option);
 						return (

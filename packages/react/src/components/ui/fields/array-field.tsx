@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { DynamicFields } from "../dynamic-fields";
 import { DynamicObjectFields } from "../dynamic-object-fields";
 import { ParamField } from "./param-field";
+import { ChevronRight } from "lucide-react";
 
 interface ArrayFieldProps {
 	field: SchemaObject;
@@ -33,41 +34,38 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 
 			return (
 				<div className="col-span-4">
-					<Card className="shadow-none bg-card/60">
+					<Card className="shadow-none bg-card/60 overflow-hidden">
+						{/* data-[state=open]:[&>.chevron]:rotate-90  */}
 						<Collapsible>
-							<div className="">
-								<Collapsible.Trigger asChild>
-									<div className="w-full cursor-pointer">
-										<p className="text-sm font-medium text-muted-foreground px-6 py-4">
-											{String(itemsType?.toUpperCase() ?? "Unknown type")}{" "}
-											(Schema - Read Only)
-										</p>
-									</div>
-								</Collapsible.Trigger>
-								<Collapsible.Content>
-									{Object.entries(items.properties ?? {}).map(
-										([propertyKey, propertyObj]) => {
-											const propSchema = asSchemaObject(propertyObj);
-											if (!propSchema) return null;
+							<Collapsible.Trigger className="w-full cursor-pointer flex justify-between text-secondary-foreground bg-secondary px-4 py-3 items-center aria-expanded:[&>svg]:rotate-90 rounded-md group-data-[state=open]:bg-secondary/80 transition-colors">
+								<span className="text-sm font-medium  ">
+									{String(itemsType ?? "Unknown type")}{" "}
+								</span>
+								<ChevronRight className="w-4 h-4 transition-transform" />
+							</Collapsible.Trigger>
+							<Collapsible.Content>
+								{Object.entries(items.properties ?? {}).map(
+									([propertyKey, propertyObj]) => {
+										const propSchema = asSchemaObject(propertyObj);
+										if (!propSchema) return null;
 
-											return (
-												<div key={propertyKey} className="">
-													<Separator />
-													<ParamField
-														field={mapSchemaToParamField(
-															propertyKey,
-															propSchema,
-															items.required?.includes(propertyKey) ?? false,
-														)}
-														readOnly={true}
-														bodyPath={[...arrayBodyPath, 0, propertyKey]}
-													/>
-												</div>
-											);
-										},
-									)}
-								</Collapsible.Content>
-							</div>
+										return (
+											<div key={propertyKey} className="">
+												<Separator />
+												<ParamField
+													field={mapSchemaToParamField(
+														propertyKey,
+														propSchema,
+														items.required?.includes(propertyKey) ?? false,
+													)}
+													readOnly={true}
+													bodyPath={[...arrayBodyPath, 0, propertyKey]}
+												/>
+											</div>
+										);
+									},
+								)}
+							</Collapsible.Content>
 						</Collapsible>
 					</Card>
 				</div>

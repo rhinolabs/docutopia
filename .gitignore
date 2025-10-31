@@ -40,3 +40,6 @@ public/specs*
 
 # Bundlers
 .rslib
+
+# specs
+giant-spec.json
