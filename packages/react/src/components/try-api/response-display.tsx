@@ -43,22 +43,8 @@ function ResponseCardTitle({
 }: { children: React.ReactNode; title: string }) {
 	return (
 		<div className="flex gap-3 items-center">
-			{/* {response ? (
-						<Badge
-							className={`${getStatusColor(response.status.toString())} bg-transparent`}
-						>
-							{response.status}
-						</Badge>
-					) : (
-						<Badge
-							className={`${getStatusColor(exampleRequestStatusCode || "")} bg-transparent`}
-						>
-							{exampleRequestStatusCode}
-						</Badge>
-					)} */}
 			{children}
 			<h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide ">
-				{/* {{exampleRequestStatusCode ? "EXAMPLE RESPONSE" : "RESPONSE"}} */}
 				{title}
 			</h3>
 		</div>
@@ -99,10 +85,6 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
 		if (statusNum >= 500) return "border-red-500 text-red-500";
 		return "border-gray-400 text-gray-400";
 	};
-
-	// const responseStatuses = operation.responses
-	// 	? Object.keys(operation.responses)
-	// 	: [];
 
 	useEffect(() => {
 		const highlightExampleResponse = () => {
@@ -196,7 +178,7 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
 					</Tabs>
 				) : (
 					<div className="text-center py-8 text-muted-foreground">
-						<p>Response is empty</p>
+						<p>Response is empty or doesn't have an example</p>
 					</div>
 				)}
 			</Card.Content>
