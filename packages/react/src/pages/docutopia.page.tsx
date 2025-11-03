@@ -61,7 +61,7 @@ export const DocutopiaPage: React.FC = () => {
 
 	return (
 		<div key={apiUrl} className="container h-full">
-			<header className="flex gap-3 items-center border-b py-3 px-5 lg:hidden">
+			<header className="flex gap-3 items-center border-b py-3 px-5 lg:!hidden">
 				<Sidebar.Trigger variant="outline" className="size-9" />
 				<div className="flex flex-col">
 					<span className="truncate font-medium text-sm">
