@@ -17,8 +17,10 @@ export const DocutopiaPage: React.FC = () => {
 
 	// Clear parameters when endpoint changes
 	useEffect(() => {
-		clearParams();
-	}, [clearParams]);
+		if (apiUrl) {
+			clearParams();
+		}
+	}, [clearParams, apiUrl]);
 
 	if (!apiUrl) {
 		return (
