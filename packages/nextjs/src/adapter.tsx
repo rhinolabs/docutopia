@@ -93,6 +93,10 @@ export function createNextJSAdapter(
 			return { apiUrl: apiUrl as string | undefined };
 		},
 
+		usePathname: () => {
+			return usePathname();
+		},
+
 		Link: ({ to, children, className, title, onClick }) => {
 			const pathname = usePathname();
 			const params = useParams();

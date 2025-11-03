@@ -59,6 +59,7 @@ export interface RoutingAdapter {
 	 * Must return an object with optional apiUrl parameter
 	 */
 	useRouteParams: () => { apiUrl?: string };
+	usePathname: () => string;
 
 	/**
 	 * Link component for navigation
