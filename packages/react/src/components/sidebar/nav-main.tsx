@@ -13,8 +13,9 @@ export function NavMain({
 }: {
 	items: SidebarCollection[];
 }) {
-	const { Link } = useRouting();
+	const { Link, usePathname } = useRouting();
 	const { expandedGroups, toggleGroup } = useSidebarState();
+	const pathname = usePathname();
 
 	return (
 		<Sidebar.Group className="px-1">
@@ -64,9 +65,9 @@ export function NavMain({
 												<Collapsible.Content>
 													<Sidebar.MenuSub className="border-0 px-0 mr-1 ml-3">
 														{request.items.map((subItem) => (
-															<Sidebar.MenuSubItem key={subItem.name}>
+															<Sidebar.MenuSubItem key={subItem.url}>
 																<Sidebar.MenuSubButton
-																	className="py-1.5 h-auto"
+																	className={`py-1.5 h-auto ${pathname.split("/").includes(subItem.url) ? "bg-accent" : ""}`}
 																	asChild
 																	title={subItem.name}
 																>

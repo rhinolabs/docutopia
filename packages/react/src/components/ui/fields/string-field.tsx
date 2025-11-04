@@ -1,7 +1,7 @@
 import { useRequestParams } from "@/contexts";
 import type { SchemaObject } from "@/types/api/openapi";
 import { Badge, Input, Select } from "@rhinolabs/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface StringFieldProps {
 	field: SchemaObject;
@@ -26,7 +26,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 	const [value, setValue] = useState<string>((field.default as string) || "");
 
 	// Update store when value changes
-	useEffect(() => {
+	const handleChange = (newValue: string) => {
 		if (readOnly) return;
 
 		if (paramType === "path") {
@@ -37,18 +37,6 @@ export const StringField: React.FC<StringFieldProps> = ({
 			const path = bodyPath.length > 0 ? bodyPath : [name];
 			updateBodyParam(path, value);
 		}
-	}, [
-		value,
-		paramType,
-		name,
-		bodyPath,
-		updatePathParam,
-		updateQueryParam,
-		updateBodyParam,
-		readOnly,
-	]);
-
-	const handleChange = (newValue: string) => {
 		setValue(newValue);
 	};
 
@@ -59,7 +47,9 @@ export const StringField: React.FC<StringFieldProps> = ({
 	if (isEnumField(field)) {
 		if (readOnly) {
 			return (
-				<div className="col-span-4 lg:col-span-1 flex flex-row-reverse my-auto">
+				<div
+					className={`${(field.enum?.length ?? 0) > 3 ? "flex flex-wrap col-start-1 col-end-5 row-span-2" : "col-span-4 flex flex-row-reverse my-auto"}`}
+				>
 					{field.enum?.map((option) => {
 						const optionStr = String(option);
 						return (

@@ -17,13 +17,15 @@ export const DocutopiaPage: React.FC = () => {
 
 	// Clear parameters when endpoint changes
 	useEffect(() => {
-		clearParams();
-	}, [clearParams]);
+		if (apiUrl) {
+			clearParams();
+		}
+	}, [clearParams, apiUrl]);
 
 	if (!apiUrl) {
 		return (
 			<div className="container h-full">
-				<header className="flex gap-3 items-center border-b py-3 px-6 lg:hidden">
+				<header className="flex gap-3 items-center border-b py-3 px-6 lg:!hidden">
 					<Sidebar.Trigger variant="secondary" />
 					<div className="flex flex-col">
 						<span className="truncate font-medium text-sm">
@@ -34,7 +36,7 @@ export const DocutopiaPage: React.FC = () => {
 						</span>
 					</div>
 				</header>
-				<main className="h-full grid place-items-center py-3 px-6">
+				<main className="min-h-svh grid place-items-center py-3 px-6">
 					<div className="text-center">
 						<h1 className="text-3xl font-bold mb-4">
 							Welcome to API Documentation
@@ -59,7 +61,7 @@ export const DocutopiaPage: React.FC = () => {
 
 	return (
 		<div key={apiUrl} className="container h-full">
-			<header className="flex gap-3 items-center border-b py-3 px-5 lg:hidden">
+			<header className="flex gap-3 items-center border-b py-3 px-5 lg:!hidden">
 				<Sidebar.Trigger variant="outline" className="size-9" />
 				<div className="flex flex-col">
 					<span className="truncate font-medium text-sm">

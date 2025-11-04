@@ -4,6 +4,7 @@ import {
 	Link as RRLink,
 	Route as RRRoute,
 	Routes as RRRoutes,
+	useLocation,
 	useParams,
 } from "react-router-dom";
 import type { RoutingAdapter } from "../types";
@@ -31,6 +32,11 @@ export const ReactRouterAdapter: RoutingAdapter = {
 	useRouteParams: () => {
 		const { apiUrl } = useParams<{ apiUrl: string }>();
 		return { apiUrl };
+	},
+
+	usePathname: () => {
+		const { pathname } = useLocation();
+		return pathname;
 	},
 
 	Link: ({ to, children, className, title, onClick }) => (

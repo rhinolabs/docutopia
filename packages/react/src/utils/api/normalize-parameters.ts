@@ -136,6 +136,10 @@ export function normalizeExampleResponse(
 		return {};
 	}
 
+	if ("example" in schema) {
+		return schema.example as Record<string, unknown>;
+	}
+
 	// Normalize the root schema
 	const normalizedSchema = normalizeSchema(schema, spec);
 	let schemaToProcess: Record<string, SchemaOrRef> | undefined = undefined;
