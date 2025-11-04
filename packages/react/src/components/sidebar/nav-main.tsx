@@ -67,7 +67,7 @@ export function NavMain({
 														{request.items.map((subItem) => (
 															<Sidebar.MenuSubItem key={subItem.url}>
 																<Sidebar.MenuSubButton
-																	className={`py-1.5 h-auto ${pathname.includes(subItem.url) ? "bg-accent" : ""}`}
+																	className={`py-1.5 h-auto ${pathname.split("/").includes(subItem.url) ? "bg-accent" : ""}`}
 																	asChild
 																	title={subItem.name}
 																>
