@@ -34,7 +34,7 @@ export const StringCollapsible = ({
 			<div>
 				{hasOptions && options.length > 0 ? (
 					<Select value={value} onValueChange={handleChange}>
-						<Select.Trigger className="bg-card  text-foreground">
+						<Select.Trigger className="bg-input  text-foreground w-[200px]">
 							<Select.Value placeholder="Select" />
 						</Select.Trigger>
 						<Select.Content className="bg-card ">
