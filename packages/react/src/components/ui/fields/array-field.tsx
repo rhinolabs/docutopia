@@ -2,11 +2,11 @@ import type { SchemaObject } from "@/types/api/openapi";
 import { mapSchemaToParamField } from "@/utils/fields/map-schema-to-param-field";
 import { asSchemaObject } from "@/utils/type-guards";
 import { Card, Collapsible, Separator } from "@rhinolabs/ui";
+import { ChevronRight } from "lucide-react";
 import { useMemo } from "react";
 import { DynamicFields } from "../dynamic-fields";
 import { DynamicObjectFields } from "../dynamic-object-fields";
 import { ParamField } from "./param-field";
-import { ChevronRight } from "lucide-react";
 
 interface ArrayFieldProps {
 	field: SchemaObject;
