@@ -44,7 +44,7 @@ export class OpenApiService {
 
 				if (operationSlug === slug) {
 					if (count === index) {
-					return { ...operation, path, method: method.toUpperCase() };
+						return { ...operation, path, method: method.toUpperCase() };
 					}
 					count++;
 				}
