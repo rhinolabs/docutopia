@@ -4,8 +4,8 @@ import { Button, Collapsible, Separator } from "@rhinolabs/ui";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import React from "react";
-import { ParamField } from "./param-field";
 import { CustomObjectField } from "../custom-object-field";
+import { ParamField } from "./param-field";
 
 interface ObjectFieldProps {
 	field: SchemaObject;
