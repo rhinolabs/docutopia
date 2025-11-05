@@ -8,16 +8,26 @@ interface CustomObjectFieldProps {
 	bodyPath: (string | number)[];
 	field: SchemaObject;
 	readOnly: boolean;
-	name: string;
 }
 
 type field = {
 	id: string;
 	field: [string, string];
 };
-const CustomObjectField: React.FC<CustomObjectFieldProps> = ({ bodyPath }) => {
+const CustomObjectField: React.FC<CustomObjectFieldProps> = ({
+	bodyPath,
+	readOnly,
+}) => {
 	const [fields, setFields] = useState<Array<field>>([]);
 	const { updateBodyParam } = useRequestParams();
+
+	if (readOnly) {
+		return (
+			<div className="py-2 px-4 border-t ">
+				<span className="text-sm text-muted-foreground">Custom object</span>
+			</div>
+		);
+	}
 
 	const updateStore = (updatedFields: Array<field>) => {
 		const obj: Record<string, string> = Object.fromEntries(

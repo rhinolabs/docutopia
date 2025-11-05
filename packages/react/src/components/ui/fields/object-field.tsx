@@ -117,7 +117,6 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 								bodyPath={bodyPath}
 								field={field}
 								readOnly={readOnly}
-								name={name}
 							/>
 						)}
 					</div>
