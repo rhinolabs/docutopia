@@ -2,6 +2,7 @@
 import "./index.css";
 
 import { OpenApiService } from "@/services";
+import { ThemeProvider } from "next-themes";
 import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./app";
@@ -162,7 +163,9 @@ function DocutopiaInner({
 				<RequestParamsProvider>
 					<SidebarStateProvider>
 						<RoutingProvider adapter={adapter}>
-							<App />
+							<ThemeProvider attribute="class">
+								<App />
+							</ThemeProvider>
 						</RoutingProvider>
 					</SidebarStateProvider>
 				</RequestParamsProvider>

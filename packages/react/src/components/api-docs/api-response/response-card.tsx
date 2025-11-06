@@ -71,7 +71,9 @@ export const ResponseCard: React.FC<ResponseCardProps> = memo(
 							<div className="flex items-center">
 								<span
 									className={`rounded-full h-3 w-3 mr-2 border mt-0.5 ${
-										success ? "border-green-500" : "border-red-500"
+										success
+											? "dark:border-green-500 dark:bg-transparent bg-green-600"
+											: "dark:border-red-500 dark:bg-transparent bg-red-600"
 									}`}
 								/>
 								<h4 className="text-xs font-medium">{response.status}</h4>

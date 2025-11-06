@@ -24,7 +24,7 @@ export function NavMain({
 					<div key={collection.collectionName}>
 						{collection.collectionName && (
 							<h4
-								className={`text-[12px] text-[#3F3F46] font-medium ${collectionIndex > 0 ? "mt-5" : ""}`}
+								className={`text-[12px] text-muted-foreground font-medium px-2 ${collectionIndex > 0 ? "mt-5" : ""}`}
 							>
 								{collection.collectionName}
 							</h4>
@@ -63,11 +63,11 @@ export function NavMain({
 													</Sidebar.MenuButton>
 												</Collapsible.Trigger>
 												<Collapsible.Content>
-													<Sidebar.MenuSub className="border-0 px-0 mr-1 ml-3">
+													<Sidebar.MenuSub className="border-0 px-0 !mr-1 ml-3">
 														{request.items.map((subItem) => (
 															<Sidebar.MenuSubItem key={subItem.url}>
 																<Sidebar.MenuSubButton
-																	className={`py-1.5 h-auto ${pathname.split("/").includes(subItem.url) ? "bg-accent" : ""}`}
+																	className={`py-1.5 h-auto ${pathname.split("/").includes(subItem.url) ? "dark:bg-accent shadow-md text-foreground bg-white" : "text-muted-foreground"}`}
 																	asChild
 																	title={subItem.name}
 																>
@@ -75,7 +75,7 @@ export function NavMain({
 																		to={`/${subItem.url}`}
 																		className="[&.active]:font-bold"
 																	>
-																		<span className="flex-1 line-clamp-2 leading-tight overflow-ellipsis overflow-hidden text-muted-foreground">
+																		<span className="flex-1 line-clamp-2 leading-tight overflow-ellipsis overflow-hidden ">
 																			{subItem.name}
 																		</span>
 																		<Badge

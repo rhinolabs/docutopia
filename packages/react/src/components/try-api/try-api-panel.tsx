@@ -157,8 +157,8 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 
 				{/* Examples when no response yet */}
 				{!response && !error && !isLoading && !exampleRequest && (
-					<div className="text-center py-8 text-muted-foreground border border-dashed rounded-lg">
-						<p className="text-sm mb-3">
+					<div className="text-center py-8 text-muted-foreground border border-dashed rounded-lg px-5">
+						<p className="text-sm mb-3 text-pretty">
 							Click "Try It!" to start a request and see the response here
 						</p>
 						<p className="text-xs mb-3">Or choose an example:</p>

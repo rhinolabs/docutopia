@@ -89,6 +89,11 @@
 		color: var(--color-muted-foreground);
 	}
 
+	.thin-scrollbar {
+		scrollbar-width: thin;
+		scrollbar-gutter: stable;
+	}
+
 	/* Force dark mode styling for input elements with proper hierarchy */
 	input[type="text"],
 	input[type="number"],
@@ -116,58 +121,60 @@
 		border-color: var(--color-border) !important;
 	}
 
-	/* HTTP Method badges */
-	.bg-get {
-		color: var(--color-get) !important;
-		border: 1px solid var(--color-get) !important;
-		background-color: transparent !important;
-	}
+	.dark {
+		/* HTTP Method badges */
+		.bg-get {
+			color: var(--color-get) !important;
+			border: 1px solid var(--color-get) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-post {
-		color: var(--color-post) !important;
-		border: 1px solid var(--color-post) !important;
-		background-color: transparent !important;
-	}
+		.bg-post {
+			color: var(--color-post) !important;
+			border: 1px solid var(--color-post) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-put {
-		color: var(--color-put) !important;
-		border: 1px solid var(--color-put) !important;
-		background-color: transparent !important;
-	}
+		.bg-put {
+			color: var(--color-put) !important;
+			border: 1px solid var(--color-put) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-patch {
-		color: var(--color-patch) !important;
-		border: 1px solid var(--color-patch) !important;
-		background-color: transparent !important;
-	}
+		.bg-patch {
+			color: var(--color-patch) !important;
+			border: 1px solid var(--color-patch) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-delete {
-		color: var(--color-delete) !important;
-		border: 1px solid var(--color-delete) !important;
-		background-color: transparent !important;
-	}
+		.bg-delete {
+			color: var(--color-delete) !important;
+			border: 1px solid var(--color-delete) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-head {
-		color: var(--color-head) !important;
-		border: 1px solid var(--color-head) !important;
-		background-color: transparent !important;
-	}
+		.bg-head {
+			color: var(--color-head) !important;
+			border: 1px solid var(--color-head) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-options {
-		color: var(--color-options) !important;
-		border: 1px solid var(--color-options) !important;
-		background-color: transparent !important;
-	}
+		.bg-options {
+			color: var(--color-options) !important;
+			border: 1px solid var(--color-options) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-connect {
-		color: var(--color-connect) !important;
-		border: 1px solid var(--color-connect) !important;
-		background-color: transparent !important;
-	}
+		.bg-connect {
+			color: var(--color-connect) !important;
+			border: 1px solid var(--color-connect) !important;
+			background-color: transparent !important;
+		}
 
-	.bg-trace {
-		color: var(--color-trace) !important;
-		border: 1px solid var(--color-trace) !important;
-		background-color: transparent !important;
+		.bg-trace {
+			color: var(--color-trace) !important;
+			border: 1px solid var(--color-trace) !important;
+			background-color: transparent !important;
+		}
 	}
 }

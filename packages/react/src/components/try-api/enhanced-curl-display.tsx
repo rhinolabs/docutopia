@@ -24,7 +24,7 @@ export const EnhancedCurlDisplay: React.FC<EnhancedCurlDisplayProps> = ({
 
 	return (
 		<Card className={`border bg-card/70 ${className}`}>
-			<Card.Header className="pb-3 pt-4 px-5">
+			<Card.Header className="!pb-3 px-5">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-2">
 						<Terminal className="h-4 w-4 text-muted-foreground" />
