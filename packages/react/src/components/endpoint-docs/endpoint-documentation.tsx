@@ -13,12 +13,10 @@ interface EndpointDocumentationProps {
 export const EndpointDocumentation = memo<EndpointDocumentationProps>(
 	({ operation, parameters, bodyParams }) => {
 		return (
-			<div className="lg:col-span-13 lg:pl-5 lg:pr-3">
+			<div className="xl:col-span-13 lg:col-span-3 ">
 				<EndpointHeader operation={operation} />
-				<div className="content">
-					<EndpointParams parameters={parameters} bodyParams={bodyParams} />
-					<EndpointResponses operation={operation} />
-				</div>
+				<EndpointParams parameters={parameters} bodyParams={bodyParams} />
+				<EndpointResponses operation={operation} />
 			</div>
 		);
 	},

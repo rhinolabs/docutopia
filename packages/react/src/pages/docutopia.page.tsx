@@ -60,7 +60,7 @@ export const DocutopiaPage: React.FC = () => {
 	}
 
 	return (
-		<div key={apiUrl} className="container h-full">
+		<div key={apiUrl} className="h-full w-full">
 			<header className="flex gap-3 items-center border-b py-3 px-5 lg:!hidden">
 				<Sidebar.Trigger variant="outline" className="size-9" />
 				<div className="flex flex-col">
@@ -72,13 +72,13 @@ export const DocutopiaPage: React.FC = () => {
 					</span>
 				</div>
 			</header>
-			<main className="grid grid-cols-1 lg:grid-cols-20 gap-8 px-6 py-4 lg:py-7">
+			<main className="container mx-auto grid grid-cols-1 xl:grid-cols-20 lg:grid-cols-5 xl:gap-8 lg:gap-6 gap-8 md:!px-10 px-6 py-4 lg:py-7">
 				<EndpointDocumentation
 					operation={operation}
 					parameters={parameters}
 					bodyParams={bodyParams}
 				/>
-				<div className="lg:col-span-7">
+				<div className="xl:col-span-7 lg:col-span-2">
 					<TryApiPanel operation={operation} />
 				</div>
 			</main>

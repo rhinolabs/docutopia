@@ -117,7 +117,7 @@ export const SearchBar = ({ navItems }: SearchBarProps) => {
 										<span>{result.label}</span>
 										{result.requestType && (
 											<Badge
-												className={`${getRequestTypeClass(result.requestType)} text-white text-[10px] h-[17px] px-3 font-medium`}
+												className={`text-white text-[10px] h-[17px] px-3 font-medium ${getRequestTypeClass(result.requestType)}`}
 											>
 												{/* Stop badge label to grow to much, this works excelent for http methods. */}
 												{result.requestType.length > 4

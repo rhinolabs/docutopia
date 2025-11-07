@@ -50,7 +50,7 @@ export const ArrayField: React.FC<ArrayFieldProps> = ({
 										if (!propSchema) return null;
 
 										return (
-											<div key={propertyKey} className="">
+											<div key={propertyKey}>
 												<Separator />
 												<ParamField
 													field={mapSchemaToParamField(

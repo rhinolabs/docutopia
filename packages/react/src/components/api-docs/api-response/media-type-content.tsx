@@ -108,7 +108,7 @@ export const MediaTypeExamplesContent: React.FC<MediaTypeExamplesContentProps> =
 								<div className="flex items-center justify-between space-x-4 px-4 py-3">
 									<Collapsible.Trigger asChild>
 										<div className="flex justify-between items-center w-full cursor-pointer">
-											<div>{exampleKey.toUpperCase()}</div>
+											<span>{exampleKey.toUpperCase()}</span>
 											<Button
 												variant="ghost"
 												size="sm"

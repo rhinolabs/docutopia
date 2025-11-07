@@ -76,25 +76,25 @@ export const EnhancedCredentialsForm: React.FC = () => {
 
 	return (
 		<Card className="border shadow-none rounded-lg bg-card/60">
-			<Card.Header className="pb-2 pt-4 px-5">
-				<div className="flex items-top justify-between">
+			<Card.Header className="!pb-3">
+				<div className="flex items-top justify-between flex-wrap gap-4">
 					<div className="flex items-center gap-2">
 						<IdCard className="h-4 w-4 text-muted-foreground" />
-						<h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+						<h3 className="text-sm text-nowrap text-ellipsis font-semibold uppercase tracking-wider text-muted-foreground">
 							AUTH CONFIGURATION
 						</h3>
 					</div>
 					{/* Auth Type Selector */}
 					<Select value={credentials.type} onValueChange={handleAuthTypeChange}>
-						<Select.Trigger className="w-[200px] h-8 text-foreground bg-card">
+						<Select.Trigger className="flex-1 h-8 text-foreground bg-card">
 							<div className="flex items-center gap-2">
 								<IconComponent className="h-4 w-4 text-muted-foreground" />
-								<span className="font-medium">
+								<span className="font-medium text-nowrap text-ellipsis">
 									{currentConfig?.label || "Select Auth"}
 								</span>
 							</div>
 						</Select.Trigger>
-						<Select.Content className="" align="end">
+						<Select.Content align="end">
 							{availableAuthConfigs.map((config) => {
 								const ConfigIcon = config.icon;
 								return (
@@ -116,7 +116,7 @@ export const EnhancedCredentialsForm: React.FC = () => {
 				</div>
 			</Card.Header>
 
-			<Card.Content className="pb-5 px-5">
+			<Card.Content>
 				{/* Credential Input Fields */}
 				{credentials.type === "basic" && (
 					<div className="space-y-2">
@@ -157,7 +157,7 @@ export const EnhancedCredentialsForm: React.FC = () => {
 							variant="ghost"
 							size="sm"
 							onClick={() => setShowPassword(!showPassword)}
-							className="hover:bg-accent absolute right-0.5"
+							className="hover:bg-accent absolute right-0.5 bg-background"
 						>
 							{showPassword ? (
 								<EyeOff className="h-4 w-4" />
