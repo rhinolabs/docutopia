@@ -157,7 +157,7 @@ export const EnhancedCredentialsForm: React.FC = () => {
 							variant="ghost"
 							size="sm"
 							onClick={() => setShowPassword(!showPassword)}
-							className="hover:bg-accent absolute right-0.5"
+							className="hover:bg-accent absolute right-0.5 bg-background"
 						>
 							{showPassword ? (
 								<EyeOff className="h-4 w-4" />
