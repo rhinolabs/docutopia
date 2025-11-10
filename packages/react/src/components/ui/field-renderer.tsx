@@ -39,6 +39,7 @@ export const RenderField: React.FC<RenderFieldProps> = ({
 			field={field.schema}
 			name={field.name}
 			readOnly={readOnly}
+			required={field.required}
 			paramType={paramType}
 			bodyPath={bodyPath}
 		/>
