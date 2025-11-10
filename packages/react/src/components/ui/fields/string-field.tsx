@@ -1,9 +1,9 @@
 import { useRequestParams } from "@/contexts";
+import { useFieldValidation } from "@/hooks/useFieldValidation";
 import type { SchemaObject } from "@/types/api/openapi";
 import { Badge, Input, Select } from "@rhinolabs/ui";
 import { useState } from "react";
 import { FieldErrorPopUp } from "../field-error-popup";
-import { useFieldValidation } from "@/hooks/useFieldValidation";
 
 interface StringFieldProps {
 	field: SchemaObject;

@@ -26,12 +26,8 @@
 			"require": "./dist/index.css"
 		}
 	},
-	"sideEffects": [
-		"*.css"
-	],
-	"files": [
-		"dist/**/*"
-	],
+	"sideEffects": ["*.css"],
+	"files": ["dist/**/*"],
 	"keywords": [
 		"openapi",
 		"swagger",
