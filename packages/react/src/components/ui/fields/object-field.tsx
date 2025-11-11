@@ -1,9 +1,10 @@
-import type { SchemaObject } from "@/types/api/openapi";
+import type { SchemaObject, SchemaOrRef } from "@/types/api/openapi";
 import { asSchemaObject } from "@/utils/type-guards";
 import { Button, Collapsible, Separator } from "@rhinolabs/ui";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import React from "react";
+import { CustomObjectField } from "../custom-object-field";
 import { ParamField } from "./param-field";
 
 interface ObjectFieldProps {
@@ -15,8 +16,49 @@ interface ObjectFieldProps {
 	bodyPath?: (string | number)[];
 }
 
-const isObjectField = (field: SchemaObject): boolean =>
-	field.type === "object" && !!field.properties;
+const isObjectField = (field: SchemaObject): boolean => field.type === "object";
+
+interface SchemaObjectFieldProps {
+	propertyEntries: [string, SchemaOrRef][];
+	bodyPath: (string | number)[];
+	field: SchemaObject;
+	readOnly: boolean;
+	name: string;
+}
+
+const SchemaObjectField: React.FC<SchemaObjectFieldProps> = ({
+	propertyEntries,
+	bodyPath,
+	field,
+	readOnly,
+	name,
+}) => {
+	return propertyEntries.map(([propName, subSchemaOrRef]) => {
+		const subSchema = asSchemaObject(subSchemaOrRef);
+		if (!subSchema) return null;
+
+		// Construct nested bodyPath for this property
+		const nestedBodyPath =
+			bodyPath.length > 0 ? [...bodyPath, propName] : [name, propName];
+
+		return (
+			<React.Fragment key={propName}>
+				<Separator />
+				<ParamField
+					field={{
+						name: propName,
+						in: "body",
+						required: field.required?.includes(propName) ?? false,
+						schema: subSchema,
+						description: subSchema.description,
+					}}
+					readOnly={readOnly}
+					bodyPath={nestedBodyPath}
+				/>
+			</React.Fragment>
+		);
+	});
+};
 
 export const ObjectField: React.FC<ObjectFieldProps> = ({
 	field,
@@ -32,13 +74,11 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 		return null;
 	}
 
+	const hasSchemaProperties = !!field.properties;
+
 	const propertyEntries = field.properties
 		? Object.entries(field.properties)
 		: [];
-
-	if (propertyEntries.length === 0) {
-		return null;
-	}
 
 	return (
 		<div className="col-span-4">
@@ -64,33 +104,21 @@ export const ObjectField: React.FC<ObjectFieldProps> = ({
 				</div>
 				<Collapsible.Content>
 					<div className="overflow-hidden rounded-b-lg bg-background/50">
-						{propertyEntries.map(([propName, subSchemaOrRef]) => {
-							const subSchema = asSchemaObject(subSchemaOrRef);
-							if (!subSchema) return null;
-
-							// Construct nested bodyPath for this property
-							const nestedBodyPath =
-								bodyPath.length > 0
-									? [...bodyPath, propName]
-									: [name, propName];
-
-							return (
-								<React.Fragment key={propName}>
-									<Separator />
-									<ParamField
-										field={{
-											name: propName,
-											in: "body",
-											required: field.required?.includes(propName) ?? false,
-											schema: subSchema,
-											description: subSchema.description,
-										}}
-										readOnly={readOnly}
-										bodyPath={nestedBodyPath}
-									/>
-								</React.Fragment>
-							);
-						})}
+						{hasSchemaProperties ? (
+							<SchemaObjectField
+								propertyEntries={propertyEntries}
+								bodyPath={bodyPath}
+								field={field}
+								readOnly={readOnly}
+								name={name}
+							/>
+						) : (
+							<CustomObjectField
+								bodyPath={bodyPath}
+								field={field}
+								readOnly={readOnly}
+							/>
+						)}
 					</div>
 				</Collapsible.Content>
 			</Collapsible>

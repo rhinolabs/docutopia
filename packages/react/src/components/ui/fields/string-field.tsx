@@ -40,12 +40,12 @@ export const StringField: React.FC<StringFieldProps> = ({
 		validate(newValue);
 
 		if (paramType === "path") {
-			updatePathParam(name, value);
+			updatePathParam(name, newValue);
 		} else if (paramType === "query") {
-			updateQueryParam(name, value);
+			updateQueryParam(name, newValue);
 		} else if (paramType === "body") {
 			const path = bodyPath.length > 0 ? bodyPath : [name];
-			updateBodyParam(path, value);
+			updateBodyParam(path, newValue);
 		}
 
 		setValue(newValue);
