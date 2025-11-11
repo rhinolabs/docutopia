@@ -15,6 +15,7 @@ import { useMemo } from "react";
 interface SidebarData {
 	collections: SidebarCollection[];
 	totalEndpoints: number;
+	currentSlug?: string;
 	specInfo: {
 		title: string;
 		version: string;
@@ -59,7 +60,19 @@ const generateSidebarFromSpec = (
 			if (!tagGroups.has(tag)) {
 				tagGroups.set(tag, []);
 			}
-			tagGroups.get(tag)?.push(item);
+
+			const group = tagGroups.get(tag);
+			const existingItem = group?.find((i) => i.url === item.url);
+
+			if (!existingItem) {
+				group?.push(item);
+			} else {
+				const currentIndex = Number.parseInt(existingItem.url.split("_")[1]);
+				const nextIndex = Number.isNaN(currentIndex) ? 1 : currentIndex + 1;
+
+				item.url = `${item.url}_${nextIndex}`;
+				group?.push(item);
+			}
 		}
 	}
 
