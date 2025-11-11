@@ -103,8 +103,8 @@
 	select,
 	textarea {
 		background-color: var(--color-input);
-		color: var(--color-foreground) !important;
-		border-color: var(--color-border) !important;
+		color: var(--color-foreground);
+		border-color: var(--color-border);
 	}
 
 	/* Ensure select dropdowns use proper hierarchy */

@@ -16,7 +16,6 @@ export const useHighlightedCode = (lang: string, code?: string) => {
 				resolvedTheme === "dark" ? "github-dark" : "github-light",
 			);
 			setHighlightedCode(highlightedCode);
-			console.log("Highlighted code generated with theme:", resolvedTheme);
 		}
 
 		if (code) {

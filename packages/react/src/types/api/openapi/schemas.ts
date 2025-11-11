@@ -19,6 +19,10 @@ export interface SchemaObject {
 	pattern?: string;
 	minimum?: number;
 	maximum?: number;
+	exclusiveMinimum?: boolean;
+	exclusiveMaximum?: boolean;
+	multipleOf?: number;
+	nullable?: boolean;
 	minLength?: number;
 	maxLength?: number;
 }
