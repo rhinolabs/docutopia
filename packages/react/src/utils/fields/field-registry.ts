@@ -10,6 +10,7 @@ type FieldComponent = React.FC<{
 	field: SchemaObject;
 	name: string;
 	readOnly?: boolean;
+	required?: boolean;
 	paramType?: "path" | "query" | "body";
 	bodyPath?: (string | number)[];
 }>;

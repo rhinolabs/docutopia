@@ -159,7 +159,7 @@ export const ResponseDisplay: React.FC<ResponseDisplayProps> = ({
 							</Tabs.List>
 						)}
 						<Tabs.Content value="response">
-							<div className="bg-card p-4 rounded-md text-sm font-mono overflow-x-auto text-foreground border max-h-64 overflow-y-auto">
+							<div className="bg-card p-4 rounded-md text-sm font-mono overflow-x-auto text-foreground border max-h-[450px] overflow-y-auto">
 								{highlightedData && (
 									<Pre code={highlightedData} handlers={[lineNumbers]} />
 								)}

@@ -67,7 +67,9 @@ export function OpenAPIProvider({
 			currentSlug,
 			availableAuthTypes,
 			getOperationBySlug: (slug: string): EnhancedOperation | null => {
-				return openApiService.findOperationBySlug(spec, slug);
+				const split = slug.split("_");
+				const index = split[1] ? Number.parseInt(split[1], 10) : 0;
+				return openApiService.findOperationBySlug(spec, split[0], index);
 			},
 		};
 	}, [spec, baseUrl, currentSlug]);

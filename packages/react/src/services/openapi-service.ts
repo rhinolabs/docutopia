@@ -30,7 +30,10 @@ export class OpenApiService {
 	findOperationBySlug(
 		spec: OpenApiDocument,
 		slug: string,
+		index = 0,
 	): EnhancedOperation | null {
+		let count = 0;
+
 		for (const [path, pathItem] of Object.entries(spec.paths)) {
 			for (const [method, operation] of Object.entries(pathItem)) {
 				if (!operation) continue;
@@ -40,7 +43,10 @@ export class OpenApiService {
 				);
 
 				if (operationSlug === slug) {
-					return { ...operation, path, method: method.toUpperCase() };
+					if (count === index) {
+						return { ...operation, path, method: method.toUpperCase() };
+					}
+					count++;
 				}
 			}
 		}

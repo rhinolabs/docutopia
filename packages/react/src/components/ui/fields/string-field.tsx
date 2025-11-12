@@ -1,13 +1,15 @@
 import { useRequestParams } from "@/contexts";
+import { useFieldValidation } from "@/hooks/useFieldValidation";
 import type { SchemaObject } from "@/types/api/openapi";
 import { Badge, Input, Select } from "@rhinolabs/ui";
 import { useState } from "react";
+import { FieldErrorPopUp } from "../field-error-popup";
 
 interface StringFieldProps {
 	field: SchemaObject;
 	name: string;
-	readOnly?: boolean;
 	required?: boolean;
+	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
 	bodyPath?: (string | number)[];
 }
@@ -18,8 +20,8 @@ const isEnumField = (field: SchemaObject): boolean =>
 export const StringField: React.FC<StringFieldProps> = ({
 	field,
 	name,
-	readOnly = false,
 	required = false,
+	readOnly = false,
 	paramType = "body",
 	bodyPath = [],
 }) => {
@@ -28,11 +30,16 @@ export const StringField: React.FC<StringFieldProps> = ({
 	const [value, setValue] = useState<string>(
 		field.default ? String(field.default) : "",
 	);
+	const { rules, error, validate, inputClassName } = useFieldValidation(
+		field,
+		required,
+	);
 
 	// Update store when value changes
 	const handleChange = (newValue: string) => {
 		if (readOnly) return;
 
+		validate(newValue);
 		const parsedValue = newValue === "_undefined_" ? undefined : newValue;
 
 		console.log(parsedValue);
@@ -61,15 +68,13 @@ export const StringField: React.FC<StringFieldProps> = ({
 					{field.enum?.map((option) => {
 						const optionStr = String(option);
 						return (
-							<>
-								<Badge
-									key={optionStr}
-									variant="outline"
-									className="h-6 text-muted-foreground font-normal m-1 rounded-sm bg-muted"
-								>
-									{optionStr}
-								</Badge>
-							</>
+							<Badge
+								key={optionStr}
+								variant="outline"
+								className="h-6 text-muted-foreground font-normal m-1 rounded-sm bg-muted"
+							>
+								{optionStr}
+							</Badge>
 						);
 					})}
 				</div>
@@ -116,10 +121,10 @@ export const StringField: React.FC<StringFieldProps> = ({
 	}
 
 	return (
-		<div className="col-span-4 lg:col-span-1 my-auto">
+		<div className="col-span-4 lg:col-span-1 my-auto relative">
 			<Input
 				id={`param-${paramType}-${name}`}
-				className="border bg-input text-foreground m-auto"
+				className={`bg-input text-foreground m-auto ${inputClassName}`}
 				type="text"
 				value={value}
 				onChange={(e) => handleChange(e.target.value)}
@@ -128,6 +133,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 				pattern={field.pattern}
 				placeholder={field.example as string}
 			/>
+			<FieldErrorPopUp rules={rules} error={error} />
 		</div>
 	);
 };
