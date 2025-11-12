@@ -21,27 +21,11 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
 	paramType = "body",
 	bodyPath = [],
 }) => {
-	const { params, updatePathParam, updateQueryParam, updateBodyParam } =
+	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
 	const [value, setValue] = useState<"true" | "false" | "_undefined_">(
 		field.default ? (String(field.default) as "true" | "false") : "_undefined_",
 	);
-
-	// Get current value based on param type
-	let currentValue: unknown;
-	if (paramType === "path") {
-		currentValue = params.path[name];
-	} else if (paramType === "query") {
-		currentValue = params.query[name];
-	} else {
-		// For body params, navigate the path
-		const path = bodyPath.length > 0 ? bodyPath : [name];
-		currentValue = path.reduce<unknown>((obj, key) => {
-			return obj && typeof obj === "object"
-				? (obj as Record<string, unknown>)[key]
-				: undefined;
-		}, params.body);
-	}
 
 	if (readOnly) {
 		return null;
