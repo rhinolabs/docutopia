@@ -7,6 +7,7 @@ interface StringFieldProps {
 	field: SchemaObject;
 	name: string;
 	readOnly?: boolean;
+	required?: boolean;
 	paramType?: "path" | "query" | "body";
 	bodyPath?: (string | number)[];
 }
@@ -18,25 +19,32 @@ export const StringField: React.FC<StringFieldProps> = ({
 	field,
 	name,
 	readOnly = false,
+	required = false,
 	paramType = "body",
 	bodyPath = [],
 }) => {
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
-	const [value, setValue] = useState<string>((field.default as string) || "");
+	const [value, setValue] = useState<string>(
+		field.default ? String(field.default) : "",
+	);
 
 	// Update store when value changes
 	const handleChange = (newValue: string) => {
 		if (readOnly) return;
 
+		const parsedValue = newValue === "_undefined_" ? undefined : newValue;
+
+		console.log(parsedValue);
 		if (paramType === "path") {
-			updatePathParam(name, value);
+			updatePathParam(name, parsedValue);
 		} else if (paramType === "query") {
-			updateQueryParam(name, value);
+			updateQueryParam(name, parsedValue);
 		} else if (paramType === "body") {
 			const path = bodyPath.length > 0 ? bodyPath : [name];
-			updateBodyParam(path, value);
+			updateBodyParam(path, parsedValue);
 		}
+
 		setValue(newValue);
 	};
 
@@ -69,13 +77,23 @@ export const StringField: React.FC<StringFieldProps> = ({
 		}
 
 		return (
-			<div className="col-span-4 lg:col-span-1 my-auto">
+			<div className="col-span-4 lg:col-span-1 my-auto flex items-center gap-1">
 				<Select value={value} onValueChange={handleChange}>
-					<Select.Trigger className="m-auto bg-input text-foreground">
+					<Select.Trigger
+						className={`m-auto bg-input ${value === "_undefined_" ? "text-muted-foreground" : "text-foreground"}`}
+					>
 						<Select.Value placeholder="Select" />
 					</Select.Trigger>
 					<Select.Content className="bg-card">
 						<Select.Group>
+							{!required && (
+								<Select.Item
+									value="_undefined_"
+									className="text-muted-foreground hover:bg-accent"
+								>
+									Select
+								</Select.Item>
+							)}
 							{field.enum?.map((option) => {
 								const optionStr = String(option);
 								const key = `select-item-${optionStr.replace(" ", "-")}`;
