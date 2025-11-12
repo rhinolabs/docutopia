@@ -1,7 +1,6 @@
 import { useRequestParams } from "@/contexts";
 import type { SchemaObject } from "@/types/api/openapi";
-import { Button, Select, Switch } from "@rhinolabs/ui";
-import { CircleXIcon } from "lucide-react";
+import { Select } from "@rhinolabs/ui";
 import type React from "react";
 import { useState } from "react";
 
@@ -43,8 +42,6 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
 				: undefined;
 		}, params.body);
 	}
-
-	const boolValue = currentValue === "true" || currentValue === true;
 
 	if (readOnly) {
 		return null;
