@@ -27,7 +27,9 @@ export const StringField: React.FC<StringFieldProps> = ({
 }) => {
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
-	const [value, setValue] = useState<string>((field.default as string) || "");
+	const [value, setValue] = useState<string>(
+		field.default ? String(field.default) : "",
+	);
 	const { rules, error, validate, inputClassName } = useFieldValidation(
 		field,
 		required,
@@ -38,14 +40,16 @@ export const StringField: React.FC<StringFieldProps> = ({
 		if (readOnly) return;
 
 		validate(newValue);
+		const parsedValue = newValue === "_undefined_" ? undefined : newValue;
 
+		console.log(parsedValue);
 		if (paramType === "path") {
-			updatePathParam(name, newValue);
+			updatePathParam(name, parsedValue);
 		} else if (paramType === "query") {
-			updateQueryParam(name, newValue);
+			updateQueryParam(name, parsedValue);
 		} else if (paramType === "body") {
 			const path = bodyPath.length > 0 ? bodyPath : [name];
-			updateBodyParam(path, newValue);
+			updateBodyParam(path, parsedValue);
 		}
 
 		setValue(newValue);
@@ -78,13 +82,23 @@ export const StringField: React.FC<StringFieldProps> = ({
 		}
 
 		return (
-			<div className="col-span-4 lg:col-span-1 my-auto">
+			<div className="col-span-4 lg:col-span-1 my-auto flex items-center gap-1">
 				<Select value={value} onValueChange={handleChange}>
-					<Select.Trigger className="m-auto bg-input text-foreground">
+					<Select.Trigger
+						className={`m-auto bg-input ${value === "_undefined_" ? "text-muted-foreground" : "text-foreground"}`}
+					>
 						<Select.Value placeholder="Select" />
 					</Select.Trigger>
 					<Select.Content className="bg-card">
 						<Select.Group>
+							{!required && (
+								<Select.Item
+									value="_undefined_"
+									className="text-muted-foreground hover:bg-accent"
+								>
+									Select
+								</Select.Item>
+							)}
 							{field.enum?.map((option) => {
 								const optionStr = String(option);
 								const key = `select-item-${optionStr.replace(" ", "-")}`;
