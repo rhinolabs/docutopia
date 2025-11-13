@@ -131,6 +131,61 @@ export function RequestParamsProvider({ children }: { children: ReactNode }) {
 		setParams(initialParams);
 	}, []);
 
+	const deleteParamAtPath = useCallback((path: (string | number)[]) => {
+		if (path.length === 0) {
+			setParams((prev) => ({
+				...prev,
+				body: {},
+			}));
+			return;
+		}
+
+		setParams((prev) => {
+			const newBody = { ...(prev.body as Record<string, unknown>) };
+
+			// If path has only one element, delete directly from root
+			if (path.length === 1) {
+				delete newBody[path[0]];
+				return {
+					...prev,
+					body: newBody,
+				};
+			}
+
+			// Navigate to the parent of the target key
+			let current: Record<string, unknown> | unknown[] = newBody;
+			for (let i = 0; i < path.length - 1; i++) {
+				const key = path[i];
+
+				if (Array.isArray(current)) {
+					current = current[Number(key)] as Record<string, unknown> | unknown[];
+				} else {
+					current = (current as Record<string, unknown>)[key] as
+						| Record<string, unknown>
+						| unknown[];
+				}
+
+				// If we can't navigate to the parent, the path doesn't exist
+				if (!current || typeof current !== "object") {
+					return prev; // Return unchanged state
+				}
+			}
+
+			// Delete the last key
+			const lastKey = path[path.length - 1];
+			if (Array.isArray(current)) {
+				current.splice(Number(lastKey), 1);
+			} else {
+				delete (current as Record<string, unknown>)[lastKey];
+			}
+
+			return {
+				...prev,
+				body: newBody,
+			};
+		});
+	}, []);
+
 	const setAllParams = useCallback((newParams: RequestParameters) => {
 		setParams(newParams);
 	}, []);
@@ -140,6 +195,7 @@ export function RequestParamsProvider({ children }: { children: ReactNode }) {
 		updatePathParam,
 		updateQueryParam,
 		updateBodyParam,
+		deleteParamAtPath,
 		clearParams,
 		setAllParams,
 	};

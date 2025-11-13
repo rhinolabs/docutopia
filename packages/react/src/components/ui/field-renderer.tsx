@@ -23,7 +23,9 @@ export const RenderField: React.FC<RenderFieldProps> = ({
 		);
 	}
 
-	const FieldComponent = getFieldComponent(field.schema?.type || "");
+	const FieldComponent = getFieldComponent(
+		field.schema?.type || field.combineSchemas || "",
+	);
 
 	if (!FieldComponent) {
 		console.warn(`Unsupported field type: ${field.schema?.type}`);
@@ -36,7 +38,8 @@ export const RenderField: React.FC<RenderFieldProps> = ({
 
 	return (
 		<FieldComponent
-			field={field.schema}
+			field={field}
+			schema={field.schema}
 			name={field.name}
 			readOnly={readOnly}
 			required={field.required}

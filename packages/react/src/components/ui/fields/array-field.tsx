@@ -9,7 +9,7 @@ import { DynamicObjectFields } from "../dynamic-object-fields";
 import { ParamField } from "./param-field";
 
 interface ArrayFieldProps {
-	field: SchemaObject;
+	schema: SchemaObject;
 	name?: string;
 	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
@@ -17,13 +17,13 @@ interface ArrayFieldProps {
 }
 
 export const ArrayField: React.FC<ArrayFieldProps> = ({
-	field,
+	schema,
 	name = "items",
 	readOnly = false,
 	paramType: _paramType = "body",
 	bodyPath = [],
 }) => {
-	const items = asSchemaObject(field.items);
+	const items = asSchemaObject(schema.items);
 	const itemsType = items?.type;
 
 	// Array of objects

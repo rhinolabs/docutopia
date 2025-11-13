@@ -56,6 +56,10 @@ export interface RequestParamsContextValue {
 	 */
 	updateBodyParam: (path: (string | number)[], value: unknown) => void;
 	/**
+	 * Delete a parameter at the specified path (removes the last key in the path)
+	 */
+	deleteParamAtPath: (path: (string | number)[]) => void;
+	/**
 	 * Clear all parameters
 	 */
 	clearParams: () => void;

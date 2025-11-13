@@ -14,7 +14,8 @@ function inferSchemaType(schema: SchemaObject): string {
 	if (schema.type) return schema.type;
 
 	// Infer from other properties
-	if (schema.properties) return "object";
+	if (schema.properties || schema.oneOf || schema.anyOf || schema.allOf)
+		return "object";
 	if (schema.items) return "array";
 	if (schema.enum) return "string";
 
@@ -69,6 +70,23 @@ function normalizeSchema(
 		>;
 	}
 
+	// Normalize combined schemas if present
+	if (normalizedSchema.oneOf) {
+		normalizedSchema.oneOf = normalizedSchema.oneOf.map((subSchema, index) =>
+			normalizeSchema(subSchema, spec, `${fieldName}.oneOf[${index}]`),
+		);
+	}
+	if (normalizedSchema.anyOf) {
+		normalizedSchema.anyOf = normalizedSchema.anyOf.map((subSchema, index) =>
+			normalizeSchema(subSchema, spec, `${fieldName}.anyOf[${index}]`),
+		);
+	}
+	if (normalizedSchema.allOf) {
+		normalizedSchema.allOf = normalizedSchema.allOf.map((subSchema, index) =>
+			normalizeSchema(subSchema, spec, `${fieldName}.allOf[${index}]`),
+		);
+	}
+
 	// Normalize items if it's an array
 	if (normalizedSchema.items) {
 		// Cast to SchemaOrRef for type compatibility, but we know it's SchemaObject
@@ -96,6 +114,33 @@ export function normalizeBodyParams(
 
 	// Normalize the root schema
 	const normalizedSchema = normalizeSchema(schema, spec, "body");
+
+	if (
+		normalizedSchema.oneOf ||
+		normalizedSchema.anyOf ||
+		normalizedSchema.allOf
+	) {
+		const combineSchemas = normalizedSchema.oneOf
+			? "oneOf"
+			: normalizedSchema.anyOf
+				? "anyOf"
+				: "allOf";
+
+		const name = normalizedSchema.oneOf
+			? "One of"
+			: normalizedSchema.anyOf
+				? "Any of"
+				: "All of";
+
+		const param: ParameterObject = {
+			in: "body",
+			combineSchemas,
+			name,
+			schema: normalizedSchema,
+		};
+
+		return [param];
+	}
 
 	// Extract properties if it's an object
 	if (normalizedSchema.type === "object" && normalizedSchema.properties) {
