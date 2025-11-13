@@ -9,6 +9,9 @@ export interface SchemaObject {
 	required?: string[];
 	enum?: (string | number | boolean)[];
 	default?: number | string;
+	oneOf?: SchemaObject[];
+	anyOf?: SchemaObject[];
+	allOf?: SchemaObject[];
 	example?:
 		| number
 		| string

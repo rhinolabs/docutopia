@@ -4,7 +4,7 @@ import { Switch } from "@rhinolabs/ui";
 import type React from "react";
 
 interface BooleanFieldProps {
-	field: SchemaObject;
+	schema: SchemaObject;
 	name: string;
 	readOnly?: boolean;
 	paramType?: "path" | "query" | "body";
