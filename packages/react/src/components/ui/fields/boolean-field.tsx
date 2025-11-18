@@ -1,11 +1,12 @@
 import { useRequestParams } from "@/contexts";
-import type { SchemaObject } from "@/types/api/openapi";
+import type { ParameterObject, SchemaObject } from "@/types/api/openapi";
 import { Select } from "@rhinolabs/ui";
 import type React from "react";
 import { useState } from "react";
 
 interface BooleanFieldProps {
 	schema: SchemaObject;
+	field: ParameterObject;
 	name: string;
 	readOnly?: boolean;
 	required?: boolean;
@@ -15,7 +16,7 @@ interface BooleanFieldProps {
 
 export const BooleanField: React.FC<BooleanFieldProps> = ({
 	name,
-	field,
+	schema,
 	readOnly = false,
 	required = false,
 	paramType = "body",
@@ -24,7 +25,9 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
 	const [value, setValue] = useState<"true" | "false" | "_undefined_">(
-		field.default ? (String(field.default) as "true" | "false") : "_undefined_",
+		schema.default
+			? (String(schema.default) as "true" | "false")
+			: "_undefined_",
 	);
 
 	if (readOnly) {

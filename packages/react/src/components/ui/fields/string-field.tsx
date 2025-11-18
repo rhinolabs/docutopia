@@ -1,12 +1,13 @@
 import { useRequestParams } from "@/contexts";
 import { useFieldValidation } from "@/hooks/useFieldValidation";
-import type { SchemaObject } from "@/types/api/openapi";
+import type { ParameterObject, SchemaObject } from "@/types/api/openapi";
 import { Badge, Input, Select } from "@rhinolabs/ui";
 import { useState } from "react";
 import { FieldErrorPopUp } from "../field-error-popup";
 
 interface StringFieldProps {
 	schema: SchemaObject;
+	field: ParameterObject;
 	name: string;
 	required?: boolean;
 	readOnly?: boolean;
@@ -28,7 +29,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
 	const [value, setValue] = useState<string>(
-		field.default ? String(field.default) : "",
+		schema.default ? String(schema.default) : "",
 	);
 	const { rules, error, validate, inputClassName } = useFieldValidation(
 		schema,
@@ -98,7 +99,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 									Select
 								</Select.Item>
 							)}
-							{field.enum?.map((option) => {
+							{schema.enum?.map((option) => {
 								const optionStr = String(option);
 								const key = `select-item-${optionStr.replace(" ", "-")}`;
 
