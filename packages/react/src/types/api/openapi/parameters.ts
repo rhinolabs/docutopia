@@ -7,5 +7,6 @@ export interface ParameterObject {
 	in: "path" | "query" | "header" | "cookie" | "body" | "response";
 	required?: boolean;
 	schema?: SchemaObject;
+	combineSchemas?: "oneOf" | "anyOf" | "allOf";
 	description?: string;
 }

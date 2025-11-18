@@ -3,11 +3,12 @@ import { BooleanField } from "@/components/ui/fields/boolean-field";
 import { IntegerField } from "@/components/ui/fields/integer-field";
 import { ObjectField } from "@/components/ui/fields/object-field";
 import { StringField } from "@/components/ui/fields/string-field";
-import type { SchemaObject } from "@/types/api/openapi";
+import type { ParameterObject, SchemaObject } from "@/types/api/openapi";
 import type React from "react";
 
 type FieldComponent = React.FC<{
-	field: SchemaObject;
+	schema: SchemaObject;
+	field: ParameterObject;
 	name: string;
 	readOnly?: boolean;
 	required?: boolean;
@@ -31,3 +32,6 @@ registerFieldType("number", IntegerField); // number uses same component as inte
 registerFieldType("boolean", BooleanField);
 registerFieldType("array", ArrayField);
 registerFieldType("object", ObjectField);
+registerFieldType("oneOf", ObjectField);
+registerFieldType("anyOf", ObjectField);
+registerFieldType("allOf", ObjectField);
