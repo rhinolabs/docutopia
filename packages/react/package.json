@@ -21,6 +21,10 @@
 			"import": "./dist/browser/docutopia.js",
 			"require": "./dist/browser/docutopia.js"
 		},
+		"./browser/styles": {
+			"import": "./dist/browser/docutopia.css",
+			"require": "./dist/browser/docutopia.css"
+		},
 		"./styles": {
 			"import": "./dist/index.css",
 			"require": "./dist/index.css"
