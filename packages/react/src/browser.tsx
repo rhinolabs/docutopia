@@ -1,23 +1,23 @@
 import { createRoot } from "react-dom/client";
 import { Docutopia } from "./docutopia";
-
-export { Docutopia } from "./docutopia";
-export { App } from "./app";
 import "./index.css";
+import type { OpenApiDocument } from "@/types/api/openapi";
+
+export interface DocutopiaRenderConfig {
+	specUrl?: string;
+	spec?: OpenApiDocument;
+	baseUrl: string;
+}
 
 /**
- * Render Docutopia to a container element
- * This is the browser entry point for standalone usage
+ * Render Docutopia to a DOM element
  */
-export function renderDocutopia(
-	container: HTMLElement,
-	props: {
-		specUrl: string;
-		baseUrl: string;
-		basename?: string;
-	},
-) {
-	const root = createRoot(container);
-	root.render(<Docutopia {...props} />);
-	return root;
+export function render(elementId: string, config: DocutopiaRenderConfig): void {
+	const element = document.getElementById(elementId);
+	if (!element) {
+		throw new Error(`Docutopia: Element with id "${elementId}" not found`);
+	}
+
+	const root = createRoot(element);
+	root.render(<Docutopia {...config} />);
 }
