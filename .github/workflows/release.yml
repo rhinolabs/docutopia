@@ -136,6 +136,9 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install
 
+      - name: 🛠️ Build react package
+        run: pnpm --filter @docutopia/react build
+
       - name: 🛠️ Build nextjs package
         run: pnpm --filter @docutopia/nextjs build
 
