@@ -1,6 +1,6 @@
 {
 	"name": "@docutopia/nextjs",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "Next.js adapter for Docutopia - A modern, interactive API documentation library",
 	"author": {
 		"name": "Rhinolabs Agency",
