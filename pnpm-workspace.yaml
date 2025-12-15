@@ -2,3 +2,5 @@ packages:
   - 'packages/*'
   - 'examples/*'
   - 'apps/*'
+
+minimumreleaseage: 10080

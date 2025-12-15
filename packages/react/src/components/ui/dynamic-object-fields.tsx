@@ -25,13 +25,6 @@ export const DynamicObjectFields: React.FC<DynamicObjectFieldsProps> = ({
 	const initializedRef = useRef(false);
 	const { params, updateBodyParam } = useRequestParams();
 
-	console.log(
-		"DynamicObjectFields render, items:",
-		items.length,
-		"openItems:",
-		openItems.size,
-	);
-
 	// Initialize items from store values - only once on mount if store has data
 	useEffect(() => {
 		// Only initialize if we haven't initialized yet and don't have items

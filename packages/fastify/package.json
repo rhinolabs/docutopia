@@ -1,6 +1,6 @@
 {
 	"name": "@docutopia/fastify",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "Fastify plugin for Docutopia - A modern alternative to @fastify/swagger-ui",
 	"author": {
 		"name": "Rhinolabs Agency",

@@ -13,15 +13,18 @@ export default defineConfig({
 		outDir: "dist/browser",
 		lib: {
 			entry: "./src/browser.tsx",
-			formats: ["es"],
-			fileName: "docutopia",
+			name: "Docutopia",
+			formats: ["iife"],
+			fileName: () => "docutopia.js",
 		},
 		rollupOptions: {
 			output: {
-				// Bundle everything together for browser use
 				inlineDynamicImports: true,
+				assetFileNames: "docutopia.[ext]",
 			},
 		},
+		minify: "esbuild",
+		cssCodeSplit: false,
 		sourcemap: false,
 	},
 	define: {

@@ -1,12 +1,13 @@
 import { useRequestParams } from "@/contexts";
 import { useFieldValidation } from "@/hooks/useFieldValidation";
-import type { SchemaObject } from "@/types/api/openapi";
+import type { ParameterObject, SchemaObject } from "@/types/api/openapi";
 import { Badge, Input, Select } from "@rhinolabs/ui";
 import { useState } from "react";
 import { FieldErrorPopUp } from "../field-error-popup";
 
 interface StringFieldProps {
-	field: SchemaObject;
+	schema: SchemaObject;
+	field: ParameterObject;
 	name: string;
 	required?: boolean;
 	readOnly?: boolean;
@@ -18,7 +19,7 @@ const isEnumField = (field: SchemaObject): boolean =>
 	Array.isArray(field.enum) && field.enum.length > 0;
 
 export const StringField: React.FC<StringFieldProps> = ({
-	field,
+	schema,
 	name,
 	required = false,
 	readOnly = false,
@@ -28,10 +29,10 @@ export const StringField: React.FC<StringFieldProps> = ({
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
 	const [value, setValue] = useState<string>(
-		field.default ? String(field.default) : "",
+		schema.default ? String(schema.default) : "",
 	);
 	const { rules, error, validate, inputClassName } = useFieldValidation(
-		field,
+		schema,
 		required,
 	);
 
@@ -40,9 +41,8 @@ export const StringField: React.FC<StringFieldProps> = ({
 		if (readOnly) return;
 
 		validate(newValue);
-		const parsedValue = newValue === "_undefined_" ? undefined : newValue;
 
-		console.log(parsedValue);
+		const parsedValue = newValue === "_undefined_" ? undefined : newValue;
 		if (paramType === "path") {
 			updatePathParam(name, parsedValue);
 		} else if (paramType === "query") {
@@ -55,17 +55,17 @@ export const StringField: React.FC<StringFieldProps> = ({
 		setValue(newValue);
 	};
 
-	if (readOnly && !isEnumField(field)) {
+	if (readOnly && !isEnumField(schema)) {
 		return null;
 	}
 
-	if (isEnumField(field)) {
+	if (isEnumField(schema)) {
 		if (readOnly) {
 			return (
 				<div
-					className={`${(field.enum?.length ?? 0) > 3 ? "flex flex-wrap col-start-1 col-end-5 row-span-2" : "col-span-4 flex flex-row-reverse my-auto"}`}
+					className={`${(schema.enum?.length ?? 0) > 3 ? "flex flex-wrap col-start-1 col-end-5 row-span-2" : "col-span-4 flex flex-row-reverse my-auto"}`}
 				>
-					{field.enum?.map((option) => {
+					{schema.enum?.map((option) => {
 						const optionStr = String(option);
 						return (
 							<Badge
@@ -99,7 +99,7 @@ export const StringField: React.FC<StringFieldProps> = ({
 									Select
 								</Select.Item>
 							)}
-							{field.enum?.map((option) => {
+							{schema.enum?.map((option) => {
 								const optionStr = String(option);
 								const key = `select-item-${optionStr.replace(" ", "-")}`;
 
@@ -128,10 +128,10 @@ export const StringField: React.FC<StringFieldProps> = ({
 				type="text"
 				value={value}
 				onChange={(e) => handleChange(e.target.value)}
-				minLength={field.minLength}
-				maxLength={field.maxLength}
-				pattern={field.pattern}
-				placeholder={field.example as string}
+				minLength={schema.minLength}
+				maxLength={schema.maxLength}
+				pattern={schema.pattern}
+				placeholder={schema.example as string}
 			/>
 			<FieldErrorPopUp rules={rules} error={error} />
 		</div>

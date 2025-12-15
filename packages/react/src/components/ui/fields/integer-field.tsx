@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FieldErrorPopUp } from "../field-error-popup";
 
 interface IntegerFieldProps {
-	field: SchemaObject;
+	schema: SchemaObject;
 	name: string;
 	readOnly?: boolean;
 	required?: boolean;
@@ -15,7 +15,7 @@ interface IntegerFieldProps {
 }
 
 export const IntegerField: React.FC<IntegerFieldProps> = ({
-	field,
+	schema,
 	name,
 	readOnly = false,
 	required = false,
@@ -24,9 +24,9 @@ export const IntegerField: React.FC<IntegerFieldProps> = ({
 }) => {
 	const { updatePathParam, updateQueryParam, updateBodyParam } =
 		useRequestParams();
-	const [value, setValue] = useState<string>(String(field.default ?? ""));
+	const [value, setValue] = useState<string>(String(schema.default ?? ""));
 	const { error, validate, rules, inputClassName } = useFieldValidation(
-		field,
+		schema,
 		required,
 	);
 
@@ -61,9 +61,9 @@ export const IntegerField: React.FC<IntegerFieldProps> = ({
 				type="number"
 				value={value}
 				onChange={handleChange}
-				min={field.minimum}
-				max={field.maximum}
-				placeholder={field.example ? String(field.example) : undefined}
+				min={schema.minimum}
+				max={schema.maximum}
+				placeholder={schema.example ? String(schema.example) : undefined}
 			/>
 			<FieldErrorPopUp error={error} rules={rules} />
 		</div>
