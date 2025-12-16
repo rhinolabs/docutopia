@@ -1,4 +1,8 @@
 import type { AuthCredentials, OpenApiDocument } from "@/core/types";
+import type {
+	OAuth2SecurityScheme,
+	OpenIdConnectSecurityScheme,
+} from "@/types/api/openapi/security";
 
 /**
  * Maps OpenAPI security schemes to Docutopia auth types
@@ -10,7 +14,7 @@ import type { AuthCredentials, OpenApiDocument } from "@/core/types";
  * ```ts
  * const spec = await loadSpec(url);
  * const authTypes = getAvailableAuthTypes(spec);
- * // ["apiKey", "bearer"]
+ * // ["apiKey", "bearer", "oauth2"]
  * ```
  */
 export function getAvailableAuthTypes(
@@ -33,13 +37,55 @@ export function getAvailableAuthTypes(
 				}
 				break;
 
-			// oauth2 and openIdConnect are not yet supported by Docutopia
 			case "oauth2":
+				availableTypes.add("oauth2");
+				break;
+
 			case "openIdConnect":
-				// TODO: Add support for OAuth2 and OpenID Connect
+				availableTypes.add("openIdConnect");
 				break;
 		}
 	}
 
 	return Array.from(availableTypes);
+}
+
+/**
+ * Gets the OAuth2 security scheme from the OpenAPI spec
+ *
+ * @param spec - OpenAPI document specification
+ * @returns OAuth2 security scheme or null if not found
+ */
+export function getOAuth2Scheme(
+	spec: OpenApiDocument,
+): OAuth2SecurityScheme | null {
+	const schemes = spec.components?.securitySchemes || {};
+
+	for (const scheme of Object.values(schemes)) {
+		if (scheme.type === "oauth2") {
+			return scheme as OAuth2SecurityScheme;
+		}
+	}
+
+	return null;
+}
+
+/**
+ * Gets the OpenID Connect security scheme from the OpenAPI spec
+ *
+ * @param spec - OpenAPI document specification
+ * @returns OpenID Connect security scheme or null if not found
+ */
+export function getOpenIdConnectScheme(
+	spec: OpenApiDocument,
+): OpenIdConnectSecurityScheme | null {
+	const schemes = spec.components?.securitySchemes || {};
+
+	for (const scheme of Object.values(schemes)) {
+		if (scheme.type === "openIdConnect") {
+			return scheme as OpenIdConnectSecurityScheme;
+		}
+	}
+
+	return null;
 }

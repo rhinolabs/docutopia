@@ -1,9 +1,10 @@
 import type { AuthCredentials } from "@/core/types";
 import { useAuth, useOpenAPI } from "@/hooks";
 import { Button, Card, Input, Select } from "@rhinolabs/ui";
-import { Code, Eye, EyeOff, IdCard, Key, Shield } from "lucide-react";
+import { Code, Eye, EyeOff, IdCard, Key, KeyRound, Shield } from "lucide-react";
 import type React from "react";
 import { useEffect, useState } from "react";
+import { OAuth2Form } from "./oauth2-form";
 
 interface AuthTypeConfig {
 	type: AuthCredentials["type"];
@@ -38,6 +39,22 @@ const authConfigs: AuthTypeConfig[] = [
 		description: "Authenticate with username and password",
 		placeholder: "Enter password",
 		fieldName: "password",
+	},
+	{
+		type: "oauth2",
+		icon: KeyRound,
+		label: "OAuth 2.0",
+		description: "Authenticate using OAuth2 flows",
+		placeholder: "",
+		fieldName: "",
+	},
+	{
+		type: "openIdConnect",
+		icon: KeyRound,
+		label: "OpenID Connect",
+		description: "Authenticate using OpenID Connect",
+		placeholder: "",
+		fieldName: "",
 	},
 ];
 
@@ -117,65 +134,75 @@ export const EnhancedCredentialsForm: React.FC = () => {
 			</Card.Header>
 
 			<Card.Content>
-				{/* Credential Input Fields */}
-				{credentials.type === "basic" && (
-					<div className="space-y-2">
-						<label
-							className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
-							htmlFor="username"
-						>
-							Username
-						</label>
-						<Input
-							name="username"
-							placeholder="Enter username"
-							value={credentials.username || ""}
-							onChange={(e) => updateCredentials({ username: e.target.value })}
-							className="font-mono text-sm bg-card text-foreground"
-						/>
-					</div>
-				)}
+				{/* OAuth2/OpenIdConnect Form */}
+				{credentials.type === "oauth2" ||
+				credentials.type === "openIdConnect" ? (
+					<OAuth2Form />
+				) : (
+					<>
+						{/* Credential Input Fields */}
+						{credentials.type === "basic" && (
+							<div className="space-y-2">
+								<label
+									className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
+									htmlFor="username"
+								>
+									Username
+								</label>
+								<Input
+									name="username"
+									placeholder="Enter username"
+									value={credentials.username || ""}
+									onChange={(e) =>
+										updateCredentials({ username: e.target.value })
+									}
+									className="font-mono text-sm bg-card text-foreground"
+								/>
+							</div>
+						)}
 
-				<div className="space-y-2">
-					<label
-						className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
-						htmlFor={currentConfig?.fieldName}
-					>
-						{currentConfig?.fieldName || "credential"}
-					</label>
-					<div className="flex items-center gap-2 relative">
-						<Input
-							name={currentConfig?.fieldName}
-							type={showPassword ? "text" : "password"}
-							placeholder={currentConfig?.placeholder || "Enter credential"}
-							value={credentials.value}
-							onChange={(e) => updateCredentials({ value: e.target.value })}
-							className="flex-1 font-mono text-sm bg-card text-foreground"
-						/>
+						<div className="space-y-2">
+							<label
+								className="text-xs font-medium text-muted-foreground capitalize tracking-wider"
+								htmlFor={currentConfig?.fieldName}
+							>
+								{currentConfig?.fieldName || "credential"}
+							</label>
+							<div className="flex items-center gap-2 relative">
+								<Input
+									name={currentConfig?.fieldName}
+									type={showPassword ? "text" : "password"}
+									placeholder={currentConfig?.placeholder || "Enter credential"}
+									value={credentials.value}
+									onChange={(e) => updateCredentials({ value: e.target.value })}
+									className="flex-1 font-mono text-sm bg-card text-foreground"
+								/>
 
-						<Button
-							variant="ghost"
-							size="sm"
-							onClick={() => setShowPassword(!showPassword)}
-							className="hover:bg-accent absolute right-0.5 bg-background"
-						>
-							{showPassword ? (
-								<EyeOff className="h-4 w-4" />
-							) : (
-								<Eye className="h-4 w-4" />
-							)}
-						</Button>
-					</div>
-				</div>
+								<Button
+									variant="ghost"
+									size="sm"
+									onClick={() => setShowPassword(!showPassword)}
+									className="hover:bg-accent absolute right-0.5 bg-background"
+								>
+									{showPassword ? (
+										<EyeOff className="h-4 w-4" />
+									) : (
+										<Eye className="h-4 w-4" />
+									)}
+								</Button>
+							</div>
+						</div>
 
-				{/* Status Indicator */}
-				{credentials.value && (
-					<div className="flex items-center gap-2 mt-2">
-						<div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
-						<span className="text-xs text-muted-foreground">
-							Credentials configured
-						</span>
-					</div>
+						{/* Status Indicator */}
+						{credentials.value && (
+							<div className="flex items-center gap-2 mt-2">
+								<div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
+								<span className="text-xs text-muted-foreground">
+									Credentials configured
+								</span>
+							</div>
+						)}
+					</>
 				)}
 			</Card.Content>
 		</Card>

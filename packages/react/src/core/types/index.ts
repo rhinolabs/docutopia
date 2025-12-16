@@ -26,13 +26,40 @@ export interface RequestConfig {
 	timeout?: number;
 }
 
+export type OAuth2FlowType =
+	| "implicit"
+	| "password"
+	| "clientCredentials"
+	| "authorizationCode";
+
+export interface OAuth2Config {
+	flow: OAuth2FlowType;
+	clientId: string;
+	clientSecret?: string; // Only for clientCredentials and authorizationCode (confidential clients)
+	authorizationUrl?: string;
+	tokenUrl?: string;
+	scopes: string[];
+	refreshToken?: string;
+	expiresAt?: number; // Unix timestamp when token expires
+}
+
+export interface OpenIdConnectConfig {
+	discoveryUrl: string;
+	clientId: string;
+	scopes: string[];
+}
+
 export interface AuthCredentials {
-	type: "apiKey" | "bearer" | "basic";
+	type: "apiKey" | "bearer" | "basic" | "oauth2" | "openIdConnect";
 	value: string;
 	username?: string; // For basic auth
 	keyName?: string; // For API key location (x-api-key, api-key, etc.)
 	location?: "header" | "query"; // Where to send the credential
 	prefix?: string; // e.g., "Bearer ", "Token ", etc.
+	// OAuth2 specific configuration
+	oauth2?: OAuth2Config;
+	// OpenID Connect specific configuration
+	openIdConnect?: OpenIdConnectConfig;
 }
 
 export interface ParameterValue {
