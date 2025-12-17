@@ -29,7 +29,9 @@ pnpm add @docutopia/react
 yarn add @docutopia/react
 ```
 
-## Quick Start
+## Usage
+
+### React
 
 ```jsx
 import { Docutopia } from '@docutopia/react';
@@ -47,6 +49,38 @@ function App() {
 export default App;
 ```
 
+### Browser (IIFE)
+
+For projects without a build system, use the standalone browser bundle via CDN.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/@docutopia/react/dist/browser/docutopia.css">
+</head>
+<body>
+  <div id="docs"></div>
+  <script src="https://unpkg.com/@docutopia/react/dist/browser/docutopia.js"></script>
+  <script>
+    Docutopia.render('docs', {
+      specUrl: 'https://petstore3.swagger.io/api/v3/openapi.json',
+      baseUrl: 'https://petstore3.swagger.io' // optional
+    });
+  </script>
+</body>
+</html>
+```
+
+#### `Docutopia.render(elementId, config)`
+
+Renders the documentation to a DOM element.
+
+- **elementId** (`string`): The ID of the container element
+- **config** (`object`):
+  - `specUrl` (`string`): URL to your OpenAPI specification
+  - `baseUrl` (`string`): Base URL for API requests
+
 ## Props
 
 ### `specUrl` (required)
@@ -58,39 +92,6 @@ export default App;
 
 - **Type:** `string`
 - **Description:** Base URL for API requests. If not provided, uses the server URL from the OpenAPI spec
-
-```jsx
-<Docutopia
-  specUrl="https://api.example.com/openapi.json"
-  baseUrl="https://api.example.com"
-/>
-```
-
-## Framework Integration
-
-Works with any React framework:
-
-**Next.js:**
-```jsx
-'use client'; // Required for Next.js App Router
-
-import { Docutopia } from '@docutopia/react';
-import '@docutopia/react/dist/style.css';
-
-export default function DocsPage() {
-  return <Docutopia specUrl="/api/openapi.json" />;
-}
-```
-
-**Vite/CRA:**
-```jsx
-import { Docutopia } from '@docutopia/react';
-import '@docutopia/react/dist/style.css';
-
-function App() {
-  return <Docutopia specUrl="https://api.example.com/openapi.json" />;
-}
-```
 
 ## License
 
