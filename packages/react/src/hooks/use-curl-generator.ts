@@ -11,6 +11,7 @@ interface CurlOptions {
 	includeHeaders?: boolean;
 	includeBody?: boolean;
 	prettify?: boolean;
+	includeAuth?: boolean;
 }
 
 export const useCurlGenerator = (
@@ -24,6 +25,7 @@ export const useCurlGenerator = (
 		includeHeaders = true,
 		includeBody = true,
 		prettify = true,
+		includeAuth = true,
 	} = options;
 
 	return useMemo(() => {
@@ -49,7 +51,7 @@ export const useCurlGenerator = (
 		}
 
 		// Add auth query parameters if applicable
-		if (credentials.value && credentials.location === "query") {
+		if (includeAuth && credentials.value && credentials.location === "query") {
 			const authQuery = generateAuthQuery(credentials);
 			for (const [key, value] of Object.entries(authQuery)) {
 				queryParams.append(key, value);
@@ -69,7 +71,7 @@ export const useCurlGenerator = (
 			parts.push('--header "Content-Type: application/json"');
 
 			// Add authentication headers
-			if (credentials.value) {
+			if (includeAuth && credentials.value) {
 				const authHeaders = generateAuthHeaders(credentials);
 				for (const [key, value] of Object.entries(authHeaders)) {
 					parts.push(`--header "${key}: ${value}"`);
@@ -103,6 +105,7 @@ export const useCurlGenerator = (
 		includeHeaders,
 		includeBody,
 		prettify,
+		includeAuth,
 	]);
 };
 

@@ -37,12 +37,6 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		const { executeRequest, isLoading, response, error, clearResponse } =
 			useApiRequest(endpointBaseUrl);
 
-		// Generate cURL command with current settings
-		const curlCommand = useCurlGenerator(operation, credentials, params, {
-			baseUrl: endpointBaseUrl,
-			prettify: true,
-		});
-
 		const getPathSecurity = () => {
 			const rootSecurity = spec?.security || [];
 			const pathSecurity = operation.security;
@@ -55,7 +49,15 @@ export const TryApiPanel = memo<TryApiPanelProps>(
 		};
 
 		const security = getPathSecurity();
-		const disabledDueToAuth = security.length === 0 ? false : !isAuthenticated;
+		const requiresAuth = security.length > 0;
+		const disabledDueToAuth = requiresAuth && !isAuthenticated;
+
+		// Generate cURL command with current settings
+		const curlCommand = useCurlGenerator(operation, credentials, params, {
+			baseUrl: endpointBaseUrl,
+			prettify: true,
+			includeAuth: requiresAuth,
+		});
 
 		const handleTryRequest = async () => {
 			try {
