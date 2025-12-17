@@ -20,11 +20,13 @@
 		"build": "pnpm -r build",
 		"dev": "pnpm -r --parallel dev",
 		"lint": "biome check .",
-		"lint:fix": "biome check . --fix --unsafe"
+		"lint:fix": "biome check . --fix --unsafe",
+		"oauth2:mock": "tsx scripts/oauth/mock-server.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/node": "^22.10.3",
+		"oauth2-mock-server": "^8.2.0",
 		"tsx": "^4.19.2"
 	},
 	"license": "MIT",
