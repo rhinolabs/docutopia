@@ -1,0 +1,277 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "OAuth2 Local Test API",
+		"description": "API para testear OAuth2 con mock server local (oauth2-mock-server)",
+		"version": "1.0.0",
+		"contact": {
+			"name": "Docutopia",
+			"url": "https://github.com/rhinolabs/docutopia"
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3001/api",
+			"description": "Local development server"
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"oauth2": {
+				"type": "oauth2",
+				"description": "OAuth2 authentication with local mock server",
+				"flows": {
+					"authorizationCode": {
+						"authorizationUrl": "http://localhost:8080/authorize",
+						"tokenUrl": "http://localhost:8080/token",
+						"scopes": {
+							"read": "Read access to resources",
+							"write": "Write access to resources",
+							"admin": "Admin access"
+						}
+					},
+					"clientCredentials": {
+						"tokenUrl": "http://localhost:8080/token",
+						"scopes": {
+							"api": "Full API access"
+						}
+					},
+					"password": {
+						"tokenUrl": "http://localhost:8080/token",
+						"scopes": {
+							"read": "Read access",
+							"write": "Write access"
+						}
+					}
+				}
+			}
+		},
+		"schemas": {
+			"User": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"format": "uuid"
+					},
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string",
+						"format": "email"
+					}
+				},
+				"required": ["id", "name", "email"]
+			},
+			"Error": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "integer"
+					},
+					"message": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	},
+	"security": [
+		{
+			"oauth2": ["read"]
+		}
+	],
+	"paths": {
+		"/users": {
+			"get": {
+				"summary": "List users",
+				"description": "Get a list of all users",
+				"operationId": "listUsers",
+				"tags": ["Users"],
+				"security": [
+					{
+						"oauth2": ["read"]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/User"
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"summary": "Create user",
+				"description": "Create a new user",
+				"operationId": "createUser",
+				"tags": ["Users"],
+				"security": [
+					{
+						"oauth2": ["write"]
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string",
+										"format": "email"
+									}
+								},
+								"required": ["name", "email"]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "User created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					}
+				}
+			}
+		},
+		"/users/{userId}": {
+			"get": {
+				"summary": "Get user by ID",
+				"description": "Get a specific user by their ID",
+				"operationId": "getUserById",
+				"tags": ["Users"],
+				"security": [
+					{
+						"oauth2": ["read"]
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "uuid"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "User not found"
+					}
+				}
+			}
+		},
+		"/admin/settings": {
+			"get": {
+				"summary": "Get admin settings",
+				"description": "Get application settings (admin only)",
+				"operationId": "getAdminSettings",
+				"tags": ["Admin"],
+				"security": [
+					{
+						"oauth2": ["admin"]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"maintenance": {
+											"type": "boolean"
+										},
+										"maxUsers": {
+											"type": "integer"
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Forbidden - Admin access required"
+					}
+				}
+			}
+		},
+		"/health": {
+			"get": {
+				"summary": "Health check",
+				"description": "Check API health status (no auth required)",
+				"operationId": "healthCheck",
+				"tags": ["System"],
+				"security": [],
+				"responses": {
+					"200": {
+						"description": "API is healthy",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"enum": ["healthy", "degraded"]
+										},
+										"timestamp": {
+											"type": "string",
+											"format": "date-time"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

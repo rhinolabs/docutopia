@@ -57,6 +57,24 @@ const authTypeDefaults: Record<
 	basic: {
 		location: "header",
 	},
+	oauth2: {
+		prefix: "Bearer ",
+		location: "header",
+		oauth2: {
+			flow: "authorizationCode",
+			clientId: "",
+			scopes: [],
+		},
+	},
+	openIdConnect: {
+		prefix: "Bearer ",
+		location: "header",
+		openIdConnect: {
+			discoveryUrl: "",
+			clientId: "",
+			scopes: [],
+		},
+	},
 };
 
 /**
@@ -167,6 +185,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 					const encoded = btoa(`${credentials.username}:${credentials.value}`);
 					headers.Authorization = `Basic ${encoded}`;
 				}
+				break;
+
+			case "oauth2":
+			case "openIdConnect":
+				// OAuth2 and OpenID Connect use Bearer token in Authorization header
+				headers.Authorization = `Bearer ${credentials.value}`;
 				break;
 		}
 

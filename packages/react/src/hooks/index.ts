@@ -7,6 +7,7 @@ export { useSidebarData } from "./use-sidebar-data";
 export { useEndpointHeader } from "./use-endpoint-header";
 export { useEndpointParameter } from "./use-endpoint-parameter";
 export { useEndpointResponses } from "./use-endpoint-responses";
+export { useOAuth2 } from "./use-oauth2";
 
 // Re-export context hooks
 export { useAuth } from "@/contexts/auth-context";

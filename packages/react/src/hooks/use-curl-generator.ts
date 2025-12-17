@@ -134,6 +134,12 @@ function generateAuthHeaders(
 				headers.Authorization = `Basic ${encoded}`;
 			}
 			break;
+
+		case "oauth2":
+		case "openIdConnect":
+			// OAuth2 and OpenID Connect use Bearer token in Authorization header
+			headers.Authorization = `Bearer ${credentials.value}`;
+			break;
 	}
 
 	return headers;
