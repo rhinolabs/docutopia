@@ -1,0 +1,30 @@
+---
+import docututopiaLogo from "../assets/docutopia-logo.svg";
+import Github from "./icons/github.astro";
+---
+
+<header class="sticky top-0 z-50 px-8 py-4 bg-black/80 backdrop-blur-md border-b border-gray-800">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    
+    <div class="flex items-center gap-3">
+        <a href="/" class="text-white hover:text-gray-300 transition-colors">
+            <img 
+            src={docututopiaLogo.src}
+            alt="Docutopia Logo"
+            class="h-5"
+            />      
+        </a>
+    </div>
+
+    <a 
+      href="https://github.com/rhinolabs/docutopia" 
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-gray-400 hover:text-white transition-colors"
+      aria-label="GitHub"
+    >
+      <Github class="h-5" client:load />
+    </a>
+
+  </div>
+</header>

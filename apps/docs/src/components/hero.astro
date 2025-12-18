@@ -1,0 +1,57 @@
+---
+import DashboardImage from "../assets/dashboard.png";
+---
+
+<section class="relative min-h-screen bg-black overflow-hidden">
+  <!-- Dashboard de fondo (lado derecho) -->
+  <div
+    class="absolute top-0 right-0 w-full lg:w-3/5 h-full dashboard-container"
+  >
+    <img
+      src={DashboardImage.src}
+      alt="Docutopia Dashboard"
+      class="w-full h-full object-contain object-right-top"
+    />
+  </div>
+
+  <!-- Contenido (texto lado izquierdo) -->
+  <div
+    class="relative z-20 max-w-7xl mx-auto px-6 md:px-8 pt-32 md:pt-40 pb-20"
+  >
+    <div class="max-w-xl lg:max-w-2xl">
+      <!-- Título con font-weight correcto -->
+      <h1
+        class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1]"
+      >
+        Modern API Docs,<br />
+        Made simple.
+      </h1>
+
+      <!-- Subtítulo con font-weight normal -->
+      <p
+        class="text-base md:text-lg lg:text-xl text-gray-400 mb-8 leading-relaxed font-normal"
+      >
+        Clear and beautiful, interactive API documentation<br
+          class="hidden sm:block"
+        />
+        — without the complexity.
+      </p>
+
+      <!-- Botones -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="/demo"
+          class="px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition text-center text-base"
+        >
+          See Demo
+        </a>
+        <a
+          href="#how-to-use"
+          class="px-6 py-3 bg-transparent text-white font-medium rounded-lg border border-gray-700 hover:border-gray-500 transition text-center text-base"
+        >
+          How to use
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
