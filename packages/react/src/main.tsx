@@ -8,8 +8,7 @@ document.documentElement.classList.add("dark");
 
 createRoot(document.getElementById("root") as HTMLElement).render(
 	<Docutopia
-		specUrl="./giant-spec.json"
-		// specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
-		// baseUrl="https://petstore3.swagger.io"
+		specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
+		baseUrl="https://petstore3.swagger.io"
 	/>,
 );
