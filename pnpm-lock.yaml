@@ -35,6 +35,12 @@ importers:
       astro:
         specifier: ^5.16.5
         version: 5.16.6(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.53.5)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2)
+      codehike:
+        specifier: ^1.0.7
+        version: 1.0.7
+      lucide-react:
+        specifier: ^0.474.0
+        version: 0.474.0(react@19.2.3)
       react:
         specifier: ^19.2.3
         version: 19.2.3

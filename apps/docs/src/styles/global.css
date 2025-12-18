@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 
 @theme {
 	--color-radius: 0.65rem;
@@ -30,11 +30,11 @@
 
 	/* Feature-colors */
 
-	--color-feature-green: #34B234;
-	--color-feature-orange: #D78C42;
-	--color-feature-blue: #5CA5ED;
-	--color-feature-red: #D74242;
-	
+	--color-feature-green: #34b234;
+	--color-feature-orange: #d78c42;
+	--color-feature-blue: #5ca5ed;
+	--color-feature-red: #d74242;
+
 	--font-jakarta: "Plus Jakarta Sans", sans-serif;
 	--font-fira-code: "Fira Code", monospace;
 }
@@ -65,7 +65,6 @@
 	--color-chart-4: hsl(280 65% 60%);
 	--color-chart-5: hsl(340 75% 55%);
 }
-
 
 :root {
 	color-scheme: dark;
