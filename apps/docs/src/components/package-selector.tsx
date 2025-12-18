@@ -16,7 +16,7 @@ const packages = [
 			},
 			{
 				title:  "Use it in your application",
-				description:  "Import the component and render it at root.",
+				description: "Import the component and render it at root.",
 				code: `import { Docutopia } from '@docutopia/react';
 
 function App() {
@@ -44,17 +44,17 @@ function App() {
 			{
 				title: "Create the file in the right route",
 				description: "Inside the 'app' folder, create the file 'docs/[[... slug]]/page.tsx'",
-								code: `root/
+				code: `root/
   app/
     docs/
       [[...slug]]/
-        page.tsx`,
+        page. tsx`,
 				type: "text",
 			},
 			{
 				title: "Use the component inside page.tsx",
 				description: "Import the component and render.",
-				code: `// app/docs/[[...slug]]/page.tsx
+				code: `// app/docs/[[...slug]]/page. tsx
 import { Docutopia } from "@docutopia/nextjs";
 
 export default function DocsPage() {
@@ -68,7 +68,7 @@ export default function DocsPage() {
 			},
 		],
 	},
-{
+	{
 		name: "@docutopia/fastify",
 		description:  "Even easier documentation for Fastify users.",
 		steps: [
@@ -79,9 +79,9 @@ export default function DocsPage() {
 				type: "install",
 			},
 			{
-				title:  "Add our plugin to server.ts",
+				title: "Add our plugin to server.ts",
 				description: "Set up with little documentation",
-				code:  `import docutopia from "@docutopia/fastify";
+				code: `import docutopia from "@docutopia/fastify";
 import fastify from "fastify";
 import spec from "./openapi-spec.json";
 
@@ -126,7 +126,7 @@ start();`,
 			{
 				title: "Install the package",
 				description: "Choose the package that fits your stack",
-				code: '<script src="https://cdn.docutopia.io/v1/docutopia.js"></script>',
+				code: '<script src="https://cdn.docutopia.io/v1/docutopia. js"></script>',
 				type: "install",
 			},
 			{
@@ -145,15 +145,15 @@ start();`,
 	},
 ];
 
-
 export default function PackageSelector() {
 	const [selected, setSelected] = useState(0);
 	const currentPackage = packages[selected];
-	const stepCount = currentPackage.steps. length;
+	const stepCount = currentPackage.steps.length;
 
 	const gridClass = stepCount === 3 
 		? "grid-cols-1 lg:grid-cols-3" 
 		: "grid-cols-1 lg:grid-cols-2";
+
 	return (
 		<section className="px-8 py-16 bg-black">
 			<div className="max-w-7xl mx-auto">
@@ -170,11 +170,10 @@ export default function PackageSelector() {
 						<button
 							key={index}
 							onClick={() => setSelected(index)}
-							className={`px-6 py-3 rounded-lg font-fira-code font-medium min-w-[200px] text-center transition-all duration-300  ease-out
-							${
+							className={`px-6 py-3 rounded-lg font-fira-code font-medium min-w-[200px] text-center transition-all duration-300 ease-out ${
 								selected === index
-        						    ? "bg-white text-black"
-						            : "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-750 hover:text-white hover:border-gray-600"
+									?  "bg-white text-black"
+									: "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white hover: border-gray-600"
 							}`}
 						>
 							{pkg.name}
@@ -185,7 +184,7 @@ export default function PackageSelector() {
 					{currentPackage.steps.map((step, index) => (
 						<div key={index}>
 							<h3 className="text-2xl font-bold text-white mb-4">
-								{index + 1}. {step. title}
+								{index + 1}. {step.title}
 							</h3>
 							<p className="text-gray-400 mb-4">
 								{step.description}

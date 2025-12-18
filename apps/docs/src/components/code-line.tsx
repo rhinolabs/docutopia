@@ -8,6 +8,7 @@ export function CopyButton({ text }: { text: string }) {
 
 	return (
 		<button
+			type="button"
 			className="text-white absolute right-2"
 			aria-label="Copy to clipboard"
 			onClick={() => {
