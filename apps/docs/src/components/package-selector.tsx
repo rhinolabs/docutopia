@@ -4,32 +4,43 @@ import { CodeLine } from "./code-line";
 
 const packages = [
 	{
-		name: "@docutopia/react",
-		description: 
-			"Our react package is perfect for client-side react applications.",
-		steps: [
-			{
-				title: "Install the package",
-				description: "Choose the package that fits your stack",
-				code: "npm install @docutopia/react",
-				type: "install",
-			},
-			{
-				title:  "Use it in your application",
-				description: "Import the component and render it at root.",
-				code: `import { Docutopia } from '@docutopia/react';
+    name: "@docutopia/react",
+    description: 
+      "A modern, interactive API documentation library built with React. Clean UI, interactive “Try it”, multiple auth methods and responsive.",
+    steps: [
+      {
+        title: "Install the package",
+        description: "Use your preferred package manager:",
+        code: `# npm
+npm install @docutopia/react
+
+# pnpm
+pnpm add @docutopia/react
+
+# yarn
+yarn add @docutopia/react`,
+        type: "install",
+      },
+      {
+        title: "Use it in your application",
+        description: "Import the component and its CSS, then render it in your React app.",
+        code: `import { Docutopia } from '@docutopia/react';
+import '@docutopia/react/dist/style.css';
 
 function App() {
   return (
     <Docutopia
-      specUrl="https://petstore3.swagger.io/api/v3/openapi. json"
+      specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
+      baseUrl="https://petstore3.swagger.io"
     />
   );
-}`,
-				type: "code",
-			},
-		],
-	},
+}
+
+export default App;`,
+        type: "code",
+      },
+    ],
+  },
 	{
 		name: "@docutopia/nextjs",
 		description: 
@@ -43,24 +54,24 @@ function App() {
 			},
 			{
 				title: "Create the file in the right route",
-				description: "Inside the 'app' folder, create the file 'docs/[[... slug]]/page.tsx'",
+				description: "Inside the 'app' folder, create the file 'docs/[[...slug]]/page.tsx'",
 				code: `root/
   app/
     docs/
       [[...slug]]/
-        page. tsx`,
+        page.tsx`,
 				type: "text",
 			},
 			{
 				title: "Use the component inside page.tsx",
 				description: "Import the component and render.",
-				code: `// app/docs/[[...slug]]/page. tsx
+				code: `// app/docs/[[...slug]]/page.tsx
 import { Docutopia } from "@docutopia/nextjs";
 
 export default function DocsPage() {
   return (
     <Docutopia
-      specUrl="https://petstore3.swagger.io/api/v3/openapi. json"
+      specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
     />
   );
 }`,
@@ -89,7 +100,7 @@ async function buildServer() {
   const server = fastify();
 
   // Register Docutopia plugin with custom configuration
-  await server. register(docutopia, {
+  await server.register(docutopia, {
     routePrefix: "/docs",
     swagger: {
       openapi: spec,
@@ -120,25 +131,28 @@ start();`,
 		],
 	},
 	{
-		name: "Use our CDN",
-		description: "Quick integration without any build step.",
+		name: "CDN",
+		description: "For projects without a build system, use the standalone browser bundle via CDN.",
 		steps: [
 			{
-				title: "Install the package",
-				description: "Choose the package that fits your stack",
-				code: '<script src="https://cdn.docutopia.io/v1/docutopia. js"></script>',
-				type: "install",
-			},
-			{
-				title: "Use it in your application",
-				description: "Import the component and render it",
-				code: `<div id="docutopia"></div>
-<script>
-  Docutopia.init({
-    el: "#docutopia",
-    specUrl: "https://petstore3.swagger.io/api/v3/openapi.json"
-  });
-</script>`,
+				title: "Include the CDN scripts & styles",
+				description: "Add these to your HTML <head> and before </body>",
+				code: `<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/@docutopia/react/dist/browser/docutopia.css">
+</head>
+<body>
+  <div id="docs"></div>
+  <script src="https://unpkg.com/@docutopia/react/dist/browser/docutopia.js"></script>
+  <script>
+    Docutopia.render('docs', {
+      specUrl: 'https://petstore3.swagger.io/api/v3/openapi.json',
+      baseUrl: 'https://petstore3.swagger.io' // optional
+    });
+  </script>
+</body>
+</html>`,
 				type: "code",
 			},
 		],
@@ -172,8 +186,8 @@ export default function PackageSelector() {
 							onClick={() => setSelected(index)}
 							className={`px-6 py-3 rounded-lg font-fira-code font-medium min-w-[200px] text-center transition-all duration-300 ease-out ${
 								selected === index
-									?  "bg-white text-black"
-									: "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white hover: border-gray-600"
+									? "bg-white text-black"
+									: "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white hover:border-gray-600"
 							}`}
 						>
 							{pkg.name}
@@ -189,13 +203,13 @@ export default function PackageSelector() {
 							<p className="text-gray-400 mb-4">
 								{step.description}
 							</p>
-							<div className=" border border-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
+							<div className="border border-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto bg-black">
 								{step.type === "install" ? (
-								<CodeLine code={step.code} />
+									<CodeLine code={step.code} />
 								) : step.type === "text" ? (
-								<pre className="text-gray-400 text-xs">{step.code}</pre>
+									<pre className="text-gray-400 text-xs">{step.code}</pre>
 								) : (
-								<CodeBlock code={step.code} lang="js" />
+									<CodeBlock code={step.code} lang="js" />
 								)}
 							</div>
 						</div>

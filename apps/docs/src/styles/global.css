@@ -74,37 +74,35 @@
 }
 
 .feature-card {
-	border: 1px solid;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid;
+  border-radius: var(--color-radius, 0.75rem);
+  box-shadow: 0 4px 24px 0 var(--feature-glow, rgba(0,0,0,0.20));
+  transition: box-shadow 0.2s cubic-bezier(.4,0,.2,1);
+}
+
+.feature-card:hover {
+  box-shadow: 0 6px 32px 0 var(--feature-glow-hover, var(--feature-glow, rgba(0,0,0,0.30)));
 }
 
 .feature-card-green {
-	border-color: var(--color-feature-green);
+  border-color: var(--color-feature-green);
+  --feature-glow: rgba(52, 178, 52, 0.20);
+  --feature-glow-hover: rgba(52, 178, 52, 0.38);
 }
-
-.feature-card-green:hover {
-	box-shadow: 0 4px 24px rgba(52, 178, 52, 0.3);
-}
-
 .feature-card-orange {
-	border-color: var(--color-feature-orange);
+  border-color: var(--color-feature-orange);
+  --feature-glow: rgba(215, 140, 66, 0.20);
+  --feature-glow-hover: rgba(215, 140, 66, 0.32);
 }
-.feature-card-orange:hover {
-	box-shadow: 0 4px 24px rgba(215, 140, 66, 0.3);
-}
-
 .feature-card-blue {
-	border-color: var(--color-feature-blue);
+  border-color: var(--color-feature-blue);
+  --feature-glow: rgba(92, 165, 237, 0.18);
+  --feature-glow-hover: rgba(92, 165, 237, 0.28);
 }
-.feature-card-blue:hover {
-	box-shadow: 0 4px 24px rgba(92, 165, 237, 0.3);
-}
-
 .feature-card-red {
-	border-color: var(--color-feature-red);
-}
-.feature-card-red:hover {
-	box-shadow: 0 4px 24px rgba(215, 66, 66, 0.3);
+  border-color: var(--color-feature-red);
+  --feature-glow: rgba(215, 66, 66, 0.18);
+  --feature-glow-hover: rgba(215, 66, 66, 0.32);
 }
 
 .cta-card {
