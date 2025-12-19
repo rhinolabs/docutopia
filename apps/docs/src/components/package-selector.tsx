@@ -189,16 +189,13 @@ export default function PackageSelector() {
 							<p className="text-gray-400 mb-4">
 								{step.description}
 							</p>
-							<div className="bg-gray-900 border border-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
-								{step.type === "install" ?  (
-									<CodeLine
-										className="text-green-400"
-										code={step.code}
-									/>
+							<div className=" border border-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
+								{step.type === "install" ? (
+								<CodeLine code={step.code} />
 								) : step.type === "text" ? (
-									<pre className="text-gray-300 text-xs">{step.code}</pre>
+								<pre className="text-gray-400 text-xs">{step.code}</pre>
 								) : (
-									<CodeBlock code={step.code} />
+								<CodeBlock code={step.code} lang="js" />
 								)}
 							</div>
 						</div>

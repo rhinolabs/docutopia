@@ -8,12 +8,18 @@ export const lineNumbers: AnnotationHandler = {
 		return (
 			<div className="flex">
 				<span
-					className="text-right opacity-50 select-none"
-					style={{ minWidth: `${width}ch` }}
-				>
+				className="text-right select-none mr-4"
+				style={{
+					minWidth: `${width}ch`,
+					color: "#ffffffff",
+					fontSize: "0.97em",
+					opacity: 0.7,
+					fontFamily: "Fira Mono, monospace"
+				}}
+			>
 					{props.lineNumber}
 				</span>
-				<InnerLine merge={props} className="flex-1 pl-2" />
+				<InnerLine merge={props} className="flex-1" />
 			</div>
 		);
 	},

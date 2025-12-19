@@ -1,18 +1,32 @@
-<section class="px-8 py-16 bg-black">
-  <div class="max-w-7xl mx-auto flex justify-center">
-    <div class="relative w-full max-w-2xl">
-      <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 rounded-2xl opacity-80 blur-xl"></div>
-      <div class="relative bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900 border border-gray-700 rounded-2xl p-8 md:p-12 text-center">
-        <h2 class="text-2xl md:text-4xl font-bold text-white mb-6 md:mb-8">
-          Time to try Docutopia
-        </h2>
-        <a 
-          href="/demo" 
-          class="inline-block px-6 py-3 md:px-8 md:py-4 bg-white text-black text-base md:text-lg font-semibold rounded-lg hover:bg-gray-200 transition shadow-lg"
-        >
+---
+import IconoDocutopia from '../assets/docutopia-icono.svg';
+import CtaBackground from '../assets/cta-background.png';
+---
+
+<section class="features-section px-6 md:px-8 py-16 md:py-24 bg-black">
+  <div class="max-w-7xl mx-auto">
+    <div class="cta-card">
+          <img 
+            src={CtaBackground.src} 
+            alt="" 
+            class="cta-background-image"
+            aria-hidden="true"
+          />
+      <div class="cta-card-content">
+        <div class="cta-logo-title">
+          <img 
+            src={IconoDocutopia.src} 
+            alt="Docutopia" 
+            class="cta-logo"
+          />
+          <h2 class="cta-title">
+            Time to try Docutopia
+          </h2>
+        </div>  
+                <a href="/demo" class="cta-button">
           See Demo
-        </a>
-      </div>
+        </a>       
+      </div>          
     </div>
   </div>
 </section>

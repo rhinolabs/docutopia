@@ -1,44 +1,35 @@
 import { Pre, highlight } from "codehike/code";
 import type { HighlightedCode } from "codehike/code";
-import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
+import { CopyButton } from "./copy-button.tsx";
 
-export function CopyButton({ text }: { text: string }) {
-	const [copied, setCopied] = useState(false);
-
-	return (
-		<button
-			type="button"
-			className="text-white absolute right-2"
-			aria-label="Copy to clipboard"
-			onClick={() => {
-				navigator.clipboard.writeText(text);
-				setCopied(true);
-				setTimeout(() => setCopied(false), 1200);
-			}}
-		>
-			{copied ? <Check size={16} /> : <Copy size={16} />}
-		</button>
-	);
-}
-interface CodeBlockProps {
+interface CodeLineProps {
 	code: string;
 	className?: string;
+	lang?: string;
 }
 
-export const CodeLine = ({ code, className }: CodeBlockProps) => {
+export const CodeLine = ({ code, className = "", lang = "bash" }: CodeLineProps) => {
 	const [highlighted, setHighlighted] = useState<HighlightedCode | null>(null);
 
 	useEffect(() => {
-		highlight({ lang: "bash", value: code, meta: "" }, "github-dark").then(
+		highlight({ lang, value: code, meta: "" }, "github-dark").then(
 			setHighlighted,
 		);
-	}, [code]);
+	}, [code, lang]);
 
 	return (
-		<div className={`relative ${className}`}>
-			<CopyButton text={code} />
-			{highlighted && <Pre code={highlighted} handlers={[]} />}
-		</div>
-	);
-};
+    <div className={`relative rounded-xl px-5 py-4 overflow-x-auto font-mono text-base ${className}`}>
+      {highlighted && (
+        <>
+          <CopyButton text={highlighted.code} />
+          <Pre
+            code={highlighted}
+            handlers={[]}
+            className="!bg-transparent !shadow-none !border-none !m-0 !p-0 text-base"
+          />
+        </>
+      )}
+    </div>
+  );
+}

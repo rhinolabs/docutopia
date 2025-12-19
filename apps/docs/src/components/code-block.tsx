@@ -1,25 +1,29 @@
+// components/code-block.tsx
 import { Pre, highlight } from "codehike/code";
-import type { HighlightedCode } from "codehike/code";
 import { useEffect, useState } from "react";
+import { CopyButton } from "./copy-button";
 import { lineNumbers } from "./handlers/line-numbers";
 
-interface CodeBlockProps {
-	code: string;
-	className?: string;
+export function CodeBlock({ code, className = "", lang = "js" }) {
+  const [highlighted, setHighlighted] = useState<any>(null);
+
+  useEffect(() => {
+    highlight({ lang, value: code, meta: "" }, "dark-plus").then(setHighlighted);
+  }, [code, lang]);
+
+  return (
+    <div 
+		className={`relative rounded-xl px-0 py-0 overflow-x-auto font-mono text-base ${className}`}>     
+	 {highlighted && (
+        <>
+          <CopyButton text={highlighted.code} />
+          <Pre
+            code={highlighted}
+            handlers={[lineNumbers]}
+            className="!bg-transparent !border-none !shadow-none !m-0 !py-4 !pl-5 !pr-12 font-mono text-base"
+          />
+        </>
+      )}
+    </div>
+  );
 }
-
-export const CodeBlock = ({ code, className }: CodeBlockProps) => {
-	const [highlighted, setHighlighted] = useState<HighlightedCode | null>(null);
-
-	useEffect(() => {
-		highlight({ lang: "ts", value: code, meta: "" }, "github-dark").then(
-			setHighlighted,
-		);
-	}, [code]);
-
-	return (
-		<div className={`${className}`}>
-			{highlighted && <Pre code={highlighted} handlers={[lineNumbers]} />}
-		</div>
-	);
-};

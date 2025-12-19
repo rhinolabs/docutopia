@@ -1,30 +1,43 @@
 ---
-import docututopiaLogo from "../assets/docutopia-logo.svg";
+import docutopiaLogo from "../assets/docutopia-logo.svg";
 import Github from "./icons/github.astro";
 ---
+  <header
+    id="site-header"
+    class="fixed left-0 top-0 w-full z-40 transition duration-300 ease-in-out
+      bg-transparent
+      h-16"
+  >
+    <div class="max-w-[1368px] mx-auto flex items-center justify-between h-full px-4 md:px-8 lg:px-12 mt-4">
+      <a href="/" class="flex items-center gap-2 select-none">
+        <img 
+          src={docutopiaLogo.src}
+          alt="Docutopia Logo"
+          class="h-8 w-auto md:h-9"
+          width="36" height="36"
+          draggable="false"      
+        />  
+      </a>
 
-<header class="sticky top-0 z-50 px-8 py-4 bg-black/80 backdrop-blur-md border-b border-gray-800">
-  <div class="max-w-7xl mx-auto flex justify-between items-center">
-    
-    <div class="flex items-center gap-3">
-        <a href="/" class="text-white hover:text-gray-300 transition-colors">
-            <img 
-            src={docututopiaLogo.src}
-            alt="Docutopia Logo"
-            class="h-5"
-            />      
-        </a>
+      <a 
+        href="https://github.com/your-org/" 
+        aria-label="GitHub" 
+        class="text-white hover:text-gray-300 transition"
+        target="_blank" rel="noopener"
+      >
+        <Github class="h-8 w-8 md:h-9 md:w-9" />
+      </a>
     </div>
+  </header>
 
-    <a 
-      href="https://github.com/rhinolabs/docutopia" 
-      target="_blank"
-      rel="noopener noreferrer"
-      class="text-gray-400 hover:text-white transition-colors"
-      aria-label="GitHub"
-    >
-      <Github class="h-5" client:load />
-    </a>
-
-  </div>
-</header>
+<script is:inline>
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('site-header');
+    if (!header) return;
+    if (window.scrollY > 10) {
+      header.classList.add('bg-[#181818]/95', 'backdrop-blur', 'shadow-lg');
+    } else {
+      header.classList.remove('bg-[#181818]/95', 'backdrop-blur', 'shadow-lg');
+    }
+  });
+</script>
