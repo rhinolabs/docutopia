@@ -1,10 +1,9 @@
-// components/code-block.tsx
 import { Pre, highlight } from "codehike/code";
 import { useEffect, useState } from "react";
 import { CopyButton } from "./copy-button";
 import { lineNumbers } from "./handlers/line-numbers";
 
-export function CodeBlock({ code, className = "", lang = "js" }) {
+export function CodeBlock({ code, className = "", lang = "js", showCopy = true }) {
   const [highlighted, setHighlighted] = useState<any>(null);
 
   useEffect(() => {
@@ -12,18 +11,17 @@ export function CodeBlock({ code, className = "", lang = "js" }) {
   }, [code, lang]);
 
   return (
-    <div 
-		className={`relative rounded-xl px-0 py-0 overflow-x-auto font-mono text-base ${className}`}>     
-	 {highlighted && (
-        <>
-          <CopyButton text={highlighted.code} />
+    <div className="relative rounded-xl font-mono text-base bg-black">
+      {highlighted && showCopy && <CopyButton text={highlighted.code} />}
+      <div className="overflow-x-auto pr-12 pl-4 py-4">
+        {highlighted && (
           <Pre
             code={highlighted}
             handlers={[lineNumbers]}
-            className="!bg-transparent !border-none !shadow-none !m-0 !py-4 !pl-5 !pr-12 font-mono text-base"
+            className="!bg-transparent !border-none !shadow-none !m-0 !p-0 text-base"
           />
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 }

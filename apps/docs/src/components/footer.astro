@@ -4,29 +4,25 @@ import Github from "./icons/github.astro";
 import Linkedin from "./icons/linkedin.astro";
 ---
 
-<footer class="relative border-t border-border overflow-hidden">
-      <div
-        class="container mx-auto py-8 h-full items-start z-20 flex justify-between px-6 lg:px-0"
+<footer class="relative border-t border-border overflow-hidden bg-black">
+  <div
+    class="max-w-7xl mx-auto py-8 h-full items-start z-20 flex justify-between px-4 sm:px-8"
+  >
+    <div class="flex flex-col justify-start gap-4 h-full">
+      <a href="https://rhinolabs.agency/">
+        <img src={RhinolabsLogo.src} class="h-8 w-fit" alt="Rhinolabs Agency" />
+      </a>
+      <span class="text-muted-foreground text-sm"
+        >© 2025 Rhinolabs Agency. All rights reserved.</span
       >
-        <div class="flex flex-col justify-start gap-4 h-full">
-          <a href="https://rhinolabs.agency/">
-            <img
-              src={RhinolabsLogo.src}
-              class="h-8 w-fit"
-              alt="Rhinolabs Agency"
-            />
-          </a>
-          <span class="text-muted-foreground text-sm"
-            >© 2025 Rhinolabs Agency. All rights reserved.</span
-          >
-        </div>
-        <div class="flex items-center gap-6 text-white">
-          <a href="https://github.com/rhinolabs/">
-            <Github class="h-[1.5rem]" />
-          </a>
-          <a href="https://www.linkedin.com/company/rhinolabsagency/">
-            <Linkedin class="h-[1.5rem]" />
-          </a>
-        </div>
-      </div>
-    </footer>
+    </div>
+    <div class="flex items-center gap-6 text-white">
+      <a href="https://github.com/rhinolabs/docutoa">
+        <Github class="h-[1.5rem]" />
+      </a>
+      <a href="https://www.linkedin.com/company/rhinolabsagency/">
+        <Linkedin class="h-[1.5rem]" />
+      </a>
+    </div>
+  </div>
+</footer>

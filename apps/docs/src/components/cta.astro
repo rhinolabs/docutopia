@@ -1,32 +1,28 @@
 ---
-import IconoDocutopia from '../assets/docutopia-icono.svg';
-import CtaBackground from '../assets/cta-background.png';
+import IconoDocutopia from "../assets/docutopia-icono.svg";
+import CtaBackground from "../assets/cta-background.png";
 ---
 
 <section class="features-section px-6 md:px-8 py-16 md:py-24 bg-black">
   <div class="max-w-7xl mx-auto">
     <div class="cta-card">
-          <img 
-            src={CtaBackground.src} 
-            alt="" 
-            class="cta-background-image"
-            aria-hidden="true"
-          />
+      <img
+        src={CtaBackground.src}
+        alt=""
+        class="cta-background-image"
+        aria-hidden="true"
+      />
       <div class="cta-card-content">
-        <div class="cta-logo-title">
-          <img 
-            src={IconoDocutopia.src} 
-            alt="Docutopia" 
-            class="cta-logo"
+        <div class="cta-logo-title flex items-center justify-center gap-2">
+          <img
+            src={IconoDocutopia.src}
+            alt="Docutopia"
+            class="hidden md:block cta-logo"
           />
-          <h2 class="cta-title">
-            Time to try Docutopia
-          </h2>
-        </div>  
-                <a href="/demo" class="cta-button">
-          See Demo
-        </a>       
-      </div>          
+          <h2 class="cta-title">Time to try Docutopia</h2>
+        </div>
+        <a href="/demo" class="cta-button"> See Demo </a>
+      </div>
     </div>
   </div>
 </section>

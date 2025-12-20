@@ -2,112 +2,134 @@
 @import "tailwindcss";
 
 @theme {
-	--color-radius: 0.65rem;
-	--color-background: hsl(0 0% 100%);
-	--color-foreground: hsl(0 0% 3.9%);
-	--color-card: hsl(0 0% 100%);
-	--color-card-foreground: hsl(0 0% 3.9%);
-	--color-popover: hsl(0 0% 100%);
-	--color-popover-foreground: hsl(0 0% 3.9%);
-	--color-primary: hsl(0 0% 9%);
-	--color-primary-foreground: hsl(0 0% 98%);
-	--color-secondary: hsl(0 0% 96.1%);
-	--color-secondary-foreground: hsl(0 0% 9%);
-	--color-muted: hsl(0 0% 96.1%);
-	--color-muted-foreground: hsl(0 0% 45.1%);
-	--color-accent: hsl(0 0% 96.1%);
-	--color-accent-foreground: hsl(0 0% 9%);
-	--color-destructive: hsl(0 84.2% 60.2%);
-	--color-destructive-foreground: hsl(0 0% 98%);
-	--color-border: hsl(0 0% 89.8%);
-	--color-input: hsl(0 0% 89.8%);
-	--color-ring: hsl(0 0% 3.9%);
-	--color-chart-1: hsl(12 76% 61%);
-	--color-chart-2: hsl(173 58% 39%);
-	--color-chart-3: hsl(197 37% 24%);
-	--color-chart-4: hsl(43 74% 66%);
-	--color-chart-5: hsl(27 87% 67%);
+  --color-radius: 0.65rem;
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(0 0% 3.9%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(0 0% 3.9%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(0 0% 3.9%);
+  --color-primary: hsl(0 0% 9%);
+  --color-primary-foreground: hsl(0 0% 98%);
+  --color-secondary: hsl(0 0% 96.1%);
+  --color-secondary-foreground: hsl(0 0% 9%);
+  --color-muted: hsl(0 0% 96.1%);
+  --color-muted-foreground: hsl(0 0% 45.1%);
+  --color-accent: hsl(0 0% 96.1%);
+  --color-accent-foreground: hsl(0 0% 9%);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(0 0% 89.8%);
+  --color-input: hsl(0 0% 89.8%);
+  --color-ring: hsl(0 0% 3.9%);
+  --color-chart-1: hsl(12 76% 61%);
+  --color-chart-2: hsl(173 58% 39%);
+  --color-chart-3: hsl(197 37% 24%);
+  --color-chart-4: hsl(43 74% 66%);
+  --color-chart-5: hsl(27 87% 67%);
 
-	/* Feature-colors */
+  /* Feature-colors */
 
-	--color-feature-green: #34b234;
-	--color-feature-orange: #d78c42;
-	--color-feature-blue: #5ca5ed;
-	--color-feature-red: #d74242;
+  --color-feature-green: #34b234;
+  --color-feature-orange: #d78c42;
+  --color-feature-blue: #5ca5ed;
+  --color-feature-red: #d74242;
 
-	--font-jakarta: "Plus Jakarta Sans", sans-serif;
-	--font-fira-code: "Fira Code", monospace;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-fira-code: "Fira Code", monospace;
 }
 
 .dark {
-	--color-background: #000000;
-	--color-foreground: hsl(0 0% 98%);
-	--color-card: hsl(0 0% 3.9%);
-	--color-card-foreground: hsl(0 0% 98%);
-	--color-popover: hsl(0 0% 3.9%);
-	--color-popover-foreground: hsl(0 0% 98%);
-	--color-primary: hsl(0 0% 98%);
-	--color-primary-foreground: hsl(0 0% 9%);
-	--color-secondary: hsl(0 0% 14.9%);
-	--color-secondary-foreground: hsl(0 0% 98%);
-	--color-muted: hsl(0 0% 14.9%);
-	--color-muted-foreground: hsl(0 0% 63.9%);
-	--color-accent: hsl(0 0% 14.9%);
-	--color-accent-foreground: hsl(0 0% 98%);
-	--color-destructive: hsl(0 62.8% 30.6%);
-	--color-destructive-foreground: hsl(0 0% 98%);
-	--color-border: hsl(0 0% 14.9%);
-	--color-input: hsl(0 0% 14.9%);
-	--color-ring: hsl(0 0% 83.1%);
-	--color-chart-1: hsl(220 70% 50%);
-	--color-chart-2: hsl(160 60% 45%);
-	--color-chart-3: hsl(30 80% 55%);
-	--color-chart-4: hsl(280 65% 60%);
-	--color-chart-5: hsl(340 75% 55%);
+  --color-background: #000000;
+  --color-foreground: hsl(0 0% 98%);
+  --color-card: hsl(0 0% 3.9%);
+  --color-card-foreground: hsl(0 0% 98%);
+  --color-popover: hsl(0 0% 3.9%);
+  --color-popover-foreground: hsl(0 0% 98%);
+  --color-primary: hsl(0 0% 98%);
+  --color-primary-foreground: hsl(0 0% 9%);
+  --color-secondary: hsl(0 0% 14.9%);
+  --color-secondary-foreground: hsl(0 0% 98%);
+  --color-muted: hsl(0 0% 14.9%);
+  --color-muted-foreground: hsl(0 0% 63.9%);
+  --color-accent: hsl(0 0% 14.9%);
+  --color-accent-foreground: hsl(0 0% 98%);
+  --color-destructive: hsl(0 62.8% 30.6%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(0 0% 14.9%);
+  --color-input: hsl(0 0% 14.9%);
+  --color-ring: hsl(0 0% 83.1%);
+  --color-chart-1: hsl(220 70% 50%);
+  --color-chart-2: hsl(160 60% 45%);
+  --color-chart-3: hsl(30 80% 55%);
+  --color-chart-4: hsl(280 65% 60%);
+  --color-chart-5: hsl(340 75% 55%);
 }
 
 :root {
-	color-scheme: dark;
-	background-color: var(--background);
-	color: var(--foreground);
-	font-family: var(--font-jakarta);
+  color-scheme: dark;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-jakarta);
 }
 
 .feature-card {
   border: 1px solid;
-  border-radius: var(--color-radius, 0.75rem);
-  box-shadow: 0 4px 24px 0 var(--feature-glow, rgba(0,0,0,0.20));
-  transition: box-shadow 0.2s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 4px 24px 0 var(--feature-glow, rgba(0, 0, 0, 0.20));
+  transition: box-shadow 0.2s cubic-bezier(.4, 0, .2, 1);
+  background: rgba(10, 10, 10, 0.5);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(6px);
+  position: relative;
 }
 
 .feature-card:hover {
-  box-shadow: 0 6px 32px 0 var(--feature-glow-hover, var(--feature-glow, rgba(0,0,0,0.30)));
+  box-shadow: 0 6px 32px 0 var(--feature-glow-hover, var(--feature-glow, rgba(0, 0, 0, 0.30)));
 }
 
 .feature-card-green {
   border-color: var(--color-feature-green);
   --feature-glow: rgba(52, 178, 52, 0.20);
   --feature-glow-hover: rgba(52, 178, 52, 0.38);
+  background: linear-gradient(90deg,
+      rgba(52, 178, 52, 0.05),
+      transparent),
+    rgba(10, 10, 10, 0.50);
 }
+
 .feature-card-orange {
   border-color: var(--color-feature-orange);
   --feature-glow: rgba(215, 140, 66, 0.20);
   --feature-glow-hover: rgba(215, 140, 66, 0.32);
+  background:
+    linear-gradient(90deg,
+      rgba(49, 48, 47, 0.05),
+      transparent),
+    rgba(10, 10, 10, 0.50);
 }
+
 .feature-card-blue {
   border-color: var(--color-feature-blue);
   --feature-glow: rgba(92, 165, 237, 0.18);
   --feature-glow-hover: rgba(92, 165, 237, 0.28);
+  background:
+    linear-gradient(90deg, rgba(92, 165, 237, 0.05), transparent),
+    rgba(10, 10, 10, 0.50);
 }
+
 .feature-card-red {
   border-color: var(--color-feature-red);
   --feature-glow: rgba(215, 66, 66, 0.18);
   --feature-glow-hover: rgba(215, 66, 66, 0.32);
+  background:
+    linear-gradient(90deg, rgba(215, 66, 66, 0.05), transparent),
+    rgba(10, 10, 10, 0.50);
 }
 
 .cta-card {
   position: relative;
-  border-radius: 0.75rem; /* 12px */
+  border-radius: 0.75rem;
+  /* 12px */
   border: 1px solid #808080;
   overflow: hidden;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
@@ -117,7 +139,7 @@
   position: absolute;
   inset: 0;
   width: 100%;
-  height:  100%;
+  height: 100%;
   object-fit: cover;
   z-index: 0;
 }
@@ -125,13 +147,11 @@
 .cta-card::before {
   content: '';
   position: absolute;
-  inset:  0;
-  background: linear-gradient(
-    135deg, 
-    rgba(26, 26, 26, 0.4) 0%,   
-    rgba(40, 40, 60, 0.3) 50%,  
-    rgba(26, 26, 26, 0.4) 100%  
-  );
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(26, 26, 26, 0.4) 0%,
+      rgba(40, 40, 60, 0.3) 50%,
+      rgba(26, 26, 26, 0.4) 100%);
   z-index: 1;
 }
 
@@ -148,7 +168,7 @@
 
 @media (min-width: 768px) {
   .cta-card-content {
-    flex-direction:  row;
+    flex-direction: row;
     padding: 2.5rem 3. 25rem;
   }
 }
