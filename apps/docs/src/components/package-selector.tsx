@@ -8,12 +8,13 @@ const packages = [
 		steps: [
 			{
 				title: "Install the package",
-				description: "Use your preferred package manager:",
+				description: "Our react package is perfect for client-side react applications.",
 				code: `npm install @docutopia/react`,
 				type: "install",
 			},
 			{
 				title: "Use it in your application",
+				description: "Import the component and render it at root.",
 				code: `import { Docutopia } from '@docutopia/react';
 import '@docutopia/react/dist/style.css';
 
@@ -91,7 +92,7 @@ await server.listen({ port: 3000 });`,
 		steps: [
 			{
 				title: "Include the CDN scripts & styles",
-				description: "Add these to your HTML <head> and before </body>",
+				description: "Use this for simplest setup - no build tools needed",
 				code:
 					`//Add these to your <head> and right before </body>
   <link rel="stylesheet" href="https://unpkg.com/@docutopia/react/dist/browser/docutopia.css"/>

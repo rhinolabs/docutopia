@@ -17,32 +17,30 @@ import DashboardImage from "../assets/dashboard.png";
         Clear and beautiful, interactive API documentation<br class="hidden sm:block" />
         — without the complexity.
       </p>
-      <div class="flex gap-4 mb-10 lg:mb-14 justify-center lg:justify-start">
-        <a
-          href="/demo"
-          class="px-6 py-3 bg-white text-black font-semibold rounded-lg border border-transparent hover:bg-gray-200 transition text-[16px] shadow cursor-pointer"
-        >
-          See Demo
-        </a>
-        <a
-          href="#how-to-use"
-          class="px-6 py-3 bg-black text-white font-semibold rounded-lg border border-white hover:bg-white hover:text-black transition text-[16px] shadow cursor-pointer"
-        >
-          How to use
-        </a>
+        <div class="flex flex gap-3 mb-10 lg:mb-14 w-fullflex-col gap-3 w-full lg:flex-row lg:gap-4 lg:justify-start">
+          <a
+            href="/demo"
+        class="w-1/2 lg:w-auto px-6 py-3 bg-white text-black font-semibold rounded-lg border border-transparent hover:bg-gray-200 transition text-[16px] shadow cursor-pointer text-center"
+          >
+            See Demo
+          </a>
+          <a
+            href="#how-to-use"
+        class="w-1/2 lg:w-auto px-6 py-3 bg-black text-white font-semibold rounded-lg border border-white hover:bg-white hover:text-black transition text-[16px] shadow cursor-pointer text-center"
+          >
+            How to use
+          </a>
+        </div>
       </div>
-    </div>
-    <!-- Columna Derecha: Dashboard SOLO en desktop -->
-    <div class="relative z-10 hidden lg:flex items-center justify-center overflow-visible lg:pl-8">
-      <img
-        src={DashboardImage.src}
-        alt="Docutopia Dashboard"
-        class="block w-full max-w-[700px] lg:max-w-[650px] xl:max-w-[760px] 2xl:max-w-[900px] drop-shadow-2xl rounded-lg"
-        style="height:auto;"
-        draggable="false"
-        loading="eager"
-      />
-    </div>
+   <div class="hidden lg:block relative h-[440px] xl:h-[580px] 2xl:h-[700px]">
+    <img
+      src={DashboardImage.src}
+      alt="Docutopia Dashboard"
+      class="absolute top-[-70px] right-[-170px] xl:right-[-250px] 2xl:right-[-350px] w-[650px] xl:w-[840px] 2xl:w-[1100px] drop-shadow-2xl rounded-xl"
+      draggable="false"
+      loading="eager"
+    />
+</div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-8 mt-10 mb-16 lg:mb-24">
