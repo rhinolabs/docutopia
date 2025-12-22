@@ -125,8 +125,8 @@ export default function PackageSelector() {
 		: "grid-cols-1 lg:grid-cols-2";
 
 	return (
-		<section className="px-8 py-16 bg-black mt-0 lg:mt-[-60px]">
-			<div className="max-w-7xl mx-auto">
+		<section className="bg-black py-16 md:py-24">
+			<div className="max-w-7xl mx-auto px-4 sm:px-8">
 				<h2 className="text-4xl font-bold text-white mb-4">
 					A different package for
 					<br />
@@ -135,14 +135,16 @@ export default function PackageSelector() {
 				<p className="text-xl text-gray-400 mb-8">
 					Use your preferred package manager:
 				</p>
-				<div className="flex flex-wrap gap-[10px] mb-12">
+				<div className="flex flex-col sm:flex-row gap-3 mb-12">
 					{packages.map((pkg, index) => (
 						<button
 							key={index}
 							onClick={() => setSelected(index)}
-							className={`w-[220px] h-[52px] px-4 rounded-xl font-fira-code font-medium text-base text-center cursor-pointer transition-all duration-200 border border-[#8F8F8F] ${selected === index
-								? "bg-white text-black"
-								: "bg-[#0A0A0A] text-white hover:bg-[#1a1a1a] hover:text-white"
+							className={`
+								w-full sm:w-[220px] h-[52px] px-4 rounded-xl font-fira-code font-medium text-base text-center cursor-pointer transition-all duration-200 border border-[#373737] 
+								${selected === index
+									? "bg-white text-black"
+									: "bg-[#0A0A0A] text-white hover:bg-[#1a1a1a] hover:text-white"
 								}`}
 							style={{ margin: 0 }}
 						>

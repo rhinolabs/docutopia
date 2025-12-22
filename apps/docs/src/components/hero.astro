@@ -2,102 +2,74 @@
 import DashboardImage from "../assets/dashboard.png";
 ---
 
-<section class="relative bg-black overflow-hidden pt-6 min-h-0">
-  <div
-    class="hidden lg:block absolute top-0 right-0 z-0 pointer-events-none select-none"
-    style="
-      width: 1289px;
-      height: 1015px;
-      max-width: 100vw;
-      left: 500px;
-      top: -10px;
-      filter: drop-shadow(0 4px 40px rgba(0,0,0,0.44));
-    "
-    aria-hidden="true"
-  >
-    <img
-      src={DashboardImage.src}
-      alt="Docutopia Dashboard"
-      class="w-full h-full object-contain object-right-top"
-      draggable="false"
-      loading="eager"
-    />
-  </div>
-
-  <div class="z-20 flex flex-col w-full">
-    <div class="max-w-xl lg:max-w-2xl px-4 sm:px-8 mx-auto lg:mx-0 lg:pl-[64px] flex flex-col items-center lg:items-start pt-4 md:pt-8 lg:pt-40">
+<section class="bg-black overflow-hidden pt-6 min-h-0 py-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-8 items-center relative">
+    <div class="z-20 flex flex-col justify-center py-10 w-full text-center lg:text-left items-center lg:items-start">
       <h1
-        class="font-semibold text-white mb-6 lg:mb-8 text-[40px] md:text-[64px] leading-[1.08] max-w-[600px] tracking-[-2px] text-center lg:text-left"
+        class="font-semibold text-white mb-6 lg:mb-8 text-[40px] md:text-[64px] leading-[1.08] max-w-[600px] tracking-[-2px]"
       >
         Modern API Docs,<br />
         Made simple.
       </h1>
       <p
-        class="text-gray-400 mb-10 lg:mb-14 text-[18px] md:text-[20px] font-normal leading-relaxed max-w-[460px] text-center lg:text-left"
+        class="text-gray-400 mb-10 lg:mb-14 text-[18px] md:text-[20px] font-normal leading-relaxed max-w-[460px]"
       >
         Clear and beautiful, interactive API documentation<br class="hidden sm:block" />
         — without the complexity.
       </p>
-      <div class="flex gap-4 mb-10 lg:mb-14">
+      <div class="flex gap-4 mb-10 lg:mb-14 justify-center lg:justify-start">
         <a
           href="/demo"
-          class="px-6 py-3 bg-white text-black font-semibold rounded-lg border border-transparent hover:bg-gray-200 transition text-[16px] shadow"
+          class="px-6 py-3 bg-white text-black font-semibold rounded-lg border border-transparent hover:bg-gray-200 transition text-[16px] shadow cursor-pointer"
         >
           See Demo
         </a>
         <a
           href="#how-to-use"
-          class="px-6 py-3 bg-black text-white font-semibold rounded-lg border border-white hover:bg-white hover:text-black transition text-[16px] shadow"
+          class="px-6 py-3 bg-black text-white font-semibold rounded-lg border border-white hover:bg-white hover:text-black transition text-[16px] shadow cursor-pointer"
         >
           How to use
         </a>
       </div>
     </div>
+    <!-- Columna Derecha: Dashboard SOLO en desktop -->
+    <div class="relative z-10 hidden lg:flex items-center justify-center overflow-visible lg:pl-8">
+      <img
+        src={DashboardImage.src}
+        alt="Docutopia Dashboard"
+        class="block w-full max-w-[700px] lg:max-w-[650px] xl:max-w-[760px] 2xl:max-w-[900px] drop-shadow-2xl rounded-lg"
+        style="height:auto;"
+        draggable="false"
+        loading="eager"
+      />
+    </div>
+  </div>
 
-    <div class="w-full mt-4 md:mt-8 px-4 sm:px-8">
-      <div class="max-w-7xl mx-auto mb-16 lg:mb-24">
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-2 sm:px-0"
-        >
-          <div
-            class="feature-card feature-card-green px-4 py-5 sm:px-6 sm:py-7"
-          >
-            <h3 class="text-base md:text-lg font-bold text-white mb-2 md:mb-3">
-              Endpoint testing
-            </h3>
-            <p class="text-xs md:text-sm font-normal text-[#DEDEDE] leading-relaxed">
-              Send a request with ease an check if it returns what you need.
-            </p>
-          </div>
-          <div
-            class="feature-card feature-card-orange px-4 py-5 sm:px-6 sm:py-7"
-          >
-            <h3 class="text-base md:text-lg font-bold text-white mb-2 md:mb-3">
-              Authentication
-            </h3>
-            <p class="text-xs md:text-sm font-normal text-[#DEDEDE] leading-relaxed">
-              Use authentication headers and test your must protected endpoints.
-            </p>
-          </div>
-          <div
-            class="feature-card feature-card-blue px-4 py-5 sm:px-6 sm:py-7"
-          >
-            <h3 class="text-base md:text-lg font-bold text-white mb-2 md:mb-3">OpenAPI Spec</h3>
-            <p class="text-xs md:text-sm font-normal text-[#DEDEDE] leading-relaxed">
-              Just import your spec file and you are good to go.
-            </p>
-          </div>
-          <div
-            class="feature-card feature-card-red px-4 py-5 sm:px-6 sm:py-7"
-          >
-            <h3 class="text-base md:text-lg font-bold text-white mb-2 md:mb-3">
-              Clean UI, Dev Ready
-            </h3>
-            <p class="text-xs md:text-sm font-normal text-[#DEDEDE] leading-relaxed">
-              Easy to read for your clients but still powerful for developers.
-            </p>
-          </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-8 mt-10 mb-16 lg:mb-24">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div class="feature-card feature-card-green px-4 py-5 sm:px-6 sm:py-7">
+        <h3 class="font-bold text-white text-[24px] mb-2">Endpoint testing</h3>
+        <p class="font-normal text-[#DEDEDE] text-[16px] leading-relaxed">
+          Send a request with ease and check if it returns what you need.
+        </p>
+      </div>
+      <div class="feature-card feature-card-orange px-4 py-5 sm:px-6 sm:py-7">
+        <h3 class="font-bold text-white text-[24px] mb-2">Authentication</h3>
+        <p class="font-normal text-[#DEDEDE] text-[16px] leading-relaxed">
+          Use authentication headers and test your must protected endpoints.
+        </p>
+      </div>
+      <div class="feature-card feature-card-blue px-4 py-5 sm:px-6 sm:py-7">
+        <h3 class="font-bold text-white text-[24px] mb-2">OpenAPI Spec</h3>
+        <p class="font-normal text-[#DEDEDE] text-[16px] leading-relaxed">
+          Just import your spec file and you are good to go.
+        </p>
+      </div>
+      <div class="feature-card feature-card-red px-4 py-5 sm:px-6 sm:py-7">
+        <h3 class="font-bold text-white text-[24px] mb-2">Clean UI, Dev Ready</h3>
+        <p class="font-normal text-[#DEDEDE] text-[16px] leading-relaxed">
+          Easy to read for your clients but still powerful for developers.
+        </p>
       </div>
     </div>
   </div>
