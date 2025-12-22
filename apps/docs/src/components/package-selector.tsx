@@ -21,7 +21,6 @@ function App() {
   return (
     <Docutopia
       specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
-      baseUrl="https://petstore3.swagger.io"
     />
   );
 }
@@ -94,10 +93,10 @@ await server.listen({ port: 3000 });`,
 				title: "Include the CDN scripts & styles",
 				description: "Add these to your HTML <head> and before </body>",
 				code:
-					`//Agrega esto en el <head> de tu HTML:
+					`//Add these to your <head> and right before </body>
   <link rel="stylesheet" href="https://unpkg.com/@docutopia/react/dist/browser/docutopia.css"/>
 
-//Agrega esto antes del cierre de body:
+//Add these before closing body:
   <script src="https://unpkg.com/@docutopia/react/dist/browser/docutopia.js"></script>
 `,
 				type: "code",
@@ -141,7 +140,7 @@ export default function PackageSelector() {
 						<button
 							key={index}
 							onClick={() => setSelected(index)}
-							className={`w-[220px] h-[52px] px-4 rounded-xl font-fira-code font-medium text-base text-center transition-all duration-200 border border-[#8F8F8F] ${selected === index
+							className={`w-[220px] h-[52px] px-4 rounded-xl font-fira-code font-medium text-base text-center cursor-pointer transition-all duration-200 border border-[#8F8F8F] ${selected === index
 								? "bg-white text-black"
 								: "bg-[#0A0A0A] text-white hover:bg-[#1a1a1a] hover:text-white"
 								}`}
