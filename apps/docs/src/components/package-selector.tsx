@@ -8,7 +8,8 @@ const packages = [
     steps: [
       {
         title: "Install the package",
-        description: "Our react package is perfect for client-side react applications.",
+        description:
+          "Our react package is perfect for client-side react applications.",
         code: "npm install @docutopia/react",
         type: "install",
       },
@@ -36,7 +37,8 @@ export default App;`,
     steps: [
       {
         title: "Install the package",
-        description: "The NextJs package offers server-side rendering out of the box.",
+        description:
+          "The NextJs package offers server-side rendering out of the box.",
         code: "npm install @docutopia/nextjs",
         type: "install",
       },
@@ -118,75 +120,65 @@ export default function PackageSelector() {
   const currentPackage = packages[selected];
 
   return (
-    <section className="bg-black py-16 md:py-24">
+    <section className="bg-black pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
-<h2
-  className="
-    text-2xl
-    sm:text-3xl
-    lg:text-4xl
-    font-bold
-    text-white
-    leading-tight
-    mb-4
-  "
->
-  A different package for
-  <br className="hidden sm:block" />
-  different needs.
-</h2>
-
+        {/* TITLE */}
+        <h2
+          className="
+            text-2xl
+            sm:text-3xl
+            lg:text-4xl
+            font-bold
+            text-white
+            leading-tight
+            mb-4
+          "
+        >
+          A different package for
+          <br className="hidden sm:block" />
+          different needs.
+        </h2>
 
         <p className="text-base sm:text-lg text-gray-400 mb-10">
           Use your preferred package manager:
         </p>
 
         {/* PACKAGE TABS */}
-	    <div
-		className="
-			grid grid-cols-2 gap-3 mb-12
-			sm:flex sm:flex-row sm:gap-4
-		"
-		>
-		{packages.map((pkg, index) => (
-			<button
-			key={pkg.name}
-			onClick={() => setSelected(index)}
-			className={`
-				w-full
-				sm:w-[200px]
-
-				px-3 py-2
-				sm:px-4 sm:py-3
-
-				sm:h-[48px]
-
-				rounded-xl
-				font-fira-code
-				text-xs sm:text-sm md:text-base
-				leading-tight
-				text-center
-				whitespace-nowrap
-
-				border
-				transition
-				cursor-pointer
-
-				${
-				selected === index
-					? "bg-white text-black border-white"
-					: "bg-[#0A0A0A] text-white border-[#373737] hover:bg-[#1a1a1a]"
-				}
-			`}
-			>
-			{pkg.name}
-			</button>
-		))}
-		</div>
-
-
-
+        <div
+          className="
+            grid grid-cols-2 gap-3 mb-12
+            sm:flex sm:flex-row sm:gap-4
+          "
+        >
+          {packages.map((pkg, index) => (
+            <button
+              key={pkg.name}
+              onClick={() => setSelected(index)}
+              className={`
+                w-full sm:w-[200px]
+                px-3 py-2 sm:px-4 sm:py-3
+                sm:h-[48px]
+                rounded-xl
+                font-fira-code
+                text-xs sm:text-sm md:text-base
+                leading-tight
+                text-center
+                whitespace-nowrap
+                border
+                transition
+                cursor-pointer
+                ${
+                  selected === index
+                    ? "bg-white text-black border-white"
+                    : "bg-[#0A0A0A] text-white border-[#373737] hover:bg-[#1a1a1a]"
+                }
+              `}
+            >
+              {pkg.name}
+            </button>
+          ))}
+        </div>
 
         {/* STEPS */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -205,7 +197,6 @@ export default function PackageSelector() {
                 {index + 1}. {step.title}
               </h3>
 
-
               <p
                 className="
                   text-sm
@@ -219,21 +210,20 @@ export default function PackageSelector() {
               </p>
 
               <div className="relative border border-[#373737] rounded-xl bg-black p-4 sm:p-6">
-				{step.type === "install" ? (
-					<CodeLine
-					code={step.code}
-					lang="bash"
-					showCopy={index === 0}
-					/>
-				) : (
-					<CodeBlock
-					code={step.code}
-					lang="js"
-					showCopy={index === 0}
-					/>
-				)}
-			  </div>
-
+                {step.type === "install" ? (
+                  <CodeLine
+                    code={step.code}
+                    lang="bash"
+                    showCopy={index === 0}
+                  />
+                ) : (
+                  <CodeBlock
+                    code={step.code}
+                    lang="js"
+                    showCopy={index === 0}
+                  />
+                )}
+              </div>
             </div>
           ))}
         </div>
