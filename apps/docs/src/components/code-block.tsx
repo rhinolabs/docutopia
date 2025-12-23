@@ -1,4 +1,5 @@
 import { Pre, highlight } from "codehike/code";
+import type { HighlightedCode } from "codehike/code";
 import { useEffect, useState } from "react";
 import { CopyButton } from "./copy-button";
 import { lineNumbers } from "./handlers/line-numbers";
@@ -14,10 +15,14 @@ export function CodeBlock({
   lang = "js",
   showCopy = true,
 }: Props) {
-  const [highlighted, setHighlighted] = useState<any>(null);
+  const [highlighted, setHighlighted] =
+    useState<HighlightedCode | null>(null);
 
   useEffect(() => {
-    highlight({ lang, value: code, meta: "" }, "dark-plus").then(setHighlighted);
+    highlight(
+      { lang, value: code, meta: "" },
+      "dark-plus"
+    ).then(setHighlighted);
   }, [code, lang]);
 
   if (!highlighted) return null;

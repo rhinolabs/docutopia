@@ -53,9 +53,10 @@ import docututopiaLogo from "../assets/docutopia-logo.svg";
 </a>
 
 <script>
-  const header = document.getElementById("site-header");
-
   function handleScroll() {
+    const header = document.getElementById("site-header");
+    if (!header) return;
+
     if (window.scrollY > 40) {
       header.classList.add("bg-black/40", "backdrop-blur-[6px]");
       header.classList.remove("bg-transparent");
@@ -67,3 +68,5 @@ import docututopiaLogo from "../assets/docutopia-logo.svg";
 
   window.addEventListener("scroll", handleScroll);
 </script>
+
+

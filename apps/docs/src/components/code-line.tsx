@@ -1,4 +1,5 @@
 import { Pre, highlight } from "codehike/code";
+import type { HighlightedCode } from "codehike/code";
 import { useEffect, useState } from "react";
 import { CopyButton } from "./copy-button";
 
@@ -13,17 +14,21 @@ export function CodeLine({
   lang = "bash",
   showCopy = true,
 }: Props) {
-  const [highlighted, setHighlighted] = useState<any>(null);
+  const [highlighted, setHighlighted] =
+    useState<HighlightedCode | null>(null);
 
   useEffect(() => {
-    highlight({ lang, value: code, meta: "" }, "dark-plus").then(setHighlighted);
+    highlight(
+      { lang, value: code, meta: "" },
+      "dark-plus"
+    ).then(setHighlighted);
   }, [code, lang]);
 
   if (!highlighted) return null;
 
-  return (
+   return (
     <div className="relative rounded-xl bg-black px-4 py-4 pr-12">
-      {showCopy && <CopyButton text={highlighted.code} />}
+      {showCopy && <CopyButton text={highlighted.value} />}
       <Pre
         code={highlighted}
         className="!bg-transparent !p-0 !m-0"
@@ -31,3 +36,4 @@ export function CodeLine({
     </div>
   );
 }
+

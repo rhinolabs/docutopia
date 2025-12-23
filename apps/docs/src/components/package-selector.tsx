@@ -7,6 +7,7 @@ const packages = [
     name: "@docutopia/react",
     steps: [
       {
+        id: "react-install",
         title: "Install the package",
         description:
           "Our react package is perfect for client-side react applications.",
@@ -14,6 +15,7 @@ const packages = [
         type: "install",
       },
       {
+        id: "react-usage",
         title: "Use it in your application",
         description: "Import the component and render it at root.",
         code: `import { Docutopia } from '@docutopia/react';
@@ -36,6 +38,7 @@ export default App;`,
     name: "@docutopia/nextjs",
     steps: [
       {
+        id: "next-install",
         title: "Install the package",
         description:
           "The NextJs package offers server-side rendering out of the box.",
@@ -43,6 +46,7 @@ export default App;`,
         type: "install",
       },
       {
+        id: "next-usage",
         title: "Use the component inside page.tsx",
         description: "Import the component and render.",
         code: `// app/docs/[[...slug]]/page.tsx
@@ -63,12 +67,14 @@ export default function DocsPage() {
     name: "@docutopia/fastify",
     steps: [
       {
+        id: "fastify-install",
         title: "Install the package",
         description: "Even easier documentation for Fastify users",
         code: "npm install @docutopia/fastify",
         type: "install",
       },
       {
+        id: "fastify-usage",
         title: "Add our plugin to server.ts",
         description: "Set up with little documentation",
         code: `import docutopia from '@docutopia/fastify';
@@ -89,6 +95,7 @@ await server.listen({ port: 3000 });`,
     name: "CDN",
     steps: [
       {
+        id: "cdn-include",
         title: "Include the CDN scripts & styles",
         description: "Use this for simplest setup - no build tools needed",
         code: `<!-- Add to <head> -->
@@ -102,6 +109,7 @@ await server.listen({ port: 3000 });`,
         type: "code",
       },
       {
+        id: "cdn-init",
         title: "Initialize Docutopia",
         description: "Render the documentation",
         code: `<script>
@@ -114,6 +122,7 @@ Docutopia.render('docs', {
     ],
   },
 ];
+
 
 export default function PackageSelector() {
   const [selected, setSelected] = useState(0);
@@ -153,10 +162,10 @@ export default function PackageSelector() {
         >
           {packages.map((pkg, index) => (
             <button
+              type="button"
               key={pkg.name}
               onClick={() => setSelected(index)}
-              className={`
-                w-full sm:w-[200px]
+              className={`w-full sm:w-[200px]
                 px-3 py-2 sm:px-4 sm:py-3
                 sm:h-[48px]
                 rounded-xl
@@ -182,8 +191,8 @@ export default function PackageSelector() {
 
         {/* STEPS */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {currentPackage.steps.map((step, index) => (
-            <div key={index}>
+          {currentPackage.steps.map((step,index) => (
+            <div key={step.id}>
               <h3
                 className="
                   text-lg
