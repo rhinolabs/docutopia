@@ -121,13 +121,24 @@ export default function PackageSelector() {
     <section className="bg-black py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
 
-        <h2 className="text-4xl font-bold text-white mb-4">
-          A different package for
-          <br />
-          different needs.
-        </h2>
+<h2
+  className="
+    text-2xl
+    sm:text-3xl
+    lg:text-4xl
+    font-bold
+    text-white
+    leading-tight
+    mb-4
+  "
+>
+  A different package for
+  <br className="hidden sm:block" />
+  different needs.
+</h2>
 
-        <p className="text-xl text-gray-400 mb-10">
+
+        <p className="text-base sm:text-lg text-gray-400 mb-10">
           Use your preferred package manager:
         </p>
 
