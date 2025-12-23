@@ -4,30 +4,42 @@ import DashboardImage from "../assets/dashboard-fastify.png";
 
 <section class="relative w-full overflow-x-hidden bg-black">
 
-  <!-- DASHBOARD IMAGE (VISUAL OVERLAY, NO LAYOUT) -->
+  <!-- DASHBOARD IMAGE (VISUAL ONLY) -->
   <img
-    src={DashboardImage.src}
-    alt="Docutopia Dashboard"
-    class="
-      hidden lg:block
-      absolute
-      top-[-30px]
-      right-[-10%]
+  src={DashboardImage.src}
+  alt="Docutopia Dashboard"
+  draggable="false"
+  class="
+    hidden lg:block
+    absolute
+    z-0
+    pointer-events-none
 
-      w-[780px]
-      xl:w-[880px]
-      2xl:w-[1000px]
+    /* desktop normal */
+    top-[-80px]
+    right-[-14%]
 
-      rotate-[6deg]
-      opacity-95
-      drop-shadow-2xl
-      rounded-xl
+    w-[780px]
+    xl:w-[880px]
 
-      pointer-events-none
-      z-0
-    "
-    draggable="false"
-  />
+    /* 27” / ultra-wide */
+    2xl:w-[1050px]
+    2xl:right-[15%]
+    2xl:top-[-60px]
+
+    /* pantallas MUY grandes (>=1600px) */
+    min-[1600px]:right-[10%]
+    min-[1600px]:top-[-20px]
+
+    rotate-[6deg]
+    opacity-95
+    drop-shadow-2xl
+    rounded-xl
+  "
+/>
+
+
+
 
   <!-- HERO CONTENT -->
   <div
@@ -35,7 +47,6 @@ import DashboardImage from "../assets/dashboard-fastify.png";
       relative z-10
       mx-auto w-full max-w-7xl
       px-4 sm:px-8
-
       pt-24 lg:pt-28
       pb-10
     "

@@ -192,11 +192,29 @@ export default function PackageSelector() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {currentPackage.steps.map((step, index) => (
             <div key={index}>
-              <h3 className="text-2xl font-bold text-white mb-3">
+              <h3
+                className="
+                  text-lg
+                  sm:text-xl
+                  lg:text-2xl
+                  font-bold
+                  text-white
+                  mb-3
+                "
+              >
                 {index + 1}. {step.title}
               </h3>
 
-              <p className="text-gray-400 mb-4">
+
+              <p
+                className="
+                  text-sm
+                  sm:text-base
+                  text-gray-400
+                  mb-4
+                  leading-relaxed
+                "
+              >
                 {step.description}
               </p>
 
