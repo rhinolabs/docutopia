@@ -1,0 +1,145 @@
+---
+import DashboardImage from "../assets/dashboard-fastify.png";
+---
+
+<section class="relative w-full overflow-x-hidden bg-black">
+
+  <!-- DASHBOARD IMAGE (VISUAL ONLY) -->
+<img
+  src={DashboardImage.src}
+  alt="Docutopia Dashboard"
+  draggable="false"
+  class="
+    hidden lg:block
+    absolute
+    z-0
+    pointer-events-none
+
+    /* TOP UNIFICADO */
+    top-[-60px]
+
+    /* lg (1024–1279) */
+    right-[-8%]
+    w-[720px]
+
+    /* xl (1280–1535) */
+    xl:right-[-6%]
+    xl:w-[800px]
+
+    /* 2xl (1536–1727) */
+    2xl:right-[-4%]
+    2xl:w-[880px]
+
+    /* >=1728px → anclado al contenido */
+    min-[1728px]:left-1/2
+    min-[1728px]:right-auto
+    min-[1728px]:w-[880px]
+
+    rotate-[6deg]
+    opacity-95
+    drop-shadow-2xl
+    rounded-xl
+  "
+/>
+
+
+
+
+
+
+
+  <!-- HERO CONTENT -->
+  <div
+  class="
+    relative z-10
+    mx-auto w-full max-w-7xl
+    px-4 sm:px-8
+    pt-24 lg:pt-28
+    pb-16 sm:pb-20 lg:pb-24
+  "
+>
+
+    <div class="flex justify-center lg:justify-start">
+      <div class="w-full max-w-xl space-y-6 text-center lg:text-left">
+
+        <h1 class="font-semibold text-white leading-tight text-4xl sm:text-5xl xl:text-6xl">
+          Modern API Docs,<br />
+          Made simple.
+        </h1>
+
+        <p class="text-zinc-400">
+          Clear and beautiful, interactive API documentation
+          <br class="hidden sm:block" />
+          — without the complexity.
+        </p>
+
+        <div class="flex justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
+          <a
+            href="/demo"
+            class="rounded-md bg-white text-black px-5 py-2 transition hover:bg-zinc-200"
+          >
+            See Demo
+          </a>
+          <a
+            href="#how-to-use"
+            class="rounded-md border border-zinc-600 text-white px-5 py-2 transition hover:bg-zinc-800"
+          >
+            How to use
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div
+    class="
+      relative z-20
+      max-w-7xl mx-auto
+      px-4 sm:px-8
+      pb-20
+    "
+  >
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+
+      <div class="feature-card feature-card-green px-5 py-6">
+        <h3 class="font-semibold text-white text-base sm:text-lg mb-2">
+          Endpoint testing
+        </h3>
+        <p class="text-sm text-[#DEDEDE] leading-relaxed line-clamp-2">
+          Send a request with ease and check if it returns what you need.
+        </p>
+      </div>
+
+      <div class="feature-card feature-card-orange px-5 py-6">
+        <h3 class="font-semibold text-white text-base sm:text-lg mb-2">
+          Authentication
+        </h3>
+        <p class="text-sm text-[#DEDEDE] leading-relaxed line-clamp-2">
+          Use authentication headers and test your must protected endpoints.
+        </p>
+      </div>
+
+      <div class="feature-card feature-card-blue px-5 py-6">
+        <h3 class="font-semibold text-white text-base sm:text-lg mb-2">
+          OpenAPI Spec
+        </h3>
+        <p class="text-sm text-[#DEDEDE] leading-relaxed line-clamp-2">
+          Just import your spec file and you are good to go.
+        </p>
+      </div>
+
+      <div class="feature-card feature-card-red px-5 py-6">
+        <h3 class="font-semibold text-white text-base sm:text-lg mb-2">
+          Clean UI, Dev Ready
+        </h3>
+        <p class="text-sm text-[#DEDEDE] leading-relaxed line-clamp-2">
+          Easy to read for your clients but still powerful for developers.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</section>

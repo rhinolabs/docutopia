@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+	--color-background: #000000;
+	--color-foreground: hsl(0 0% 98%);
+	--color-border: hsl(0 0% 14.9%);
+
+	/* Fonts */
+	--font-jakarta: "Plus Jakarta Sans", sans-serif;
+	--font-fira-code: "Fira Code", monospace;
+}
+
+:root {
+	color-scheme: dark;
+	background-color: var(--color-background);
+	color: var(--color-foreground);
+	font-family: var(--font-jakarta);
+}

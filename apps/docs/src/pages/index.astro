@@ -1,0 +1,16 @@
+---
+import CTA from "../components/cta.astro";
+import Footer from "../components/footer.astro";
+import Header from "../components/header.astro";
+import Hero from "../components/hero.astro";
+import PackageSelector from "../components/package-selector.tsx";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Docutopia | Docs made simple">
+  <Header />
+  <Hero />
+  <PackageSelector client:load />
+  <CTA />
+  <Footer />
+</Layout>

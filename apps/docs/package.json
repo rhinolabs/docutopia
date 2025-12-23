@@ -1,0 +1,28 @@
+{
+	"name": "docs",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/react": "^4.4.2",
+		"@docutopia/react": "workspace:*",
+		"@tailwindcss/vite": "^4.1.18",
+		"@astrojs/cloudflare": "^12.6.12",
+		"astro": "^5.16.5",
+		"codehike": "^1.0.7",
+		"lucide-react": "^0.474.0",
+		"react": "^19.2.3",
+		"react-dom": "^19.2.3",
+
+		"tailwindcss": "^4.1.18"
+	},
+	"devDependencies": {
+		"@types/react": "^19.2.3",
+		"@types/react-dom": "^19.2.3"
+	}
+}
