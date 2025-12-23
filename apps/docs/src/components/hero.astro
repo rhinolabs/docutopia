@@ -1,28 +1,33 @@
 ---
-import DashboardImage from "../assets/dashboard.png";
+import DashboardImage from "../assets/dashboard-fastify.png";
 ---
 
-<section class="relative w-full bg-black overflow-x-hidden pt-20 lg:pt-28">
+<section class="relative w-full overflow-x-hidden bg-black">
 
-  <!-- DASHBOARD IMAGE (BACKGROUND LAYER) -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 z-0">
-    <img
-      src={DashboardImage.src}
-      alt="Docutopia Dashboard"
-      class="
-        hidden lg:block
-        absolute
-        top-[-280px]
-        right-[-20%]
-        w-[1000px]
-        xl:w-[1100px]
-        2xl:w-[1300px]
-        drop-shadow-2xl
-        rounded-xl
-      "
-      draggable="false"
-    />
-  </div>
+  <!-- DASHBOARD IMAGE (VISUAL OVERLAY, NO LAYOUT) -->
+  <img
+    src={DashboardImage.src}
+    alt="Docutopia Dashboard"
+    class="
+      hidden lg:block
+      absolute
+      top-[-30px]
+      right-[-10%]
+
+      w-[780px]
+      xl:w-[880px]
+      2xl:w-[1000px]
+
+      rotate-[6deg]
+      opacity-95
+      drop-shadow-2xl
+      rounded-xl
+
+      pointer-events-none
+      z-0
+    "
+    draggable="false"
+  />
 
   <!-- HERO CONTENT -->
   <div
@@ -30,8 +35,9 @@ import DashboardImage from "../assets/dashboard.png";
       relative z-10
       mx-auto w-full max-w-7xl
       px-4 sm:px-8
-      pt-0
-      pb-10 lg:pb-14
+
+      pt-24 lg:pt-28
+      pb-10
     "
   >
     <div class="flex justify-center lg:justify-start">
@@ -57,7 +63,7 @@ import DashboardImage from "../assets/dashboard.png";
           </a>
           <a
             href="#how-to-use"
-            class="rounded-md border border-zinc-700 text-white px-5 py-2 transition hover:bg-zinc-900"
+            class="rounded-md border border-zinc-600 text-white px-5 py-2 transition hover:bg-zinc-800"
           >
             How to use
           </a>
@@ -70,14 +76,12 @@ import DashboardImage from "../assets/dashboard.png";
   <!-- FEATURES -->
   <div
     class="
-      relative z-10
+      relative z-20
       max-w-7xl mx-auto
       px-4 sm:px-8
-      -mt-4 lg:-mt-8
-      mb-16 lg:mb-20
+      pb-20
     "
   >
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
       <div class="feature-card feature-card-green px-5 py-6">
