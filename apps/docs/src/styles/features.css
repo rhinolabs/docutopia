@@ -1,0 +1,50 @@
+.feature-card {
+  position: relative;
+  height: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--feature-color);
+
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--feature-color) 5%, transparent),
+      transparent
+    ),
+    #0a0a0a;
+
+  box-shadow: 0 4px 24px var(--feature-glow);
+  backdrop-filter: blur(6px);
+
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.feature-card:hover {
+  box-shadow: 0 6px 32px var(--feature-glow-hover);
+  transform: translateY(-1px);
+}
+
+/* --- COLOR VARIANTS --- */
+
+.feature-card-green {
+  --feature-color: #34b234;
+  --feature-glow: rgba(52, 178, 52, 0.2);
+  --feature-glow-hover: rgba(52, 178, 52, 0.35);
+}
+
+.feature-card-orange {
+  --feature-color: #d78c42;
+  --feature-glow: rgba(215, 140, 66, 0.2);
+  --feature-glow-hover: rgba(215, 140, 66, 0.32);
+}
+
+.feature-card-blue {
+  --feature-color: #5ca5ed;
+  --feature-glow: rgba(92, 165, 237, 0.18);
+  --feature-glow-hover: rgba(92, 165, 237, 0.28);
+}
+
+.feature-card-red {
+  --feature-color: #d74242;
+  --feature-glow: rgba(215, 66, 66, 0.18);
+  --feature-glow-hover: rgba(215, 66, 66, 0.32);
+}

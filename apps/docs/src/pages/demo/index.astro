@@ -1,14 +1,17 @@
 ---
 import { Docutopia } from "@docutopia/react";
 import Layout from "../../layouts/Layout.astro";
+
 export const prerender = false;
 ---
 
 <Layout title="Docutopia Demo">
+  <section class="relative h-screen overflow-hidden">
   <Docutopia
     specUrl="https://petstore3.swagger.io/api/v3/openapi.json"
     baseUrl="https://petstore3.swagger.io/api/v3/"
     basename="/demo"
     client:only="react"
   />
+  </section>
 </Layout>

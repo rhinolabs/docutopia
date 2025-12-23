@@ -1,4 +1,8 @@
 ---
+import "../styles/global.css";
+import "../styles/animations.css";
+import "../styles/features.css";
+
 interface Props {
 	title: string;
 }
@@ -10,12 +14,16 @@ const { title } = Astro.props as Props;
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
-    <slot />
+  <body class="min-h-screen overflow-x-hidden antialiased bg-background text-foreground">
+    <main id="app" class="relative flex min-h-screen flex-col">
+      <slot />
+    </main>
   </body>
 </html>
