@@ -17,3 +17,7 @@
 	color: var(--color-foreground);
 	font-family: var(--font-jakarta);
 }
+
+html {
+	scroll-behavior: smooth;
+}
