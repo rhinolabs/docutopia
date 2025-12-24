@@ -128,7 +128,10 @@ export default function PackageSelector() {
 	const currentPackage = packages[selected];
 
 	return (
-		<section id="how-to-use" className="bg-black pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24">
+		<section
+			id="how-to-use"
+			className="bg-black pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24"
+		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-8">
 				{/* TITLE */}
 				<h2
