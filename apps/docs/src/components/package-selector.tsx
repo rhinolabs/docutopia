@@ -101,11 +101,11 @@ await server.listen({ port: 3000 });`,
 				code: `<!-- Add to <head> -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@docutopia/react/dist/browser/docutopia.css"
+  href="https://cdn.jsdelivr.net/npm/@docutopia/react/dist/browser/docutopia.css"
 />
 
 <!-- Before </body> -->
-<script src="https://unpkg.com/@docutopia/react/dist/browser/docutopia.js"></script>`,
+<script src="https://cdn.jsdelivr.net/npm/@docutopia/react/dist/browser/docutopia.js"></script>`,
 				type: "code",
 			},
 			{
