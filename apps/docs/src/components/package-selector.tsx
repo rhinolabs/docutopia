@@ -101,11 +101,11 @@ await server.listen({ port: 3000 });`,
 				code: `<!-- Add to <head> -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@docutopia/react/dist/browser/docutopia.css"
+  href="https://cdn.jsdelivr.net/npm/@docutopia/react/dist/browser/docutopia.css"
 />
 
 <!-- Before </body> -->
-<script src="https://unpkg.com/@docutopia/react/dist/browser/docutopia.js"></script>`,
+<script src="https://cdn.jsdelivr.net/npm/@docutopia/react/dist/browser/docutopia.js"></script>`,
 				type: "code",
 			},
 			{
@@ -128,7 +128,10 @@ export default function PackageSelector() {
 	const currentPackage = packages[selected];
 
 	return (
-		<section className="bg-black pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24">
+		<section
+			id="how-to-use"
+			className="bg-black pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24"
+		>
 			<div className="max-w-7xl mx-auto px-4 sm:px-8">
 				{/* TITLE */}
 				<h2
