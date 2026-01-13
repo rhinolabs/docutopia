@@ -1,23 +1,16 @@
 ---
+import CTA from "../components/cta.astro";
+import Footer from "../components/footer.astro";
+import Header from "../components/header.astro";
+import Hero from "../components/hero.astro";
+import PackageSelector from "../components/package-selector.tsx";
 import Layout from "../layouts/Layout.astro";
-import "../styles/global.css";
-import docututopiaLogo from "../assets/docutopia-logo.svg";
-
-export const prerender = true;
 ---
 
 <Layout title="Docutopia | Docs made simple">
-  <div class="container mx-auto lg:px-12 3xl:px-0 px-4">
-    <header class="mt-10">
-      <img src={docututopiaLogo.src} alt="Docutopia Logo" class="h-6" />
-    </header>
-    <main>
-      <section>
-        <h1 class="text-6xl font-bold">Modern API Docs,<br /> Made simple.</h1>
-        <p>
-          Clear and beautiful, interactive API documentation<br /> — without the complexity.
-        </p>
-      </section>
-    </main>
-  </div>
+  <Header />
+  <Hero />
+  <PackageSelector client:load />
+  <CTA />
+  <Footer />
 </Layout>

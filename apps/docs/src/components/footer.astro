@@ -1,0 +1,51 @@
+---
+import RhinolabsLogo from "../assets/rhinolabs-logo.svg";
+import Github from "./icons/github.astro";
+import Linkedin from "./icons/linkedin.astro";
+---
+
+<footer class="border-t border-border bg-black">
+  <div
+    class="mx-auto w-full max-w-[1280px]
+           px-4 sm:px-6 lg:px-8
+           py-10"
+  >
+    <div class="flex flex-col gap-6
+      sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex flex-col gap-3">
+        <a 
+          href="https://rhinolabs.agency/"
+          class="inline-flex items-center"
+        >
+          <img 
+            src={RhinolabsLogo.src} 
+            alt="Rhinolabs Agency" 
+            class="h-8 w-auto"
+            draggable="false"
+          />
+        </a>
+
+        <span class="text-muted-foreground text-xs sm:text-sm">
+          © 2025 Rhinolabs Agency. All rights reserved.
+        </span>
+      </div>
+
+      <div class="flex items-center gap-5 text-white">
+        <a 
+          href="https://github.com/rhinolabs/docutopia"
+          aria-label="Rhinolabs on GitHub"
+          class="hover:text-zinc-400 transition-colors"
+        >
+          <Github class="h-5 w-5" />
+        </a>
+        <a 
+          href="https://www.linkedin.com/company/rhinolabsagency/"
+          aria-label="Rhinolabs on LinkedIn"
+          class="hover:text-zinc-400 transition-colors"
+        >
+          <Linkedin class="h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
