@@ -26,7 +26,7 @@
 	--color-background: hsl(240 10% 3.9%); /* Darkest - main background */
 	--color-foreground: hsl(0 0% 98%);
 	--color-card: hsl(240 5.9% 90%); /* Level 1 - containers/cards */
-	--color-card-foreground: hsl(0 0% %);
+	--color-card-foreground: hsl(0 0% 5%);
 	--color-popover: hsl(240 10% 3.9%);
 	--color-popover-foreground: hsl(0 0% 98%);
 	--color-primary: hsl(0 0% 98%);
