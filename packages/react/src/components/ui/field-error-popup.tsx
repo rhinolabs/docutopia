@@ -9,7 +9,7 @@ interface FieldErrorPopUpProps {
 
 export const FieldErrorPopUp = ({ rules, error }: FieldErrorPopUpProps) => {
 	return (
-		<div className="top-[calc(100%+0.5rem)] absolute bg-input rounded-sm border border-zinc-500 z-10 hidden peer-focus:block min-w-full shadow-2xl">
+		<div className="top-[calc(100%+0.5rem)] absolute bg-background rounded-sm border border-zinc-500 z-10 hidden peer-focus:block min-w-full shadow-2xl">
 			{rules.map((rule) => {
 				const issue = error.find((e) => e.message === rule.longMessage);
 
