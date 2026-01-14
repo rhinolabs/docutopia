@@ -25,7 +25,7 @@
 	/* Dark theme base colors with proper hierarchy */
 	--color-background: hsl(240 10% 3.9%); /* Darkest - main background */
 	--color-foreground: hsl(0 0% 98%);
-	--color-card: hsl(240 5.9% 10%); /* Level 1 - containers/cards */
+	--color-card: hsl(240 5.9% 90%); /* Level 1 - containers/cards */
 	--color-card-foreground: hsl(0 0% 98%);
 	--color-popover: hsl(240 10% 3.9%);
 	--color-popover-foreground: hsl(0 0% 98%);
@@ -57,6 +57,10 @@
 	--color-sidebar-accent-foreground: hsl(240 4.9% 83.9%);
 	--color-sidebar-border: hsl(240 3.7% 15.9%);
 	--color-sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+.dark {
+	--color-card: hsl(240 5.9% 20%);
 }
 
 @layer base {
