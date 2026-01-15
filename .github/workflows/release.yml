@@ -4,12 +4,14 @@ on:
   release:
     types: [published]
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   publish-react:
     if: startsWith(github.event.release.tag_name, 'react@')
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: 🛠 Checkout code
         uses: actions/checkout@v4
@@ -44,8 +46,6 @@ jobs:
 
       - name: 📢 Publish react package
         run: cd packages/react && npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 💾 Commit version changes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -58,8 +58,6 @@ jobs:
   publish-fastify:
     if: startsWith(github.event.release.tag_name, 'fastify@')
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: 🛠 Checkout code
         uses: actions/checkout@v4
@@ -94,8 +92,6 @@ jobs:
 
       - name: 📢 Publish fastify package
         run: cd packages/fastify && npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 💾 Commit version changes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -108,8 +104,6 @@ jobs:
   publish-nextjs:
     if: startsWith(github.event.release.tag_name, 'nextjs@')
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: 🛠 Checkout code
         uses: actions/checkout@v4
@@ -147,8 +141,6 @@ jobs:
 
       - name: 📢 Publish nextjs package
         run: cd packages/nextjs && npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 💾 Commit version changes
         uses: stefanzweifel/git-auto-commit-action@v5
