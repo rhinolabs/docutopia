@@ -1,6 +1,6 @@
 {
 	"name": "@docutopia/react",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A modern, interactive API documentation library - The beautiful alternative to Swagger UI",
 	"author": {
 		"name": "Rhinolabs Agency",
