@@ -13,8 +13,8 @@ export function CopyButton({ text }: { text: string }) {
 				setTimeout(() => setCopied(false), 1200);
 			}}
 			className="
-        absolute top-3 right-3 z-10
-        rounded-md p-2
+        absolute right-3 z-10
+        rounded-md p-1
         text-zinc-400 hover:text-white
         hover:bg-zinc-800
         transition
