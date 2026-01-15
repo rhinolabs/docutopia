@@ -157,8 +157,8 @@ export default function PackageSelector() {
 				{/* PACKAGE TABS */}
 				<div
 					className="
-            grid grid-cols-2 gap-3 mb-12
-            sm:flex sm:flex-row sm:gap-4
+            flex-wrap gap-3 mb-12
+            flex flex-row sm:gap-4
           "
 				>
 					{packages.map((pkg, index) => (
@@ -166,12 +166,12 @@ export default function PackageSelector() {
 							type="button"
 							key={pkg.name}
 							onClick={() => setSelected(index)}
-							className={`w-full sm:w-[200px]
-                px-3 py-2 sm:px-4 sm:py-3
-                sm:h-[48px]
+							className={`min-w-37
+                px-5 py-3 block
                 rounded-xl
                 font-fira-code
-                text-xs sm:text-sm md:text-base
+								text-xs
+                md:text-sm
                 leading-tight
                 text-center
                 whitespace-nowrap
@@ -185,7 +185,7 @@ export default function PackageSelector() {
 								}
               `}
 						>
-							{pkg.name}
+							<span>{pkg.name}</span>
 						</button>
 					))}
 				</div>
@@ -219,7 +219,7 @@ export default function PackageSelector() {
 								{step.description}
 							</p>
 
-							<div className="relative border border-[#373737] rounded-xl bg-black p-4 sm:p-6">
+							<div className="relative border border-[#373737] rounded-xl bg-black overflow-hidden">
 								{step.type === "install" ? (
 									<CodeLine
 										code={step.code}

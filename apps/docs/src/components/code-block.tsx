@@ -24,11 +24,11 @@ export function CodeBlock({ code, lang = "js", showCopy = true }: Props) {
 	return (
 		<div className="relative rounded-xl bg-black">
 			{showCopy && <CopyButton text={highlighted.code} />}
-			<div className="overflow-x-auto px-4 py-4 pr-12">
+			<div className="overflow-x-auto pr-12 p-4 sm:p-6">
 				<Pre
 					code={highlighted}
 					handlers={[lineNumbers]}
-					className="!bg-transparent !p-0 !m-0"
+					className="bg-transparent! p-0! m-0!"
 				/>
 			</div>
 		</div>

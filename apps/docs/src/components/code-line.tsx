@@ -21,9 +21,9 @@ export function CodeLine({ code, lang = "bash", showCopy = true }: Props) {
 	if (!highlighted) return null;
 
 	return (
-		<div className="relative rounded-xl bg-black px-4 py-4 pr-12">
+		<div className="relative rounded-xl bg-black p-4">
 			{showCopy && <CopyButton text={highlighted.value} />}
-			<Pre code={highlighted} className="!bg-transparent !p-0 !m-0" />
+			<Pre code={highlighted} className="bg-transparent! p-0! m-0!" />
 		</div>
 	);
 }
